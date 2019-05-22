@@ -16,6 +16,6 @@ Route::get('/', function () {return view('welcome');});
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('devices', 'DeviceController');
-Route::resource('datas', 'DataController')->only(['show']);
+Route::resource('receptions', 'ReceptionController')->only(['show']);
 Route::resource('device-configurations', 'DeviceConfigurationController')->only(['edit', 'update']);
 Route::resource('user-informations', 'UserInformationController')->only(['edit', 'update']);

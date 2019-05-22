@@ -5,7 +5,7 @@ namespace App;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
-class Data extends Model
+class Reception extends Model
 {
     /**
      * The attributes that are mass assignable.

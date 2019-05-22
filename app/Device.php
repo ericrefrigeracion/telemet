@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Data;
+use App\Receptions;
 use App\DeviceConfiguration;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -35,8 +35,8 @@ class Device extends Model
     	return $this->belongsTo(DeviceConfiguration::class);
     }
 
-	public function datas()
+	public function receptions()
     {
-    	return $this->hasMany(Data::class);
+    	return $this->hasMany(Reception::class);
     }
 }

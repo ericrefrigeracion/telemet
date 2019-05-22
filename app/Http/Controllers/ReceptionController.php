@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Datas;
+use App\Reception;
 use Illuminate\Http\Request;
 
-class DataController extends Controller
+class ReceptionController extends Controller
 {
     public function __construct()
     {
@@ -15,10 +15,10 @@ class DataController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Datas  $datas
+     * @param  \App\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function show(Datas $datas)
+    public function show(Reception $reception)
     {
         //
     }

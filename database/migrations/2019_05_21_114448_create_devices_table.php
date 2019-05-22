@@ -16,7 +16,10 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
             $table->string('name');
+            $table->string('location_lat');
+            $table->string('location_lon');
             $table->unsignedBigInteger('user_id');
+            $table->boolean('monitor');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
