@@ -17,6 +17,7 @@ class CreateUserInformationTable extends Migration
             $table->bigIncrements('id');
             $table->string('notification_mail')->nullablbe();
             $table->string('notification_phone')->nullablbe();
+            $table->string('address')->nullablbe();
             $table->timestamp('payment_date')->nullablbe();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

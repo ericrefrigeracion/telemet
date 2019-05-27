@@ -22,7 +22,6 @@ class UserInformation extends Model
      * @var array
      */
     protected $hidden = [
-        'id',
     ];
 
     public function users()

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Device;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class DeviceController extends Controller
+class RoleController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +13,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $dispositivos = Device::where('user_id', $user_id)->get();
-
-        return view('devices.index')->with(['dispositivos' => $dispositivos]);
-
+        //
     }
 
     /**
@@ -47,10 +40,10 @@ class DeviceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Devices  $devices
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Device $device)
+    public function show($id)
     {
         //
     }
@@ -58,10 +51,10 @@ class DeviceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Devices  $devices
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Device $device)
+    public function edit($id)
     {
         //
     }
@@ -70,10 +63,10 @@ class DeviceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Devices  $devices
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Device $device)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -81,10 +74,10 @@ class DeviceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Devices  $devices
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Device $device)
+    public function destroy($id)
     {
         //
     }

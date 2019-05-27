@@ -11,6 +11,7 @@ $factory->define(UserInformation::class, function (Faker $faker) {
     return [
         'notification_mail' => $faker->safeEmail,
         'notification_phone' => $faker->phoneNumber,
+        'address' => $faker->address,
         'payment_date' => now(),
         'user_id' => $user->random()->id,
     ];

@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('scripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,6 +27,26 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <ul class="nav navbar-nav">
+                    @can('devices.index')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('devices.index') }}">Dispositivos</a>
+                    </li>
+                    @endcan
+                    @can('roles.index')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                    </li>
+                    @endcan
+                    @can('users.index')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+                    </li>
+                    @endcan
+                </ul>
+
+
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -76,5 +97,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('pie')
 </body>
 </html>

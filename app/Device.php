@@ -15,7 +15,7 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'user_id',
+        'id', 'name', 'location_lat', 'location_long', 'user_id', 'monitor',
     ];
 
     /**
