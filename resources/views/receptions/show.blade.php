@@ -13,7 +13,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Metricas dispositivo <strong>{{ $info->name }}</strong>
+                    Metricas dispositivo <strong>{{ $device->name }}</strong>
                 </div>
                 <div class="card-body">
                     <div id="plot" style="height: 400px; min-width: 310px"></div>
@@ -58,12 +58,12 @@
                 name: '{{ $config->data01_typ }}',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ ($data->created_at->timestamp)*1000 }}, {{ $data->data01 }} ],
+                            [ {{ ($data->created_at->timestamp + 10800) * 1000 }}, {{ $data->data01 }} ],
                         @endforeach
                 ],
                 type: 'spline',
                 tooltip: {
-                    valueDecimals: 4
+                    valueDecimals: 2
                 }
             }]
         });

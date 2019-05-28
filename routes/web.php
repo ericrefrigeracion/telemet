@@ -75,7 +75,7 @@ Route::prefix('centinela')->middleware('verified')->group(function () {
 		->name('device-configurations.edit')->middleware('can:device-configurations.edit');
 
 	//Receptions
-	Route::get('receptions/{id}', 'ReceptionController@show')
+	Route::get('receptions/{device}', 'ReceptionController@show')
 		->name('receptions.show')->middleware('can:receptions.show');
 
 

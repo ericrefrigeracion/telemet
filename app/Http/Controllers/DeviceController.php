@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Device;
+use App\DeviceConfiguration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,9 +18,9 @@ class DeviceController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $dispositivos = Device::where('user_id', $user_id)->get();
+        $devices = Device::where('user_id', $user_id)->get();
 
-        return view('devices.index')->with(['dispositivos' => $dispositivos]);
+        return view('devices.index')->with(['devices' => $devices]);
 
     }
 
@@ -30,7 +31,7 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        //
+        return view('devices.create');
     }
 
     /**
@@ -41,7 +42,9 @@ class DeviceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $device = Device::create($request->all());
+
+        return redirect()->route(devices.edit, $device->id)->with('info', 'Dispositivo creado con exito');
     }
 
     /**
@@ -52,7 +55,19 @@ class DeviceController extends Controller
      */
     public function show(Device $device)
     {
-        //
+
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
+
+        if ($user_id === $user_device) {
+
+            $config = DeviceConfiguration::where('device_id', $device->id)->first();
+
+            return view('devices.show')->with(['device' => $device, 'config' => $config]);
+
+        }else{
+            return "mmm";
+        }
     }
 
     /**
@@ -63,7 +78,7 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        //
+        return view('devices.edit', compact('device'));
     }
 
     /**
@@ -75,7 +90,9 @@ class DeviceController extends Controller
      */
     public function update(Request $request, Device $device)
     {
-        //
+        $device->update($request->all());
+
+        return redirect()->route(devices.edit, $device->id)->with('info', 'Dispositivo actualizado con exito');
     }
 
     /**
@@ -86,6 +103,8 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
-        //
+        $device->delete();
+
+        return back()->with('info', 'Dispositivo eliminado correctamente');
     }
 }

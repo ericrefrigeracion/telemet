@@ -17,20 +17,18 @@ class ReceptionController extends Controller
      * @param  \App\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Device $device)
     {
-        $device_id = $id;
-        $user_id = Auth::user()->id;
-        $info = Device::findOrFail($device_id);
 
-        $user_device = $info->user_id;
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
 
         if ($user_id === $user_device) {
 
-            $datas = Reception::where('device_id', $device_id)->get();
-            $config = DeviceConfiguration::where('device_id', $device_id)->first();
+            $datas = Reception::where('device_id', $device->id)->get();
+            $config = DeviceConfiguration::where('device_id', $device->id)->first();
 
-            return view('receptions.show')->with(['info' => $info,'datas' => $datas, 'config' => $config]);
+            return view('receptions.show')->with(['device' => $device, 'datas' => $datas, 'config' => $config]);
 
         }else{
             return "mmm";

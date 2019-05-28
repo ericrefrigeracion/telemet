@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Dispositivos
@@ -19,29 +19,27 @@
                             <tr>
                                 <th width="10px">ID</th>
                                 <th>Nombre</th>
-                                <th>Agregado</th>
                                 <th colspan="4">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($dispositivos as $dispositivo)
+                            @foreach($devices as $device)
                                 <tr>
-                                    <td>{{ $dispositivo->id }}</td>
-                                    <td>{{ $dispositivo->name }}</td>
-                                    <td>{{ $dispositivo->created_at }}</td>
+                                    <td>{{ $device->id }}</td>
+                                    <td>{{ $device->name }}</td>
                                     <td>
                                         @can('receptions.show')
-                                            <a href="{{ route('receptions.show', $dispositivo->id) }}" class="btn btn-sm btn-primary">Metricas</a>
+                                            <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
                                         @endcan
                                     </td>
                                     <td>
                                         @can('device-configurations.edit')
-                                            <a href="{{ route('device-configurations.edit', $dispositivo->id) }}" class="btn btn-sm btn-danger">Monitoreo</a>
+                                            <a href="{{ route('device-configurations.edit', $device->id) }}" class="btn btn-sm btn-danger">Monitoreo</a>
                                         @endcan
                                     </td>
                                     <td>
-                                        @can('devices.edit')
-                                            <a href="{{ route('devices.edit', $dispositivo->id) }}" class="btn btn-sm btn-default">Informacion</a>
+                                        @can('devices.show')
+                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">Informacion</a>
                                         @endcan
                                     </td>
 
