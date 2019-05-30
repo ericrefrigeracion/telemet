@@ -42,6 +42,12 @@ class DeviceController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'id' => 'required|integer|exists:receptions|unique:devices',
+            'name' => 'required|max:30',
+        ];
+
+        $request->validate($rules);
 
         $device = new Device;
         $device->id = $request->id;
@@ -108,6 +114,17 @@ class DeviceController extends Controller
         $user_device = $device->user_id;
 
         if ($user_id === $user_device) {
+
+            $rules = [
+                'name' => 'required|max:30',
+                'cal' => 'required|numeric|min:-5|max:5',
+                'min' => 'filled|numeric|min:-30|max:80',
+                'max' => 'filled|numeric|min:-30|max:80',
+                'dly' => 'filled|integer|min:0|max:60',
+
+            ];
+
+            $request->validate($rules);
 
             $device->update($request->all());
             return redirect()->route('devices.show', $device->id)->with('info', 'Dispositivo actualizado con exito');
