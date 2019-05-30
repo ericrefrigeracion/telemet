@@ -16,7 +16,7 @@
                     Metricas dispositivo <strong>{{ $device->name }}</strong>
                 </div>
                 <div class="card-body">
-                    <div id="plot" style="height: 400px; min-width: 310px"></div>
+                    <div id="plot" style="height: 400px; min-width: 300px"></div>
                 </div>
                 <div class="card-footer" >
                 </div>
@@ -49,7 +49,7 @@
                     to: {{ $device->max }},
                     color: 'rgba(68, 170, 213, 0.2)',
                     label: {
-                        text: 'Valor deseado'
+                        text: 'Valor Deseado'
                     }
                 }]
             },
@@ -58,7 +58,7 @@
                 name: '°C',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ ($data->created_at->timestamp + 10800) * 1000 }}, {{ $data->data01 }} ],
+                            [ {{ ($data->created_at->timestamp + 10800) * 1000 }}, {{ $data->data01 + $device->cal }} ],
                         @endforeach
                 ],
                 type: 'spline',
