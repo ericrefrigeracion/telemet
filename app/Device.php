@@ -15,7 +15,7 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'location_lat', 'location_long', 'user_id', 'monitor',
+        'id', 'name', 'lat', 'long', 'user_id', 'mon', 'mail', 'min', 'max', 'dly', 'cal',
     ];
 
     /**
@@ -28,11 +28,6 @@ class Device extends Model
     public function users()
     {
     	return $this->belongsTo(User::class);
-    }
-
-    public function device_configurations()
-    {
-    	return $this->belongsTo(DeviceConfiguration::class);
     }
 
 	public function receptions()

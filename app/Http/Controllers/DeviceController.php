@@ -42,9 +42,14 @@ class DeviceController extends Controller
      */
     public function store(Request $request)
     {
-        $device = Device::create($request->all());
 
-        return redirect()->route(devices.edit, $device->id)->with('info', 'Dispositivo creado con exito');
+        $device = new Device;
+        $device->id = $request->id;
+        $device->name = $request->name;
+        $device->user_id = Auth::user()->id;
+        $device->save();
+
+        return redirect()->route('devices.show', $request->id)->with('info', 'Dispositivo creado con exito');
     }
 
     /**
@@ -61,9 +66,7 @@ class DeviceController extends Controller
 
         if ($user_id === $user_device) {
 
-            $config = DeviceConfiguration::where('device_id', $device->id)->first();
-
-            return view('devices.show')->with(['device' => $device, 'config' => $config]);
+            return view('devices.show')->with(['device' => $device]);
 
         }else{
             return "mmm";
@@ -78,7 +81,18 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        return view('devices.edit', compact('device'));
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
+
+        if ($user_id === $user_device) {
+
+            return view('devices.edit', compact('device'));
+
+        }else{
+            return "mmm";
+        }
+
+
     }
 
     /**
@@ -90,9 +104,17 @@ class DeviceController extends Controller
      */
     public function update(Request $request, Device $device)
     {
-        $device->update($request->all());
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
 
-        return redirect()->route(devices.edit, $device->id)->with('info', 'Dispositivo actualizado con exito');
+        if ($user_id === $user_device) {
+
+            $device->update($request->all());
+            return redirect()->route('devices.show', $device->id)->with('info', 'Dispositivo actualizado con exito');
+
+        }else{
+            return "mmm";
+        }
     }
 
     /**
@@ -103,8 +125,17 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
-        $device->delete();
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
 
-        return back()->with('info', 'Dispositivo eliminado correctamente');
+        if ($user_id === $user_device) {
+
+            $device->delete();
+            return redirect()->route('devices.index')->with('info', 'Dispositivo eliminado con exito');
+
+        }else{
+            return "mmm";
+        }
     }
+
 }

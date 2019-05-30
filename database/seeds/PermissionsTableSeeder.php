@@ -61,13 +61,6 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Editar la informacion de un usuario',
         ]);
 
-    	//User-informations
-        Permission::create([
-        	'name' => 'Editar informacion',
-        	'slug' => 'user-informations.edit',
-        	'description' => 'Editar la informacion de su propio usuario',
-        ]);
-
     	//Devices
         Permission::create([
         	'name' => 'Listar dispositivos',
@@ -93,13 +86,6 @@ class PermissionsTableSeeder extends Seeder
         	'name' => 'Editar dispositivos',
         	'slug' => 'devices.edit',
         	'description' => 'Editar la informacion de un dispositivo',
-        ]);
-
-        //Device-configurations
-        Permission::create([
-        	'name' => 'Editar configuracion',
-        	'slug' => 'device-configurations.edit',
-        	'description' => 'Editar la configuracion de un dispositivo en particular',
         ]);
 
         //Receptions

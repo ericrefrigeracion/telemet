@@ -39,14 +39,14 @@
             },
 
             title: {
-                text: 'Datos medidos en {{ $config->data01_typ }}'
+                text: 'Datos medidos en °C'
             },
 
             yAxis: {
 
                 plotBands: [{
-                    from: {{ $config->data01_min }},
-                    to: {{ $config->data01_max }},
+                    from: {{ $device->min }},
+                    to: {{ $device->max }},
                     color: 'rgba(68, 170, 213, 0.2)',
                     label: {
                         text: 'Valor deseado'
@@ -55,7 +55,7 @@
             },
 
             series: [{
-                name: '{{ $config->data01_typ }}',
+                name: '°C',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp + 10800) * 1000 }}, {{ $data->data01 }} ],

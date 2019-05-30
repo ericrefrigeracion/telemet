@@ -1,29 +1,22 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>NOMBRE</th>
-                                <th>ULTIMA CONEXION</th>
-                                <th>ESTADO</th>
-                                <th>SEÑAL WIFI</th>
+                                <th width="15%">Id</th>
+                                <th width="40%">Ultima Conexion</th>
+                                <th width="25%">Estado</th>
+                                <th width="20%">Señal</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($devices as $device)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $device->id }}</td>
+                                    <td>{{ $device->last_connection }}</td>
+                                    <td>OK</td>
+                                    <td>{{ $device->rssi }}</td>
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>Dirijase a la pestaña dispositivos para mas informacion</tr>
+                            @endforeach
+                                <tr><td colspan="5">Dirijase a la pestaña dispositivos para mas informacion</td></tr>
                         </tbody>
 
                     </table>

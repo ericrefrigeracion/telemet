@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'notification_mail', 'notification_phone', 'address', 'payment_day',
     ];
 
     /**
@@ -46,8 +46,4 @@ class User extends Authenticatable
         return $this->hasMany(Device::class);
     }
 
-    public function user_information()
-    {
-        return $this->belongsTo(UserInformation::class);
-    }
 }

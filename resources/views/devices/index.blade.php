@@ -17,33 +17,28 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th width="10px">ID</th>
                                 <th>Nombre</th>
-                                <th colspan="4">&nbsp;</th>
+                                <th colspan="2"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($devices as $device)
                                 <tr>
-                                    <td>{{ $device->id }}</td>
-                                    <td>{{ $device->name }}</td>
+                                    <td>
+                                        @can('devices.show')
+                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->name }}</a>
+                                        @endcan
+                                    </td>
+                                    <td>
+                                        @can('devices.edit')
+                                            <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-danger">Monitoreo</a>
+                                        @endcan
+                                    </td>
                                     <td>
                                         @can('receptions.show')
                                             <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
                                         @endcan
                                     </td>
-                                    <td>
-                                        @can('device-configurations.edit')
-                                            <a href="{{ route('device-configurations.edit', $device->id) }}" class="btn btn-sm btn-danger">Monitoreo</a>
-                                        @endcan
-                                    </td>
-                                    <td>
-                                        @can('devices.show')
-                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">Informacion</a>
-                                        @endcan
-                                    </td>
-
-
                                 </tr>
                             @endforeach
                         </tbody>

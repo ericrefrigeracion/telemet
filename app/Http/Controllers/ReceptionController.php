@@ -26,9 +26,8 @@ class ReceptionController extends Controller
         if ($user_id === $user_device) {
 
             $datas = Reception::where('device_id', $device->id)->get();
-            $config = DeviceConfiguration::where('device_id', $device->id)->first();
 
-            return view('receptions.show')->with(['device' => $device, 'datas' => $datas, 'config' => $config]);
+            return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
 
         }else{
             return "mmm";

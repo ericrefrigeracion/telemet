@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Device;
+use App\Reception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user_id = Auth::user()->id;
+        $devices = Device::where('user_id', $user_id)->get();
+
+        foreach ($devices as $device) {
+
+            $last_reception = Reception::where('device_id', $device->id)->orderBy('created_at', 'desc')->first();
+
+            $device = array_add($device,  'last_connection', $last_reception->created_at);
+            $device = array_add($device,  'rssi', $last_reception->rssi);
+
+        }
+
+        return view('home')->with(['devices' => $devices]);
     }
 }

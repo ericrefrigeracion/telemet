@@ -10,9 +10,14 @@ $factory->define(Device::class, function (Faker $faker) {
     return [
     	'id' => $faker->unique()->numberBetween(4000, 8000),
         'name' => $faker->sentence(3),
-        'location_lat' => $faker->latitude(),
-        'location_lon' => $faker->longitude(),
-        'monitor' => $faker->boolean,
+        'lat' => $faker->latitude(),
+        'lon' => $faker->longitude(),
+        'mon' => $faker->boolean,
+        'mail' => $faker->boolean,
+        'min' => $faker->numberBetween(-5,5),
+        'max' => $faker->numberBetween(10,15),
+        'dly' => $faker->numberBetween(5,15),
+        'cal' => $faker->numberBetween(-2,3),
         'user_id' => $user->random()->id,
     ];
 });

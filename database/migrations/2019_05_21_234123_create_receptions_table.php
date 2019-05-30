@@ -31,7 +31,7 @@ class CreateReceptionsTable extends Migration
             $table->unsignedBigInteger('device_id');
             $table->timestamps();
 
-            $table->foreign('device_id')->references('id')->on('devices');
+            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
         });
     }
 

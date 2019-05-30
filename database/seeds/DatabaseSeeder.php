@@ -20,10 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
 
         factory(User::class, 25)->create();
-        factory(UserInformation::class, 27)->create();
 
         factory(Device::class, 150)->create();
-        factory(DeviceConfiguration::class, 150)->create();
 
         factory(Reception::class, 15000)->create();
 

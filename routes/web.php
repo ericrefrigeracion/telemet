@@ -23,15 +23,11 @@ Route::prefix('user')->middleware('verified')->group(function () {
 	Route::delete('users/{user}', 'UserController@destroy')
 		->name('users.destroy')->middleware('can:users.destroy');
 	Route::put('users/{user}', 'UserController@update')
-		->name('users.update')->middleware('can:users.update');
+		->name('users.update')->middleware('can:users.edit');
 	Route::get('users/{user}', 'UserController@show')
 		->name('users.show')->middleware('can:users.show');
 	Route::get('users/{user}/edit', 'UserController@edit')
-		->name('users.edit')->middleware('can:users.update');
-
-	//User-informations
-	Route::put('user-informations/{user-information}', 'UserInformationController@update')->name('user-informations.update')->middleware('can:user-informations.update');
-	Route::get('user-informations/{user-information}/edit', 'UserInformationController@edit')->name('user-informations.edit')->middleware('can:user-informations.update');
+		->name('users.edit')->middleware('can:users.edit');
 
 	//Roles
 	Route::get('roles', 'RoleController@index')
@@ -67,12 +63,6 @@ Route::prefix('centinela')->middleware('verified')->group(function () {
 		->name('devices.show')->middleware('can:devices.show');
 	Route::get('devices/{device}/edit', 'DeviceController@edit')
 		->name('devices.edit')->middleware('can:devices.edit');
-
-	//Device-configurations
-	Route::put('device-configurations/{device-configuration}', 'DeviceConfigurationController@update')
-		->name('device-configurations.update')->middleware('can:device-configurations.edit');
-	Route::get('device-configurations/{device-configuration}/edit', 'DeviceConfigurationController@edit')
-		->name('device-configurations.edit')->middleware('can:device-configurations.edit');
 
 	//Receptions
 	Route::get('receptions/{device}', 'ReceptionController@show')
