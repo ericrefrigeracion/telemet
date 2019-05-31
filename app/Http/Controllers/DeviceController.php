@@ -17,7 +17,7 @@ class DeviceController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $devices = Device::where('user_id', $user_id)->get();
+        $devices = Device::where('user_id', $user_id)->paginate(10);
 
         return view('devices.index')->with(['devices' => $devices]);
 
@@ -74,7 +74,7 @@ class DeviceController extends Controller
             return view('devices.show')->with(['device' => $device]);
 
         }else{
-            return "mmm";
+            abort(403, 'Accion no Autorizada');
         }
     }
 
@@ -94,7 +94,7 @@ class DeviceController extends Controller
             return view('devices.edit', compact('device'));
 
         }else{
-            return "mmm";
+            abort(403, 'Accion no Autorizada');
         }
 
 
@@ -130,7 +130,7 @@ class DeviceController extends Controller
             return redirect()->route('devices.show', $device->id)->with('info', 'Dispositivo actualizado con exito');
 
         }else{
-            return "mmm";
+            abort(403, 'Accion no Autorizada');
         }
     }
 
@@ -151,7 +151,7 @@ class DeviceController extends Controller
             return redirect()->route('devices.index')->with('info', 'Dispositivo eliminado con exito');
 
         }else{
-            return "mmm";
+            abort(403, 'Accion no Autorizada');
         }
     }
 

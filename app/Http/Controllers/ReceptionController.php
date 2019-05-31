@@ -30,7 +30,7 @@ class ReceptionController extends Controller
             return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
 
         }else{
-            return "mmm";
+            abort(403, 'Accion no Autorizada');
         }
 
 

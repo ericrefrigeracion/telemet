@@ -28,6 +28,9 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/home') }}">Panel Principal</a>
+                    </li>
                     @can('devices.index')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('devices.index') }}">Dispositivos</a>

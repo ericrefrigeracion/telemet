@@ -38,6 +38,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $devices->render() }}
                 </div>
             </div>
         </div>
