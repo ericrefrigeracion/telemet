@@ -19,7 +19,6 @@ class CreateDevicesTable extends Migration
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
             $table->boolean('mon')->nullable();
-            $table->boolean('mail')->nullable();
             $table->float('min')->nullable();
             $table->float('max')->nullable();
             $table->integer('dly')->unsigned()->nullable();

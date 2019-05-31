@@ -58,7 +58,7 @@
                 name: '°C',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ ($data->created_at->timestamp + 10800) * 1000 }}, {{ $data->data01 + $device->cal }} ],
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data01 + $device->cal }} ],
                         @endforeach
                 ],
                 type: 'spline',

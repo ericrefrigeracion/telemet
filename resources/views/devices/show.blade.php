@@ -29,6 +29,10 @@
                                     <td>{{ $device->name }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Calibracion de la Medicion (°C)</td>
+                                    <td>{{ $device->cal > 0 ? "+" . $device->cal : $device->cal }}</td>
+                                </tr>
+                                <tr>
                                     <td>CREADO</td>
                                     <td>{{ $device->created_at }}</td>
                                 </tr>
@@ -39,10 +43,6 @@
                                 <tr>
                                     <td>MONITOREO</td>
                                     <td>{{ $device->mon ? 'ACTIVO' : 'INACTIVO' }}</td>
-                                </tr>
-                                <tr>
-                                    <td>AVISO POR EMAIL</td>
-                                    <td>{{ $device->mail ? 'ACTIVO' : 'INACTIVO' }}</td>
                                 </tr>
                                 @if($device->mon)
                                         <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
@@ -57,10 +57,6 @@
                                         <tr>
                                             <td>Retardo al Aviso (minutos)</td>
                                             <td>{{ $device->dly }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Calibracion del Canal (°C)</td>
-                                            <td>{{ $device->cal > 0 ? "+" . $device->cal : $device->cal }}</td>
                                         </tr>
                                 @endif
                         </tbody>

@@ -33,11 +33,19 @@
                                     <td>{{ $user->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Mail de Notificacion</td>
+                                    <td>E-Mail de Notificacion</td>
                                     <td>{{ $user->notification_mail }}</td>
                                 </tr>
                                 <tr>
-                                    <td>CREADO</td>
+                                    <td>Telefono de Notificacion</td>
+                                    <td>{{ $user->notification_phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Direccion</td>
+                                    <td>{{ $user->address }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Creado</td>
                                     <td>{{ $user->created_at }}</td>
                                 </tr>
                                 <tr>
@@ -47,14 +55,6 @@
                                 <tr>
                                     <td>Modificado</td>
                                     <td>{{ $user->updated_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Telefono de Notificacion</td>
-                                    <td>{{ $user->notification_phone }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Direccion</td>
-                                    <td>{{ $user->address }}</td>
                                 </tr>
                                 <tr>
                                     <td>Dia de Pago</td>

@@ -19,35 +19,35 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Editar Informacion Usuario: <strong>{{ $user->id }} - {{ $user->name }}</strong>
+                    Editar Informacion Rol: <strong>{{ $role->id }} - {{ $role->name }}</strong>
                 </div>
                 <div class="card-body">
-                    {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'PUT']) !!}
+                    {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'PUT']) !!}
                         <div class="form-group">
-                            {{ Form::label('name', 'Nombre de Usuario') }}
+                            {{ Form::label('name', 'Nombre de Rol') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('notification_mail', 'E-Mail de Alertas') }}
-                            {{ Form::email('notification_mail', null, ['class' => 'form-control']) }}
+                            {{ Form::label('slug', 'ruta (slug)') }}
+                            {{ Form::text('slug', null, ['class' => 'form-control']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('notification_phone', 'Telefono') }}
-                            {{ Form::number('notification_phone', null, ['class' => 'form-control',]) }}
+                            {{ Form::label('description', 'Descripcion') }}
+                            {{ Form::text('description', null, ['class' => 'form-control',]) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('address', 'Direccion') }}
-                            {{ Form::text('address', null, ['class' => 'form-control',]) }}
+                            <label>{{ Form::radio('special', 'all-access') }} Acceso Total</label>
+                            <label>{{ Form::radio('special', 'no-access') }} Ningun Acceso</label>
                         </div>
                         <hr>
-                        <h3>Lista de Roles a Aplicar</h3>
+                        <h3>Lista de Permisos a Aplicar</h3>
                         <div class="list-unstyled">
-                            @foreach($roles as $role)
+                            @foreach($permissions as $permission)
                             <li>
                                 <label>
-                                    {{ Form::checkbox('roles[]', $role->id, null) }}
-                                    {{ $role->name}}
-                                    <em>({{ $role->description ?: "Sin Descripcion" }})</em>
+                                    {{ Form::checkbox('permissions[]', $permission->id, null) }}
+                                    {{ $permission->name}}
+                                    <em>({{ $permission->description ?: "Sin Descripcion" }})</em>
                                 </label>
                             </li>
                             @endforeach

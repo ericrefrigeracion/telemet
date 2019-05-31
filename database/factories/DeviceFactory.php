@@ -13,7 +13,6 @@ $factory->define(Device::class, function (Faker $faker) {
         'lat' => $faker->latitude(),
         'lon' => $faker->longitude(),
         'mon' => $faker->boolean,
-        'mail' => $faker->boolean,
         'min' => $faker->numberBetween(-5,5),
         'max' => $faker->numberBetween(10,15),
         'dly' => $faker->numberBetween(5,15),

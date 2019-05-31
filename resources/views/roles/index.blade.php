@@ -6,10 +6,10 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Dispositivos
-                    @can('devices.create')
-                        <a href="{{ route('devices.create')}}" class="btn btn-primary btn-sm float-right">
-                            Agregar Dispositivo
+                    Roles
+                    @can('roles.create')
+                        <a href="{{ route('roles.create')}}" class="btn btn-primary btn-sm float-right">
+                            Agregar Rol
                         </a>
                     @endcan
                 </div>
@@ -17,27 +17,30 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Acciones</th>
+                                <th colspan="3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($devices as $device)
+                            @foreach($roles as $role)
                                 <tr>
                                     <td>
-                                        @can('devices.show')
-                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->name }}</a>
-                                        @endcan
+                                        {{ $role->id }}
                                     </td>
                                     <td>
-                                        @can('receptions.show')
-                                            <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
+                                        {{ $role->name }}
+                                    </td>
+                                    <td>
+                                        @can('roles.show')
+                                            <a href="{{ route('roles.show', $role->id) }}" class="btn btn-sm btn-success">Ver</a>
                                         @endcan
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $roles->render() }}
                 </div>
             </div>
         </div>

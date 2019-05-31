@@ -30,7 +30,14 @@ class UsersTableSeeder extends Seeder
         Role::create([
             'name' => 'Admin',
             'slug' => 'admin',
+            'description' => 'Rol de administracion',
             'special' => 'all-access'
+        ]);
+        Role::create([
+            'name' => 'Denied',
+            'slug' => 'denied',
+            'description' => 'Rol sin permisos',
+            'special' => 'no-access'
         ]);
     }
 }

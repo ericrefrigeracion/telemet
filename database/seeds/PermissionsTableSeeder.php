@@ -16,7 +16,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
         	'name' => 'Listar roles',
         	'slug' => 'roles.index',
-        	'description' => 'Listar y navegar todos sus roles',
+        	'description' => 'Listar y navegar todos los roles',
         ]);
         Permission::create([
         	'name' => 'Ver rol',
@@ -34,7 +34,7 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Elimina un rol y toda su informacion',
         ]);
         Permission::create([
-        	'name' => 'Editar roles',
+        	'name' => 'Editar rol',
         	'slug' => 'roles.edit',
         	'description' => 'Editar la informacion de un rol',
         ]);
@@ -43,7 +43,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
         	'name' => 'Listar usuarios',
         	'slug' => 'users.index',
-        	'description' => 'Listar y navegar todos sus usuarios',
+        	'description' => 'Listar y navegar todos los usuarios',
         ]);
         Permission::create([
         	'name' => 'Ver usuario',
@@ -56,7 +56,7 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Elimina un usuario y toda su informacion',
         ]);
         Permission::create([
-        	'name' => 'Editar usuarios',
+        	'name' => 'Editar usuario',
         	'slug' => 'users.edit',
         	'description' => 'Editar la informacion de un usuario',
         ]);
@@ -83,7 +83,7 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Elimina un dispositivo y toda su informacion',
         ]);
         Permission::create([
-        	'name' => 'Editar dispositivos',
+        	'name' => 'Editar dispositivo',
         	'slug' => 'devices.edit',
         	'description' => 'Editar la informacion de un dispositivo',
         ]);

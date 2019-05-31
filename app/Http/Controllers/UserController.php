@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Device;
+use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,7 +45,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
 
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
 
     }
 
@@ -62,6 +64,7 @@ class UserController extends Controller
 
             $request->validate($rules);
             $user->update($request->all());
+            $user->roles()->sync($request->get('roles'));
 
             return redirect()->route('users.show', $user->id)->with('info', 'Usuario actualizado con exito');
     }

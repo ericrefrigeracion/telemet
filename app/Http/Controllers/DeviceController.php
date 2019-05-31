@@ -42,7 +42,7 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'required|integer|exists:receptions|unique:devices',
+            'id' => 'required|integer|exists:receptions,device_id|unique:devices,id',
             'name' => 'required|max:30',
         ];
 
@@ -117,6 +117,7 @@ class DeviceController extends Controller
             $rules = [
                 'name' => 'required|max:30',
                 'cal' => 'required|numeric|min:-5|max:5',
+                'mon' => 'boolean',
                 'min' => 'filled|numeric|min:-30|max:80',
                 'max' => 'filled|numeric|min:-30|max:80',
                 'dly' => 'filled|integer|min:0|max:60',
