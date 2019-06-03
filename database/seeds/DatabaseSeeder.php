@@ -1,9 +1,8 @@
 <?php
 
 use App\User;
-use App\UserInformation;
+use App\Alert;
 use App\Device;
-use App\DeviceConfiguration;
 use App\Reception;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         factory(Device::class, 150)->create();
 
+        factory(Alert::class, 1500)->create();
         factory(Reception::class, 15000)->create();
 
     }

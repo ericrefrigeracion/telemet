@@ -83,7 +83,7 @@ class DeviceController extends Controller
         $user_id = Auth::user()->id;
         $user_device = $device->user_id;
 
-        if ($user_id === $user_device) {
+        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             return view('devices.show')->with(['device' => $device]);
 
@@ -118,7 +118,7 @@ class DeviceController extends Controller
         $user_id = Auth::user()->id;
         $user_device = $device->user_id;
 
-        if ($user_id === $user_device) {
+        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             return view('devices.edit', compact('device'));
 
@@ -141,7 +141,7 @@ class DeviceController extends Controller
         $user_id = Auth::user()->id;
         $user_device = $device->user_id;
 
-        if ($user_id === $user_device) {
+        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             $rules = [
                 'name' => 'required|max:30',
@@ -174,7 +174,7 @@ class DeviceController extends Controller
         $user_id = Auth::user()->id;
         $user_device = $device->user_id;
 
-        if ($user_id === $user_device) {
+        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             $device->delete();
             return redirect()->route('devices.index')->with('info', 'Dispositivo eliminado con exito');

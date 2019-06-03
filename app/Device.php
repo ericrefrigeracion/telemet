@@ -34,4 +34,8 @@ class Device extends Model
     {
     	return $this->hasMany(Reception::class);
     }
+    public function alerts()
+    {
+        return $this->hasMany(Reception::class);
+    }
 }

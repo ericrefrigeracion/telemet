@@ -49,16 +49,13 @@ Route::prefix('admin')->middleware('verified')->group(function () {
 	Route::get('device-log/{id}', 'DeviceController@log')
 		->name('devices.log')->middleware('can:devices.log');
 
-
 	//Devices-all
 	Route::get('devices-all', 'DeviceController@all')
 		->name('devices.all')->middleware('can:devices.all');
 
-	//Monitor
-	Route::get('alarms', 'MonitorController@index')
-		->name('alarms.index')->middleware('can:alarms.index');
-	Route::get('monitor', 'MonitorController@show')
-		->name('monitor.index')->middleware('can:monitor.index');
+	//Alerts
+	Route::get('alerts/{device}', 'AlertController@show')
+		->name('alerts.show')->middleware('can:alerts.show');
 
 
 });

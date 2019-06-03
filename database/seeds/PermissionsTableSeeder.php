@@ -98,6 +98,12 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Editar la informacion de un dispositivo',
         ]);
 
+        //Alerts
+        Permission::create([
+            'name' => 'Ver alertas',
+            'slug' => 'alerts.show',
+            'description' => 'Ver las alertas de un dispositivo',
+        ]);
 
         //Receptions
         Permission::create([

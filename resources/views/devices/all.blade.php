@@ -12,12 +12,13 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                @can('devices.all')
-                                    <th>ID</th>
-                                @endcan
+                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Acciones</th>
                                 @can('devices.log')
+                                    <th></th>
+                                @endcan
+                                @can('alerts.show')
                                     <th></th>
                                 @endcan
                             </tr>
@@ -25,9 +26,7 @@
                         <tbody>
                             @foreach($devices as $device)
                                 <tr>
-                                    @can('devices.all')
-                                        <td>{{ $device->id }}</td>
-                                    @endcan
+                                    <td>{{ $device->id }}</td>
                                     @can('devices.show')
                                         <td>
                                             <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->name }}</a>
@@ -41,6 +40,11 @@
                                     @can('devices.log')
                                         <td>
                                             <a href="{{ route('devices.log', $device->id) }}" class="btn btn-sm btn-primary">Logs</a>
+                                        </td>
+                                    @endcan
+                                    @can('alerts.show')
+                                        <td>
+                                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger">Alertas</a>
                                         </td>
                                     @endcan
                                 </tr>
