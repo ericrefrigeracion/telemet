@@ -6,12 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Dispositivos
-                    @can('devices.create')
-                        <a href="{{ route('devices.create')}}" class="btn btn-primary btn-sm float-right">
-                            Agregar Dispositivo
-                        </a>
-                    @endcan
+                    Dispositivos - Todos
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover">

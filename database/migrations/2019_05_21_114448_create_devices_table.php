@@ -23,6 +23,9 @@ class CreateDevicesTable extends Migration
             $table->float('max')->nullable();
             $table->integer('dly')->unsigned()->nullable();
             $table->float('cal')->nullable();
+            $table->boolean('admin_mon')->nullable();
+            $table->timestamp('watch')->nullable();
+            $table->boolean('mail_send')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

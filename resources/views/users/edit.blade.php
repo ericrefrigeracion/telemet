@@ -28,11 +28,11 @@
                             {{ Form::text('name', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('notification_mail', 'E-Mail de Alertas') }}
+                            {{ Form::label('notification_mail', 'E-Mail de Notificacion') }}
                             {{ Form::email('notification_mail', null, ['class' => 'form-control']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('notification_phone', 'Telefono') }}
+                            {{ Form::label('notification_phone', 'Telefono de Notificacion') }}
                             {{ Form::number('notification_phone', null, ['class' => 'form-control',]) }}
                         </div>
                         <div class="form-group">

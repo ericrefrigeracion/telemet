@@ -29,21 +29,26 @@
                 </a>
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/home') }}">Panel Principal</a>
+                        <a class="nav-link {{ setActive('home') }}" href="{{ url('/home') }}">Panel Principal</a>
                     </li>
                     @can('devices.index')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('devices.index') }}">Dispositivos</a>
+                        <a class="nav-link {{ setActive('devices.index') }}" href="{{ route('devices.index') }}">Dispositivos</a>
+                    </li>
+                    @endcan
+                    @can('devices.index')
+                    <li class="nav-item">
+                        <a class="nav-link {{ setActive('devices.all') }}" href="{{ route('devices.all') }}">Dispositivos-Todos</a>
                     </li>
                     @endcan
                     @can('roles.index')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
+                        <a class="nav-link {{ setActive('roles.index') }}" href="{{ route('roles.index') }}">Roles</a>
                     </li>
                     @endcan
                     @can('users.index')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('users.index') }}">Usuarios</a>
+                        <a class="nav-link {{ setActive('users.index') }}" href="{{ route('users.index') }}">Usuarios</a>
                     </li>
                     @endcan
                 </ul>
@@ -104,11 +109,8 @@
                         <div class="alert alert-success" role="alert">
                             {{ session('info') }}
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
             @endif
             @yield('content')

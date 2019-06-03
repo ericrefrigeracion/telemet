@@ -68,9 +68,19 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Listar y navegar todos sus dispositivos',
         ]);
         Permission::create([
+            'name' => 'Listar todos los dispositivos',
+            'slug' => 'devices.all',
+            'description' => 'Listar y navegar todos los dispositivos existentes',
+        ]);
+        Permission::create([
         	'name' => 'Ver dispositivo',
         	'slug' => 'devices.show',
         	'description' => 'Ver informacion de un dispositivo especifico',
+        ]);
+        Permission::create([
+            'name' => 'Ver log',
+            'slug' => 'devices.log',
+            'description' => 'Ver informacion log de un dispositivo especifico',
         ]);
         Permission::create([
         	'name' => 'Crear dispositivo',
@@ -87,6 +97,7 @@ class PermissionsTableSeeder extends Seeder
         	'slug' => 'devices.edit',
         	'description' => 'Editar la informacion de un dispositivo',
         ]);
+
 
         //Receptions
         Permission::create([

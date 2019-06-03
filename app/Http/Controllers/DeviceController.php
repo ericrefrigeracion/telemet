@@ -3,12 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Device;
+use App\Reception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DeviceController extends Controller
 {
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        $devices = Device::paginate(20);
+
+        return view('devices.all')->with(['devices' => $devices]);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -45,8 +58,9 @@ class DeviceController extends Controller
             'id' => 'required|integer|exists:receptions,device_id|unique:devices,id',
             'name' => 'required|max:30',
         ];
+        $message = ['id.exists' => 'Asegurate que el dispositivo este conectado a internet'];
 
-        $request->validate($rules);
+        $request->validate($rules, $message);
 
         $device = new Device;
         $device->id = $request->id;
@@ -76,6 +90,21 @@ class DeviceController extends Controller
         }else{
             abort(403, 'Accion no Autorizada');
         }
+    }
+
+        /**
+     * Display the specified resource.
+     *
+     * @param  \App\Devices  $devices
+     * @return \Illuminate\Http\Response
+     */
+    public function log($id)
+    {
+        $device = Device::findOrFail($id);
+        $device_logs = Reception::where('device_id', $id)->where('log', '!=', 200)->paginate(20);
+
+        return view('devices.log')->with(['device_logs' => $device_logs, 'device' => $device]);
+
     }
 
     /**

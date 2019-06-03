@@ -17,6 +17,9 @@ $factory->define(Device::class, function (Faker $faker) {
         'max' => $faker->numberBetween(10,15),
         'dly' => $faker->numberBetween(5,15),
         'cal' => $faker->numberBetween(-2,3),
+        'admin_mon' => 0,
+        'watch' => null,
+        'mail_send' => 0,
         'user_id' => $user->random()->id,
     ];
 });

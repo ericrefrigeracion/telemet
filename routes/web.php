@@ -15,7 +15,7 @@ Auth::routes();
 Route::get('/', function () { return view('welcome'); });
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('user')->middleware('verified')->group(function () {
+Route::prefix('admin')->middleware('verified')->group(function () {
 
 	//Users
 	Route::get('users', 'UserController@index')
@@ -44,6 +44,23 @@ Route::prefix('user')->middleware('verified')->group(function () {
 		->name('roles.show')->middleware('can:roles.show');
 	Route::get('roles/{role}/edit', 'RoleController@edit')
 		->name('roles.edit')->middleware('can:roles.edit');
+
+	//logs
+	Route::get('device-log/{id}', 'DeviceController@log')
+		->name('devices.log')->middleware('can:devices.log');
+
+
+	//Devices-all
+	Route::get('devices-all', 'DeviceController@all')
+		->name('devices.all')->middleware('can:devices.all');
+
+	//Monitor
+	Route::get('alarms', 'MonitorController@index')
+		->name('alarms.index')->middleware('can:alarms.index');
+	Route::get('monitor', 'MonitorController@show')
+		->name('monitor.index')->middleware('can:monitor.index');
+
+
 });
 
 Route::prefix('centinela')->middleware('verified')->group(function () {
@@ -67,6 +84,5 @@ Route::prefix('centinela')->middleware('verified')->group(function () {
 	//Receptions
 	Route::get('receptions/{device}', 'ReceptionController@show')
 		->name('receptions.show')->middleware('can:receptions.show');
-
 
 });
