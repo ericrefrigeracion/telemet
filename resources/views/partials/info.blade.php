@@ -11,7 +11,7 @@
                             @foreach($devices as $device)
                                 <tr>
                                     <td>{{ $device->id }}</td>
-                                    <td>{{ $device->last_connection }}</td>
+                                    <td>{{ $device->last_connection->diffForHumans() }}</td>
                                     <td>OK</td>
                                     <td>{{ $device->rssi }}</td>
                                 </tr>

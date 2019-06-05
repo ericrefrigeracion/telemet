@@ -5,7 +5,7 @@ namespace App;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
-class Alert extends Model
+class MailAlert extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,7 +13,7 @@ class Alert extends Model
      * @var array
      */
     protected $fillable = [
-         'log', 'device_id',
+         'last_data01', 'last_created_at', 'user_id', 'device_id', 'send', 'type'
     ];
 
     /**

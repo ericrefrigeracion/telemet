@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         factory(Device::class, 150)->create();
 
         factory(Alert::class, 1500)->create();
-        factory(Reception::class, 15000)->create();
+        factory(Reception::class, 1500)->create();
 
     }
 }

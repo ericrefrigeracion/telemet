@@ -36,7 +36,7 @@
                         <a class="nav-link {{ setActive('devices.index') }}" href="{{ route('devices.index') }}">Dispositivos</a>
                     </li>
                     @endcan
-                    @can('devices.index')
+                    @can('devices.all')
                     <li class="nav-item">
                         <a class="nav-link {{ setActive('devices.all') }}" href="{{ route('devices.all') }}">Dispositivos-Todos</a>
                     </li>

@@ -12,8 +12,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Log</th>
+                                <th>Alerta</th>
                                 <th>Fecha</th>
                             </tr>
                         </thead>
@@ -21,7 +20,6 @@
                             @foreach($alerts as $alert)
 
                                 <tr>
-                                    <td>{{ $alert->id }}</td>
                                     <td>{{ $alert->log }}</td>
                                     <td>{{ $alert->created_at }}</td>
                                 </tr>

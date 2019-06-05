@@ -55,10 +55,9 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'required|integer|exists:receptions,device_id|unique:devices,id',
+            'id' => 'required|integer|unique:devices,id',
             'name' => 'required|max:30',
         ];
-        $message = ['id.exists' => 'Asegurate que el dispositivo este conectado a internet'];
 
         $request->validate($rules, $message);
 

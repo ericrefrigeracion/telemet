@@ -11,7 +11,7 @@ $factory->define(Reception::class, function (Faker $faker) {
     return [
         'data01' => $faker->randomFloat(2, -10, 10),
         'rssi' => $faker->numberBetween(-50, -70),
-        'log' => 200,
+        'log' => $faker->numberBetween(200, 206),
         'device_id' => $device->random()->id,
     ];
 });

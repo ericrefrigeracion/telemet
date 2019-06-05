@@ -31,9 +31,27 @@ class ReceptionController extends Controller
         }else{
             abort(403, 'Accion no Autorizada');
         }
+    }
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $rules = [
+            'device_id' => 'required|integer|exists:devices,id',
+            'data01' => 'required|numeric',
+        ];
 
+        $request->validate($rules);
 
+        $reception = Reception::create($request->all());
+
+        return $reception;
 
     }
+
 
 }
