@@ -31,10 +31,12 @@ class HomeController extends Controller
 
         foreach ($devices as $device) {
 
-            $last_reception = Reception::where('device_id', $device->id)->orderBy('created_at', 'desc')->first();
+            if($last_reception = Reception::where('device_id', $device->id)->orderBy('created_at', 'desc')->first())
+            {
+                $device = array_add($device,  'last_connection', $last_reception->created_at);
+                $device = array_add($device,  'rssi', $last_reception->rssi);
+            }
 
-            $device = array_add($device,  'last_connection', $last_reception->created_at);
-            $device = array_add($device,  'rssi', $last_reception->rssi);
 
         }
 

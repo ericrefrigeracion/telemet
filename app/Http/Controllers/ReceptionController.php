@@ -24,7 +24,7 @@ class ReceptionController extends Controller
 
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
-            $datas = Reception::where('device_id', $device->id)->paginate(20);
+            $datas = Reception::where('device_id', $device->id)->get();
 
             return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
 

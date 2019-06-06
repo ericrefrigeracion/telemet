@@ -11,9 +11,11 @@
                             @foreach($devices as $device)
                                 <tr>
                                     <td>{{ $device->id }}</td>
+                                    @if($device->last_connection)
                                     <td>{{ $device->last_connection->diffForHumans() }}</td>
                                     <td>OK</td>
                                     <td>{{ $device->rssi }}</td>
+                                    @endif
                                 </tr>
                             @endforeach
                                 <tr><td colspan="5">Dirijase a la pestaña dispositivos para mas informacion</td></tr>
