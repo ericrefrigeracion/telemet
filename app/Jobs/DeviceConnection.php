@@ -48,7 +48,7 @@ class DeviceConnection implements ShouldQueue
     public function handle()
     {
         $devices = Device::all()->where('mon', true)->where('admin_mon', true);
-        $delay = '2019-06-05 19:12:26'; //now()->modify('-10 minute')->format('Y-m-d H:i:s');
+        $delay = '2019-06-05 19:32:26'; //now()->modify('-10 minute')->format('Y-m-d H:i:s');
 
         foreach($devices as $device)
         {

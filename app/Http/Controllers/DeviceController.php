@@ -59,7 +59,7 @@ class DeviceController extends Controller
             'name' => 'required|max:30',
         ];
 
-        $request->validate($rules, $message);
+        $request->validate($rules);
 
         $device = new Device;
         $device->id = $request->id;
