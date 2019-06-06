@@ -65,6 +65,50 @@
                 tooltip: {
                     valueDecimals: 2
                 }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data02 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data03 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data04 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data05 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
             }]
         });
     });
