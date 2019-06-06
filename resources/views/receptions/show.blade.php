@@ -66,7 +66,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 2',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data02 }} ],
@@ -77,7 +77,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 3',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data03 }} ],
@@ -88,7 +88,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 4',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data04 }} ],
@@ -99,7 +99,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 5',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data05 }} ],
@@ -110,7 +110,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 6',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data06 }} ],
@@ -121,7 +121,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 7',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data07 }} ],
@@ -132,7 +132,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 8',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data08 }} ],
@@ -143,7 +143,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 9',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data09 }} ],
@@ -154,7 +154,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 10',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data10 }} ],
@@ -165,7 +165,7 @@
                     valueDecimals: 2
                 }
             },{
-                name: '°F',
+                name: 'Sensor 11',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data11 }} ],
