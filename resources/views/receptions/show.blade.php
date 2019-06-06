@@ -109,6 +109,72 @@
                 tooltip: {
                     valueDecimals: 2
                 }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data06 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data07 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data08 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data09 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data10 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
+            },{
+                name: '°F',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ ($data->created_at->timestamp - 10800) * 1000 }}, {{ $data->data11 }} ],
+                        @endforeach
+                ],
+                type: 'spline',
+                tooltip: {
+                    valueDecimals: 2
+                }
             }]
         });
     });
