@@ -23,6 +23,7 @@ class CreateDevicesTable extends Migration
             $table->float('max')->nullable();
             $table->integer('dly')->unsigned()->nullable();
             $table->float('cal')->nullable();
+            $table->timestamp('view_alerts_at');
             $table->timestamp('watch')->nullable();
             $table->boolean('admin_mon')->nullable();
             $table->boolean('mail_send')->nullable();

@@ -22,6 +22,7 @@ class DeviceController extends Controller
         return view('devices.all')->with(['devices' => $devices]);
 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,6 +66,7 @@ class DeviceController extends Controller
         $device->id = $request->id;
         $device->name = $request->name;
         $device->user_id = Auth::user()->id;
+        $device->view_alerts_at = now();
         $device->save();
 
         return redirect()->route('devices.show', $request->id)->with('info', 'Dispositivo creado con exito');

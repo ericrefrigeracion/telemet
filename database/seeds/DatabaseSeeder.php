@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
 
-        //factory(User::class, 25)->create();
+        factory(User::class, 25)->create();
 
-        //factory(Device::class, 150)->create();
+        factory(Device::class, 150)->create();
 
-        //factory(Alert::class, 1500)->create();
-        //factory(Reception::class, 1500)->create();
+        factory(Alert::class, 1500)->create();
+        factory(Reception::class, 15000)->create();
 
     }
 }

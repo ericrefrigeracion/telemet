@@ -100,7 +100,12 @@ class PermissionsTableSeeder extends Seeder
 
         //Alerts
         Permission::create([
-            'name' => 'Ver alertas',
+            'name' => 'Ver alertas de un usuario',
+            'slug' => 'alerts.index',
+            'description' => 'Ver todas las alertas de un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Ver alertas de un equipo',
             'slug' => 'alerts.show',
             'description' => 'Ver las alertas de un dispositivo',
         ]);

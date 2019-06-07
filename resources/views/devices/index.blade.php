@@ -51,11 +51,6 @@
                                             <a href="{{ route('devices.log', $device->id) }}" class="btn btn-sm btn-primary">Logs</a>
                                         </td>
                                     @endcan
-                                    @can('alerts.show')
-                                        <td>
-                                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger">Alertas</a>
-                                        </td>
-                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>

@@ -49,27 +49,33 @@
                         <a class="nav-link {{ setActive('devices.index') }}" href="{{ route('devices.index') }}">Dispositivos</a>
                     </li>
                     @endcan
-                    @can('devices.all')
+                    @can('alerts.index')
                     <li class="nav-item">
-                        <a class="nav-link {{ setActive('devices.all') }}" href="{{ route('devices.all') }}">Dispositivos-Todos</a>
+                        <a class="nav-link {{ setActive('alerts.index') }}" href="{{ route('alerts.index') }}">Alertas</a>
                     </li>
                     @endcan
-                    @can('roles.index')
-                    <li class="nav-item">
-                        <a class="nav-link {{ setActive('roles.index') }}" href="{{ route('roles.index') }}">
-                        Roles</a>
-                    </li>
-                    @endcan
-                    @can('users.index')
-                    <li class="nav-item">
-                        <a class="nav-link {{ setActive('users.index') }}" href="{{ route('users.index') }}">
-                        Usuarios</a>
-                    </li>
-                    @endcan
+
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administrador</a>
+                        <div class="dropdown-menu">
+                            @can('devices.all')
+                                <a class="dropdown-item {{ setActive('devices.all') }}" href="{{ route('devices.all') }}">Dispositivos-Todos</a>
+                            @endcan
+                            <div class="dropdown-divider"></div>
+                            @can('roles.index')
+                                <a class="dropdown-item {{ setActive('roles.index') }}" href="{{ route('roles.index') }}">Roles</a>
+                            @endcan
+                            @can('users.index')
+                                <a class="dropdown-item {{ setActive('users.index') }}" href="{{ route('users.index') }}">Usuarios</a>
+                            @endcan
+                        </div>
+                    </li>
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

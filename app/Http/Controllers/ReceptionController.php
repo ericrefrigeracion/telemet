@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Reception;
 use App\Device;
 use Illuminate\Http\Request;
@@ -25,6 +26,16 @@ class ReceptionController extends Controller
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             $datas = Reception::where('device_id', $device->id)->get();
+            $today = Carbon::today();
+            $yesterday = Carbon::yesterday();
+
+            $device->last_data = $datas->max('created_at')->diffForHumans();
+            $device->max_today = $datas->where('created_at', '>=', $today)->max('data01');
+            $device->min_today = $datas->where('created_at', '>=', $today)->min('data01');
+            $device->avg_today = $datas->where('created_at', '>=', $today)->avg('data01');
+            $device->max_yesterday = $datas->where('created_at', '>=', $yesterday)->where('created_at', '<', $today)->max('data01');
+            $device->min_yesterday = $datas->where('created_at', '>=', $yesterday)->where('created_at', '<', $today)->min('data01');
+            $device->avg_yesterday = $datas->where('created_at', '>=', $yesterday)->where('created_at', '<', $today)->avg('data01');
 
             return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
 

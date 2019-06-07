@@ -54,11 +54,6 @@ Route::prefix('/admin')->middleware('verified')->group(function () {
 	Route::get('/devices-all', 'DeviceController@all')
 		->name('devices.all')->middleware('can:devices.all');
 
-	//Alerts
-	Route::get('/alerts/{device}', 'AlertController@show')
-		->name('alerts.show')->middleware('can:alerts.show');
-
-
 });
 
 Route::prefix('/centinela')->middleware('verified')->group(function () {
@@ -82,5 +77,11 @@ Route::prefix('/centinela')->middleware('verified')->group(function () {
 	//Receptions
 	Route::get('/receptions/{device}', 'ReceptionController@show')
 		->name('receptions.show')->middleware('can:receptions.show');
+
+	//Alerts
+	Route::get('/alerts', 'AlertController@index')
+		->name('alerts.index')->middleware('can:alerts.index');
+	Route::get('/alerts/{device}', 'AlertController@show')
+		->name('alerts.show')->middleware('can:alerts.show');
 
 });
