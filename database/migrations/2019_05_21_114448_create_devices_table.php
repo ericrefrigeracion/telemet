@@ -18,11 +18,11 @@ class CreateDevicesTable extends Migration
             $table->string('name');
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
-            $table->boolean('mon')->nullable();
-            $table->float('min')->nullable();
-            $table->float('max')->nullable();
-            $table->integer('dly')->unsigned()->nullable();
-            $table->float('cal')->nullable();
+            $table->boolean('mon');
+            $table->float('min');
+            $table->float('max');
+            $table->integer('dly')->unsigned();
+            $table->float('cal');
             $table->timestamp('view_alerts_at');
             $table->timestamp('watch')->nullable();
             $table->boolean('admin_mon')->nullable();

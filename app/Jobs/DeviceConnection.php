@@ -58,7 +58,8 @@ class DeviceConnection implements ShouldQueue
             //en la base de datos(on_line=true)
             if ( $last_reception->created_at < $delay && $device->on_line )
             {
-                $device->update(['on_line' => 0]);
+                $device->on_line = 0;
+                $device->update();
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'El dispositivo se encuentra desconectado de nuestro servidor hace mas de 10 minutos'
@@ -80,7 +81,8 @@ class DeviceConnection implements ShouldQueue
             //en la base de datos(on_line=false)
             if( $last_reception->created_at > $delay && !$device->on_line )
             {
-                $device->update(['on_line' => 1]);
+                $device->on_line = 1;
+                $device->update();
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'El dispositivo esta conectado nuevamente'

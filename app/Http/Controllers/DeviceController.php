@@ -67,6 +67,11 @@ class DeviceController extends Controller
         $device->name = $request->name;
         $device->user_id = Auth::user()->id;
         $device->view_alerts_at = now();
+        $device->mon = 0;
+        $device->min = 0;
+        $device->max = 0;
+        $device->dly = 0;
+        $device->cal = 0;
         $device->save();
 
         return redirect()->route('devices.show', $request->id)->with('info', 'Dispositivo creado con exito');

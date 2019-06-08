@@ -56,7 +56,8 @@ class VerifyTemperature implements ShouldQueue
             //condiciones para empezar a MIRAR los dispocitivos
             if ($last_reception->data01 < $device->min && $device->watch === null)
             {
-                $device->update(['watch' => $last_reception->created_at]);
+                $device->watch = $last_reception->created_at;
+                $device->update();
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La temperatura se encuentra por debajo de la minima permitida.'
@@ -64,14 +65,24 @@ class VerifyTemperature implements ShouldQueue
             }
             if ($last_reception->data01 > $device->max && $device->watch === null)
             {
-                $device->update(['watch' => $last_reception->created_at]);
+                $device->watch = $last_reception->created_at;
+                $device->update();
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La temperatura se encuentra por encima de la maxima permitida.'
                 ]);
             }
-            if ($last_reception->data01 <= $device->max && $device->watch != null) $device->update(['watch' => null]);
-            if ($last_reception->data01 >= $device->min && $device->watch != null) $device->update(['watch' => null]);
+            if ($last_reception->data01 <= $device->max && $device->watch != null)
+            {
+                $device->watch = null;
+                $device->update();
+            }
+
+            if ($last_reception->data01 >= $device->min && $device->watch != null)
+            {
+                $device->watch = null;
+                $device->update();
+            }
 
             //condicion de tiempo
             if (isset($device->watch)){
