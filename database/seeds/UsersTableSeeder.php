@@ -39,5 +39,12 @@ class UsersTableSeeder extends Seeder
             'description' => 'Rol sin permisos',
             'special' => 'no-access'
         ]);
+        Role::create([
+            'name' => 'User - Basic',
+            'slug' => 'user.basic',
+            'description' => 'Rol de usuario basico',
+            'special' => null
+        ]);
+
     }
 }
