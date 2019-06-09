@@ -109,6 +109,11 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'alerts.show',
             'description' => 'Ver las alertas de un dispositivo',
         ]);
+        Permission::create([
+            'name' => 'Listar todas las alertas',
+            'slug' => 'alerts.all',
+            'description' => 'Listar y navegar todas las alertas ocurridas organizadas por dispositivo',
+        ]);
 
         //Receptions
         Permission::create([

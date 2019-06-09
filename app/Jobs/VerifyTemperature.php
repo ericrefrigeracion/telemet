@@ -61,6 +61,7 @@ class VerifyTemperature implements ShouldQueue
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La temperatura se encuentra por debajo de la minima permitida.'
+                    'created_at' => $last_reception->created_at;
                 ]);
             }
             if ($last_reception->data01 > $device->max && $device->watch === null)
@@ -70,16 +71,29 @@ class VerifyTemperature implements ShouldQueue
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La temperatura se encuentra por encima de la maxima permitida.'
+                    'created_at' => $last_reception->created_at;
                 ]);
             }
             if ($last_reception->data01 <= $device->max && $device->watch != null)
             {
+                Alert::create([
+                    'device_id' => $device->id,
+                    'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.'
+                    'created_at' => $last_reception->created_at;
+                ]);
                 $device->watch = null;
                 $device->update();
             }
 
             if ($last_reception->data01 >= $device->min && $device->watch != null)
             {
+                Alert::create([
+                    'device_id' => $device->id,
+                    'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.'
+                    'created_at' => $last_reception->created_at;
+                ]);
+                $device->watch = null;
+                $device->update();
                 $device->watch = null;
                 $device->update();
             }
@@ -92,6 +106,7 @@ class VerifyTemperature implements ShouldQueue
                     Alert::create([
                         'device_id' => $device->id,
                         'log' => 'El dispositivo se encuentra fuera de rango por un tiempo mayor al permitido'
+                        'created_at' => $last_reception->created_at;
                     ]);
                     //si el envio de mails esta activo
                     if ($device->mail_send)

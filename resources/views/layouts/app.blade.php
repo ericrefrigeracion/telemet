@@ -37,45 +37,55 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                         @can('devices.index')
-                    <li class="nav-item">
-                        <a class="nav-link {{ setActive('home') }}" href="{{ url('/home') }}">
-                        Panel Principal</a>
-                    </li>
-                    @endcan
                     @can('devices.index')
-                    <li class="nav-item">
-                        <a class="nav-link {{ setActive('devices.index') }}" href="{{ route('devices.index') }}">Dispositivos</a>
-                    </li>
+                        <ul class="navbar-nav mr-auto">
+                             @can('devices.index')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ setActive('home') }}" href="{{ url('/home') }}">
+                                    Panel Principal</a>
+                                </li>
+                            @endcan
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
+                                <div class="dropdown-menu">
+                                    @can('devices.index')
+                                        <a class="dropdown-item" href="{{ route('devices.index') }}">Mis Dispositivos</a>
+                                    @endcan
+                                    @can('devices.all')
+                                        <a class="dropdown-item" href="{{ route('devices.all') }}">Todos</a>
+                                    @endcan
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Alertas</a>
+                                <div class="dropdown-menu">
+                                    @can('alerts.index')
+                                        <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Alertas</a>
+                                    @endcan
+                                    @can('alerts.all')
+                                        <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas</a>
+                                    @endcan
+                                </div>
+                            </li>
+                        </ul>
                     @endcan
-                    @can('alerts.index')
-                    <li class="nav-item">
-                        <a class="nav-link {{ setActive('alerts.index') }}" href="{{ route('alerts.index') }}">Alertas</a>
-                    </li>
-                    @endcan
-
-
-
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administrador</a>
-                        <div class="dropdown-menu">
-                            @can('devices.all')
-                                <a class="dropdown-item {{ setActive('devices.all') }}" href="{{ route('devices.all') }}">Dispositivos-Todos</a>
-                            @endcan
-                            <div class="dropdown-divider"></div>
-                            @can('roles.index')
-                                <a class="dropdown-item {{ setActive('roles.index') }}" href="{{ route('roles.index') }}">Roles</a>
-                            @endcan
-                            @can('users.index')
-                                <a class="dropdown-item {{ setActive('users.index') }}" href="{{ route('users.index') }}">Usuarios</a>
-                            @endcan
-                        </div>
-                    </li>
+                        @can('devices.index')
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
+                                <div class="dropdown-menu">
+                                    @can('roles.index')
+                                        <a class="dropdown-item {{ setActive('roles.index') }}" href="{{ route('roles.index') }}">Roles</a>
+                                    @endcan
+                                    <div class="dropdown-divider"></div>
+                                    @can('users.index')
+                                        <a class="dropdown-item {{ setActive('users.index') }}" href="{{ route('users.index') }}">Usuarios</a>
+                                    @endcan
+                                </div>
+                            </li>
+                        @endcan
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">

@@ -1,4 +1,9 @@
  $.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json', function (data) {
+        Highcharts.setOptions({
+            time: {
+                timezone: 'America/Argentina/Cordoba'
+            }
+        });
 
         // Create the chart
         Highcharts.stockChart('plot', {

@@ -10,6 +10,22 @@ use Illuminate\Support\Facades\Auth;
 class AlertController extends Controller
 {
 
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+
+        $devices = Device::paginate(20);
+        foreach ($devices as $device) {
+            $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
+        }
+
+        return view('alerts.index')->with(['devices' => $devices]);
+
+    }
     /**
      * Display a listing of the resource.
      *
