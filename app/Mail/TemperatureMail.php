@@ -7,18 +7,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CentinelaAlerta extends Mailable
+class TemperatureMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $subjet = 'Aviso de temperatura fuera de rango.';
+    public $devices_values;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($devices_values)
     {
-        //
+        $this->devices_values = $devices_values;
     }
 
     /**
@@ -28,6 +30,7 @@ class CentinelaAlerta extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.centinela.alertas');
+
+        return $this->from('telemet@alertas-temperatura.com')->markdown('email.centinela.temperature');
     }
 }

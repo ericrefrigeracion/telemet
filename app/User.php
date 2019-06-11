@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name', 'email', 'password', 'notification_mail', 'notification_phone', 'address', 'payment_day',
     ];
 
+     protected $dates = ['payment_day'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

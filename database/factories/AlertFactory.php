@@ -11,5 +11,6 @@ $factory->define(Alert::class, function (Faker $faker) {
     return [
         'log' => $faker->sentence(5),
         'device_id' => $device->random()->id,
+        'alert_created_at' => now(),
     ];
 });

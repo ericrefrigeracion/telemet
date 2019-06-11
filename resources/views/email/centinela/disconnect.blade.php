@@ -3,7 +3,7 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => 'telemett'])
+@component('mail::button', ['url' => ''])
 Button Text
 @endcomponent
 

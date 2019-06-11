@@ -16,6 +16,8 @@ class MailAlert extends Model
          'last_data01', 'last_created_at', 'user_id', 'device_id', 'send', 'type'
     ];
 
+     protected $dates = ['last_created_at'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

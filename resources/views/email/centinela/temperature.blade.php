@@ -3,7 +3,7 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => 'telemett'])
+@component('mail::button', ['url' => 'sysnet.com.ar'])
 Button Text
 @endcomponent
 

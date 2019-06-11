@@ -18,6 +18,8 @@ class Device extends Model
         'id', 'name', 'lat', 'long', 'user_id', 'mon', 'mail', 'min', 'max', 'dly', 'cal', 'admin_mon', 'on_line', 'watch', 'mail_send',
     ];
 
+    protected $dates = ['watch'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

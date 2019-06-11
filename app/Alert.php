@@ -13,8 +13,10 @@ class Alert extends Model
      * @var array
      */
     protected $fillable = [
-         'log', 'device_id',
+         'log', 'device_id', 'alert_created_at',
     ];
+
+     protected $dates = ['alert_created_at'];
 
     /**
      * The attributes that should be hidden for arrays.

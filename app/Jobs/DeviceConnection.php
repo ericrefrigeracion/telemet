@@ -48,7 +48,7 @@ class DeviceConnection implements ShouldQueue
     public function handle()
     {
         $devices = Device::all()->where('mon', true)->where('admin_mon', true);
-        $delay = '2019-06-08 23:32:26'; //now()->modify('-10 minute')->format('Y-m-d H:i:s');
+        $delay = '2019-06-08 22:00:01'; //now()->modify('-10 minute')->format('Y-m-d H:i:s');
 
         foreach($devices as $device)
         {
@@ -68,7 +68,7 @@ class DeviceConnection implements ShouldQueue
                 {
                     MailAlert::create([
                         'last_data01' => $last_reception->data01,
-                        'last_created_at' => $last_reception->created_at,
+                        'alert_created_at' => $last_reception->created_at,
                         'type' => 'offLine',
                         'send_at' => null,
                         'user_id' => $device->user_id,

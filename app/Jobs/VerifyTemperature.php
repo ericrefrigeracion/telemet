@@ -60,8 +60,8 @@ class VerifyTemperature implements ShouldQueue
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra por debajo de la minima permitida.'
-                    'created_at' => $last_reception->created_at;
+                    'log' => 'La temperatura se encuentra por debajo de la minima permitida.',
+                    'alert_created_at' => $last_reception->created_at
                 ]);
             }
             if ($last_reception->data01 > $device->max && $device->watch === null)
@@ -70,43 +70,30 @@ class VerifyTemperature implements ShouldQueue
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra por encima de la maxima permitida.'
-                    'created_at' => $last_reception->created_at;
+                    'log' => 'La temperatura se encuentra por encima de la maxima permitida.',
+                    'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if ($last_reception->data01 <= $device->max && $device->watch != null)
+            if ($last_reception->data01 < $device->max && $last_reception->data01 > $device->min && $device->watch != null)
             {
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.'
-                    'created_at' => $last_reception->created_at;
+                    'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.',
+                    'alert_created_at' => $last_reception->created_at
                 ]);
-                $device->watch = null;
-                $device->update();
-            }
-
-            if ($last_reception->data01 >= $device->min && $device->watch != null)
-            {
-                Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.'
-                    'created_at' => $last_reception->created_at;
-                ]);
-                $device->watch = null;
-                $device->update();
                 $device->watch = null;
                 $device->update();
             }
 
             //condicion de tiempo
-            if (isset($device->watch)){
-                $watch = $device->watch->addMinute($device->dly);
+            if ($device->watch){
+                $watch = $device->watch->addMinutes($device->dly);
                 if ($watch <= now())
                 {
                     Alert::create([
                         'device_id' => $device->id,
-                        'log' => 'El dispositivo se encuentra fuera de rango por un tiempo mayor al permitido'
-                        'created_at' => $last_reception->created_at;
+                        'log' => 'El dispositivo se encuentra fuera de rango por un tiempo mayor al permitido',
+                        'alert_created_at' => $last_reception->created_at
                     ]);
                     //si el envio de mails esta activo
                     if ($device->mail_send)
@@ -117,7 +104,7 @@ class VerifyTemperature implements ShouldQueue
                             'type' => 'temp',
                             'send_at' => null,
                             'user_id' => $device->user_id,
-                            'device_id' => $device->id,
+                            'device_id' => $device->id
                         ]);
                     }
                 }

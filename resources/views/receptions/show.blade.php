@@ -43,13 +43,8 @@
         </div>
         <div class="col-md-8 mb-3">
             <div class="card">
-                <div class="card-header">
-                    Metricas de {{ $device->name }}
-                </div>
                 <div class="card-body">
-                    <div id="plot" style="height: 400px; min-width: 300px"></div>
-                </div>
-                <div class="card-footer" >
+                    <div id="plot" style="height: 400px; width: auto"></div>
                 </div>
             </div>
         </div>

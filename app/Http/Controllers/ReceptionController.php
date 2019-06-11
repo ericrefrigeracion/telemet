@@ -26,10 +26,11 @@ class ReceptionController extends Controller
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             $datas = Reception::where('device_id', $device->id)->get();
+            foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
             $today = Carbon::today();
             $yesterday = Carbon::yesterday();
 
-            $device->last_data = $datas->max('created_at')->diffForHumans();
+            if ($device) $device->last_data = $datas->max('created_at')->diffForHumans();
             $device->max_today = $datas->where('created_at', '>=', $today)->max('data01');
             $device->min_today = $datas->where('created_at', '>=', $today)->min('data01');
             $device->avg_today = $datas->where('created_at', '>=', $today)->avg('data01');

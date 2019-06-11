@@ -37,10 +37,6 @@
                                     <td>{{ $device->created_at }}</td>
                                 </tr>
                                 <tr>
-                                    <td>MODIFICADO</td>
-                                    <td>{{ $device->updated_at }}</td>
-                                </tr>
-                                <tr>
                                     <td>MONITOREO</td>
                                     <td>{{ $device->mon ? 'ACTIVO' : 'INACTIVO' }}</td>
                                 </tr>

@@ -1,9 +1,4 @@
  $.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json', function (data) {
-        Highcharts.setOptions({
-            time: {
-                timezone: 'America/Argentina/Cordoba'
-            }
-        });
 
         // Create the chart
         Highcharts.stockChart('plot', {
@@ -13,7 +8,7 @@
             },
 
             title: {
-                text: 'Datos medidos en °C'
+                text: 'Metricas de {{ $device->name }}'
             },
 
             yAxis: {
@@ -32,7 +27,7 @@
                 name: '°C',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ ($data->created_at->timestamp) * 1000 }}, {{ $data->data01 + $device->cal }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->cal }} ],
                         @endforeach
                 ],
                 type: 'spline',
@@ -42,7 +37,7 @@
             },
             @if($data->data02)
             {
-                name: 'Sensor 2',
+                name: 'HR %',
                 data: [
                         @foreach($datas as $data)
                             [ {{ ($data->created_at->timestamp) * 1000 }}, {{ $data->data02 }} ],
