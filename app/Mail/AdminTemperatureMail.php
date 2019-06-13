@@ -7,11 +7,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DisconnectMail extends Mailable
+class AdminTemperatureMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Aviso de equipo desconectado.';
+    public $subject = 'Aviso de temperatura fuera de rango.';
     public $device_values;
     public $device;
     public $user;
@@ -31,13 +31,13 @@ class DisconnectMail extends Mailable
     }
 
     /**
-     * Build the devices_values.
+     * Build the message.
      *
      * @return $this
      */
     public function build()
     {
         sleep(3);
-        return $this->from('telemet@alertas-desconexion.com')->markdown('email.centinela.disconnect');
+        return $this->from('telemet@alertas-temperatura.com')->markdown('email.centinela.admin_temperature');
     }
 }

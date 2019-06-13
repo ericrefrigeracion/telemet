@@ -48,13 +48,13 @@ class DeviceConnection implements ShouldQueue
     public function handle()
     {
         $devices = Device::all()->where('mon', true)->where('admin_mon', true);
-        $delay = '2019-06-08 22:00:01'; //now()->modify('-10 minute')->format('Y-m-d H:i:s');
+        $delay = now()->modify('-10 minute')->format('Y-m-d H:i:s');
 
         foreach($devices as $device)
         {
             $last_reception = Reception::where('device_id', $device->id)->latest()->first();
 
-            //Si el tiempo de recepcion es menor al delay(o sea mas viejo) && el dispocitivo figura en linea
+            //Si el tiempo de recepcion es menor al delay(o sea mas viejo) && el dispositivo figura en linea
             //en la base de datos(on_line=true)
             if ( $last_reception->created_at < $delay && $device->on_line )
             {

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DisconnectMail extends Mailable
+class AdminDisconnectMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -38,6 +38,6 @@ class DisconnectMail extends Mailable
     public function build()
     {
         sleep(3);
-        return $this->from('telemet@alertas-desconexion.com')->markdown('email.centinela.disconnect');
+        return $this->from('telemet@alertas-desconexion.com')->markdown('email.centinela.admin_disconnect');
     }
 }

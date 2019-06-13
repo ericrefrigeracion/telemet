@@ -19,7 +19,6 @@ $factory->define(Device::class, function (Faker $faker) {
         'cal' => $faker->numberBetween(-2,3),
         'admin_mon' => $faker->boolean,
         'on_line' => $faker->boolean,
-        'mail_send' => $faker->boolean,
         'view_alerts_at' => now(),
         'watch' => null,
         'user_id' => $user->random()->id,

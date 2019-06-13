@@ -26,7 +26,6 @@ class CreateDevicesTable extends Migration
             $table->timestamp('view_alerts_at');
             $table->timestamp('watch')->nullable();
             $table->boolean('admin_mon')->nullable();
-            $table->boolean('mail_send')->nullable();
             $table->boolean('on_line')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

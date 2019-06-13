@@ -11,16 +11,23 @@ class TemperatureMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subjet = 'Aviso de temperatura fuera de rango.';
-    public $devices_values;
+    public $subject = 'Aviso de temperatura fuera de rango.';
+    public $device_values;
+    public $device;
+    public $user;
+    public $tries = 5;
+    public $timeout = 30;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($devices_values)
+    public function __construct($device_values, $device, $user)
     {
-        $this->devices_values = $devices_values;
+        $this->device_values = $device_values;
+        $this->device = $device;
+        $this->user = $user;
     }
 
     /**
@@ -30,7 +37,7 @@ class TemperatureMail extends Mailable
      */
     public function build()
     {
-
+        sleep(3);
         return $this->from('telemet@alertas-temperatura.com')->markdown('email.centinela.temperature');
     }
 }

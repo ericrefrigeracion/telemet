@@ -3,9 +3,12 @@
 namespace App\Jobs;
 
 use App\User;
+use App\Device;
 use App\MailAlert;
 use App\Mail\DisconnectMail;
 use App\Mail\TemperatureMail;
+use App\Mail\AdminDisconnectMail;
+use App\Mail\AdminTemperatureMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -17,18 +20,7 @@ class SendMails implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-     /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
     public $tries = 5;
-
-    /**
-     * The number of seconds the job can run before timing out.
-     *
-     * @var int
-     */
     public $timeout = 30;
 
     /**
@@ -48,26 +40,27 @@ class SendMails implements ShouldQueue
      */
     public function handle()
     {
-        if($devices_values = MailAlert::all())
+        if($devices_values = MailAlert::where('send_at', null)->get())
         {
             foreach ($devices_values as $device_values)
             {
                 $user = User::find($device_values->user_id);
+                $device = Device::find($device_values->device_id);
+
+                $device_values->send_at = now();
+                $device_values->update();
+
                 if ($device_values->type == 'temp')
                 {
-                    Mail::to($user->notification_mail)->queue(new TemperatureMail($devices_values));
-                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new TemperatureMail($devices_values));
-                    Mail::to('carlosgavernet@gmail.com')->queue(new TemperatureMail($devices_values));
-                    $device_values->send_at = now();
-                    $device_values->update();
+                    Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
+                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
+                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'offLine')
                 {
-                    Mail::to($user->notification_mail)->queue(new DisconnectMail($devices_values));
-                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new DisconnectMail($devices_values));
-                    Mail::to('carlosgavernet@gmail.com')->queue(new DisconnectMail($devices_values));
-                    $device_values->send_at = now();
-                    $device_values->update();
+                    Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
+                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
+                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
                 }
             }
         }

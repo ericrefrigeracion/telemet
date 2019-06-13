@@ -89,13 +89,7 @@ class VerifyTemperature implements ShouldQueue
             if ($device->watch){
                 $watch = $device->watch->addMinutes($device->dly);
                 if ($watch <= now())
-                {
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'El dispositivo se encuentra fuera de rango por un tiempo mayor al permitido',
-                        'alert_created_at' => $last_reception->created_at
-                    ]);
-                    //si el envio de mails esta activo
+                {   //si el envio de mails esta activo
                     if ($device->mail_send)
                     {
                         MailAlert::create([
