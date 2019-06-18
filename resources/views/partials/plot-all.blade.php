@@ -1,31 +1,30 @@
-$.getJSON(
-    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
-    function (data) {
+ $.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json', function (data) {
 
-        Highcharts.chart('container', {
-            chart: {
-                zoomType: 'x'
+        // Create the chart
+        Highcharts.stockChart('plot-all', {
+
+            rangeSelector: {
+                selected: 1
             },
+
             title: {
-                text: 'Datos de hoy - {{ $device->name }}'
+                text: 'Metricas de {{ $device->name }}'
             },
-            xAxis: {
-                type: 'datetime'
-            },
+
             yAxis: {
-                title: {
-                    text: ''
-                }
-            },
-            legend: {
-                enabled: true
-            },
-            plotOptions: {
+
+                plotBands: [{
+                    from: {{ $device->min }},
+                    to: {{ $device->max }},
+                    color: 'rgba(68, 170, 213, 0.2)',
+                    label: {
+                        text: 'Valor Deseado'
+                    }
+                }]
             },
 
             series: [{
-                type: 'spline',
-                name: 'Temperatura °C',
+                name: '°C',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->cal }} ],
@@ -38,7 +37,7 @@ $.getJSON(
             },
             @if($data->data02)
             {
-                name: 'Humedad Relativa %',
+                name: 'HR %',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
@@ -52,5 +51,4 @@ $.getJSON(
             @endif
             ]
         });
-    }
-);
+    });

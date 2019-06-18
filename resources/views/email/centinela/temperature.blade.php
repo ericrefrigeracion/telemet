@@ -28,6 +28,6 @@ Desde el siguiente enlace puede revisar los mediciones realizadas por su disposi
 Metricas {{ $device->name }}
 @endcomponent
 
-Gracias,<br>
+Atentamente,<br>
 {{ config('app.name') }}
 @endcomponent

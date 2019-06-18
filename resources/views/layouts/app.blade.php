@@ -48,6 +48,9 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
                                 <div class="dropdown-menu">
+                                    @can('devices.create')
+                                        <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
+                                    @endcan
                                     @can('devices.index')
                                         <a class="dropdown-item" href="{{ route('devices.index') }}">Mis Dispositivos</a>
                                     @endcan

@@ -31,10 +31,17 @@ class HomeController extends Controller
 
         foreach ($devices as $device) {
 
-            $last_reception = Reception::where('device_id', $device->id)->latest()->first();
-            $device->last_data01 = $last_reception->data01;
-            $device->last_created_at = $last_reception->created_at->diffForHumans();
-            $device->last_rssi = $last_reception->rssi;
+            if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
+            {
+                $device->last_data01 = $last_reception->data01;
+                $device->last_created_at = $last_reception->created_at->diffForHumans();
+                $device->last_rssi = $last_reception->rssi;
+            }else
+            {
+                $device->last_data01 = 'Sin datos';
+                $device->last_created_at = 'Sin datos';
+                $device->last_rssi = 'Sin datos';
+            }
 
         }
 

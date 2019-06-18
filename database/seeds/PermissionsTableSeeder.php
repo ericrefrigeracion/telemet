@@ -117,9 +117,15 @@ class PermissionsTableSeeder extends Seeder
 
         //Receptions
         Permission::create([
-        	'name' => 'Ver grafico',
+        	'name' => 'Ver ultima hora',
         	'slug' => 'receptions.show',
-        	'description' => 'Ver el grafico de un dispositivo',
+        	'description' => 'Ver el grafico de la ultima hora de un dispositivo',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver todos los datos',
+            'slug' => 'receptions.show-all',
+            'description' => 'Ver el grafico de todos los datos de un dispositivo',
         ]);
 
 

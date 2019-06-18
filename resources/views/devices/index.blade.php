@@ -7,11 +7,6 @@
             <div class="card">
                 <div class="card-header">
                     Dispositivos
-                    @can('devices.create')
-                        <a href="{{ route('devices.create')}}" class="btn btn-primary btn-sm float-right">
-                            Agregar Dispositivo
-                        </a>
-                    @endcan
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover">
@@ -23,9 +18,6 @@
                                 <th>Nombre</th>
                                 <th>Acciones</th>
                                 @can('devices.log')
-                                    <th></th>
-                                @endcan
-                                @can('alerts.show')
                                     <th></th>
                                 @endcan
                             </tr>

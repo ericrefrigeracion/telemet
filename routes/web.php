@@ -81,6 +81,8 @@ Route::prefix('/centinela')->middleware('verified')->group(function () {
 	//Receptions
 	Route::get('/receptions/{device}', 'ReceptionController@show')
 		->name('receptions.show')->middleware('can:receptions.show');
+	Route::get('/receptions-all/{device}', 'ReceptionController@show_all')
+		->name('receptions.show-all')->middleware('can:receptions.show-all');
 
 	//Alerts
 	Route::get('/alerts', 'AlertController@index')

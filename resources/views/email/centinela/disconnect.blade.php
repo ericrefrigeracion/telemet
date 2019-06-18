@@ -12,6 +12,6 @@ Desde el siguiente enlace puede revisar las mediciones realizadas por su disposi
 Metricas {{ $device->name }}
 @endcomponent
 
-Gracias,<br>
+Atentamente,<br>
 {{ config('app.name') }}
 @endcomponent
