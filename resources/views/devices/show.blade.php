@@ -29,31 +29,60 @@
                                     <td>{{ $device->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Calibracion de la Medicion (°C)</td>
-                                    <td>{{ $device->cal > 0 ? "+" . $device->cal : $device->cal }}</td>
-                                </tr>
-                                <tr>
                                     <td>CREADO</td>
                                     <td>{{ $device->created_at }}</td>
                                 </tr>
                                 <tr>
-                                    <td>MONITOREO</td>
-                                    <td>{{ $device->mon ? 'ACTIVO' : 'INACTIVO' }}</td>
+                                    <td>AVISO POR E-MAIL</td>
+                                    <td>{{ $device->send_mails ? 'ACTIVO' : 'INACTIVO' }}</td>
                                 </tr>
-                                @if($device->mon)
+                                <tr>
+                                    <td>MONITOREO TEMPERATURA</td>
+                                    <td>{{ $device->tmon ? 'ACTIVO' : 'INACTIVO' }}</td>
+                                </tr>
+                                @if($device->tmon)
                                         <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
                                         <tr>
+                                            <td>Calibracion de la Medicion (°C)</td>
+                                            <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Minima Establecida (°C)</td>
-                                            <td>{{ $device->min }}</td>
+                                            <td>{{ $device->tmin }}</td>
                                         </tr>
                                         <tr>
                                             <td>Maxima Establecida (°C)</td>
-                                            <td>{{ $device->max }}</td>
+                                            <td>{{ $device->tmax }}</td>
                                         </tr>
                                         <tr>
                                             <td>Retardo al Aviso (minutos)</td>
-                                            <td>{{ $device->dly }}</td>
+                                            <td>{{ $device->tdly }}</td>
                                         </tr>
+                                @endif
+                                @if($device->mdl == 'th')
+                                <tr>
+                                    <td>MONITOREO HUMEDAD</td>
+                                    <td>{{ $device->hmon ? 'ACTIVO' : 'INACTIVO' }}</td>
+                                </tr>
+                                @if($device->hmon)
+                                        <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
+                                        <tr>
+                                            <td>Calibracion de la Medicion (%)</td>
+                                            <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Minima Establecida (%)</td>
+                                            <td>{{ $device->hmin }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maxima Establecida (%)</td>
+                                            <td>{{ $device->hmax }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Retardo al Aviso (minutos)</td>
+                                            <td>{{ $device->hdly }}</td>
+                                        </tr>
+                                @endif
                                 @endif
                         </tbody>
                     </table>

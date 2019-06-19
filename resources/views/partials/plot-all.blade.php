@@ -12,14 +12,21 @@
             },
 
             yAxis: {
-
                 plotBands: [{
-                    from: {{ $device->min }},
-                    to: {{ $device->max }},
+                    from: {{ $device->tmin }},
+                    to: {{ $device->tmax }},
                     color: 'rgba(68, 170, 213, 0.2)',
                     label: {
-                        text: 'Valor Deseado'
+                        text: 'Valor Deseado Temperatura'
+                    },
+                    @if($device->mdl == 'th')
+                    from: {{ $device->hmin }},
+                    to: {{ $device->hmax }},
+                    color: 'rgba(214, 214, 214, 0.2)',
+                    label: {
+                        text: 'Valor Deseado Humedad'
                     }
+                    @endif
                 }]
             },
 
@@ -27,7 +34,7 @@
                 name: '°C',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->cal }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
                         @endforeach
                 ],
                 type: 'spline',
@@ -35,12 +42,12 @@
                     valueDecimals: 2
                 }
             },
-            @if($data->data02)
+            @if($device->mdl == 'th')
             {
                 name: 'HR %',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->hcal }} ],
                         @endforeach
                 ],
                 type: 'spline',

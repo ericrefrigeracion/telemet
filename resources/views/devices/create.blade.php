@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre del dispositivo') }}
-                            {{ Form::text('name', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength=25']) }}
                         </div>
                         <div>
                             {{ Form::submit('Crear Dispositivo', ['class' => 'btn btn-sm btn-primary']) }}

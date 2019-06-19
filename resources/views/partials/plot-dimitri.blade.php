@@ -11,17 +11,7 @@
                 text: 'Metricas de {{ $device->name }}'
             },
 
-            yAxis: {
-
-                plotBands: [{
-                    from: {{ $device->min }},
-                    to: {{ $device->max }},
-                    color: 'rgba(68, 170, 213, 0.2)',
-                    label: {
-                        text: 'Valor Deseado'
-                    }
-                }]
-            },
+            yAxis: {},
 
             series: [{
                 name: '°C',

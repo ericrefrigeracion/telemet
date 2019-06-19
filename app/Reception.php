@@ -13,7 +13,7 @@ class Reception extends Model
      * @var array
      */
     protected $fillable = [
-        'data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'data10', 'data11', 'rssi', 'log', 'device_id'
+        'data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'data10', 'data11', 'data12', 'rssi', 'log', 'device_id'
     ];
 
     /**

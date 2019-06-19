@@ -15,10 +15,10 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'lat', 'long', 'user_id', 'mon', 'mail', 'min', 'max', 'dly', 'cal', 'admin_mon', 'on_line', 'watch',
+        'id', 'name', 'lat', 'long', 'user_id', 'send_mails', 'admin_mon', 'on_line', 'tmon', 'tmin', 'tmax', 'tdly', 'tcal', 'twatch', 'hmon', 'hmin', 'hmax', 'hdly', 'hcal', 'hwatch',
     ];
 
-    protected $dates = ['watch'];
+    protected $dates = ['hwatch', 'twatch'];
 
     /**
      * The attributes that should be hidden for arrays.

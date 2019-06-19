@@ -30,7 +30,7 @@ class ReceptionController extends Controller
             if ($datas->max('created_at'))
             {
 
-            foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (6 * 60 * 60)) * 1000;
+            foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
             return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
 
@@ -62,7 +62,7 @@ class ReceptionController extends Controller
 
             if ($datas->max('created_at'))
             {
-                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (6 * 60 * 60)) * 1000;
+                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
                 $today = Carbon::today();
                 $yesterday = Carbon::yesterday();
                 $device->last_data = $datas->max('created_at')->diffForHumans();

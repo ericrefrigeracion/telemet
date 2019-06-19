@@ -26,6 +26,7 @@ class CreateReceptionsTable extends Migration
             $table->float('data09')->nullable();
             $table->float('data10')->nullable();
             $table->float('data11')->nullable();
+            $table->float('data12')->nullable();
             $table->integer('rssi')->nullable();
             $table->string('log')->nullable();
             $table->unsignedBigInteger('device_id');

@@ -52,13 +52,13 @@ class SendMails implements ShouldQueue
 
                 if ($device_values->type == 'temp')
                 {
-                    Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
                     Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
                     Mail::to('carlosgavernet@gmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'offLine')
                 {
-                    Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
                     Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
                     Mail::to('carlosgavernet@gmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
                 }

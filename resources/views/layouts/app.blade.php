@@ -50,6 +50,7 @@
                                 <div class="dropdown-menu">
                                     @can('devices.create')
                                         <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
+                                        <div class="dropdown-divider"></div>
                                     @endcan
                                     @can('devices.index')
                                         <a class="dropdown-item" href="{{ route('devices.index') }}">Mis Dispositivos</a>

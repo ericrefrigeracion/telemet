@@ -47,16 +47,16 @@ class VerifyTemperature implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all()->where('mon', true)->where('admin_mon', true)->where('on_line', true);
+        $devices = Device::all()->where('tmon', true)->where('admin_mon', true)->where('on_line', true);
 
         foreach($devices as $device)
         {
             $last_reception = Reception::where('device_id', $device->id)->latest()->first();
 
             //condiciones para empezar a MIRAR los dispocitivos
-            if ($last_reception->data01 < $device->min && $device->watch === null)
+            if ($last_reception->data01 < $device->tmin && $device->twatch === null)
             {
-                $device->watch = $last_reception->created_at;
+                $device->twatch = $last_reception->created_at;
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
@@ -64,9 +64,9 @@ class VerifyTemperature implements ShouldQueue
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if ($last_reception->data01 > $device->max && $device->watch === null)
+            if ($last_reception->data01 > $device->tmax && $device->twatch === null)
             {
-                $device->watch = $last_reception->created_at;
+                $device->twatch = $last_reception->created_at;
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
@@ -74,33 +74,37 @@ class VerifyTemperature implements ShouldQueue
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if ($last_reception->data01 < $device->max && $last_reception->data01 > $device->min && $device->watch != null)
+            if ($last_reception->data01 < $device->tmax && $last_reception->data01 > $device->tmin && $device->twatch != null)
             {
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.',
                     'alert_created_at' => $last_reception->created_at
                 ]);
-                $device->watch = null;
+                $device->twatch = null;
                 $device->update();
             }
 
             //condicion de tiempo
-            if ($device->watch){
-                $watch = $device->watch->addMinutes($device->dly);
-                if ($watch <= now())
+            if ($device->twatch){
+                $twatch = $device->twatch->addMinutes($device->tdly);
+                if ($twatch <= now())
                 {   //si el envio de mails esta activo
-                    if ($device->mail_send)
-                    {
-                        MailAlert::create([
-                            'last_data01' => $last_reception->data01,
-                            'last_created_at' => $device->watch,
-                            'type' => 'temp',
-                            'send_at' => null,
-                            'user_id' => $device->user_id,
-                            'device_id' => $device->id
-                        ]);
-                    }
+
+                    MailAlert::create([
+                        'last_data01' => $last_reception->data01,
+                        'last_created_at' => $device->watch,
+                        'type' => 'temp',
+                        'send_at' => null,
+                        'user_id' => $device->user_id,
+                        'device_id' => $device->id
+                    ]);
+                    Alert::create([
+                        'device_id' => $device->id,
+                        'log' => 'Se envio el E-mail correspondiente alertando de la falla.',
+                        'alert_created_at' => now()
+                    ]);
+
                 }
             }
         }

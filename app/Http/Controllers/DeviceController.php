@@ -56,22 +56,34 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'required|integer|unique:devices,id',
-            'name' => 'required|max:30',
+            'id' => 'starts_with:1,2|required|numeric|min:1|unique:devices,id',
+            'name' => 'required|max:25',
         ];
 
         $request->validate($rules);
 
         $device = new Device;
         $device->id = $request->id;
+
+        if( substr($device->id, 0, 1) == 1 ) $device->mdl = 't';
+        if( substr($device->id, 0, 1) == 2 ) $device->mdl = 'th';
+
         $device->name = $request->name;
         $device->user_id = Auth::user()->id;
         $device->view_alerts_at = now();
-        $device->mon = 0;
-        $device->min = 0;
-        $device->max = 0;
-        $device->dly = 0;
-        $device->cal = 0;
+        $device->send_mails = 0;
+        $device->admin_mon = 0;
+        $device->tmon = 0;
+        $device->tmin = 0;
+        $device->tmax = 0;
+        $device->tdly = 0;
+        $device->tcal = 0;
+        $device->hmon = 0;
+        $device->hmin = 50;
+        $device->hmax = 50;
+        $device->hdly = 0;
+        $device->hcal = 0;
+
         $device->save();
 
         return redirect()->route('devices.show', $request->id)->with('info', 'Dispositivo creado con exito');
@@ -150,13 +162,17 @@ class DeviceController extends Controller
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             $rules = [
-                'name' => 'required|max:30',
-                'cal' => 'required|numeric|min:-5|max:5',
-                'mon' => 'boolean',
-                'min' => 'filled|numeric|min:-30|max:80',
-                'max' => 'filled|numeric|min:-30|max:80',
-                'dly' => 'filled|integer|min:0|max:60',
-
+                'name' => 'required|max:25',
+                'tcal' => 'required|numeric|min:-5|max:5',
+                'tmon' => 'boolean',
+                'tmin' => 'filled|numeric|min:-30|max:80',
+                'tmax' => 'filled|numeric|min:-30|max:80',
+                'tdly' => 'filled|integer|min:0|max:60',
+                'hcal' => 'required|numeric|min:-5|max:5',
+                'hmon' => 'boolean',
+                'hmin' => 'filled|numeric|min:0|max:95',
+                'hmax' => 'filled|numeric|min:0|max:95',
+                'hdly' => 'filled|integer|min:0|max:60',
             ];
 
             $request->validate($rules);

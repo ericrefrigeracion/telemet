@@ -28,7 +28,7 @@ $.getJSON(
                 name: 'Temperatura °C',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->cal }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
                         @endforeach
                 ],
                 type: 'spline',
@@ -36,12 +36,12 @@ $.getJSON(
                     valueDecimals: 2
                 }
             },
-            @if($data->data02)
+            @if($device->mdl == 'th')
             {
                 name: 'Humedad Relativa %',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->hcal }} ],
                         @endforeach
                 ],
                 type: 'spline',
