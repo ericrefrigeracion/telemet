@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\SendMails;
 use App\Jobs\DeviceConnection;
+use App\Jobs\VerifyHumidity;
 use App\Jobs\VerifyTemperature;
 use Illuminate\Console\Command;
 
@@ -42,6 +43,7 @@ class Revission extends Command
     {
         //DeviceConnection::dispatch();
         //VerifyTemperature::dispatch();
-        SendMails::dispatch();
+        VerifyHumidity::dispatch();
+        //SendMails::dispatch();
     }
 }

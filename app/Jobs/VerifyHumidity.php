@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class VerifyTemperature implements ShouldQueue
+class VerifyHumidity implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -36,67 +36,65 @@ class VerifyTemperature implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all()->where('tmon', true)->where('admin_mon', true)->where('on_line', true);
+        $devices = Device::all()->where('hmon', true)->where('admin_mon', true)->where('on_line', true);
 
         foreach($devices as $device)
         {
             $last_reception = Reception::where('device_id', $device->id)->latest()->first();
 
             //condiciones para empezar a MIRAR los dispocitivos
-            if ($last_reception->data01 < $device->tmin && $device->twatch === null)
+            if ($last_reception->data02 < $device->hmin && $device->hwatch === null)
             {
-                $device->twatch = $last_reception->created_at;
+                $device->hwatch = $last_reception->created_at;
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra por debajo de la minima permitida.',
+                    'log' => 'La humedad se encuentra por debajo de la minima permitida.',
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if ($last_reception->data01 > $device->tmax && $device->twatch === null)
+            if ($last_reception->data02 > $device->hmax && $device->hwatch === null)
             {
-                $device->twatch = $last_reception->created_at;
+                $device->hwatch = $last_reception->created_at;
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra por encima de la maxima permitida.',
+                    'log' => 'La humedad se encuentra por encima de la maxima permitida.',
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if ($last_reception->data01 < $device->tmax && $last_reception->data01 > $device->tmin && $device->twatch != null)
+            //condicion para dejar de MIRAR a los dispositivos
+            if ($last_reception->data02 < $device->hmax && $last_reception->data02 > $device->hmin && $device->hwatch != null)
             {
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La temperatura se encuentra dentro de los parametros normales nuevamente.',
+                    'log' => 'La humedad se encuentra dentro de los parametros normales nuevamente.',
                     'alert_created_at' => $last_reception->created_at
                 ]);
-                $device->twatch = null;
+                $device->hwatch = null;
                 $device->update();
             }
 
             //condicion de tiempo
-            if ($device->twatch){
-                $watch = $device->twatch->addMinutes($device->tdly);
+            if ($device->hwatch){
+                $watch = $device->hwatch->addMinutes($device->hdly);
                 if ($watch <= now())
                 {
-
                     MailAlert::create([
-                        'last_data01' => $last_reception->data01,
-                        'last_created_at' => $device->twatch,
-                        'type' => 'temp',
+                        'last_data01' => $last_reception->data02,
+                        'last_created_at' => $device->hwatch,
+                        'type' => 'hum',
                         'send_at' => null,
                         'user_id' => $device->user_id,
                         'device_id' => $device->id
                     ]);
                     Alert::create([
                         'device_id' => $device->id,
-                        'log' => 'Se envio el E-mail correspondiente alertando de la falla de temperatura.',
+                        'log' => 'Se envio el E-mail correspondiente alertando de la falla por humedad.',
                         'alert_created_at' => now()
                     ]);
-
                 }
             }
         }
-
     }
 }

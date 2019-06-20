@@ -50,17 +50,23 @@ class SendMails implements ShouldQueue
                 $device_values->send_at = now();
                 $device_values->update();
 
+                if ($device_values->type == 'offLine')
+                {
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
+                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
+                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
+                }
                 if ($device_values->type == 'temp')
                 {
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
                     Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
                     Mail::to('carlosgavernet@gmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
                 }
-                if ($device_values->type == 'offLine')
+                if ($device_values->type == 'hum')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
-                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
-                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new HumidityMail($device_values, $device, $user));
+                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminHumidityMail($device_values, $device, $user));
+                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminHumidityMail($device_values, $device, $user));
                 }
             }
         }
