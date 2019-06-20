@@ -13,15 +13,15 @@ Los valores que tiene programados para el equipo son:
 <table>
 	<tr>
 		<td>Minima: </td>
-		<td>{{ $device->min }}°C.</td>
+		<td>{{ $device->tmin }}°C.</td>
 	</tr>
 	<tr>
 		<td>Maxima: </td>
-		<td>{{ $device->max }}°C.</td>
+		<td>{{ $device->tmax }}°C.</td>
 	</tr>
 	<tr>
 		<td>Retardo: </td>
-		<td>{{ $device->dly }} minutos.</td>
+		<td>{{ $device->tdly }} minutos.</td>
 	</tr>
 </table>
 <hr>

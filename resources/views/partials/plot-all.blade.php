@@ -12,23 +12,41 @@
             },
 
             yAxis: {
-                plotBands: [{
-                    from: {{ $device->tmin }},
-                    to: {{ $device->tmax }},
-                    color: 'rgba(68, 170, 213, 0.2)',
-                    label: {
-                        text: 'Valor Deseado Temperatura'
-                    },
-                    @if($device->mdl == 'th')
-                    from: {{ $device->hmin }},
-                    to: {{ $device->hmax }},
-                    color: 'rgba(214, 214, 214, 0.2)',
-                    label: {
-                        text: 'Valor Deseado Humedad'
+        title: {
+            text: ''
+        },
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        alternateGridColor: null,
+        plotBands: [
+        @if($device->tmon)
+            {
+                from: {{ $device->tmin }},
+                to: {{ $device->tmax }},
+                color: 'rgba(68, 170, 213, 0.2)',
+                label: {
+                    text: 'Temperatura Deseada',
+                    style: {
+                        color: '#606060'
                     }
-                    @endif
-                }]
+                }
             },
+        @endif
+        @if($device->hmon)
+            {
+                from: {{ $device->hmin }},
+                to: {{ $device->hmax }},
+                color: 'rgba(214, 214, 214, 0.4)',
+                label: {
+                    text: 'Humedad Deseada',
+                    style: {
+                        color: '#606060'
+                    }
+                }
+            }
+        @endif
+        ]
+    },
 
             series: [{
                 name: '°C',

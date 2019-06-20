@@ -56,7 +56,7 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'starts_with:1,2|required|numeric|min:1|unique:devices,id',
+            'id' => 'starts_with:1,2|required|integer|min:1000|unique:devices,id',
             'name' => 'required|max:25',
         ];
 
@@ -163,12 +163,12 @@ class DeviceController extends Controller
 
             $rules = [
                 'name' => 'required|max:25',
-                'tcal' => 'required|numeric|min:-5|max:5',
+                'tcal' => 'filled|numeric|min:-5|max:5',
                 'tmon' => 'boolean',
                 'tmin' => 'filled|numeric|min:-30|max:80',
                 'tmax' => 'filled|numeric|min:-30|max:80',
                 'tdly' => 'filled|integer|min:0|max:60',
-                'hcal' => 'required|numeric|min:-5|max:5',
+                'hcal' => 'filled|numeric|min:-5|max:5',
                 'hmon' => 'boolean',
                 'hmin' => 'filled|numeric|min:0|max:95',
                 'hmax' => 'filled|numeric|min:0|max:95',

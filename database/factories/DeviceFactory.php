@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Device::class, function (Faker $faker) {
 	$user = User::all();
     return [
-    	'id' => $faker->unique()->numberBetween(4000, 8000),
+    	'id' => $faker->unique()->numberBetween(1000, 2999),
         'name' => $faker->sentence(3),
         'lat' => $faker->latitude(),
         'lon' => $faker->longitude(),
