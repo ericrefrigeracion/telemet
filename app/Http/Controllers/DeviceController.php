@@ -120,7 +120,7 @@ class DeviceController extends Controller
     public function log($id)
     {
         $device = Device::findOrFail($id);
-        $device_logs = Reception::where('device_id', $id)->where('log', '!=', 200)->paginate(20);
+        $device_logs = Reception::where('device_id', $id)->where('log', '!=', 200)->latest()->paginate(20);
 
         return view('devices.log')->with(['device_logs' => $device_logs, 'device' => $device]);
 
@@ -164,6 +164,7 @@ class DeviceController extends Controller
 
             $rules = [
                 'name' => 'required|max:25',
+                'send_mails' => 'boolean',
                 'tcal' => 'filled|numeric|min:-5|max:5',
                 'tmon' => 'boolean',
                 'tmin' => 'filled|numeric|min:-30|max:80',

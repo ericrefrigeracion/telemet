@@ -87,7 +87,12 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
 
-            $rules = [];
+            $rules = [
+                'name' => 'required|max:25',
+                'notification_mail' => 'nullable|email',
+                'notification_phone' => 'nullable|numeric',
+                'address' => 'nullable|string'
+            ];
 
             $request->validate($rules);
             $user->update($request->all());
@@ -106,7 +111,13 @@ class UserController extends Controller
     public function update_me(Request $request)
     {
 
-            $rules = [];
+            $rules = [
+                'name' => 'required|max:25',
+                'notification_mail' => 'nullable|email',
+                'notification_phone' => 'nullable|numeric',
+                'address' => 'nullable|string'
+            ];
+
             $user = Auth::user();
             $request->validate($rules);
             $user->update($request->all());
