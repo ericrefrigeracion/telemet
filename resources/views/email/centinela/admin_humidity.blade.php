@@ -3,7 +3,7 @@
 # {{ $device->name }} esta fuera de rango.
 
 El equipo del sr {{ $user->name }} con ID {{ $device->id }} se encuentra fuera de los limites establecidos por un tiempo mayor al que se ha determinado.
-El dia {{ $device_values->last_created_at }} el equipo salio de rango con una temperatura de {{ $device_values->last_data }}°C.
+El dia {{ $device_values->last_created_at }} el equipo salio de rango con una humedad relativa de {{ $device_values->last_data }}%.
 
 <hr>
 El numero de telefono del usuario es {{ $user->notification_phone }}, su direccion es {{ $user->address }}.
@@ -13,15 +13,15 @@ Los valores que tiene programados para el equipo son:
 <table>
 	<tr>
 		<td>Minima: </td>
-		<td>{{ $device->tmin }}°C.</td>
+		<td>{{ $device->hmin }}%.</td>
 	</tr>
 	<tr>
 		<td>Maxima: </td>
-		<td>{{ $device->tmax }}°C.</td>
+		<td>{{ $device->hmax }}%.</td>
 	</tr>
 	<tr>
 		<td>Retardo: </td>
-		<td>{{ $device->tdly }} minutos.</td>
+		<td>{{ $device->hdly }} minutos.</td>
 	</tr>
 </table>
 <hr>

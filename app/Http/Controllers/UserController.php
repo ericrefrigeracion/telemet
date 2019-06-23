@@ -36,6 +36,18 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
+     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Devices  $devices
+     * @return \Illuminate\Http\Response
+     */
+    public function show_me()
+    {
+        $user = Auth::user();
+        return view('users.show-me', compact('user'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -47,6 +59,21 @@ class UserController extends Controller
 
         $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Devices  $devices
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_me()
+    {
+
+        $user = Auth::user();
+        $roles = Role::all();
+        return view('users.edit-me', compact('user', 'roles'));
 
     }
 
@@ -67,6 +94,24 @@ class UserController extends Controller
             $user->roles()->sync($request->get('roles'));
 
             return redirect()->route('users.show', $user->id)->with('info', 'Usuario actualizado con exito');
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Devices  $devices
+     * @return \Illuminate\Http\Response
+     */
+    public function update_me(Request $request)
+    {
+
+            $rules = [];
+            $user = Auth::user();
+            $request->validate($rules);
+            $user->update($request->all());
+
+            return redirect()->route('users.show-me')->with('info', 'Usuario actualizado con exito');
     }
 
     /**

@@ -7,11 +7,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AdminTemperatureMail extends Mailable
+class AdminHumidityMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Aviso de temperatura fuera de rango.';
+    public $subject = 'Aviso de humedad fuera de rango.';
     public $device_values;
     public $device;
     public $user;

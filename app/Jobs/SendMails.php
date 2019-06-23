@@ -5,8 +5,10 @@ namespace App\Jobs;
 use App\User;
 use App\Device;
 use App\MailAlert;
+use App\Mail\HumidityMail;
 use App\Mail\DisconnectMail;
 use App\Mail\TemperatureMail;
+use App\Mail\AdminHumidityMail;
 use App\Mail\AdminDisconnectMail;
 use App\Mail\AdminTemperatureMail;
 use Illuminate\Bus\Queueable;
@@ -42,6 +44,9 @@ class SendMails implements ShouldQueue
     {
         if($devices_values = MailAlert::where('send_at', null)->get())
         {
+            $eric = User::find(1);
+            $carlos = User::find(2);
+
             foreach ($devices_values as $device_values)
             {
                 $user = User::find($device_values->user_id);
@@ -53,20 +58,20 @@ class SendMails implements ShouldQueue
                 if ($device_values->type == 'offLine')
                 {
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
-                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
-                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminDisconnectMail($device_values, $device, $user));
+                    Mail::to($eric->notification_mail)->queue(new AdminDisconnectMail($device_values, $device, $user));
+                    Mail::to($carlos->notification_mail)->queue(new AdminDisconnectMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'temp')
                 {
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
                     Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
-                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
+                    Mail::to($carlos->notification_mail)->queue(new AdminTemperatureMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'hum')
                 {
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new HumidityMail($device_values, $device, $user));
-                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminHumidityMail($device_values, $device, $user));
-                    Mail::to('carlosgavernet@gmail.com')->queue(new AdminHumidityMail($device_values, $device, $user));
+                    Mail::to($eric->notification_mail)->queue(new AdminHumidityMail($device_values, $device, $user));
+                    Mail::to($carlos->notification_mail)->queue(new AdminHumidityMail($device_values, $device, $user));
                 }
             }
         }

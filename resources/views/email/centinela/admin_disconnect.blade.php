@@ -5,7 +5,7 @@
 El equipo del sr {{ $user->name }} con ID {{ $device->id }} se encuentra sin enviar datos por los ultimos 10minutos.
 normalmente esto se puede deber a problemas de la conexion a internet o con la energia electrica.
 
-Los ultimos datos que tenemos de su equipo son el {{ $device_values->last_created_at }} y se midio una temperatura de {{ $device_values->last_data01 }}°C.
+Los ultimos datos que tenemos de su equipo son el {{ $device_values->last_created_at }} y se midio una temperatura de {{ $device_values->last_data }}°C.
 
 <hr>
 El numero de telefono del usuario es {{ $user->notification_phone }}, su direccion es {{ $user->address }}.

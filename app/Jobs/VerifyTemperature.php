@@ -75,13 +75,13 @@ class VerifyTemperature implements ShouldQueue
             }
 
             //condicion de tiempo
-            if ($device->twatch){
+            if ($device->twatch && !MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->twatch)->count())
+            {
                 $watch = $device->twatch->addMinutes($device->tdly);
                 if ($watch <= now())
                 {
-
                     MailAlert::create([
-                        'last_data01' => $last_reception->data01,
+                        'last_data' => $last_reception->data01,
                         'last_created_at' => $device->twatch,
                         'type' => 'temp',
                         'send_at' => null,
@@ -93,10 +93,8 @@ class VerifyTemperature implements ShouldQueue
                         'log' => 'Se envio el E-mail correspondiente alertando de la falla de temperatura.',
                         'alert_created_at' => now()
                     ]);
-
                 }
             }
         }
-
     }
 }

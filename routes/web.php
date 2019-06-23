@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/receptions/incoming', 'ReceptionController@store');
 
 Route::prefix('/admin')->middleware('verified')->group(function () {
@@ -89,5 +89,16 @@ Route::prefix('/centinela')->middleware('verified')->group(function () {
 		->name('alerts.index')->middleware('can:alerts.index');
 	Route::get('/alerts/{device}', 'AlertController@show')
 		->name('alerts.show')->middleware('can:alerts.show');
+
+});
+
+Route::prefix('/user')->middleware('verified')->group(function () {
+
+	Route::put('/users-me', 'UserController@update_me')
+		->name('users.update-me')->middleware('can:users.edit-me');
+	Route::get('/users', 'UserController@show_me')
+		->name('users.show-me')->middleware('can:users.show-me');
+	Route::get('/users/edit-me', 'UserController@edit_me')
+		->name('users.edit-me')->middleware('can:users.edit-me');
 
 });

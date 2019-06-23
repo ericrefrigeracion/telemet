@@ -73,6 +73,7 @@ class DeviceController extends Controller
         $device->view_alerts_at = now();
         $device->send_mails = 0;
         $device->admin_mon = 0;
+        $device->on_line = 0;
         $device->tmon = 0;
         $device->tmin = 0;
         $device->tmax = 0;

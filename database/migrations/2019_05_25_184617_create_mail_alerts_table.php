@@ -17,7 +17,7 @@ class CreateMailAlertsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('device_id');
             $table->unsignedBigInteger('user_id');
-            $table->float('last_data01')->nullable();
+            $table->float('last_data')->nullable();
             $table->string('type')->nullable();
             $table->timestamp('last_created_at')->nullable();
             $table->timestamp('send_at')->nullable();

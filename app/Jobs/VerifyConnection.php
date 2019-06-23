@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DeviceConnection implements ShouldQueue
+class VerifyConnection implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -53,17 +53,15 @@ class DeviceConnection implements ShouldQueue
                     'device_id' => $device->id,
                     'log' => 'El dispositivo se encuentra desconectado de nuestro servidor hace mas de 10 minutos'
                 ]);
-                if($device->mail_send)
-                {
-                    MailAlert::create([
-                        'last_data01' => $last_reception->data01,
-                        'alert_created_at' => $last_reception->created_at,
-                        'type' => 'offLine',
-                        'send_at' => null,
-                        'user_id' => $device->user_id,
-                        'device_id' => $device->id,
-                    ]);
-                }
+                MailAlert::create([
+                    'last_data' => $last_reception->data01,
+                    'alert_created_at' => $last_reception->created_at,
+                    'type' => 'offLine',
+                    'send_at' => null,
+                    'user_id' => $device->user_id,
+                    'device_id' => $device->id,
+                ]);
+
             }
 
             //Si el tiempo de recepcion es mayor al delay(o sea mas nuevo) && el dispocitivo figura fuera de linea

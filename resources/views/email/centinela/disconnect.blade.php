@@ -4,7 +4,7 @@
 
 No hemos recibido datos de su dispositivo en los ultimos diez minutos,
 normalmente esto puede deberse a problemas de la conexion a internet o con la energia electrica.
-Los ultimos datos que tenemos de su equipo son el {{ $device_values->last_created_at }} y se midio una temperatura de {{ $device_values->last_data01 }}°C.
+Los ultimos datos que tenemos de su equipo son el {{ $device_values->last_created_at }} y se midio una temperatura de {{ $device_values->last_data }}°C.
 
 Desde el siguiente enlace puede revisar las mediciones realizadas por su dispositivo.
 

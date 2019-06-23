@@ -13,7 +13,7 @@ class MailAlert extends Model
      * @var array
      */
     protected $fillable = [
-         'last_data01', 'last_created_at', 'user_id', 'device_id', 'send', 'type'
+         'last_data', 'last_created_at', 'user_id', 'device_id', 'send', 'type'
     ];
 
      protected $dates = ['last_created_at'];

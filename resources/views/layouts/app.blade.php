@@ -76,16 +76,16 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        @can('devices.index')
+                        @can('users.index')
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
                                 <div class="dropdown-menu">
                                     @can('roles.index')
-                                        <a class="dropdown-item {{ setActive('roles.index') }}" href="{{ route('roles.index') }}">Roles</a>
+                                        <a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
                                     @endcan
                                     <div class="dropdown-divider"></div>
                                     @can('users.index')
-                                        <a class="dropdown-item {{ setActive('users.index') }}" href="{{ route('users.index') }}">Usuarios</a>
+                                        <a class="dropdown-item" href="{{ route('users.index') }}">Usuarios</a>
                                     @endcan
                                 </div>
                             </li>
@@ -112,6 +112,9 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    @can('users.show-me')
+                                        <a class="dropdown-item" href="{{ route('users.show-me') }}">Mi perfil</a>
+                                    @endcan
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

@@ -128,6 +128,19 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver el grafico de todos los datos de un dispositivo',
         ]);
 
+        //User
+
+        Permission::create([
+            'name' => 'Ver sus datos',
+            'slug' => 'users.show-me',
+            'description' => 'Ver sus datos personales de usuario',
+        ]);
+
+        Permission::create([
+            'name' => 'Editar sus datos',
+            'slug' => 'users.edit-me',
+            'description' => 'Editar sus datos personales de usuario',
+        ]);
 
     }
 }

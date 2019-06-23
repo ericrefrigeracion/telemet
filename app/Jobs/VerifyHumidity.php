@@ -76,12 +76,13 @@ class VerifyHumidity implements ShouldQueue
             }
 
             //condicion de tiempo
-            if ($device->hwatch){
+            if ($device->hwatch && !MailAlert::where('device_id', $device->id)->where('type', 'hum')->where('last_created_at', $device->hwatch)->count())
+            {
                 $watch = $device->hwatch->addMinutes($device->hdly);
                 if ($watch <= now())
                 {
                     MailAlert::create([
-                        'last_data01' => $last_reception->data02,
+                        'last_data' => $last_reception->data02,
                         'last_created_at' => $device->hwatch,
                         'type' => 'hum',
                         'send_at' => null,
@@ -90,7 +91,7 @@ class VerifyHumidity implements ShouldQueue
                     ]);
                     Alert::create([
                         'device_id' => $device->id,
-                        'log' => 'Se envio el E-mail correspondiente alertando de la falla por humedad.',
+                        'log' => 'Se envio el E-mail correspondiente alertando de la falla de humedad.',
                         'alert_created_at' => now()
                     ]);
                 }
