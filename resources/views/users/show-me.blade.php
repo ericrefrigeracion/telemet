@@ -36,22 +36,6 @@
                                     <td>Direccion</td>
                                     <td>{{ $user->address }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Creado</td>
-                                    <td>{{ $user->created_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Verificado</td>
-                                    <td>{{ $user->email_verified_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Modificado</td>
-                                    <td>{{ $user->updated_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dia de Pago</td>
-                                    <td>{{ $user->payment_day }}</td>
-                                </tr>
                         </tbody>
                     </table>
                 </div>
