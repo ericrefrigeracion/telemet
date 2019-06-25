@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
     	]);
     	User::create([
     		'name' => 'Carlos',
-    		'email' => 'cgavernet@gmail.com',
+    		'email' => 'carlosgavernet@gmail.com',
             'notification_mail' => 'cgavernet@gmail.com',
     		'email_verified_at' => now(),
     		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

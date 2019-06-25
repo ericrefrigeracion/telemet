@@ -15,7 +15,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->roles()->attach(3);
+        //$user->roles()->attach(3);
     }
 
     /**
