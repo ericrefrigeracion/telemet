@@ -13,22 +13,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-    	User::create([
-    		'name' => 'Eric',
-    		'email' => 'ericlopezrefrigeracion@hotmail.com',
-            'notification_mail' => 'ericlopezrefrigeracion@hotmail.com',
-    		'email_verified_at' => now(),
-    		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-    		'remember_token' => Str::random(10),
-    	]);
-    	User::create([
-    		'name' => 'Carlos',
-    		'email' => 'carlosgavernet@gmail.com',
-            'notification_mail' => 'cgavernet@gmail.com',
-    		'email_verified_at' => now(),
-    		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-    		'remember_token' => Str::random(10),
-    	]);
         Role::create([
             'name' => 'Admin',
             'slug' => 'admin',
@@ -47,6 +31,22 @@ class UsersTableSeeder extends Seeder
             'description' => 'Rol de usuario basico',
             'special' => null
         ]);
+    	User::create([
+    		'name' => 'Eric',
+    		'email' => 'ericlopezrefrigeracion@hotmail.com',
+            'notification_mail' => 'ericlopezrefrigeracion@hotmail.com',
+    		'email_verified_at' => now(),
+    		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    		'remember_token' => Str::random(10),
+    	]);
+    	User::create([
+    		'name' => 'Carlos',
+    		'email' => 'carlosgavernet@gmail.com',
+            'notification_mail' => 'cgavernet@gmail.com',
+    		'email_verified_at' => now(),
+    		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    		'remember_token' => Str::random(10),
+    	]);
 
     }
 }
