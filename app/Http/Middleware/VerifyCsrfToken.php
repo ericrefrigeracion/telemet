@@ -20,6 +20,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'http://www.sysnet.com.ar/webhooks',
+        '/webhooks',
         'http://telemett.test/webhooks'
     ];
 }
