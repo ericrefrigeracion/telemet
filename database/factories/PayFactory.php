@@ -17,7 +17,7 @@ $factory->define(Pay::class, function (Faker $faker) {
         'method' => $faker->randomElement(['pagofacil', 'rapipago', 'redlink']),
         'status' => $faker->randomElement(['pendiente', 'acreditado', 'vencido']),
         'payer' => $faker->safeEmail,
-        'vigent_until' => $now(),
+        'vigent_until' => now(),
         'amount' => 650,
     ];
 });
