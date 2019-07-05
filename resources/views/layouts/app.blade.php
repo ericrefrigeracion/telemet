@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -37,7 +37,6 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    @can('devices.index')
                         <ul class="navbar-nav mr-auto">
                              @can('devices.index')
                                 <li class="nav-item">
@@ -46,7 +45,9 @@
                                 </li>
                             @endcan
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
+                                @can('devices.index')
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
+                                @endcan
                                 <div class="dropdown-menu">
                                     @can('devices.create')
                                         <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
@@ -58,10 +59,13 @@
                                     @can('devices.all')
                                         <a class="dropdown-item" href="{{ route('devices.all') }}">Todos</a>
                                     @endcan
+                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Alertas</a>
+                                @can('alerts.index')
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Alertas</a>
+                                @endcan
                                 <div class="dropdown-menu">
                                     @can('alerts.index')
                                         <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Alertas</a>
@@ -69,11 +73,24 @@
                                     @can('alerts.all')
                                         <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas</a>
                                     @endcan
+                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                @can('pays.index')
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagos</a>
+                                @endcan
+                                <div class="dropdown-menu">
+                                    @can('pays.index')
+                                        <a class="dropdown-item" href="{{ route('pays.index') }}">Mis Pagos</a>
+                                    @endcan
+                                    @can('pays.create')
+                                        <a class="dropdown-item" href="{{ route('pays.create') }}">Pagar</a>
+                                    @endcan
+                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                 </div>
                             </li>
                         </ul>
-                    @endcan
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         @can('users.index')
@@ -112,13 +129,14 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    @can('users.show-me')
-                                        <a class="dropdown-item" href="{{ route('users.show-me') }}">Mi perfil</a>
-                                    @endcan
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    @can('users.show-me')
+                                        <a class="dropdown-item" href="{{ route('users.show-me') }}">Mi perfil</a>
+                                    @endcan
+                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                 </div>
                             </li>
                         @endguest

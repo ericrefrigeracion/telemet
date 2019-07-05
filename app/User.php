@@ -2,8 +2,9 @@
 
 namespace App;
 
+use App\Pay;
 use App\Device;
-use App\UserInformation;
+use App\MailAlert;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,10 +21,10 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'notification_mail', 'notification_phone', 'address', 'payment_day',
+        'name', 'email', 'password', 'notification_mail', 'notification_phone', 'address',
     ];
 
-     protected $dates = ['payment_day'];
+     protected $dates = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -46,6 +47,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function devices()
     {
         return $this->hasMany(Device::class);
+    }
+
+    public function mail_alerts()
+    {
+        return $this->hasMany(MailAlert::class);
+    }
+    public function pays()
+    {
+        return $this->hasMany(Pay::class);
     }
 
 }

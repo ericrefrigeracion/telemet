@@ -26,6 +26,5 @@ $factory->define(User::class, function (Faker $faker) {
         'notification_mail' => $faker->safeEmail,
         'notification_phone' => $faker->phoneNumber,
         'address' => $faker->address,
-        'payment_date' => now(),
     ];
 });

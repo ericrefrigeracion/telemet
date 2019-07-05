@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Pay;
+use App\User;
+use App\Alert;
 use App\Receptions;
 use App\DeviceConfiguration;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
@@ -38,6 +40,10 @@ class Device extends Model
     }
     public function alerts()
     {
-        return $this->hasMany(Reception::class);
+        return $this->hasMany(Alert::class);
+    }
+    public function pays()
+    {
+        return $this->hasMany(Pay::class);
     }
 }

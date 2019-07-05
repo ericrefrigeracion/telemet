@@ -63,7 +63,7 @@ class PermissionsTableSeeder extends Seeder
 
     	//Devices
         Permission::create([
-        	'name' => 'Listar dispositivos',
+        	'name' => 'Listar dispositivos por usuario',
         	'slug' => 'devices.index',
         	'description' => 'Listar y navegar todos sus dispositivos',
         ]);
@@ -100,12 +100,12 @@ class PermissionsTableSeeder extends Seeder
 
         //Alerts
         Permission::create([
-            'name' => 'Ver alertas de un usuario',
+            'name' => 'Listar alertas por usuario',
             'slug' => 'alerts.index',
             'description' => 'Ver todas las alertas de un usuario',
         ]);
         Permission::create([
-            'name' => 'Ver alertas de un equipo',
+            'name' => 'Listar alertas por equipo',
             'slug' => 'alerts.show',
             'description' => 'Ver las alertas de un dispositivo',
         ]);
@@ -142,5 +142,24 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Editar sus datos personales de usuario',
         ]);
 
+        //Payment
+
+        Permission::create([
+            'name' => 'Ver sus pagos',
+            'slug' => 'pays.index',
+            'description' => 'Ver los pagos de un usuario',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver pago',
+            'slug' => 'pays.show',
+            'description' => 'Ver un pago especifico de un usuario',
+        ]);
+
+        Permission::create([
+            'name' => 'Pagar',
+            'slug' => 'pays.create',
+            'description' => 'Crear un pago para un dispositivo',
+        ]);
     }
 }

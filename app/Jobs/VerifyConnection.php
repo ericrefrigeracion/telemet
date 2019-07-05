@@ -74,6 +74,14 @@ class VerifyConnection implements ShouldQueue
                     'device_id' => $device->id,
                     'log' => 'El dispositivo esta conectado nuevamente'
                 ]);
+                MailAlert::create([
+                    'last_data' => $last_reception->data01,
+                    'alert_created_at' => $last_reception->created_at,
+                    'type' => 'onLine',
+                    'send_at' => null,
+                    'user_id' => $device->user_id,
+                    'device_id' => $device->id,
+                ]);
             }
         }
     }

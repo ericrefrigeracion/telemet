@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('notification_mail')->nullable();
             $table->string('notification_phone')->nullable();
             $table->string('address')->nullable();
-            $table->timestamp('payment_date')->nullable();
             $table->timestamps();
         });
     }

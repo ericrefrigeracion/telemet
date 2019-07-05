@@ -12,9 +12,6 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                @can('devices.all')
-                                    <th>ID</th>
-                                @endcan
                                 <th>Nombre</th>
                                 <th>Nuevas Alertas</th>
                             </tr>
@@ -22,24 +19,14 @@
                         <tbody>
                             @foreach($devices as $device)
                                 <tr>
-                                    @can('devices.all')
-                                        <td>{{ $device->id }}</td>
-                                    @endcan
                                     <td>
-                                        @can('devices.show')
-                                                <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">
-                                        @endcan
-                                        {{ $device->name }}
-                                        @can('devices.show')</a>@endcan
+                                        <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">
+                                        {{ $device->name }}</a>
                                     </td>
                                     <td>
-                                        @can('alerts.show')
-                                                <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger">
-                                        @endcan
-                                        {{ $device->alerts_count }}
-                                        @can('alerts.show')</a>@endcan
+                                        <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger">
+                                        {{ $device->alerts_count }}</a>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

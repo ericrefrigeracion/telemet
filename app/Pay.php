@@ -2,11 +2,10 @@
 
 namespace App;
 
-use App\User;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
-class MailAlert extends Model
+class Pay extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -14,10 +13,10 @@ class MailAlert extends Model
      * @var array
      */
     protected $fillable = [
-         'last_data', 'last_created_at', 'user_id', 'device_id', 'type', 'send_at'
+         'device_id', 'user_id', 'type', 'status', 'description', 'method', 'payer', 'amount', 'vigent_until',
     ];
 
-     protected $dates = ['send_at'];
+     protected $dates = ['vigent_until'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,10 +29,5 @@ class MailAlert extends Model
     public function devices()
     {
     	return $this->belongsTo(Device::class);
-    }
-
-    public function users()
-    {
-        return $this->belongsTo(User::class);
     }
 }

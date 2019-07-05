@@ -1,5 +1,6 @@
 <?php
 
+use App\Pay;
 use App\User;
 use App\Alert;
 use App\Device;
@@ -19,12 +20,10 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(UserPermissionsTableSeeder::class);
 
-        //factory(User::class, 25)->create();
-
-        //factory(Device::class, 150)->create();
-
-        //factory(Alert::class, 1500)->create();
-        //factory(Reception::class, 15000)->create();
-
+        factory(User::class, 25)->create();
+        factory(Device::class, 150)->create();
+        factory(Alert::class, 1500)->create();
+        factory(Pay::class, 1500)->create();
+        factory(Reception::class, 15000)->create();
     }
 }
