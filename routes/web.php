@@ -13,7 +13,6 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
-Route::post('/webhooks', 'WebhookController@store');
 Route::get('/receptions/incoming', 'ReceptionController@store');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::get('/info', 'HomeController@info')->name('info')->middleware('verified');
