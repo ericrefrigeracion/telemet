@@ -18,4 +18,6 @@ use Illuminate\Http\Request;
 //});
 
 Route::post('/webhooks', 'WebhookController@store');
-Route::get('/receptions/incoming', 'ReceptionController@store');
+Route::post('/receptions/incoming', 'ReceptionController@store');
+
+

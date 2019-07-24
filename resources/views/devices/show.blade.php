@@ -33,6 +33,10 @@
                                     <td>{{ $device->created_at }}</td>
                                 </tr>
                                 <tr>
+                                    <td>MONITOREO VALIDO HASTA</td>
+                                    <td><a href="{{ route('pays.create') }}" class="btn btn-sm btn-default">Pagar por el Monitoreo</a></td>
+                                </tr>
+                                <tr>
                                     <td>AVISO POR E-MAIL</td>
                                     <td>{{ $device->send_mails ? 'ACTIVO' : 'INACTIVO' }}</td>
                                 </tr>

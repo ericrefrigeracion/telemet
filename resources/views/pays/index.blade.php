@@ -13,7 +13,8 @@
                         <thead>
                             <tr>
                                 <th>Dispositivo</th>
-                                <th>Generado</th>
+                                <th>Creado Fecha</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,6 +25,9 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('pays.show', $pay->id) }}" class="btn btn-sm btn-default">{{ $pay->created_at }}</a>
+                                        </td>
+                                        <td>
+                                            {{ $pay->status }}
                                         </td>
                                     </tr>
                                 @endforeach

@@ -10,13 +10,15 @@
                         <tbody>
                             @foreach($devices as $device)
                                 <tr>
-                                    <td>{{ $device->id }}</td>
+                                    @can('devices.show')
+                                    <td><a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->id }}</a></td>
+                                    @endcan
                                     <td>{{ $device->last_created_at }}</td>
                                     <td>{{ $device->last_data01 }}</td>
                                     <td>{{ $device->last_rssi }}</td>
                                 </tr>
                             @endforeach
-                                <tr><td colspan="5">Dirijase a la pestaña dispositivos para mas informacion</td></tr>
+                                <tr><td colspan="5">Dirijase a la pestaña <a href="{{ route('devices.index') }}">Mis Dispositivos</a> para mas informacion</td></tr>
                         </tbody>
 
                     </table>

@@ -13,7 +13,14 @@ return [
     | to have a conventional place to find your various credentials.
     |
     */
-
+    'mercadopago' => [
+        'base_uri' => env('MP_BASE_URI', 'no hay uri base'),
+        'public_key' => env('MP_PUBLIC_KEY', 'no hay public key'),
+        'token' => env('MP_TOKEN', 'no hay token'),
+        'client_id' => env('MP_CLIENT_ID', 'no hay id'),
+        'client_secret' => env('MP_CLIENT_SECRET', 'no hay client secret'),
+        'app_id' => env('MP_APP_ID', 'no hay app id'),
+    ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

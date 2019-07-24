@@ -129,7 +129,6 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         //User
-
         Permission::create([
             'name' => 'Ver sus datos',
             'slug' => 'users.show-me',
@@ -142,8 +141,7 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Editar sus datos personales de usuario',
         ]);
 
-        //Payment
-
+        //Pays
         Permission::create([
             'name' => 'Ver sus pagos',
             'slug' => 'pays.index',
@@ -161,5 +159,19 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'pays.create',
             'description' => 'Crear un pago para un dispositivo',
         ]);
+
+        //Webhooks
+        Permission::create([
+            'name' => 'Ver WebHooks',
+            'slug' => 'webhooks.index',
+            'description' => 'Ver todos los webhooks de la plataforma',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver WebHook',
+            'slug' => 'webhooks.show',
+            'description' => 'Ver un webhook especifico',
+        ]);
+
     }
 }

@@ -37,7 +37,6 @@ class DisconnectMail extends Mailable
      */
     public function build()
     {
-        sleep(3);
         return $this->from('telemet@alertas-desconexion.com')->markdown('email.centinela.disconnect');
     }
 }
