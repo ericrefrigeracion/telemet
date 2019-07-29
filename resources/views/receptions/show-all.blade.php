@@ -2,13 +2,9 @@
 
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 @endsection
 
 @section('content')
@@ -46,14 +42,17 @@
                         <p>Promedio: {{ $device->havg_yesterday }}% </p>
                     @endif
                 </div>
-                <div class="card-footer" >
+                <div class="card-footer">
+                    @can('receptions.show')
+                        <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Ver los datos de hoy</a>
+                    @endcan
                 </div>
             </div>
         </div>
         <div class="col-md-8 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <div id="plot-all" style="height: 400px; width: auto"></div>
+                    <div id="plot" style="height: 400px; width: auto"></div>
                 </div>
             </div>
         </div>
@@ -71,7 +70,7 @@
 @section('pie')
 @if(isset($datas))
     <script type="text/javascript">
-        @include('partials.plot-all')
+        @include('partials.plot')
     </script>
 @endif
 @endsection

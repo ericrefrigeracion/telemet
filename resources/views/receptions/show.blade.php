@@ -14,7 +14,7 @@
             @if(isset($datas))
                 <div class="card">
                     <div class="card-body">
-                        <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+                        <div id="plot" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
                     </div>
                 </div>
             @else
