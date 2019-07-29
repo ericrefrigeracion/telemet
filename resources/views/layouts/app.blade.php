@@ -100,11 +100,13 @@
                                     @can('roles.index')
                                         <a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
                                     @endcan
-                                    <div class="dropdown-divider"></div>
                                     @can('users.index')
                                         <a class="dropdown-item" href="{{ route('users.index') }}">Usuarios</a>
                                     @endcan
                                     <div class="dropdown-divider"></div>
+                                    @can('prices.index')
+                                        <a class="dropdown-item" href="{{ route('prices.index') }}">Precios</a>
+                                    @endcan
                                     @can('webhooks.index')
                                         <a class="dropdown-item" href="{{ route('webhooks.index') }}">Webhooks</a>
                                     @endcan
@@ -151,39 +153,32 @@
 
         <main class="py-4">
             @if(isset($errors) && $errors->any())
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="alert alert-danger">
-                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <ul>
-                            @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="alert alert-danger">
+                            <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
             @endif
             @if(session()->has('success'))
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="alert alert-success">
-                        <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <ul>
-                            @foreach(session()->get('success') as $message)
-                            <li>{{ $message }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            @endif
-            @if(session('info'))
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="alert alert-success" role="alert">
-                            {{ session('info') }}
+                    <div class="col-md-8">
+                        <div class="alert alert-success">
+                            <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <ul>
+                                @foreach(session()->get('success') as $message)
+                                <li>{{ $message }}</li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,7 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
             $table->string('name');
+            $table->string('description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
             $table->boolean('admin_mon')->nullable();

@@ -98,7 +98,7 @@ class UserController extends Controller
             $user->update($request->all());
             $user->roles()->sync($request->get('roles'));
 
-            return redirect()->route('users.show', $user->id)->with('info', 'Usuario actualizado con exito');
+            return redirect()->route('users.show', $user->id)->with('success', ['Usuario actualizado con exito']);
     }
 
      /**
@@ -122,7 +122,7 @@ class UserController extends Controller
             $request->validate($rules);
             $user->update($request->all());
 
-            return redirect()->route('users.show-me')->with('info', 'Usuario actualizado con exito');
+            return redirect()->route('users.show-me')->with('success', ['Usuario actualizado con exito']);
     }
 
     /**
@@ -135,7 +135,7 @@ class UserController extends Controller
     {
 
         $user->delete();
-        return redirect()->route('users.index')->with('info', 'Usuario eliminado con exito');
+        return redirect()->route('users.index')->with('success', ['Usuario eliminado con exito']);
 
     }
 

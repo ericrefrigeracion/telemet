@@ -4,38 +4,29 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Generar un Pago
+                    <h3>Generar un Pago</h3>
                 </div>
                 <div class="card-body">
                     {!! Form::open(['route' => ['pays.store']]) !!}
-                        <h3>Periodo a pagar</h3>
+                        <h4>Periodo a pagar</h4>
                         <div class="list-unstyled">
-                            <li><label>{{ Form::radio('days', 30) }} 30 dias ($850 Ars)</label></li>
-                            <li><label>{{ Form::radio('days', 60) }} 60 dias ($1500 Ars)</label></li>
-                            <li><label>{{ Form::radio('days', 360) }} 360 dias ($7400 Ars)</label></li>
+                            @foreach($prices as $price)
+                                @if($price->days != 0)
+                                    <li>
+                                        <label>{{ Form::radio('days', $price->days) }} {{ $price->description }} - ${{ $price->amount }} Ars - {{ $price->installments }} Cuotas.</label>
+                                    </li>
+                                @endif
+                            @endforeach
                         </div>
                         <hr>
-                        <h3>Equipo a pagar</h3>
+                        <h4>Equipo a pagar</h4>
                         <div class="list-unstyled">
                             @foreach($devices as $device)
-                            <li>
-                                <label>{{ Form::radio('device_id', $device->id) }} {{ $device->name }}</label>
-                            </li>
+                                <li>
+                                    <label>{{ Form::radio('device_id', $device->id) }} {{ $device->id }} - {{ $device->name }}({{ $device->description }})</label>
+                                </li>
                             @endforeach
                         </div>
                         <hr>

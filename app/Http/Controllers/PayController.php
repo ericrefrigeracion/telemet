@@ -47,6 +47,11 @@ class PayController extends Controller
 
         $devices = Auth::user()->devices()->get();
         $prices = Price::all();
+        $multiplicator = Price::where('days', 0)->first();
+
+        foreach ($prices as $price) {
+            $price->amount = $price->price * $multiplicator->price;
+        }
 
         return view('pays.create')->with(['devices' => $devices, 'prices' => $prices]);
     }
@@ -119,7 +124,7 @@ class PayController extends Controller
         $json['payment_methods'] = $payment_methods;
         $json['back_urls'] = $back_urls;
         $json['auto_return'] = 'all';
-        $json['notification_url'] = 'https://www.sysnet.com.ar/webhooks';
+        $json['notification_url'] = 'https://www.sysnet.com.ar/api/webhooks';
         $json['external_reference'] = $monitorig_expires;
 
         $headers['Content-Type'] = 'application/json';
@@ -144,9 +149,7 @@ class PayController extends Controller
         $pay->init_point = $response->init_point;
         $pay->save();
 
-        //dd($pay);
-
-        return view('pays.conversion')->with(['pay' => $pay])->with('success', 'Pago generado con exito, solo resta elegir el metodo de pago que prefieras');
+        return view('pays.conversion')->with(['pay' => $pay])->with('success', ['Pago generado con exito, solo resta elegir el metodo de pago que prefieras']);
 
     }
 
@@ -166,7 +169,7 @@ class PayController extends Controller
         $pay->type = $request->payment_type;
         $pay->update();
 
-        return view('pays.show')->with(['pay' => $pay])->with('success', 'El pago se ha realizado con exito, ya puedes disfrutar del monitoreo');
+        return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
     }
 
     /**
@@ -186,7 +189,7 @@ class PayController extends Controller
         $pay->update();
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
-        return view('pays.index')->with('success', 'El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo');
+        return view('pays.index')->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
     }
 
     /**
@@ -206,6 +209,6 @@ class PayController extends Controller
         $pay->update();
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
-        return view('pays.create')->with('errors', 'El pago ha fallado, no se hizo ningun cobro. Por favor intente nuevamente.');
+        return view('pays.create')->with('errors', ['El pago ha fallado, no se hizo ningun cobro. Por favor intente nuevamente.']);
     }
 }

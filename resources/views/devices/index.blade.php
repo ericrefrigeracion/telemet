@@ -14,7 +14,9 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th></th>
-                                <th></th>
+                                @can('devices.show')
+                                    <th></th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -28,6 +30,11 @@
                                     @can('receptions.show')
                                         <td>
                                             <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
+                                        </td>
+                                    @endcan
+                                    @can('devices.log')
+                                        <td>
+                                            <a href="{{ route('devices.log', $device->id) }}" class="btn btn-sm btn-primary">Logs</a>
                                         </td>
                                     @endcan
                                 </tr>

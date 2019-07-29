@@ -54,7 +54,7 @@ class RoleController extends Controller
         $role = Role::create($request->all());
         $role->permissions()->sync($request->get('permissions'));
 
-        return redirect()->route('roles.index')->with('info', 'Rol creado con exito');
+        return redirect()->route('roles.index')->with('success', ['Rol creado con exito']);
     }
 
     /**
@@ -99,7 +99,7 @@ class RoleController extends Controller
 
             $role->permissions()->sync($request->get('permissions'));
 
-            return redirect()->route('roles.show', $role->id)->with('info', 'Usuario actualizado con exito');
+            return redirect()->route('roles.show', $role->id)->with('success', ['Usuario actualizado con exito']);
     }
 
     /**
@@ -112,7 +112,7 @@ class RoleController extends Controller
     {
 
         $role->delete();
-        return redirect()->route('roles.index')->with('info', 'Rol eliminado con exito');
+        return redirect()->route('roles.index')->with('success', ['Rol eliminado con exito']);
 
     }
 

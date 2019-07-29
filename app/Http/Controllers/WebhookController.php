@@ -57,22 +57,6 @@ class WebhookController extends Controller
         if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
         if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
 
-        return response('Objeto creado', 201);
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Webhook  $webhook
-     * @return \Illuminate\Http\Response
-     */
-    public function prueba()
-    {
-        $preference = 'sdfa';
-
-        return view('webhooks.prueba')->with(['preference' => $preference]);
-
-
+        return response('Ok', 201);
     }
 }

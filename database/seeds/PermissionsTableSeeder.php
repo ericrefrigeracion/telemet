@@ -173,5 +173,32 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver un webhook especifico',
         ]);
 
+        //Prices
+        Permission::create([
+            'name' => 'Listar precios',
+            'slug' => 'prices.index',
+            'description' => 'Listar y navegar todos los precios',
+        ]);
+        Permission::create([
+            'name' => 'Ver precio',
+            'slug' => 'prices.show',
+            'description' => 'Ver informacion de un precio especifico',
+        ]);
+        Permission::create([
+            'name' => 'Crear precio',
+            'slug' => 'prices.create',
+            'description' => 'Crear un nuevo precio',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar precio',
+            'slug' => 'prices.destroy',
+            'description' => 'Elimina un precio y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar precio',
+            'slug' => 'prices.edit',
+            'description' => 'Editar la informacion de un precio',
+        ]);
+
     }
 }

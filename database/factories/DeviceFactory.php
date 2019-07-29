@@ -11,6 +11,7 @@ $factory->define(Device::class, function (Faker $faker) {
     return [
     	'id' => $faker->unique()->numberBetween(1000, 2999),
         'name' => $faker->sentence(3),
+        'description' => $faker->sentence(6),
         'lat' => $faker->latitude(),
         'lon' => $faker->longitude(),
         'on_line' => $faker->boolean,

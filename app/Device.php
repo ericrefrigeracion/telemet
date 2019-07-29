@@ -17,7 +17,7 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'lat', 'long', 'user_id', 'send_mails', 'admin_mon', 'on_line', 'tmon', 'tmin', 'tmax', 'tdly', 'tcal', 'twatch', 'hmon', 'hmin', 'hmax', 'hdly', 'hcal', 'hwatch',
+        'id', 'name', 'description', 'lat', 'long', 'user_id', 'send_mails', 'admin_mon', 'on_line', 'tmon', 'tmin', 'tmax', 'tdly', 'tcal', 'twatch', 'hmon', 'hmin', 'hmax', 'hdly', 'hcal', 'hwatch',
     ];
 
     protected $dates = ['hwatch', 'twatch'];

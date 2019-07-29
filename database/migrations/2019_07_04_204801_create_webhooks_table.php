@@ -15,14 +15,14 @@ class CreateWebhooksTable extends Migration
     {
         Schema::create('webhooks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('webhook_identifier');
-            $table->string('type');
-            $table->integer('user_id');
-            $table->integer('application_id');
-            $table->integer('version');
-            $table->string('action');
-            $table->integer('data_id');
-            $table->string('date_created');
+            $table->string('webhook_identifier')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->integer('application_id')->nullable();
+            $table->integer('version')->nullable();
+            $table->string('action')->nullable();
+            $table->integer('data_id')->nullable();
+            $table->string('date_created')->nullable();
             $table->timestamps();
         });
     }

@@ -49,9 +49,6 @@ class RequestPay implements ShouldQueue
         $webhook->payer_dni = $request->input('card.cardholder.identification.number');
         $webhook->payer_name = $request->input('card.cardholder.name');
         $webhook->payer_name = $request->input('card.cardholder.name');
-
-
-
         $webhook->update();
 
 

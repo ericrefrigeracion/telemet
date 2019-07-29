@@ -55,6 +55,15 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/webhooks', 'WebhookController@index')->name('webhooks.index')->middleware('can:webhooks.index');
 		Route::get('/webhooks/{webhook}', 'WebhookController@show')->name('webhooks.show')->middleware('can:webhooks.show');
 
+		//Prices
+		Route::get('/prices', 'PriceController@index')->name('prices.index')->middleware('can:prices.index');
+		Route::post('/prices', 'PriceController@store')->name('prices.store')->middleware('can:prices.create');
+		Route::get('/prices/create', 'PriceController@create')->name('prices.create')->middleware('can:prices.create');
+		Route::delete('/prices/{price}', 'PriceController@destroy')->name('prices.destroy')->middleware('can:prices.destroy');
+		Route::put('/prices/{price}', 'PriceController@update')->name('prices.update')->middleware('can:prices.edit');
+		Route::get('/prices/{price}', 'PriceController@show')->name('prices.show')->middleware('can:prices.show');
+		Route::get('/prices/{price}/edit', 'PriceController@edit')->name('prices.edit')->middleware('can:prices.edit');
+
 	});
 
 	Route::prefix('centinela')->group(function () {
@@ -79,6 +88,7 @@ Route::middleware(['verified'])->group(function () {
 	});
 
 		Route::get('/pays/create', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
+
 	Route::prefix('users')->group(function () {
 
 		//Pays

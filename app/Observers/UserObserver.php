@@ -15,7 +15,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if ($user->id > 2) $user->roles()->attach(3);
+        if ($user->id > 3) $user->roles()->attach(3);
     }
 
     /**

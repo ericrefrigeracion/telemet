@@ -58,6 +58,7 @@ class DeviceController extends Controller
         $rules = [
             'id' => 'starts_with:1,2|required|integer|min:1000|unique:devices,id',
             'name' => 'required|max:25',
+            'description' => 'max:50',
         ];
 
         $request->validate($rules);
@@ -68,8 +69,9 @@ class DeviceController extends Controller
         if( substr($device->id, 0, 1) == 1 ) $device->mdl = 't';
         if( substr($device->id, 0, 1) == 2 ) $device->mdl = 'th';
 
-        $device->name = $request->name;
         $device->user_id = Auth::user()->id;
+        $device->name = $request->name;
+        $device->description = $request->description;
         $device->view_alerts_at = now();
         $device->send_mails = 0;
         $device->admin_mon = 0;
@@ -87,7 +89,7 @@ class DeviceController extends Controller
 
         $device->save();
 
-        return redirect()->route('devices.show', $request->id)->with('info', 'Dispositivo creado con exito');
+        return redirect()->route('devices.show', $request->id)->with('success', ['Dispositivo creado con exito']);
     }
 
     /**
@@ -164,6 +166,7 @@ class DeviceController extends Controller
 
             $rules = [
                 'name' => 'required|max:25',
+                'description' => 'max:50',
                 'send_mails' => 'boolean',
                 'tcal' => 'filled|numeric|min:-5|max:5',
                 'tmon' => 'boolean',
@@ -180,7 +183,7 @@ class DeviceController extends Controller
             $request->validate($rules);
 
             $device->update($request->all());
-            return redirect()->route('devices.show', $device->id)->with('info', 'Dispositivo actualizado con exito');
+            return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);
 
         }else{
             abort(403, 'Accion no Autorizada');
@@ -201,7 +204,7 @@ class DeviceController extends Controller
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
 
             $device->delete();
-            return redirect()->route('devices.index')->with('info', 'Dispositivo eliminado con exito');
+            return redirect()->route('devices.index')->with('success', ['Dispositivo eliminado con exito']);
 
         }else{
             abort(403, 'Accion no Autorizada');

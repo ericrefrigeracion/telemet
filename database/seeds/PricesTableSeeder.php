@@ -13,7 +13,7 @@ class PricesTableSeeder extends Seeder
     public function run()
     {
         Price::create([
-        	'price' => 20,
+        	'price' => 2,
         	'description' => 'Monitoreo 30 dias',
         	'days' => 30,
             'excluded' => 'credit_card',
@@ -31,7 +31,7 @@ class PricesTableSeeder extends Seeder
             'installments' => 12,
         ]);
         Price::create([
-        	'price' => 43,
+        	'price' => 3,
         	'description' => 'Multiplicador',
         	'days' => 0,
         ]);

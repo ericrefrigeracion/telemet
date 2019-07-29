@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                         <h3>Item a pagar</h3>
-                            {{ $pay->description }}
+                            {{ $pay->description }} por un total de ${{ $pay->amount }}.
                         <hr>
                         <div>
                             <a href="{{ $pay->init_point }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Pagar con MercadoPago</a>
