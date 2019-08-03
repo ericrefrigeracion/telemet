@@ -13,6 +13,7 @@
         <div class="col-md-8 mb-3">
             @if(isset($datas))
                 <div class="card">
+                    <div class="card-header"><h3>Datos de {{ $device->name }}</h3></div>
                     <div class="card-body">
                         <div id="plot" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
                     </div>

@@ -121,7 +121,11 @@ class PermissionsTableSeeder extends Seeder
         	'slug' => 'receptions.show',
         	'description' => 'Ver el grafico de la ultima hora de un dispositivo',
         ]);
-
+        Permission::create([
+            'name' => 'Ver ultima semana',
+            'slug' => 'receptions.show-week',
+            'description' => 'Ver el grafico de la ultima semana de un dispositivo',
+        ]);
         Permission::create([
             'name' => 'Ver todos los datos',
             'slug' => 'receptions.show-all',
@@ -134,7 +138,6 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'users.show-me',
             'description' => 'Ver sus datos personales de usuario',
         ]);
-
         Permission::create([
             'name' => 'Editar sus datos',
             'slug' => 'users.edit-me',
@@ -147,13 +150,11 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'pays.index',
             'description' => 'Ver los pagos de un usuario',
         ]);
-
         Permission::create([
             'name' => 'Ver pago',
             'slug' => 'pays.show',
             'description' => 'Ver un pago especifico de un usuario',
         ]);
-
         Permission::create([
             'name' => 'Pagar',
             'slug' => 'pays.create',
@@ -166,7 +167,6 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'webhooks.index',
             'description' => 'Ver todos los webhooks de la plataforma',
         ]);
-
         Permission::create([
             'name' => 'Ver WebHook',
             'slug' => 'webhooks.show',

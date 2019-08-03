@@ -18,7 +18,7 @@ class CreateWebhooksTable extends Migration
             $table->string('webhook_identifier')->nullable();
             $table->string('type')->nullable();
             $table->integer('user_id')->nullable();
-            $table->integer('application_id')->nullable();
+            $table->unsignedBigInteger('application_id')->unique();
             $table->integer('version')->nullable();
             $table->string('action')->nullable();
             $table->integer('data_id')->nullable();

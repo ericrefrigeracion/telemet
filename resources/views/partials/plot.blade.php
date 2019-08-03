@@ -7,7 +7,7 @@ $.getJSON(
                 zoomType: 'x'
             },
             title: {
-                text: 'Datos de hoy - {{ $device->name }}'
+                text: ''
             },
             xAxis: {
                 type: 'datetime'

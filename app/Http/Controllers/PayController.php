@@ -50,7 +50,10 @@ class PayController extends Controller
         $multiplicator = Price::where('days', 0)->first();
 
         foreach ($prices as $price) {
-            $price->amount = $price->price * $multiplicator->price;
+            if ($price->days != 0) {
+                $price->amount = $price->price * $multiplicator->price;
+                $price->diary = ($price->price * $multiplicator->price) / $price->days;
+            }
         }
 
         return view('pays.create')->with(['devices' => $devices, 'prices' => $prices]);
@@ -115,16 +118,16 @@ class PayController extends Controller
         $payment_methods['excluded_payment_types'] = $excluded_payments_types;
         $payment_methods['installments'] = $installments;
 
-        $back_urls['success'] = 'https://www.sysnet.com.ar/pays/success';
-        $back_urls['pending'] = 'https://www.sysnet.com.ar/pays/pending';
-        $back_urls['failure'] = 'https://www.sysnet.com.ar/pays/failure';
+        $back_urls['success'] = 'sysnet.com.ar/pays/success';
+        $back_urls['pending'] = 'sysnet.com.ar/pays/pending';
+        $back_urls['failure'] = 'sysnet.com.ar/pays/failure';
 
         $json['items'] = $items;
         $json['payer'] = $payer;
         $json['payment_methods'] = $payment_methods;
         $json['back_urls'] = $back_urls;
         $json['auto_return'] = 'all';
-        $json['notification_url'] = 'https://www.sysnet.com.ar/api/webhooks';
+        $json['notification_url'] = 'sysnet.com.ar/api/webhooks';
         $json['external_reference'] = $monitorig_expires;
 
         $headers['Content-Type'] = 'application/json';

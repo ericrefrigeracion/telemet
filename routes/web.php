@@ -79,6 +79,7 @@ Route::middleware(['verified'])->group(function () {
 
 		//Receptions
 		Route::get('/receptions/{device}', 'ReceptionController@show')->name('receptions.show')->middleware('can:receptions.show');
+		Route::get('/receptions-week/{device}', 'ReceptionController@show_week')->name('receptions.show-week')->middleware('can:receptions.show-week');
 		Route::get('/receptions-all/{device}', 'ReceptionController@show_all')->name('receptions.show-all')->middleware('can:receptions.show-all');
 
 		//Alerts

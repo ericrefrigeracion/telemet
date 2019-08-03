@@ -15,7 +15,7 @@
                             @foreach($prices as $price)
                                 @if($price->days != 0)
                                     <li>
-                                        <label>{{ Form::radio('days', $price->days) }} {{ $price->description }} - ${{ $price->amount }} Ars - {{ $price->installments }} Cuotas.</label>
+                                        <label>{{ Form::radio('days', $price->days) }} {{ $price->description }} - ${{ $price->amount }} Ars (${{ $price->diary }}Ars/dia) - {{ $price->installments }} Cuotas.</label>
                                     </li>
                                 @endif
                             @endforeach

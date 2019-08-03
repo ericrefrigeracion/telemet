@@ -14,40 +14,30 @@
         <div class="col-md-4">
             <div class="card mb-3">
                 <div class="card-header">
-                    Datos de {{ $device->name }} ({{ $device->description }})
+                    Datos de la ultima semana de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
 
-                    <p>Ultima Conexion: {{ $device->last_data }} </p>
-                    <hr>
-                    <p>Temperaturas de Hoy</p>
-                    <p>Maxima: {{ $device->tmax_today }}°C </p>
-                    <p>Minima: {{ $device->tmin_today }}°C </p>
-                    <p>Promedio: {{ $device->tavg_today }}°C </p>
-                    <hr>
-                    <p>Temperaturas de Ayer</p>
-                    <p>Maxima: {{ $device->tmax_yesterday }}°C </p>
-                    <p>Minima: {{ $device->tmin_yesterday }}°C </p>
-                    <p>Promedio: {{ $device->tavg_yesterday }}°C </p>
+                    <p>Temperaturas de la Semana</p>
+                    <p>Maxima: {{ $device->tmax_week }}°C </p>
+                    <p>Minima: {{ $device->tmin_week }}°C </p>
+                    <p>Promedio: {{ $device->tavg_week }}°C </p>
                     @if($device->mdl == 'th')
                         <hr>
-                        <p>Humedad de Hoy</p>
-                        <p>Maxima: {{ $device->hmax_today }}% </p>
-                        <p>Minima: {{ $device->hmin_today }}% </p>
-                        <p>Promedio: {{ $device->havg_today }}% </p>
-                        <hr>
-                        <p>Humedad de Ayer</p>
-                        <p>Maxima: {{ $device->hmax_yesterday }}% </p>
-                        <p>Minima: {{ $device->hmin_yesterday }}% </p>
-                        <p>Promedio: {{ $device->havg_yesterday }}% </p>
+                        <p>Humedad de la Semana</p>
+                        <p>Maxima: {{ $device->hmax_week }}% </p>
+                        <p>Minima: {{ $device->hmin_week }}% </p>
+                        <p>Promedio: {{ $device->havg_week }}% </p>
                     @endif
+
                 </div>
                 <div class="card-footer">
                     @can('receptions.show')
                         <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Ver los datos de hoy</a>
                     @endcan
-                    @can('receptions.show-week')
-                        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary mt-2">Ver los datos de la ultima semana</a>
+                    <br>
+                    @can('receptions.show-all')
+                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary mt-2">Ver todos los datos</a>
                     @endcan
                 </div>
             </div>

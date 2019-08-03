@@ -54,8 +54,8 @@ class WebhookController extends Controller
         $webhook->date_created = $request->input('date_created');
         $webhook->save();
 
-        if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
-        if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
+        //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
+        //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
 
         return response('Ok', 201);
     }
