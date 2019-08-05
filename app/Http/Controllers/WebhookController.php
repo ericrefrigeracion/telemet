@@ -43,16 +43,7 @@ class WebhookController extends Controller
     public function store(Request $request)
     {
 
-        $webhook = new Webhook;
-        $webhook->id = $request->input('id');
-        $webhook->type = $request->input('type');
-        $webhook->user_id = $request->input('user_id');
-        $webhook->application_id = $request->input('application_id');
-        $webhook->version = $request->input('version');
-        $webhook->action = $request->input('action');
-        $webhook->data_id = $request->input('data.id');
-        $webhook->date_created = $request->input('date_created');
-        $webhook->save();
+        Webhook::create($request->all());
 
         //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
         //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);

@@ -13,7 +13,7 @@ class Webhook extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'type', 'user_id', 'application_id', 'version', 'action', 'data_id', 'date_created'
+        'id', 'topic',
     ];
 
      protected $dates = [

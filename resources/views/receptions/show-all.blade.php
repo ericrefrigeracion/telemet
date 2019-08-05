@@ -10,36 +10,18 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        @if(isset($datas))
-        <div class="col-md-4">
-            <div class="card mb-3">
+        <div class="col-md-8 mb-3">
+            <div class="card">
                 <div class="card-header">
-                    Datos de {{ $device->name }} ({{ $device->description }})
+                    Datos de la ultima semana de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
-
-                    <p>Ultima Conexion: {{ $device->last_data }} </p>
-                    <hr>
-                    <p>Temperaturas de Hoy</p>
-                    <p>Maxima: {{ $device->tmax_today }}°C </p>
-                    <p>Minima: {{ $device->tmin_today }}°C </p>
-                    <p>Promedio: {{ $device->tavg_today }}°C </p>
-                    <hr>
-                    <p>Temperaturas de Ayer</p>
-                    <p>Maxima: {{ $device->tmax_yesterday }}°C </p>
-                    <p>Minima: {{ $device->tmin_yesterday }}°C </p>
-                    <p>Promedio: {{ $device->tavg_yesterday }}°C </p>
-                    @if($device->mdl == 'th')
-                        <hr>
-                        <p>Humedad de Hoy</p>
-                        <p>Maxima: {{ $device->hmax_today }}% </p>
-                        <p>Minima: {{ $device->hmin_today }}% </p>
-                        <p>Promedio: {{ $device->havg_today }}% </p>
-                        <hr>
-                        <p>Humedad de Ayer</p>
-                        <p>Maxima: {{ $device->hmax_yesterday }}% </p>
-                        <p>Minima: {{ $device->hmin_yesterday }}% </p>
-                        <p>Promedio: {{ $device->havg_yesterday }}% </p>
+                    @if(isset($datas))
+                    <div id="plot" style="height: 400px; width: auto"></div>
+                    @else
+                        <div class="alert alert-success" role="alert">
+                            No hay datos de este dispositivo para hoy, revisa datos anteriores.
+                        </div>
                     @endif
                 </div>
                 <div class="card-footer">
@@ -47,25 +29,14 @@
                         <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Ver los datos de hoy</a>
                     @endcan
                     @can('receptions.show-week')
-                        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary mt-2">Ver los datos de la ultima semana</a>
+                        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary">Ver la ultima semana</a>
+                    @endcan
+                    @can('receptions.show-all')
+                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary">Ver todos los datos</a>
                     @endcan
                 </div>
             </div>
         </div>
-        <div class="col-md-8 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <div id="plot" style="height: 400px; width: auto"></div>
-                </div>
-            </div>
-        </div>
-        @else
-            <div class="col-md-8 mb-3">
-                <div class="alert alert-success" role="alert">
-                    No hay datos para este dispositivo, asegurate de que este conectado a internet.
-                </div>
-            </div>
-        @endif
     </div>
 </div>
 @endsection

@@ -26,7 +26,7 @@
                             {{ $pay->description }} por un total de ${{ $pay->amount }}.
                         <hr>
                         <div>
-                            <a href="{{ $pay->init_point }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Pagar con MercadoPago</a>
+                            <a href="{{ $pay->init_point }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Confirmar Pago</a>
                         </div>
                 </div>
             </div>

@@ -31,7 +31,7 @@
                         </div>
                         <hr>
                         <div>
-                            {{ Form::submit('Crear Pago', ['class' => 'btn btn-sm btn-primary']) }}
+                            {{ Form::submit('Realizar Pago', ['class' => 'btn btn-sm btn-primary']) }}
                         </div>
                     {!! Form::close() !!}
                 </div>

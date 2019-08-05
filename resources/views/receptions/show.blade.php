@@ -11,26 +11,32 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 mb-3">
-            @if(isset($datas))
-                <div class="card">
-                    <div class="card-header"><h3>Datos de {{ $device->name }}</h3></div>
-                    <div class="card-body">
-                        <div id="plot" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
-                    </div>
+            <div class="card">
+                <div class="card-header">
+                    Datos de hoy de {{ $device->name }} ({{ $device->description }})
                 </div>
-            @else
-                <div class="alert alert-success" role="alert">
-                    No hay datos para este dia, consulta los datos anteriores en el boton de abajo
+                <div class="card-body">
+                    @if(isset($datas))
+                    <div id="plot" style="height: 400px; width: auto"></div>
+                    @else
+                        <div class="alert alert-success" role="alert">
+                            No hay datos de este dispositivo para hoy, revisa datos anteriores.
+                        </div>
+                    @endif
                 </div>
-            @endif
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        @can('receptions.show-all')
-            <div class="col-md-8 mb-3">
-                <a type="button" class="btn btn-primary btn-lg btn-block" href="{{ route('receptions.show-all', $device->id) }}">Ver todos los datos de {{ $device->name }}</a>
+                <div class="card-footer">
+                    @can('receptions.show')
+                        <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Ver los datos de hoy</a>
+                    @endcan
+                    @can('receptions.show-week')
+                        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary">Ver la ultima semana</a>
+                    @endcan
+                    @can('receptions.show-all')
+                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary">Ver todos los datos</a>
+                    @endcan
+                </div>
             </div>
-        @endcan
+        </div>
     </div>
 </div>
 @endsection

@@ -92,16 +92,10 @@ class PayController extends Controller
         $installments = $price->installments;
         $excluded_payments_type['id'] = $price->excluded;
         $amount = $price->price * $multiplicator->price;
-
-        $title = $price->description;
         $description = 'Servicio de monitoreo para el equipo ' . $device_id . ' hasta el dia ' . $monitorig_expires;
 
-        $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
-
-        $query_params['access_token'] = config('services.mercadopago.token');
-
         $item['id'] = $device_id;
-        $item['title'] = $title;
+        $item['title'] = $monitorig_expires;
         $item['description'] = $description;
         $item['quantity'] = 1;
         $item['currency_id'] = 'ARS';
@@ -118,19 +112,21 @@ class PayController extends Controller
         $payment_methods['excluded_payment_types'] = $excluded_payments_types;
         $payment_methods['installments'] = $installments;
 
-        $back_urls['success'] = 'sysnet.com.ar/pays/success';
-        $back_urls['pending'] = 'sysnet.com.ar/pays/pending';
-        $back_urls['failure'] = 'sysnet.com.ar/pays/failure';
+        $back_urls['success'] = 'https://sysnet.com.ar/pays/success';
+        $back_urls['pending'] = 'https://sysnet.com.ar/pays/pending';
+        $back_urls['failure'] = 'https://sysnet.com.ar/pays/failure';
 
+        $query_params['access_token'] = config('services.mercadopago.token');
+        $headers['Content-Type'] = 'application/json';
         $json['items'] = $items;
         $json['payer'] = $payer;
         $json['payment_methods'] = $payment_methods;
         $json['back_urls'] = $back_urls;
         $json['auto_return'] = 'all';
-        $json['notification_url'] = 'sysnet.com.ar/api/webhooks';
-        $json['external_reference'] = $monitorig_expires;
+        $json['notification_url'] = 'https://sysnet.com.ar/api/webhooks';
+        $json['external_reference'] = '';
 
-        $headers['Content-Type'] = 'application/json';
+        $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
 
         $response = $client->request( 'POST', 'checkout/preferences', [
             'query' => $query_params,
@@ -140,19 +136,7 @@ class PayController extends Controller
 
         $response = json_decode( $response->getBody()->getContents() );
 
-        $pay = new Pay;
-        $pay->user_id = $user->id;
-        $pay->device_id = $device_id;
-        $pay->webhook_identifier = $response->id;
-        $pay->amount = $amount;
-        $pay->status = 'created';
-        $pay->title = $title;
-        $pay->description = $description;
-        $pay->external_reference = $monitorig_expires;
-        $pay->init_point = $response->init_point;
-        $pay->save();
-
-        return view('pays.conversion')->with(['pay' => $pay])->with('success', ['Pago generado con exito, solo resta elegir el metodo de pago que prefieras']);
+        return redirect($response->init_point);
 
     }
 
@@ -163,14 +147,7 @@ class PayController extends Controller
      */
     public function success(Request $request)
     {
-        $user = Auth::user();
-        $device_id = $request->id;
-
-        $pay = Pay::where('user_id', $user->id)->where('device_id', $device_id)->where('status', 'created')->latest()->first();
-        $pay->webhook_id = $request->collection_id;
-        $pay->status = $request->collection_status;
-        $pay->type = $request->payment_type;
-        $pay->update();
+        $pay = Pay::create($request->all());
 
         return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
     }
@@ -182,16 +159,11 @@ class PayController extends Controller
      */
     public function pending(Request $request)
     {
-        $user = Auth::user();
-        $device_id = $request->id;
 
-        $pay = Pay::where('user_id', $user->id)->where('device_id', $device_id)->where('status', 'created')->latest()->first();
-        $pay->webhook_id = $request->collection_id;
-        $pay->status = $request->collection_status;
-        $pay->type = $request->payment_type;
-        $pay->update();
+        Pay::create($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
+
         return view('pays.index')->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
     }
 
@@ -202,16 +174,11 @@ class PayController extends Controller
      */
     public function failure(Request $request)
     {
-        $user = Auth::user();
-        $device_id = $request->id;
 
-        $pay = Pay::where('user_id', $user->id)->where('device_id', $device_id)->where('status', 'created')->latest()->first();
-        $pay->webhook_id = $request->collection_id;
-        $pay->status = $request->collection_status;
-        $pay->type = $request->payment_type;
-        $pay->update();
+        Pay::create($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
+
         return view('pays.create')->with('errors', ['El pago ha fallado, no se hizo ningun cobro. Por favor intente nuevamente.']);
     }
 }

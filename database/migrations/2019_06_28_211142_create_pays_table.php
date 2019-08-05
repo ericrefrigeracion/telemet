@@ -15,20 +15,15 @@ class CreatePaysTable extends Migration
     {
         Schema::create('pays', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('device_id');
-            $table->string('webhook_identifier')->nullable();
-            $table->float('amount');
-            $table->string('status');
-            $table->string('title');
-            $table->string('description');
-            $table->timestamp('external_reference');
-            $table->string('init_point');
+            $table->unsignedBigInteger('collection_id');
+            $table->unsignedBigInteger('merchant_order_id');
+            $table->string('preference_id');
+            $table->string('collection_status');
+            $table->string('external_reference');
+            $table->string('payment_type');
+            $table->string('processing_mode');
             $table->string('verified_by_sistem')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
         });
     }
 
