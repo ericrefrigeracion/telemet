@@ -60,7 +60,13 @@ class WebhookController extends Controller
     public function ipn(Request $request)
     {
 
-        Webhook::create($request->all());
+        $webhook = new Webhook;
+        $webhook->webhook_id = $request->id;
+        $webhook->topic = $request->topic;
+        $webhook->save();
+
+
+        //Webhook::create($request->all());
 
         //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
         //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
