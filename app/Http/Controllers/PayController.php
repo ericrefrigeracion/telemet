@@ -159,7 +159,7 @@ class PayController extends Controller
      */
     public function success(Request $request)
     {
-        $pay = Pay::find($request->id);
+        $pay = Pay::find('preference_id', $request->preference_id);
 
         $pay->update($request->all());
 
