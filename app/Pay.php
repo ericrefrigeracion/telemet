@@ -22,9 +22,12 @@ class Pay extends Model
         'init_point',
         'verified_by_sistem',
         'collection_id',
+        'external_reference',
         'merchant_order_id',
+        'site_id',
         'payment_type',
         'processing_mode',
+        'merchant_account_id',
     ];
 
     protected $dates = ['valid_at'];

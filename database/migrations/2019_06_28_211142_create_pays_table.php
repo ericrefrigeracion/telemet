@@ -22,10 +22,13 @@ class CreatePaysTable extends Migration
             $table->string('collection_status');
             $table->string('init_point');
             $table->string('verified_by_sistem')->nullable();
+            $table->string('external_reference')->nullable();
             $table->unsignedBigInteger('collection_id')->nullable();
             $table->unsignedBigInteger('merchant_order_id')->nullable();
             $table->string('payment_type')->nullable();
+            $table->string('site_id')->nullable();
             $table->string('processing_mode')->nullable();
+            $table->string('merchant_account_id')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
