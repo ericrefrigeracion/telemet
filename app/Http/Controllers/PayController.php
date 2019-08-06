@@ -159,7 +159,7 @@ class PayController extends Controller
      */
     public function success(Request $request)
     {
-        $pay = Pay::find('preference_id', $request->preference_id);
+        $pay = Pay::where('preference_id', $request->preference_id);
 
         $pay->update($request->all());
 
@@ -174,7 +174,7 @@ class PayController extends Controller
     public function pending(Request $request)
     {
 
-        $pay = Pay::find('preference_id', $request->preference_id);
+        $pay = Pay::where('preference_id', $request->preference_id);
 
         $pay->update($request->all());
 
@@ -191,7 +191,7 @@ class PayController extends Controller
     public function failure(Request $request)
     {
 
-        $pay = Pay::find('preference_id', $request->preference_id);
+        $pay = Pay::where('preference_id', $request->preference_id);
 
         $pay->update($request->all());
 
