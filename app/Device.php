@@ -6,7 +6,6 @@ use App\Pay;
 use App\User;
 use App\Alert;
 use App\Receptions;
-use App\DeviceConfiguration;
 use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
@@ -17,10 +16,10 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'description', 'lat', 'long', 'user_id', 'send_mails', 'admin_mon', 'on_line', 'tmon', 'tmin', 'tmax', 'tdly', 'tcal', 'twatch', 'hmon', 'hmin', 'hmax', 'hdly', 'hcal', 'hwatch',
+        'id', 'name', 'description', 'lat', 'long', 'user_id', 'send_mails', 'admin_mon', 'on_line', 'tmon', 'tmin', 'tmax', 'tdly', 'tcal', 'twatch', 'hmon', 'hmin', 'hmax', 'hdly', 'hcal', 'hwatch', 'monitor_expires_at',
     ];
 
-    protected $dates = ['hwatch', 'twatch'];
+    protected $dates = ['hwatch', 'twatch', 'monitor_expires_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -42,6 +41,7 @@ class Device extends Model
     {
         return $this->hasMany(Alert::class);
     }
+
     public function pays()
     {
         return $this->hasMany(Pay::class);

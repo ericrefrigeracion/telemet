@@ -47,7 +47,7 @@ class PayController extends Controller
 
         $devices = Auth::user()->devices()->get();
         $prices = Price::all();
-        $multiplicator = Price::where('days', 0)->first();
+        $multiplicator = Price::where('description', 'Multiplicador')->first();
 
         foreach ($prices as $price) {
             if ($price->days != 0) {
@@ -76,25 +76,25 @@ class PayController extends Controller
         $request->validate($rules);
 
         $user = Auth::user();
-        $device_id = $request->device_id;
+        $device = Device::find($request->device_id);
         $days = $request->days;
 
-        if($user->pays()->where('device_id', $device_id)->where('status', 'approved')->count() > 0)
+        if($device->monitor_expires_at > now())
         {
-            $monitorig_expires = $user->pays()->where('device_id', $device_id)->where('status', 'approved')->latest()->first()->external_reference;
+            $monitorig_expires = $device->monitor_expires_at;
         }else{
             $monitorig_expires = now();
         }
 
         $monitorig_expires->addDays($days);
-        $multiplicator = Price::where('days', 0)->first();
+        $multiplicator = Price::where('description', 'Multiplicador')->first();
         $price = Price::where('days', $days)->first();
         $installments = $price->installments;
         $excluded_payments_type['id'] = $price->excluded;
         $amount = $price->price * $multiplicator->price;
-        $description = 'Servicio de monitoreo para el equipo ' . $device_id . ' hasta el dia ' . $monitorig_expires;
+        $description = 'Servicio de monitoreo para el equipo ' . $device->id . ' hasta el dia ' . $monitorig_expires;
 
-        $item['id'] = $device_id;
+        $item['id'] = $device->id;
         $item['title'] = $monitorig_expires;
         $item['description'] = $description;
         $item['quantity'] = 1;
@@ -136,6 +136,18 @@ class PayController extends Controller
 
         $response = json_decode( $response->getBody()->getContents() );
 
+        $pay = new Pay;
+
+        $pay->device_id = $device->id;
+        $pay->user_id = Auth::user()->id;
+        $pay->preference_id = $response->id;
+        $pay->valid_at = $monitorig_expires;
+        $pay->collection_status = 'Created - no se genereron cargos/el pago fue abandonado';
+        $pay->init_point = $response->init_point;
+
+        $pay->save();
+
+
         return redirect($response->init_point);
 
     }
@@ -147,7 +159,9 @@ class PayController extends Controller
      */
     public function success(Request $request)
     {
-        $pay = Pay::create($request->all());
+        $pay = Pay::find($request->id);
+
+        $pay->update($request->all());
 
         return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
     }

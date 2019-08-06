@@ -50,4 +50,22 @@ class WebhookController extends Controller
 
         return response('Ok', 201);
     }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function ipn(Request $request)
+    {
+
+        Webhook::create($request->all());
+
+        //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
+        //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
+
+        return response('Ok', 201);
+    }
+
 }

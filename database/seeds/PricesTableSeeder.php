@@ -40,6 +40,13 @@ class PricesTableSeeder extends Seeder
             'installments' => 1,
             'excluded' => '',
         ]);
+        Price::create([
+            'price' => 30,
+            'description' => 'Adquirir un nuevo equipo',
+            'days' => 0,
+            'installments' => 3,
+            'excluded' => '',
+        ]);
 
     }
 }

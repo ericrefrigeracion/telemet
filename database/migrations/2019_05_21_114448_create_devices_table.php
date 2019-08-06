@@ -37,6 +37,7 @@ class CreateDevicesTable extends Migration
             $table->integer('hdly')->unsigned();
             $table->float('hcal');
             $table->timestamp('hwatch')->nullable();
+            $table->timestamp('monitor_expires_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

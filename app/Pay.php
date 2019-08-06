@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\User;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,11 +13,21 @@ class Pay extends Model
      * @var array
      */
     protected $fillable = [
-        'device_id', 'user_id', 'webhook_identifier', 'amount', 'status', 'title', 'description', 'external_reference', 'init_point',
-        'verified_by_system',
+        'id',
+        'user_id',
+        'device_id',
+        'preference_id',
+        'valid_at',
+        'collection_status',
+        'init_point',
+        'verified_by_sistem',
+        'collection_id',
+        'merchant_order_id',
+        'payment_type',
+        'processing_mode',
     ];
 
-     protected $dates = ['external_reference'];
+    protected $dates = ['valid_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,6 +41,7 @@ class Pay extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function devices()
     {
     	return $this->belongsTo(Device::class);
