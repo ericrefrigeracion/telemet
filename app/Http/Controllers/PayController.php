@@ -174,7 +174,9 @@ class PayController extends Controller
     public function pending(Request $request)
     {
 
-        Pay::create($request->all());
+        $pay = Pay::find('preference_id', $request->preference_id);
+
+        $pay->update($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
@@ -189,7 +191,9 @@ class PayController extends Controller
     public function failure(Request $request)
     {
 
-        Pay::create($request->all());
+        $pay = Pay::find('preference_id', $request->preference_id);
+
+        $pay->update($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
