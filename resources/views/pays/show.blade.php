@@ -22,15 +22,23 @@
                                 </tr>
                                 <tr>
                                     <td>Monto de la operacion:</td>
-                                    <td>$ {{ $pay->amount }}</td>
+                                    <td>${{ $pay->item_amount }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tipo de pago:</td>
+                                    <td>{{ $pay->payment_type }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Operacion N°:</td>
+                                    <td>{{ $pay->collection_id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Estado del pago:</td>
-                                    <td>{{ $pay->status }}</td>
+                                    <td>{{ $pay->collection_status }}</td>
                                 </tr>
                                 <tr>
                                     <td>Vigente hasta:</td>
-                                    <td>{{ $pay->external_reference }}</td>
+                                    <td>{{ $pay->valid_at }}</td>
                                 </tr>
                         </tbody>
                     </table>

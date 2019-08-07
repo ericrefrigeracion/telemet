@@ -14,7 +14,6 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
 Route::get('/receptions/incoming', 'ReceptionController@store');
-Route::get('/prueba', 'WebhookController@prueba');
 
 Route::middleware(['verified'])->group(function () {
 
@@ -46,10 +45,13 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/device-log/{id}', 'DeviceController@log')->name('devices.log')->middleware('can:devices.log');
 
 		//Devices-all
-		Route::get('/devices-all', 'DeviceController@all')->name('devices.all')->middleware('can:devices.all');
+		Route::get('/devices/all', 'DeviceController@all')->name('devices.all')->middleware('can:devices.all');
 
 		//Alerts-all
-		Route::get('/alerts-all', 'AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
+		Route::get('/alerts/all', 'AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
+
+		//reports-all
+		Route::get('/reports/all', 'ReportController@all')->name('reports.all')->middleware('can:reports.all');
 
 		//Webhooks
 		Route::get('/webhooks', 'WebhookController@index')->name('webhooks.index')->middleware('can:webhooks.index');
@@ -69,6 +71,8 @@ Route::middleware(['verified'])->group(function () {
 	Route::prefix('centinela')->group(function () {
 
 		//Devices
+		Route::get('/devices/info', 'DeviceController@info')->name('devices.info')->middleware('can:devices.info');
+		Route::get('/devices/buy', 'DeviceController@buy')->name('devices.buy')->middleware('can:devices.buy');
 		Route::get('/devices', 'DeviceController@index')->name('devices.index')->middleware('can:devices.index');
 		Route::post('/devices', 'DeviceController@store')->name('devices.store')->middleware('can:devices.create');
 		Route::get('/devices/create', 'DeviceController@create')->name('devices.create')->middleware('can:devices.create');
@@ -78,18 +82,24 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/devices/{device}/edit', 'DeviceController@edit')->name('devices.edit')->middleware('can:devices.edit');
 
 		//Receptions
-		Route::get('/receptions/{device}', 'ReceptionController@show')->name('receptions.show')->middleware('can:receptions.show');
-		Route::get('/receptions-week/{device}', 'ReceptionController@show_week')->name('receptions.show-week')->middleware('can:receptions.show-week');
+		Route::get('/receptions-last-hour/{device}', 'ReceptionController@show_hour')->name('receptions.show-hour')->middleware('can:receptions.show-hour');
+		Route::get('/receptions-last-day/{device}', 'ReceptionController@show_day')->name('receptions.show-day')->middleware('can:receptions.show-day');
+		Route::get('/receptions-last-week/{device}', 'ReceptionController@show_week')->name('receptions.show-week')->middleware('can:receptions.show-week');
+		Route::get('/receptions-last-month/{device}', 'ReceptionController@show_month')->name('receptions.show-month')->middleware('can:receptions.show-month');
 		Route::get('/receptions-all/{device}', 'ReceptionController@show_all')->name('receptions.show-all')->middleware('can:receptions.show-all');
 
 		//Alerts
 		Route::get('/alerts', 'AlertController@index')->name('alerts.index')->middleware('can:alerts.index');
 		Route::get('/alerts/{device}', 'AlertController@show')->name('alerts.show')->middleware('can:alerts.show');
 
+		//Reports
+		Route::get('/reports', 'ReportController@index')->name('reports.index')->middleware('can:reports.index');
+		Route::get('/reports/{device}', 'ReportController@show')->name('reports.show')->middleware('can:reports.show');
+
 	});
 
-		Route::get('/pays/create', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
 
+		Route::get('/pays/create', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
 	Route::prefix('users')->group(function () {
 
 		//Pays

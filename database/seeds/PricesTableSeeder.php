@@ -41,8 +41,8 @@ class PricesTableSeeder extends Seeder
             'excluded' => '',
         ]);
         Price::create([
-            'price' => 30,
-            'description' => 'Adquirir un nuevo equipo',
+            'price' => 40,
+            'description' => 'Nuevo Dispositivo',
             'days' => 0,
             'installments' => 3,
             'excluded' => '',

@@ -6,9 +6,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Centinela - <strong>{{ $device->name }}</strong>
+                    Centinela - <strong>{{ $device->name }} ({{ $device->description }})</strong>
                     @can('devices.edit')
                         <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
+                    @endcan
+                    @can('pays.create')
+                        <a href="{{ route('pays.create') }}" class="btn btn-sm btn-default float-right">Pagar por el Monitoreo</a>
                     @endcan
                 </div>
                 <div class="card-body">
@@ -34,7 +37,7 @@
                                 </tr>
                                 <tr>
                                     <td>MONITOREO VALIDO HASTA</td>
-                                    <td><a href="{{ route('pays.create') }}" class="btn btn-sm btn-default">Pagar por el Monitoreo</a></td>
+                                    <td>{{ $device->monitor_expires_at }}</td>
                                 </tr>
                                 <tr>
                                     <td>AVISO POR E-MAIL</td>

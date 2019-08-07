@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ReceptionController extends Controller
 {
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function show(Device $device)
+    public function show_hour(Device $device)
     {
 
         $user_id = Auth::user()->id;
@@ -24,10 +25,49 @@ class ReceptionController extends Controller
 
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
         {
-            $today = Carbon::today();
+            $time = now()->subHour();
 
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $today)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $today)->get();
+            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+
+            if ($datas->max('created_at'))
+            {
+
+            foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
+
+            return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
+
+            }
+            else
+            {
+                return view('receptions.show')->with([ 'device' => $device ]);
+            }
+
+        }
+        else
+        {
+            abort(403, 'Accion no Autorizada');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Reception  $reception
+     * @return \Illuminate\Http\Response
+     */
+    public function show_day(Device $device)
+    {
+
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
+
+        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        {
+            $time = now()->subDay();
+
+            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->max('created_at'))
             {
@@ -64,10 +104,10 @@ class ReceptionController extends Controller
         if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
         {
 
-            $sub_week = now()->subWeek();
+            $time = now()->subWeek();
 
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $sub_week)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $sub_week)->get();
+            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->max('created_at'))
             {
@@ -79,6 +119,45 @@ class ReceptionController extends Controller
             {
                 return view('receptions.show-week')->with(['device' => $device]);
             }
+        }
+        else
+        {
+            abort(403, 'Accion no Autorizada');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Reception  $reception
+     * @return \Illuminate\Http\Response
+     */
+    public function show_month(Device $device)
+    {
+
+        $user_id = Auth::user()->id;
+        $user_device = $device->user_id;
+
+        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        {
+            $time = now()->subMonth();
+
+            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+
+            if ($datas->max('created_at'))
+            {
+
+            foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
+
+            return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
+
+            }
+            else
+            {
+                return view('receptions.show')->with([ 'device' => $device ]);
+            }
+
         }
         else
         {

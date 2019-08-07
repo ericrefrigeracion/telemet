@@ -49,8 +49,8 @@
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
                                 @endcan
                                 <div class="dropdown-menu">
-                                    @can('devices.create')
-                                        <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
+                                    @can('devices.buy')
+                                        <a class="dropdown-item" href="{{ route('devices.info')}}">Como comprar un dispositivo?</a>
                                         <div class="dropdown-divider"></div>
                                     @endcan
                                     @can('devices.index')
@@ -58,6 +58,10 @@
                                     @endcan
                                     @can('devices.all')
                                         <a class="dropdown-item" href="{{ route('devices.all') }}">Todos los Dispositivos</a>
+                                    @endcan
+                                    @can('devices.create')
+                                        <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
+                                        <div class="dropdown-divider"></div>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                 </div>
@@ -68,10 +72,10 @@
                                 @endcan
                                 <div class="dropdown-menu">
                                     @can('reports.index')
-                                        <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Reportes</a>
+                                        <a class="dropdown-item" href="{{ route('reports.index') }}">Mis Reportes</a>
                                     @endcan
                                     @can('reports.all')
-                                        <a class="dropdown-item" href="{{ route('alerts.index') }}">Todos los Reportes</a>
+                                        <a class="dropdown-item" href="{{ route('reports.all') }}">Todos los Reportes</a>
                                     @endcan
                                     <div class="dropdown-divider"></div>
                                     @can('alerts.index')

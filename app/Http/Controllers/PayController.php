@@ -103,18 +103,16 @@ class PayController extends Controller
         $items[0] = $item;
 
         $payer['name'] = $user->name;
+        $payer['surname'] = $user->surname;
         $payer['email'] = $user->email;
         $payer['identification']['type'] = 'DNI';
         $payer['identification']['number'] = $user->dni;
-        $payer['phone']['number'] = $user->notification_phone;
+        $payer['phone']['area_code'] = $user->phone_area_code;
+        $payer['phone']['number'] = $user->phone_number;
 
         $excluded_payments_types[0] = $excluded_payments_type;
         $payment_methods['excluded_payment_types'] = $excluded_payments_types;
         $payment_methods['installments'] = $installments;
-
-        $back_urls['success'] = 'https://sysnet.com.ar/pays/success';
-        $back_urls['pending'] = 'https://sysnet.com.ar/pays/pending';
-        $back_urls['failure'] = 'https://sysnet.com.ar/pays/failure';
 
         $query_params['access_token'] = config('services.mercadopago.token');
         $headers['Content-Type'] = 'application/json';
@@ -141,8 +139,9 @@ class PayController extends Controller
         $pay->device_id = $device->id;
         $pay->user_id = Auth::user()->id;
         $pay->preference_id = $response->id;
+        $pay->item_amount = $amount;
         $pay->valid_at = $monitorig_expires;
-        $pay->collection_status = 'Created - no se genereron cargos/el pago fue abandonado';
+        $pay->collection_status = 'Created (no se generaron cargos - el pago fue abandonado)';
         $pay->init_point = $response->init_point;
 
         $pay->save();
@@ -163,7 +162,10 @@ class PayController extends Controller
 
         $pay->update($request->all());
 
-        return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
+        $device = Device::find($pay->device_id);
+        $device->monitor_expires_at = $pay->valid_at;
+
+        return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito y ya se encuentra acreditado en tu cuenta.']);
     }
 
     /**
@@ -180,7 +182,7 @@ class PayController extends Controller
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        return view('pays.index')->with('success', ['El pago se ha realizado con exito, apenas se acredite comenzara el monitoreo']);
+        return view('pays.index')->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
@@ -197,6 +199,18 @@ class PayController extends Controller
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        return view('pays.create')->with('errors', ['El pago ha fallado, no se hizo ningun cobro. Por favor intente nuevamente.']);
+        return view('pays.create')->with('errors', ['El pago ha fallado y no se hizo ningun cobro. Por favor intenta nuevamente.']);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        $pays = Pay::paginate(20);
+
+        return view('pays.index')->with(['pays' => $pays]);
     }
 }

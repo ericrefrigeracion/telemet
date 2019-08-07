@@ -2,13 +2,96 @@
 
 namespace App\Http\Controllers;
 
+use App\Pay;
+use App\Price;
 use App\Device;
 use App\Reception;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DeviceController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function buy()
+    {
+
+        $user = Auth::user();
+        $multiplicator = Price::where('description', 'Multiplicador')->first();
+        $price = Price::where('description', 'Nuevo Dispositivo')->first();
+        $installments = $price->installments;
+        $excluded_payments_type['id'] = $price->excluded;
+        $amount = $price->price * $multiplicator->price;
+        $description = 'Pago de un nuevo dispositivo, monitoreo no incluido';
+
+        $item['id'] = 0000;
+        $item['title'] = 'Nuevo Dispositivo';
+        $item['description'] = $description;
+        $item['quantity'] = 1;
+        $item['currency_id'] = 'ARS';
+        $item['unit_price'] = $amount;
+        $items[0] = $item;
+
+        $payer['name'] = $user->name;
+        $payer['surname'] = $user->surname;
+        $payer['email'] = $user->email;
+        $payer['identification']['type'] = 'DNI';
+        $payer['identification']['number'] = $user->dni;
+        $payer['phone']['area_code'] = $user->phone_area_code;
+        $payer['phone']['number'] = $user->phone_number;
+
+        $excluded_payments_types[0] = $excluded_payments_type;
+        $payment_methods['excluded_payment_types'] = $excluded_payments_types;
+        $payment_methods['installments'] = $installments;
+
+        $back_urls['success'] = 'https://sysnet.com.ar/home';
+        $back_urls['pending'] = 'https://sysnet.com.ar/home';
+        $back_urls['failure'] = 'https://sysnet.com.ar/home';
+
+        $query_params['access_token'] = config('services.mercadopago.token');
+        $headers['Content-Type'] = 'application/json';
+        $json['items'] = $items;
+        $json['payer'] = $payer;
+        $json['payment_methods'] = $payment_methods;
+        $json['back_urls'] = $back_urls;
+        $json['auto_return'] = 'all';
+        $json['notification_url'] = 'https://sysnet.com.ar/api/webhooks';
+        $json['external_reference'] = '';
+
+        $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
+
+        $response = $client->request( 'POST', 'checkout/preferences', [
+            'query' => $query_params,
+            'json' => $json,
+            'headers' => $headers,
+        ] );
+
+        $response = json_decode( $response->getBody()->getContents() );
+
+        dd($response);
+
+
+        return redirect($response->init_point);
+
+    }
+
+    /**
+     * Display a view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function info()
+    {
+
+        $pay = Price::where('description', 'Nuevo Dispositivo')->first();
+        return view('devices.info')->with(['pay' => $pay]);
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -73,6 +156,7 @@ class DeviceController extends Controller
         $device->name = $request->name;
         $device->description = $request->description;
         $device->view_alerts_at = now();
+        $device->monitor_expires_at = now()->addWeek();
         $device->send_mails = 0;
         $device->admin_mon = 0;
         $device->on_line = 0;

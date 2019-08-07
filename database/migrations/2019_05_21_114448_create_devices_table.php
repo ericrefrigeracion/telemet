@@ -23,21 +23,21 @@ class CreateDevicesTable extends Migration
             $table->boolean('on_line')->nullable();
             $table->boolean('send_mails')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->timestamp('view_alerts_at');
+            $table->dateTime('view_alerts_at');
             $table->string('mdl');
             $table->boolean('tmon');
             $table->float('tmin');
             $table->float('tmax');
             $table->integer('tdly')->unsigned();
             $table->float('tcal');
-            $table->timestamp('twatch')->nullable();
+            $table->dateTime('twatch')->nullable();
             $table->boolean('hmon');
             $table->float('hmin');
             $table->float('hmax');
             $table->integer('hdly')->unsigned();
             $table->float('hcal');
-            $table->timestamp('hwatch')->nullable();
-            $table->timestamp('monitor_expires_at')->nullable();
+            $table->dateTime('hwatch')->nullable();
+            $table->dateTime('monitor_expires_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

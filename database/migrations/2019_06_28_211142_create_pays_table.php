@@ -17,8 +17,9 @@ class CreatePaysTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('device_id');
+            $table->float('item_amount');
             $table->string('preference_id');
-            $table->timestamp('valid_at');
+            $table->dateTime('valid_at');
             $table->string('collection_status');
             $table->string('init_point');
             $table->string('verified_by_sistem')->nullable();
@@ -32,7 +33,7 @@ class CreatePaysTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('device_id')->references('id')->on('devices');
+            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
         });
     }
 

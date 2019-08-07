@@ -4,19 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Editar Informacion: <strong>{{ $device->id }} - {{ $device->name }}</strong> ({{ $device->description }}).
@@ -26,6 +13,10 @@
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre del Dispositivo') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('description', 'Nombre del Dispositivo') }}
+                            {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
                         <p>Avisos por E-mail</p>
                         <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">

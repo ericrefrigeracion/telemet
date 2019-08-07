@@ -17,7 +17,7 @@ class Pay extends Model
         'user_id',
         'device_id',
         'preference_id',
-        'valid_at',
+        'item_amount',
         'collection_status',
         'init_point',
         'verified_by_sistem',

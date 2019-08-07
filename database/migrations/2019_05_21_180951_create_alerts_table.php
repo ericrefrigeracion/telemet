@@ -17,7 +17,7 @@ class CreateAlertsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('device_id');
             $table->string('log');
-            $table->timestamp('alert_created_at');
+            $table->dateTime('alert_created_at');
             $table->timestamps();
 
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');

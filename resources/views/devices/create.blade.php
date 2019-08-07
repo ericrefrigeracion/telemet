@@ -4,19 +4,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     Agregar Dispositivo
@@ -30,6 +17,10 @@
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre del dispositivo') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength=25']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('description', 'Descripcion del dispositivo') }}
+                            {{ Form::text('description', null, ['class' => 'form-control', 'maxlength=25']) }}
                         </div>
                         <div>
                             {{ Form::submit('Crear Dispositivo', ['class' => 'btn btn-sm btn-primary']) }}

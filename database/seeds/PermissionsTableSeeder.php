@@ -12,63 +12,14 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-    	//Roles
-        Permission::create([
-        	'name' => 'Listar roles',
-        	'slug' => 'roles.index',
-        	'description' => 'Listar y navegar todos los roles',
-        ]);
-        Permission::create([
-        	'name' => 'Ver rol',
-        	'slug' => 'roles.show',
-        	'description' => 'Ver informacion de un rol especifico',
-        ]);
-        Permission::create([
-        	'name' => 'Crear rol',
-        	'slug' => 'roles.create',
-        	'description' => 'Crear un nuevo rol',
-        ]);
-        Permission::create([
-        	'name' => 'Eliminar rol',
-        	'slug' => 'roles.destroy',
-        	'description' => 'Elimina un rol y toda su informacion',
-        ]);
-        Permission::create([
-        	'name' => 'Editar rol',
-        	'slug' => 'roles.edit',
-        	'description' => 'Editar la informacion de un rol',
-        ]);
-
-        //Users
-        Permission::create([
-        	'name' => 'Listar usuarios',
-        	'slug' => 'users.index',
-        	'description' => 'Listar y navegar todos los usuarios',
-        ]);
-        Permission::create([
-        	'name' => 'Ver usuario',
-        	'slug' => 'users.show',
-        	'description' => 'Ver informacion de un usuario especifico',
-        ]);
-        Permission::create([
-        	'name' => 'Eliminar usuario',
-        	'slug' => 'users.destroy',
-        	'description' => 'Elimina un usuario y toda su informacion',
-        ]);
-        Permission::create([
-        	'name' => 'Editar usuario',
-        	'slug' => 'users.edit',
-        	'description' => 'Editar la informacion de un usuario',
-        ]);
-
     	//Devices
         Permission::create([
-        	'name' => 'Listar dispositivos por usuario',
+        	'name' => 'Listar dispositivos de un usuario',
         	'slug' => 'devices.index',
         	'description' => 'Listar y navegar todos sus dispositivos',
         ]);
         Permission::create([
-            'name' => 'Listar todos los dispositivos',
+            'name' => 'Listar todos los dispositivos de todos los usuarios',
             'slug' => 'devices.all',
             'description' => 'Listar y navegar todos los dispositivos existentes',
         ]);
@@ -97,29 +48,61 @@ class PermissionsTableSeeder extends Seeder
         	'slug' => 'devices.edit',
         	'description' => 'Editar la informacion de un dispositivo',
         ]);
+        Permission::create([
+            'name' => 'Comprar dispositivo',
+            'slug' => 'devices.buy',
+            'description' => 'Comprar un nuevo dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Info de compra de dispositivo',
+            'slug' => 'devices.info',
+            'description' => 'Informacion sobre como comprar un nuevo dispositivo y precios',
+        ]);
 
         //Alerts
         Permission::create([
-            'name' => 'Listar alertas por usuario',
+            'name' => 'Listar alertas de un usuario',
             'slug' => 'alerts.index',
             'description' => 'Ver todas las alertas de un usuario',
         ]);
         Permission::create([
-            'name' => 'Listar alertas por equipo',
+            'name' => 'Listar alertas de un dispositivo',
             'slug' => 'alerts.show',
-            'description' => 'Ver las alertas de un dispositivo',
+            'description' => 'Ver todas las alertas de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Listar todas las alertas',
+            'name' => 'Listar todas las alertas de todos los usuarios',
             'slug' => 'alerts.all',
             'description' => 'Listar y navegar todas las alertas ocurridas organizadas por dispositivo',
+        ]);
+
+        //Reports
+        Permission::create([
+            'name' => 'Listar reportes de un usuario',
+            'slug' => 'reports.index',
+            'description' => 'Ver todos los reportes de un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Listar reportes de un dispositivo',
+            'slug' => 'reports.show',
+            'description' => 'Ver todos los reportes de un dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Listar todos los reportes de todos los usuarios',
+            'slug' => 'reports.all',
+            'description' => 'Listar y navegar todas los reportes organizadas por dispositivos',
         ]);
 
         //Receptions
         Permission::create([
         	'name' => 'Ver ultima hora',
-        	'slug' => 'receptions.show',
+        	'slug' => 'receptions.show-hour',
         	'description' => 'Ver el grafico de la ultima hora de un dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Ver ultimo dia',
+            'slug' => 'receptions.show-day',
+            'description' => 'Ver el grafico del ultimo dia de un dispositivo',
         ]);
         Permission::create([
             'name' => 'Ver ultima semana',
@@ -127,21 +110,14 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver el grafico de la ultima semana de un dispositivo',
         ]);
         Permission::create([
+            'name' => 'Ver ultimo mes',
+            'slug' => 'receptions.show-month',
+            'description' => 'Ver el grafico delultimo mes de un dispositivo',
+        ]);
+        Permission::create([
             'name' => 'Ver todos los datos',
             'slug' => 'receptions.show-all',
             'description' => 'Ver el grafico de todos los datos de un dispositivo',
-        ]);
-
-        //User
-        Permission::create([
-            'name' => 'Ver sus datos',
-            'slug' => 'users.show-me',
-            'description' => 'Ver sus datos personales de usuario',
-        ]);
-        Permission::create([
-            'name' => 'Editar sus datos',
-            'slug' => 'users.edit-me',
-            'description' => 'Editar sus datos personales de usuario',
         ]);
 
         //Pays
@@ -198,6 +174,65 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Editar precio',
             'slug' => 'prices.edit',
             'description' => 'Editar la informacion de un precio',
+        ]);
+
+        //Roles
+        Permission::create([
+            'name' => 'Listar roles',
+            'slug' => 'roles.index',
+            'description' => 'Listar y navegar todos los roles',
+        ]);
+        Permission::create([
+            'name' => 'Ver rol',
+            'slug' => 'roles.show',
+            'description' => 'Ver informacion de un rol especifico',
+        ]);
+        Permission::create([
+            'name' => 'Crear rol',
+            'slug' => 'roles.create',
+            'description' => 'Crear un nuevo rol',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar rol',
+            'slug' => 'roles.destroy',
+            'description' => 'Elimina un rol y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar rol',
+            'slug' => 'roles.edit',
+            'description' => 'Editar la informacion de un rol',
+        ]);
+
+        //Users
+        Permission::create([
+            'name' => 'Listar usuarios',
+            'slug' => 'users.index',
+            'description' => 'Listar y navegar todos los usuarios',
+        ]);
+        Permission::create([
+            'name' => 'Ver usuario',
+            'slug' => 'users.show',
+            'description' => 'Ver informacion de un usuario especifico',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar usuario',
+            'slug' => 'users.destroy',
+            'description' => 'Elimina un usuario y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar usuario',
+            'slug' => 'users.edit',
+            'description' => 'Editar la informacion de un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Ver sus datos',
+            'slug' => 'users.show-me',
+            'description' => 'Ver sus datos personales de usuario',
+        ]);
+        Permission::create([
+            'name' => 'Editar sus datos',
+            'slug' => 'users.edit-me',
+            'description' => 'Editar sus datos personales de usuario',
         ]);
 
     }
