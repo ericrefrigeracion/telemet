@@ -29,6 +29,7 @@ class DeviceTableSeeder extends Seeder
 			'hmax' => 0,
 			'hdly' => 0,
 			'hcal' => 0,
+			'monitor_expires_at' => now(),
         ]);
     }
 }
