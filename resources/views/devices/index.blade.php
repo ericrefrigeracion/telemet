@@ -27,9 +27,9 @@
                                             <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->name }}</a>
                                         </td>
                                     @endcan
-                                    @can('receptions.show')
+                                    @can('receptions.show-hour')
                                         <td>
-                                            <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
+                                            <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
                                         </td>
                                     @endcan
                                     @can('devices.log')

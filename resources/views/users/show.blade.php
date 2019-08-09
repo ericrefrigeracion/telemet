@@ -15,33 +15,29 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>NOMBRE</th>
-                                <th>VALOR</th>
+                                <th>Nombre Completo:</th>
+                                <th>{{ $user->name }} {{ $user->surname }}</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
-                                    <td>ID</td>
-                                    <td>{{ $user->id }}</td>
+                                    <td>N° de Documento:</td>
+                                    <td>{{ $user->dni }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Nombre</td>
-                                    <td>{{ $user->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>E-Mail</td>
+                                    <td>E-Mail:</td>
                                     <td>{{ $user->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td>E-Mail de Notificacion</td>
-                                    <td>{{ $user->notification_mail }}</td>
+                                    <td>E-Mail verificado:</td>
+                                    <td>{{ $user->email_verified_at }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Telefono de Notificacion</td>
-                                    <td>{{ $user->notification_phone }}</td>
+                                    <td>Numero de Telefono:</td>
+                                    <td>{{ $user->phone_area_code }} - {{ $user->phone_number }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Direccion</td>
+                                    <td>Direccion:</td>
                                     <td>{{ $user->address }}</td>
                                 </tr>
                                 <tr>
@@ -55,10 +51,6 @@
                                 <tr>
                                     <td>Modificado</td>
                                     <td>{{ $user->updated_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dia de Pago</td>
-                                    <td>{{ $user->payment_day }}</td>
                                 </tr>
                         </tbody>
                     </table>

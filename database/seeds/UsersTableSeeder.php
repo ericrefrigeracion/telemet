@@ -39,23 +39,33 @@ class UsersTableSeeder extends Seeder
         ]);
     	User::create([
     		'name' => 'Eric',
+            'surname' => 'Lopez',
+            'dni' => 32292512,
+            'phone_area_code' => 3385,
+            'phone_number' => 470666,
     		'email' => 'ericlopezrefrigeracion@hotmail.com',
     		'email_verified_at' => now(),
-    		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    		'password' => Hash::make('2707brlo'),
     		'remember_token' => Str::random(10),
+            'address' => 'Barzola 49'
     	]);
     	User::create([
-    		'name' => 'Carlos',
+    		'name' => 'Carlos A.',
+            'surname' => 'Gavernet',
+            'dni' => 28962129,
+            'phone_area_code' => 3385,
+            'phone_number' => 400879,
     		'email' => 'carlosgavernet@gmail.com',
     		'email_verified_at' => now(),
-    		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+    		'password' => Hash::make('pic16f84a'),
     		'remember_token' => Str::random(10),
+            'address' => 'Sarmiento 4'
     	]);
         User::create([
             'name' => 'Invitado',
             'email' => 'invitado@invitado.com',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('invitado'),
             'remember_token' => Str::random(10),
         ]);
 

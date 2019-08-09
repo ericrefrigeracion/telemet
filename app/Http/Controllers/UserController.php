@@ -72,8 +72,7 @@ class UserController extends Controller
     {
 
         $user = Auth::user();
-        $roles = Role::all();
-        return view('users.edit-me', compact('user', 'roles'));
+        return view('users.edit-me', compact('user'));
 
     }
 
@@ -89,8 +88,11 @@ class UserController extends Controller
 
             $rules = [
                 'name' => 'required|max:25',
-                'notification_mail' => 'nullable|email',
-                'notification_phone' => 'nullable|numeric',
+                'surname' => 'required|max:25',
+                'email' => 'nullable|email',
+                'dni' => 'nullable|numeric',
+                'phone_area_code' => 'nullable|numeric',
+                'phone_number' => 'nullable|numeric',
                 'address' => 'nullable|string'
             ];
 
@@ -113,8 +115,11 @@ class UserController extends Controller
 
             $rules = [
                 'name' => 'required|max:25',
-                'notification_mail' => 'nullable|email',
-                'notification_phone' => 'nullable|numeric',
+                'surname' => 'required|max:25',
+                'email' => 'nullable|email',
+                'dni' => 'nullable|numeric',
+                'phone_area_code' => 'nullable|numeric',
+                'phone_number' => 'nullable|numeric',
                 'address' => 'nullable|string'
             ];
 

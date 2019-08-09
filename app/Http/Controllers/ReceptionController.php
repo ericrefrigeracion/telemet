@@ -35,12 +35,12 @@ class ReceptionController extends Controller
 
             foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
-            return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
+            return view('receptions.show-last-hour')->with(['device' => $device, 'datas' => $datas]);
 
             }
             else
             {
-                return view('receptions.show')->with([ 'device' => $device ]);
+                return view('receptions.show-last-hour')->with([ 'device' => $device ]);
             }
 
         }
@@ -74,12 +74,12 @@ class ReceptionController extends Controller
 
             foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
-            return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
+            return view('receptions.show-last-day')->with(['device' => $device, 'datas' => $datas]);
 
             }
             else
             {
-                return view('receptions.show')->with([ 'device' => $device ]);
+                return view('receptions.show-last-day')->with([ 'device' => $device ]);
             }
 
         }
@@ -113,11 +113,11 @@ class ReceptionController extends Controller
             {
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
-                return view('receptions.show-week')->with(['device' => $device, 'datas' => $datas]);
+                return view('receptions.show-last-week')->with(['device' => $device, 'datas' => $datas]);
             }
             else
             {
-                return view('receptions.show-week')->with(['device' => $device]);
+                return view('receptions.show-last-week')->with(['device' => $device]);
             }
         }
         else
@@ -150,12 +150,12 @@ class ReceptionController extends Controller
 
             foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
-            return view('receptions.show')->with(['device' => $device, 'datas' => $datas]);
+            return view('receptions.show-last-month')->with(['device' => $device, 'datas' => $datas]);
 
             }
             else
             {
-                return view('receptions.show')->with([ 'device' => $device ]);
+                return view('receptions.show-last-month')->with([ 'device' => $device ]);
             }
 
         }

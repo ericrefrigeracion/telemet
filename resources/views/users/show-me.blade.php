@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Usuarios - <strong>{{ $user->name }}</strong>
+                    Usuarios - {{ $user->name }}
                     @can('users.edit-me')
                         <a href="{{ route('users.edit-me') }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
                     @endcan
@@ -15,25 +15,29 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>{{ $user->name }}</th>
+                                <th>Nombre Completo:</th>
+                                <th>{{ $user->name }} {{ $user->surname }}</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
-                                    <td>E-Mail</td>
+                                    <td>N° de Documento:</td>
+                                    <td>{{ $user->dni }}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-Mail:</td>
                                     <td>{{ $user->email }}</td>
                                 </tr>
                                 <tr>
-                                    <td>E-Mail de Notificacion</td>
-                                    <td>{{ $user->notification_mail }}</td>
+                                    <td>E-Mail verificado:</td>
+                                    <td>{{ $user->email_verified_at }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Telefono de Notificacion</td>
-                                    <td>{{ $user->notification_phone }}</td>
+                                    <td>Numero de Telefono:</td>
+                                    <td>{{ $user->phone_area_code }} - {{ $user->phone_number }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Direccion</td>
+                                    <td>Direccion:</td>
                                     <td>{{ $user->address }}</td>
                                 </tr>
                         </tbody>

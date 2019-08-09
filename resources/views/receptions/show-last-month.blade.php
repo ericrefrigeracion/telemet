@@ -13,23 +13,29 @@
         <div class="col-md-8 mb-3">
             <div class="card">
                 <div class="card-header">
-                    Datos de hoy de {{ $device->name }} ({{ $device->description }})
+                    Datos del ultimo mes de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
                     @if(isset($datas))
                     <div id="plot" style="height: 400px; width: auto"></div>
                     @else
                         <div class="alert alert-success" role="alert">
-                            No hay datos de este dispositivo para hoy, revisa datos anteriores.
+                            No hay datos de este dispositivo en el ultimo mes, revisa su conexion a internet.
                         </div>
                     @endif
                 </div>
                 <div class="card-footer">
-                    @can('receptions.show')
-                        <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Ver los datos de hoy</a>
+                    @can('receptions.show-hour')
+                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary">Ver ultima hora</a>
+                    @endcan
+                    @can('receptions.show-day')
+                        <a href="{{ route('receptions.show-day', $device->id) }}" class="btn btn-sm btn-primary">Ver ultimo dia</a>
                     @endcan
                     @can('receptions.show-week')
-                        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary">Ver la ultima semana</a>
+                        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary">Ver ultima semana</a>
+                    @endcan
+                    @can('receptions.show-month')
+                        <a href="{{ route('receptions.show-month', $device->id) }}" class="btn btn-sm btn-primary active">Ver ultimo mes</a>
                     @endcan
                     @can('receptions.show-all')
                         <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary">Ver todos los datos</a>

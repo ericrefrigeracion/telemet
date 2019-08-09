@@ -13,14 +13,14 @@
         <div class="col-md-8 mb-3">
             <div class="card">
                 <div class="card-header">
-                    Datos disponibles de {{ $device->name }} ({{ $device->description }})
+                    Datos del ultimo dia de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
                     @if(isset($datas))
                     <div id="plot" style="height: 400px; width: auto"></div>
                     @else
                         <div class="alert alert-success" role="alert">
-                            No hay datos de este dispositivo, revisa su conexion a internet.
+                            No hay datos de este dispositivo en el ultimo dia, revisa su conexion a internet.
                         </div>
                     @endif
                 </div>
@@ -29,7 +29,7 @@
                         <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary">Ver ultima hora</a>
                     @endcan
                     @can('receptions.show-day')
-                        <a href="{{ route('receptions.show-day', $device->id) }}" class="btn btn-sm btn-primary">Ver ultimo dia</a>
+                        <a href="{{ route('receptions.show-day', $device->id) }}" class="btn btn-sm btn-primary active">Ver ultimo dia</a>
                     @endcan
                     @can('receptions.show-week')
                         <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary">Ver ultima semana</a>
@@ -38,7 +38,7 @@
                         <a href="{{ route('receptions.show-month', $device->id) }}" class="btn btn-sm btn-primary">Ver ultimo mes</a>
                     @endcan
                     @can('receptions.show-all')
-                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary active">Ver todos los datos</a>
+                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary">Ver todos los datos</a>
                     @endcan
                 </div>
             </div>

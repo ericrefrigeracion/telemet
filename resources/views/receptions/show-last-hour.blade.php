@@ -13,20 +13,20 @@
         <div class="col-md-8 mb-3">
             <div class="card">
                 <div class="card-header">
-                    Datos disponibles de {{ $device->name }} ({{ $device->description }})
+                    Datos de la ultima hora de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
                     @if(isset($datas))
                     <div id="plot" style="height: 400px; width: auto"></div>
                     @else
                         <div class="alert alert-success" role="alert">
-                            No hay datos de este dispositivo, revisa su conexion a internet.
+                            No hay datos de este dispositivo en la ultima hora, revisa datos anteriores.
                         </div>
                     @endif
                 </div>
                 <div class="card-footer">
                     @can('receptions.show-hour')
-                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary">Ver ultima hora</a>
+                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary active">Ver ultima hora</a>
                     @endcan
                     @can('receptions.show-day')
                         <a href="{{ route('receptions.show-day', $device->id) }}" class="btn btn-sm btn-primary">Ver ultimo dia</a>
@@ -38,7 +38,7 @@
                         <a href="{{ route('receptions.show-month', $device->id) }}" class="btn btn-sm btn-primary">Ver ultimo mes</a>
                     @endcan
                     @can('receptions.show-all')
-                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary active">Ver todos los datos</a>
+                        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary">Ver todos los datos</a>
                     @endcan
                 </div>
             </div>
