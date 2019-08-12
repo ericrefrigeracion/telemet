@@ -182,7 +182,7 @@
             @if(session()->has('success'))
             <div class="container">
                 <div class="row justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div class="alert alert-success">
                             <button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <ul>

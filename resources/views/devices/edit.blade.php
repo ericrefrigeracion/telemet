@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     Editar Informacion: <strong>{{ $device->id }} - {{ $device->name }}</strong> ({{ $device->description }}).
@@ -15,7 +15,7 @@
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('description', 'Nombre del Dispositivo') }}
+                            {{ Form::label('description', 'Descripcion del Dispositivo') }}
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
                         <p>Avisos por E-mail</p>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
                     Dispositivos - Todos
@@ -15,6 +15,9 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Acciones</th>
+                                @can('receptions.show-hour')
+                                    <th></th>
+                                @endcan
                                 @can('devices.log')
                                     <th></th>
                                 @endcan
@@ -24,14 +27,15 @@
                             @foreach($devices as $device)
                                 <tr>
                                     <td>{{ $device->id }}</td>
+                                    <td>{{ $device->name }}</td>
                                     @can('devices.show')
                                         <td>
-                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->name }}</a>
+                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-primary">Configuracion</a>
                                         </td>
                                     @endcan
-                                    @can('receptions.show')
+                                    @can('receptions.show-hour')
                                         <td>
-                                            <a href="{{ route('receptions.show', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
+                                            <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
                                         </td>
                                     @endcan
                                     @can('devices.log')

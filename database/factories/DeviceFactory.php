@@ -32,5 +32,6 @@ $factory->define(Device::class, function (Faker $faker) {
         'hdly' => $faker->numberBetween(5,15),
         'hcal' => $faker->numberBetween(-2,3),
         'hwatch' => null,
+        'monitor_expires_at' => now()->addWeek(),
     ];
 });

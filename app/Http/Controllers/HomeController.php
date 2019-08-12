@@ -44,6 +44,7 @@ class HomeController extends Controller
             {
                 $device->last_data01 = $last_reception->data01;
                 $device->last_created_at = $last_reception->created_at->diffForHumans();
+                $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
                 $device->last_rssi = $last_reception->rssi;
             }else
             {

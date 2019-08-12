@@ -10,7 +10,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 mb-3">
+        <div class="col-md-10 mb-3">
             <div class="card">
                 <div class="card-header">
                     Datos disponibles de {{ $device->name }} ({{ $device->description }})
