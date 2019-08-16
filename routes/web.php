@@ -99,13 +99,13 @@ Route::middleware(['verified'])->group(function () {
 	});
 
 
-		Route::get('/pays/create', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
+		Route::get('/pays/create/{device}', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
 	Route::prefix('users')->group(function () {
 
 		//Pays
 		Route::get('/pays', 'PayController@index')->name('pays.index')->middleware('can:pays.index');
 		Route::get('/pays/{pay}', 'PayController@show')->name('pays.show')->middleware('can:pays.show');
-		Route::post('/pays', 'PayController@store')->name('pays.store')->middleware('can:pays.create');
+		Route::post('/pays/{device}-{price}', 'PayController@store')->name('pays.store')->middleware('can:pays.create');
 
 		//profile
 		Route::get('/profile', 'UserController@show_me')->name('users.show-me')->middleware('can:users.show-me');

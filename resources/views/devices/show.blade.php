@@ -11,7 +11,7 @@
                         <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
                     @endcan
                     @can('pays.create')
-                        <a href="{{ route('pays.create') }}" class="btn btn-sm btn-default float-right">Pagar por el Monitoreo</a>
+                        <a href="{{ route('pays.create', $device->id) }}" class="btn btn-sm btn-default float-right">Pagar por el Monitoreo</a>
                     @endcan
                 </div>
                 <div class="card-body">
@@ -37,7 +37,7 @@
                                 </tr>
                                 <tr>
                                     <td>MONITOREO VALIDO HASTA</td>
-                                    <td>{{ $device->monitor_expires_at }}</td>
+                                    <td>{{ $device->monitor_expires_at->toFormattedDateString() }}</td>
                                 </tr>
                                 <tr>
                                     <td>AVISO POR E-MAIL</td>

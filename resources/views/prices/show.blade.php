@@ -22,8 +22,12 @@
                                     <td>{{ $price->id }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Valor en Pesos</td>
+                                    <td>Valor</td>
                                     <td>{{ $price->price }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Para dispositivo modelo</td>
+                                    <td>{{ $price->device_mdl }}</td>
                                 </tr>
                                 <tr>
                                     <td>Dias de servicio</td>

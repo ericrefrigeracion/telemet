@@ -95,9 +95,6 @@
                                     @can('pays.index')
                                         <a class="dropdown-item" href="{{ route('pays.index') }}">Mis Pagos</a>
                                     @endcan
-                                    @can('pays.create')
-                                        <a class="dropdown-item" href="{{ route('pays.create') }}">Hacer un pago</a>
-                                    @endcan
                                     <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                 </div>
                             </li>

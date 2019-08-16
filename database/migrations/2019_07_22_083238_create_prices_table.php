@@ -15,6 +15,7 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('device_mdl');
             $table->float('price');
             $table->string('description');
             $table->string('excluded')->nullable();

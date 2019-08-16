@@ -36,8 +36,8 @@ class VerifyConnection implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all()->where('mon', true)->where('admin_mon', true);
-        $delay = now()->modify('-10 minute')->format('Y-m-d H:i:s');
+        $devices = Device::all()->where('admin_mon', true);
+        $delay = now()->subMins(10);
 
         foreach($devices as $device)
         {

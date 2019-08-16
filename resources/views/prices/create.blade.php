@@ -28,7 +28,11 @@
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('price', 'Valor del Item en Pesos') }}
+                            {{ Form::label('device_mdl', 'Modelo de dispositivo') }}
+                            {{ Form::text('device_mdl', null, ['class' => 'form-control', 'required']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('price', 'Valor del Item') }}
                             {{ Form::number('price', null, ['class' => 'form-control', 'required', 'default' => 0, 'min' => 0, 'step' => 0.01]) }}
                         </div>
                         <div class="form-group">
