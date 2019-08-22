@@ -11,7 +11,7 @@ class AdminDisconnectMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Aviso de equipo desconectado.';
+    public $subject = 'Aviso de dispositivo desconectado.';
     public $device_values;
     public $device;
     public $user;
@@ -37,6 +37,6 @@ class AdminDisconnectMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemet@alertas-desconexion.com')->markdown('email.centinela.admin_disconnect');
+        return $this->from('telemet@alertas-desconexion.com')->markdown('email.centinela.admin.disconnect');
     }
 }

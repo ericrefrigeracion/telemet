@@ -25,6 +25,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+                    <img width="18px" src="/favicon.ico" alt="Logo TelemeTT">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <ul class="nav navbar-nav">
@@ -94,6 +95,9 @@
                                 <div class="dropdown-menu">
                                     @can('pays.index')
                                         <a class="dropdown-item" href="{{ route('pays.index') }}">Mis Pagos</a>
+                                    @endcan
+                                    @can('pays.all')
+                                        <a class="dropdown-item" href="{{ route('pays.all') }}">Todos los Pagos</a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                 </div>

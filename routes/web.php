@@ -50,8 +50,11 @@ Route::middleware(['verified'])->group(function () {
 		//Alerts-all
 		Route::get('/alerts/all', 'AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
 
-		//reports-all
+		//Reports-all
 		Route::get('/reports/all', 'ReportController@all')->name('reports.all')->middleware('can:reports.all');
+
+		//Pays-all
+		Route::get('/pays/all', 'PayController@all')->name('pays.all')->middleware('can:pays.all');
 
 		//Webhooks
 		Route::get('/webhooks', 'WebhookController@index')->name('webhooks.index')->middleware('can:webhooks.index');

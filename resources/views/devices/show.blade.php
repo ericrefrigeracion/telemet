@@ -54,13 +54,19 @@
                                             <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Minima Establecida (°C)</td>
-                                            <td>{{ $device->tmin }}</td>
+                                            <td>Temperatura Deseada (°C)</td>
+                                            <td>{{ $device->t_set_point }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Maxima Establecida (°C)</td>
-                                            <td>{{ $device->tmax }}</td>
-                                        </tr>
+                                        @can('devices.all')
+                                            <tr>
+                                                <td>Minima Establecida (°C)</td>
+                                                <td>{{ $device->tmin }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Maxima Establecida (°C)</td>
+                                                <td>{{ $device->tmax }}</td>
+                                            </tr>
+                                        @endcan
                                         <tr>
                                             <td>Retardo al Aviso (minutos)</td>
                                             <td>{{ $device->tdly }}</td>
@@ -78,13 +84,19 @@
                                             <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Minima Establecida (%)</td>
-                                            <td>{{ $device->hmin }}</td>
+                                            <td>Humedad Deseada (°C)</td>
+                                            <td>{{ $device->h_set_point }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Maxima Establecida (%)</td>
-                                            <td>{{ $device->hmax }}</td>
-                                        </tr>
+                                        @can('devices.all')
+                                            <tr>
+                                                <td>Minima Establecida (%)</td>
+                                                <td>{{ $device->hmin }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Maxima Establecida (%)</td>
+                                                <td>{{ $device->hmax }}</td>
+                                            </tr>
+                                        @endcan
                                         <tr>
                                             <td>Retardo al Aviso (minutos)</td>
                                             <td>{{ $device->hdly }}</td>

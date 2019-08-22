@@ -38,7 +38,7 @@
                                 </tr>
                                 <tr>
                                     <td>Vigente hasta:</td>
-                                    <td>{{ $pay->valid_at }}</td>
+                                    <td>{{ $pay->valid_at->toFormattedDateString() }}</td>
                                 </tr>
                         </tbody>
                     </table>

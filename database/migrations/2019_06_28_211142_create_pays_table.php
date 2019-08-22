@@ -19,10 +19,12 @@ class CreatePaysTable extends Migration
             $table->unsignedBigInteger('device_id');
             $table->float('item_amount');
             $table->string('preference_id');
+            $table->string('operation_type');
             $table->dateTime('valid_at');
             $table->string('collection_status');
             $table->string('init_point');
-            $table->string('verified_by_sistem')->nullable();
+            $table->string('status_detail')->nullable();
+            $table->dateTime('verified_by_sistem')->nullable();
             $table->string('external_reference')->nullable();
             $table->unsignedBigInteger('collection_id')->nullable();
             $table->unsignedBigInteger('merchant_order_id')->nullable();

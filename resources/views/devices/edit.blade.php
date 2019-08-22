@@ -37,6 +37,11 @@
                             {{ Form::number('tcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
                         </div>
                         <div class="form-group">
+                            {{ Form::label('t_set_point', 'Temperatura Deseada (°C)') }}
+                            {{ Form::number('t_set_point', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
+                        </div>
+                        @can('devices.all')
+                        <div class="form-group">
                             {{ Form::label('tmin', 'Minima Temperatura Permitida (°C)') }}
                             {{ Form::number('tmin', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
                         </div>
@@ -44,6 +49,7 @@
                             {{ Form::label('tmax', 'Maxima Temperatura Permitida (°C)') }}
                             {{ Form::number('tmax', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
                         </div>
+                        @endcan
                         <div class="form-group">
                             {{ Form::label('tdly', 'Retardo al Aviso (minutos)') }}
                             {{ Form::number('tdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
@@ -62,13 +68,19 @@
                                 {{ Form::number('hcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
                             </div>
                             <div class="form-group">
-                                {{ Form::label('hmin', 'Minima Humedad Permitida (% HR)') }}
-                                {{ Form::number('hmin', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hmax', 'Maxima Humedad Permitida (% HR)') }}
-                                {{ Form::number('hmax', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
+                                    {{ Form::label('h_set_point', 'Humedad Deseada (% HR)') }}
+                                    {{ Form::number('h_set_point', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
+                                </div>
+                            @can('devices.all')
+                                <div class="form-group">
+                                    {{ Form::label('hmin', 'Minima Humedad Permitida (% HR)') }}
+                                    {{ Form::number('hmin', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::label('hmax', 'Maxima Humedad Permitida (% HR)') }}
+                                    {{ Form::number('hmax', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
+                                </div>
+                            @endcan
                             <div class="form-group">
                                 {{ Form::label('hdly', 'Retardo al Aviso (minutos)') }}
                                 {{ Form::number('hdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}

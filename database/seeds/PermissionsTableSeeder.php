@@ -127,7 +127,7 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver los pagos de un usuario',
         ]);
         Permission::create([
-            'name' => 'Ver pago',
+            'name' => 'Ver un pago',
             'slug' => 'pays.show',
             'description' => 'Ver un pago especifico de un usuario',
         ]);
@@ -135,6 +135,11 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Pagar',
             'slug' => 'pays.create',
             'description' => 'Crear un pago para un dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Ver todos los pagos',
+            'slug' => 'pays.all',
+            'description' => 'Ver todos los pagos de todos los usuarios',
         ]);
 
         //Webhooks

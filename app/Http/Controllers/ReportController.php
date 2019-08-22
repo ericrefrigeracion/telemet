@@ -33,8 +33,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $devices = Device::where('user_id', $user_id)->paginate(10);
+
+        $devices = Auth::user()->devices()->paginate(10);
         foreach ($devices as $device) {
             $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
         }
@@ -52,18 +52,18 @@ class ReportController extends Controller
     public function show(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        {
 
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
-
-            $alerts = Alert::where('device_id', $device->id)->latest()->paginate(20);
+            $alerts = $device->alerts()->latest()->paginate(20);
             $device->view_alerts_at = now();
             $device->update();
 
             return view('reports.show')->with(['device' => $device, 'alerts' => $alerts]);
 
-        }else{
+        }
+        else
+        {
             abort(403, 'Accion no Autorizada');
         }
     }

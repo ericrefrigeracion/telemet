@@ -20,10 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PricesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(UserPermissionsTableSeeder::class);
-        //$this->call(DeviceTableSeeder::class);
 
-        //factory(User::class, 5)->create();
-        //factory(Device::class, 50)->create();
-        //factory(Reception::class, 5000)->create();
+        factory(User::class, 5)->create();
+        factory(Device::class, 50)->create();
+        factory(Reception::class, 5000)->create();
     }
 }

@@ -43,6 +43,7 @@ class PriceController extends Controller
         $rules = [
             'days' => 'required|numeric',
             'description' => 'required|string',
+            'device_mdl' => 'required|string',
             'price' => 'required|numeric|min:1',
             'excluded' => 'string|nullable',
             'installments' => 'numeric|min:1|max:12',
@@ -52,7 +53,7 @@ class PriceController extends Controller
 
         $price = Price::create($request->all());
 
-        return view('prices.show', compact('price'));
+        return view('prices.show', compact('price'))->with('success', ['Price creado con exito']);
     }
 
     /**
@@ -117,7 +118,7 @@ class PriceController extends Controller
     {
 
         $price->delete();
-        return redirect()->route('devices.index')->with('success', ['Price eliminado con exito']);
+        return redirect()->route('prices.index')->with('success', ['Price eliminado con exito']);
 
     }
 }

@@ -5,12 +5,17 @@ namespace App\Jobs;
 use App\User;
 use App\Device;
 use App\MailAlert;
+use App\Mail\ConnectMail;
 use App\Mail\HumidityMail;
 use App\Mail\DisconnectMail;
 use App\Mail\TemperatureMail;
+use App\Mail\HumSetPointMail;
+use App\Mail\TempSetPointMail;
 use App\Mail\AdminHumidityMail;
 use App\Mail\AdminDisconnectMail;
 use App\Mail\AdminTemperatureMail;
+use App\Mail\AdminHumSetPointMail;
+use App\Mail\AdminTempSetPointMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -57,6 +62,12 @@ class SendMails implements ShouldQueue
 
                 if ($device_values->type == 'offLine')
                 {
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new ConnectMail($device_values, $device, $user));
+                    Mail::to($eric->notification_mail)->queue(new AdminConnectMail($device_values, $device, $user));
+                    Mail::to($carlos->notification_mail)->queue(new AdminConnectMail($device_values, $device, $user));
+                }
+                if ($device_values->type == 'offLine')
+                {
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminDisconnectMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminDisconnectMail($device_values, $device, $user));
@@ -64,7 +75,7 @@ class SendMails implements ShouldQueue
                 if ($device_values->type == 'temp')
                 {
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
-                    Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new AdminTemperatureMail($device_values, $device, $user));
+                    Mail::to($eric->notification_mail)->queue(new AdminTemperatureMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminTemperatureMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'hum')
@@ -72,6 +83,18 @@ class SendMails implements ShouldQueue
                     if($device->send_mails) Mail::to($user->notification_mail)->queue(new HumidityMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminHumidityMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminHumidityMail($device_values, $device, $user));
+                }
+                if ($device_values->type == 'tSetPoint')
+                {
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new TempSetPointMail($device_values, $device, $user));
+                    Mail::to($eric->notification_mail)->queue(new AdminTempSetPointMail($device_values, $device, $user));
+                    Mail::to($carlos->notification_mail)->queue(new AdminTempSetPointMail($device_values, $device, $user));
+                }
+                if ($device_values->type == 'hSetPoint')
+                {
+                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new HumSetPointMail($device_values, $device, $user));
+                    Mail::to($eric->notification_mail)->queue(new AdminHumSetPointMail($device_values, $device, $user));
+                    Mail::to($carlos->notification_mail)->queue(new AdminHumSetPointMail($device_values, $device, $user));
                 }
             }
         }

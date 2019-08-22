@@ -24,8 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('revission:temperatures')
+        $schedule->command('devices:revissions')
                   ->everyMinute();
+        $schedule->command('pays:revission')
+                  ->everyFiveMinutes();
     }
 
     /**

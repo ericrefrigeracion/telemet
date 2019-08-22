@@ -12,7 +12,7 @@ class Price extends Model
      * @var array
      */
     protected $fillable = [
-        'days', 'description', 'price', 'excluded', 'installments', 'type',
+        'days', 'description', 'price', 'excluded', 'installments', 'type', 'device_mdl',
     ];
 
      protected $dates = [

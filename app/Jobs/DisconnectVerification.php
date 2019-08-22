@@ -4,15 +4,15 @@ namespace App\Jobs;
 
 use App\Alert;
 use App\Device;
-use App\Reception;
 use App\MailAlert;
+use App\Reception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class VerifyConnection implements ShouldQueue
+class DisconnectVerification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -36,28 +36,28 @@ class VerifyConnection implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all()->where('admin_mon', true);
-        $delay = now()->subMins(10);
+        $devices = Device::where('admin_mon', true)->get();
+        $delay = now()->subMinutes(10);
 
         foreach($devices as $device)
         {
-            $last_reception = Reception::where('device_id', $device->id)->latest()->first();
+            $last_reception = $device->receptions()->latest()->first();
 
             //Si el tiempo de recepcion es menor al delay(o sea mas viejo) && el dispositivo figura en linea
             //en la base de datos(on_line=true)
             if ( $last_reception->created_at < $delay && $device->on_line )
             {
-                $device->on_line = 0;
+                $device->on_line = false;
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'El dispositivo se encuentra desconectado de nuestro servidor hace mas de 10 minutos'
+                    'log' => 'Ultima conexion del dispositivo.',
+                    'alert_created_at' => $last_reception->created_at,
                 ]);
                 MailAlert::create([
                     'last_data' => $last_reception->data01,
-                    'alert_created_at' => $last_reception->created_at,
+                    'last_created_at' => $last_reception->created_at,
                     'type' => 'offLine',
-                    'send_at' => null,
                     'user_id' => $device->user_id,
                     'device_id' => $device->id,
                 ]);
@@ -68,17 +68,17 @@ class VerifyConnection implements ShouldQueue
             //en la base de datos(on_line=false)
             if( $last_reception->created_at > $delay && !$device->on_line )
             {
-                $device->on_line = 1;
+                $device->on_line = true;
                 $device->update();
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'El dispositivo esta conectado nuevamente'
+                    'log' => 'El dispositivo se conecto nuevamente.',
+                    'alert_created_at' => $last_reception->created_at,
                 ]);
                 MailAlert::create([
                     'last_data' => $last_reception->data01,
-                    'alert_created_at' => $last_reception->created_at,
+                    'last_created_at' => $last_reception->created_at,
                     'type' => 'onLine',
-                    'send_at' => null,
                     'user_id' => $device->user_id,
                     'device_id' => $device->id,
                 ]);

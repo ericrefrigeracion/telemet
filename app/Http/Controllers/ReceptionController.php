@@ -20,10 +20,7 @@ class ReceptionController extends Controller
     public function show_hour(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
-
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
         {
             $time = now()->subHour();
 
@@ -59,10 +56,7 @@ class ReceptionController extends Controller
     public function show_day(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
-
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
         {
             $time = now()->subDay();
 
@@ -98,10 +92,7 @@ class ReceptionController extends Controller
     public function show_week(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
-
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
         {
 
             $time = now()->subWeek();
@@ -135,10 +126,7 @@ class ReceptionController extends Controller
     public function show_month(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
-
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
         {
             $time = now()->subMonth();
 
@@ -174,10 +162,7 @@ class ReceptionController extends Controller
     public function show_all(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
-
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
         {
             if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->get();
             if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->get();

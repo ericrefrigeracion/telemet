@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Pay;
+use App\Device;
+use GuzzleHttp\Client;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+
+class PaysVerification implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public $tries = 5;
+    public $timeout = 30;
+
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        $delay = now()->subMinutes(15);
+        $pays = Pay::where('verified_by_sistem', NULL)->get();
+        $query_params['access_token'] = config('services.mercadopago.token');
+        $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
+
+        foreach ($pays as $pay)
+        {
+            if($pay->status == 'Created (no se generaron cargos - el pago fue abandonado)' && $pay->created_at < $delay)
+            {
+                $pay->delete();
+            }
+            else
+            {
+               $response = $client->request( 'GET', 'v1/payments/' . $pay->collection_id, [
+                    'query' => $query_params
+                ] );
+
+                $response = json_decode( $response->getBody()->getContents() );
+
+                $pay->status_detail = $response->status_detail;
+                $pay->external_reference = $response->external_reference;
+                $pay->update();
+
+                if($response->status_detail == 'accredited')
+                {
+                    $pay->verified_by_sistem = now();
+                    $pay->update();
+                    $device = Device::find($pay->device_id);
+                    $device->monitor_expires_at = $pay->valid_at;
+                    $device->update();
+                }
+            }
+        }
+    }
+}

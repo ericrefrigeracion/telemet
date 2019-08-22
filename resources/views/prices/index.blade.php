@@ -15,18 +15,16 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Descripcion</th>
-                                <th>Precio</th>
+                                <th>Modelo</th>
                                 <th colspan="2">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($prices as $price)
                                 <tr>
-                                    <td>{{ $price->id }}</td>
                                     <td>{{ $price->description }}</td>
-                                    <td>${{ $price->price }}</td>
+                                    <td>{{ $price->device_mdl }}</td>
                                     @can('prices.show')
                                         <td><a href="{{ route('prices.show', $price->id) }}" class="btn btn-sm btn-success">Ver</a></td>
                                     @endcan

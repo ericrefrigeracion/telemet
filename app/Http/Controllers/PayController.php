@@ -34,7 +34,14 @@ class PayController extends Controller
      */
     public function show(Pay $pay)
     {
-        return view('pays.show')->with(['pay' => $pay]);
+        if (Auth::user()->id === $pay->user_id)
+        {
+            return view('pays.show')->with(['pay' => $pay]);
+        }
+        else
+        {
+            abort(403, 'Accion no Autorizada');
+        }
     }
 
     /**
@@ -82,11 +89,13 @@ class PayController extends Controller
             if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
             $monitoring_expires = $device->monitor_expires_at->addDays($price->days);
             $multiplicator = Price::where('description', 'Multiplicador')->first();
-            $amount = $price->price * $multiplicator->price;
+
+            $title = $price->description . ' para ' . $device->id;
             $description = 'Servicio de monitoreo por ' . $price->days . ' dias para el equipo ' . $device->name . ' a partir del dia ' . $device->monitor_expires_at->format('l jS \\of F Y h:i:s A') . ' hasta el dia ' . $monitoring_expires->format('l jS \\of F Y h:i:s A') . '.';
+            $amount = $price->price * $multiplicator->price;
 
             $item['id'] = $device->id;
-            $item['title'] = $price->description;
+            $item['title'] = $title;
             $item['description'] = $description;
             $item['category_id'] = $monitoring_expires;
             $item['quantity'] = 1;
@@ -101,6 +110,7 @@ class PayController extends Controller
             $payer['identification']['number'] = $user->dni;
             $payer['phone']['area_code'] = $user->phone_area_code;
             $payer['phone']['number'] = $user->phone_number;
+            $payer['address']['street_name'] = $user->address;
 
             $excluded_payments_type['id'] = $price->excluded;
             $excluded_payments_types[0] = $excluded_payments_type;
@@ -137,6 +147,7 @@ class PayController extends Controller
             $pay->user_id = $user->id;
             $pay->preference_id = $response->id;
             $pay->item_amount = $amount;
+            $pay->operation_type = $response->operation_type;
             $pay->valid_at = $monitoring_expires;
             $pay->collection_status = 'Created (no se generaron cargos - el pago fue abandonado)';
             $pay->init_point = $response->init_point;

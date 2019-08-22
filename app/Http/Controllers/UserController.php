@@ -113,21 +113,21 @@ class UserController extends Controller
     public function update_me(Request $request)
     {
 
-            $rules = [
-                'name' => 'required|max:25',
-                'surname' => 'required|max:25',
-                'email' => 'nullable|email',
-                'dni' => 'nullable|numeric',
-                'phone_area_code' => 'nullable|numeric',
-                'phone_number' => 'nullable|numeric',
-                'address' => 'nullable|string'
-            ];
+        $rules = [
+            'name' => 'required|max:25',
+            'surname' => 'required|max:25',
+            'email' => 'nullable|email',
+            'dni' => 'nullable|numeric',
+            'phone_area_code' => 'nullable|numeric',
+            'phone_number' => 'nullable|numeric',
+            'address' => 'nullable|string'
+        ];
 
-            $user = Auth::user();
-            $request->validate($rules);
-            $user->update($request->all());
+        $user = Auth::user();
+        $request->validate($rules);
+        $user->update($request->all());
 
-            return redirect()->route('users.show-me')->with('success', ['Usuario actualizado con exito']);
+        return redirect()->route('users.show-me')->with('success', ['Usuario actualizado con exito']);
     }
 
     /**
@@ -138,10 +138,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-
         $user->delete();
         return redirect()->route('users.index')->with('success', ['Usuario eliminado con exito']);
-
     }
-
 }

@@ -113,8 +113,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $devices = Device::where('user_id', $user_id)->paginate(10);
+        $devices = Auth::user()->devices()->paginate(10);
 
         foreach ($devices as $device) {
 
@@ -173,9 +172,13 @@ class DeviceController extends Controller
         $device->description = $request->description;
         $device->view_alerts_at = now();
         $device->monitor_expires_at = now()->addWeek();
-        $device->send_mails = 0;
-        $device->admin_mon = 0;
-        $device->on_line = 0;
+        $device->send_mails = false;
+        $device->admin_mon = false;
+        $device->on_line = false;
+        $device->on_temp = false;
+        $device->on_hum = false;
+        $device->on_t_set_point = false;
+        $device->on_h_set_point = false;
         $device->tmon = 0;
         $device->tmin = 0;
         $device->tmax = 0;
@@ -186,6 +189,12 @@ class DeviceController extends Controller
         $device->hmax = 50;
         $device->hdly = 0;
         $device->hcal = 0;
+        $device->t_set_point = 0;
+        $device->t_is = 'higher';
+        $device->t_change_at = now();
+        $device->h_set_point = 50;
+        $device->h_is = 'higher';
+        $device->h_change_at = now();
 
         $device->save();
 
@@ -201,10 +210,7 @@ class DeviceController extends Controller
     public function show(Device $device)
     {
 
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
-
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
 
             return view('devices.show')->with(['device' => $device]);
 
@@ -236,10 +242,8 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
 
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
 
             return view('devices.edit', compact('device'));
 
@@ -259,20 +263,20 @@ class DeviceController extends Controller
      */
     public function update(Request $request, Device $device)
     {
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
 
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
 
             $rules = [
                 'name' => 'required|max:25',
                 'description' => 'max:50',
                 'send_mails' => 'boolean',
+                't_set_point' => 'filled|numeric|min:-30|max:80',
                 'tcal' => 'filled|numeric|min:-5|max:5',
                 'tmon' => 'boolean',
                 'tmin' => 'filled|numeric|min:-30|max:80',
                 'tmax' => 'filled|numeric|min:-30|max:80',
                 'tdly' => 'filled|integer|min:0|max:60',
+                'h_set_point' => 'filled|numeric|min:-30|max:80',
                 'hcal' => 'filled|numeric|min:-5|max:5',
                 'hmon' => 'boolean',
                 'hmin' => 'filled|numeric|min:0|max:95',
@@ -298,10 +302,8 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
-        $user_id = Auth::user()->id;
-        $user_device = $device->user_id;
 
-        if ($user_id === $user_device || $user_id === 1 || $user_id === 2) {
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
 
             $device->delete();
             return redirect()->route('devices.index')->with('success', ['Dispositivo eliminado con exito']);
