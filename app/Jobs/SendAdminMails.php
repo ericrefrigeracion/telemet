@@ -23,7 +23,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class SendMails implements ShouldQueue
+class SendAdminMails implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -47,7 +47,7 @@ class SendMails implements ShouldQueue
      */
     public function handle()
     {
-        if($devices_values = MailAlert::where('send_at', null)->get())
+        if($devices_values = MailAlert::where('send_to_admin_at', null)->get())
         {
             $eric = User::find(1);
             $carlos = User::find(2);
@@ -57,42 +57,36 @@ class SendMails implements ShouldQueue
                 $user = User::find($device_values->user_id);
                 $device = Device::find($device_values->device_id);
 
-                $device_values->send_at = now();
+                $device_values->send_to_admin_at = now();
                 $device_values->update();
 
-                if ($device_values->type == 'offLine')
+                if ($device_values->type == 'onLine')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new ConnectMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminConnectMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminConnectMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'offLine')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminDisconnectMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminDisconnectMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'temp')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminTemperatureMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminTemperatureMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'hum')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new HumidityMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminHumidityMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminHumidityMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'tSetPoint')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new TempSetPointMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminTempSetPointMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminTempSetPointMail($device_values, $device, $user));
                 }
                 if ($device_values->type == 'hSetPoint')
                 {
-                    if($device->send_mails) Mail::to($user->notification_mail)->queue(new HumSetPointMail($device_values, $device, $user));
                     Mail::to($eric->notification_mail)->queue(new AdminHumSetPointMail($device_values, $device, $user));
                     Mail::to($carlos->notification_mail)->queue(new AdminHumSetPointMail($device_values, $device, $user));
                 }

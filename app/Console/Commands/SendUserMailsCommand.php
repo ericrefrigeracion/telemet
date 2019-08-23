@@ -2,25 +2,23 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\PaysVerification;
-use App\Jobs\PayVigentVerification;
 use Illuminate\Console\Command;
 
-class PaysCommand extends Command
+class SendUserMailsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'pays:revission';
+    protected $signature = 'mails:user';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Revision del estado de los pagos realizados';
+    protected $description = 'Envia los mails a los usuarios.';
 
     /**
      * Create a new command instance.
@@ -39,7 +37,6 @@ class PaysCommand extends Command
      */
     public function handle()
     {
-        PaysVerification::dispatch();
-        PayVigentVerification::dispatch();
+        SendUserMailsCommand::dispatch();
     }
 }

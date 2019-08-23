@@ -20,7 +20,8 @@ class CreateMailAlertsTable extends Migration
             $table->float('last_data')->nullable();
             $table->string('type')->nullable();
             $table->dateTime('last_created_at')->nullable();
-            $table->dateTime('send_at')->nullable();
+            $table->dateTime('send_to_admin_at')->nullable();
+            $table->dateTime('send_to_user_at')->nullable();
             $table->timestamps();
 
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');

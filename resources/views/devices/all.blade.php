@@ -13,12 +13,19 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Temp</th>
+                                <th>Temp Ciclo</th>
+                                <th>Hum</th>
+                                <th>Hum Ciclo</th>
                                 <th>Acciones</th>
                                 @can('receptions.show-hour')
                                     <th></th>
                                 @endcan
                                 @can('devices.log')
+                                    <th></th>
+                                @endcan
+                                @can('alerts.show')
                                     <th></th>
                                 @endcan
                             </tr>
@@ -27,10 +34,19 @@
                             @foreach($devices as $device)
                                 <tr>
                                     <td>{{ $device->id }}</td>
-                                    <td>{{ $device->name }}</td>
+                                    <td>{{ $device->on_line ? 'En Linea' : 'Desconectado' }}</td>
+                                    <td>{{ $device->on_temp ? 'OK' : 'OUT' }}</td>
+                                    <td>{{ $device->on_t_set_point ? 'OK' : 'OUT' }}</td>
+                                    @if($device->mdl == 'th')
+                                    <td>{{ $device->on_hum ? 'OK' : 'OUT' }}</td>
+                                    <td>{{ $device->on_h_set_point ? 'OK' : 'OUT' }}</td>
+                                    @else
+                                    <td> --- </td>
+                                    <td> --- </td>
+                                    @endif
                                     @can('devices.show')
                                         <td>
-                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-primary">Configuracion</a>
+                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-primary">Config</a>
                                         </td>
                                     @endcan
                                     @can('receptions.show-hour')
@@ -43,11 +59,15 @@
                                             <a href="{{ route('devices.log', $device->id) }}" class="btn btn-sm btn-primary">Logs</a>
                                         </td>
                                     @endcan
+                                    @can('alerts.show')
+                                        <td>
+                                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-primary">Alertas</a>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $devices->render() }}
                 </div>
             </div>
         </div>

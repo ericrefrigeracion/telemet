@@ -84,7 +84,7 @@
                                             <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Humedad Deseada (°C)</td>
+                                            <td>Humedad Deseada (%)</td>
                                             <td>{{ $device->h_set_point }}</td>
                                         </tr>
                                         @can('devices.all')

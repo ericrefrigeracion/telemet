@@ -100,7 +100,7 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $devices = Device::paginate(20);
+        $devices = Device::where('admin_mon', true)->get();
 
         return view('devices.all')->with(['devices' => $devices]);
 
@@ -179,12 +179,12 @@ class DeviceController extends Controller
         $device->on_hum = false;
         $device->on_t_set_point = false;
         $device->on_h_set_point = false;
-        $device->tmon = 0;
+        $device->tmon = false;
         $device->tmin = 0;
         $device->tmax = 0;
         $device->tdly = 0;
         $device->tcal = 0;
-        $device->hmon = 0;
+        $device->hmon = false;
         $device->hmin = 50;
         $device->hmax = 50;
         $device->hdly = 0;

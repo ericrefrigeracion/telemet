@@ -24,10 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('devices:revissions')
-                  ->everyMinute();
-        $schedule->command('pays:revission')
-                  ->everyFiveMinutes();
+        $schedule->command('devices:revissions')->everyMinute();
+        $schedule->command('pays:revission')->daily();
+        $schedule->command('mails:user')->dailyAt('8:00');
+
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SendMails;
 use App\Jobs\MaxHumVerification;
 use App\Jobs\MinHumVerification;
 use App\Jobs\MaxTempVerification;
@@ -13,6 +12,7 @@ use App\Jobs\SetPointHumChangeVerification;
 use App\Jobs\TimeHumVerification;
 use App\Jobs\TimeTempVerification;
 use App\Jobs\TimeSetPointVerification;
+use App\Jobs\SendAdminMails;
 use Illuminate\Console\Command;
 
 class DevicesCommand extends Command
@@ -48,6 +48,6 @@ class DevicesCommand extends Command
         TimeTempVerification::dispatch();
         TimeHumVerification::dispatch();
         TimeSetPointVerification::dispatch();
-        //SendMails::dispatch();
+        //SendAdminMails::dispatch();
     }
 }

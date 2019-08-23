@@ -13,17 +13,19 @@
                         </div>
                         <div class="card-body">
                             <h6 class="card-subtitle text-muted">{{ $device->description }}</h6>
-                            @if($device->on_temp && $device->on_t_set_point)
-                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-success m-2">Todo En Orden</a>
-                            @endif
-                            @if(!$device->on_temp && $device->on_t_set_point)
-                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Rango</a>
-                            @endif
-                            @if($device->on_temp && !$device->on_t_set_point)
-                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Ciclo</a>
-                            @endif
-                            @if(!$device->on_temp && !$device->on_t_set_point)
-                            <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger m-2">Alerta de Funcionamiento</a>
+                            @if($device->admin_mon && $device->tmon)
+                                @if($device->on_temp && $device->on_t_set_point)
+                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-success m-2">Todo en Orden</a>
+                                @endif
+                                @if(!$device->on_temp && $device->on_t_set_point)
+                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Rango</a>
+                                @endif
+                                @if($device->on_temp && !$device->on_t_set_point)
+                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Set Point</a>
+                                @endif
+                                @if(!$device->on_temp && !$device->on_t_set_point)
+                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger m-2">Alerta de Funcionamiento</a>
+                                @endif
                             @endif
                             <h4 class="card-title display-4">{{ $device->last_data01 }}°C</h4>
                             @can('receptions.show-hour')
@@ -37,7 +39,13 @@
                             @endcan
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">{{ $device->on_line? 'En Linea':'Desconectado'}} - {{ $device->last_created_at }}</small>
+                            <small class="text-muted">
+                                @if($device->admin_mon)
+                                {{ $device->on_line? 'En Linea':'Sin Conexion'}} - {{ $device->last_created_at }}
+                                @else
+                                Monitoreo vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
+                                @endif
+                            </small>
                         </div>
                     </div>
                 @endforeach

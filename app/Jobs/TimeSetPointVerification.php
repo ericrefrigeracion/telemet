@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Alert;
 use App\Device;
 use App\Reception;
 use App\MailAlert;
@@ -50,9 +51,14 @@ class TimeSetPointVerification implements ShouldQueue
                         'device_id' => $device->id,
                         'user_id' => $device->user_id,
                         'type' => 'tSetPoint',
-                        'last_created_at' => $device->t_out_at,
+                        'last_created_at' => $device->t_change_at,
                     ]);
                 }
+                Alert::create([
+                    'device_id' => $device->id,
+                    'log' => 'La temperatura no alcanzo el valor deseado en el tiempo previsto.',
+                    'alert_created_at' => $device->t_change_at,
+                ]);
             }
         }
         foreach($h_set_point_devices as $device)
@@ -61,7 +67,7 @@ class TimeSetPointVerification implements ShouldQueue
 
             if ($device->h_change_at <= $delay)
             {
-                if(!MailAlert::where('device_id', $device->id)->where('last_created_at', $device->t_change_at)->count())
+                if(!MailAlert::where('device_id', $device->id)->where('last_created_at', $device->h_change_at)->count())
                 {
                     MailAlert::create([
                         'device_id' => $device->id,
@@ -70,6 +76,11 @@ class TimeSetPointVerification implements ShouldQueue
                         'last_created_at' => $device->h_change_at,
                     ]);
                 }
+                Alert::create([
+                    'device_id' => $device->id,
+                    'log' => 'La humedad no alcanzo el valor deseado en el tiempo previsto.',
+                    'alert_created_at' =>$device->t_change_at,
+                ]);
             }
         }
     }

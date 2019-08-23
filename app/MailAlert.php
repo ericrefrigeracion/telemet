@@ -14,10 +14,10 @@ class MailAlert extends Model
      * @var array
      */
     protected $fillable = [
-         'last_data', 'last_created_at', 'user_id', 'device_id', 'type', 'send_at'
+         'last_data', 'last_created_at', 'user_id', 'device_id', 'type', 'send_to_admin_at', 'send_to_user_at',
     ];
 
-     protected $dates = ['send_at'];
+     protected $dates = [ 'send_to_admin_at',  'send_to_user_at'];
 
     /**
      * The attributes that should be hidden for arrays.

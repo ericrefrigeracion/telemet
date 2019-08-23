@@ -35,7 +35,6 @@ class PaysVerification implements ShouldQueue
      */
     public function handle()
     {
-        $delay = now()->subMinutes(15);
         $pays = Pay::where('verified_by_sistem', NULL)->get();
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
