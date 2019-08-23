@@ -87,17 +87,17 @@ class PayController extends Controller
         if ($user->id === $user_device)
         {
             if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
-            $monitoring_expires = $device->monitor_expires_at->addDays($price->days);
+            $days = $price->days;
             $multiplicator = Price::where('description', 'Multiplicador')->first();
 
             $title = $price->description . ' para ' . $device->id;
-            $description = 'Servicio de monitoreo por ' . $price->days . ' dias para el equipo ' . $device->name . ' a partir del dia ' . $device->monitor_expires_at->format('l jS \\of F Y h:i:s A') . ' hasta el dia ' . $monitoring_expires->format('l jS \\of F Y h:i:s A') . '.';
+            $description = 'Servicio de monitoreo por ' . $price->days . ' dias para el equipo ' . $device->name . '.';
             $amount = $price->price * $multiplicator->price;
 
             $item['id'] = $device->id;
             $item['title'] = $title;
             $item['description'] = $description;
-            $item['category_id'] = $monitoring_expires;
+            $item['category_id'] = $days;
             $item['quantity'] = 1;
             $item['currency_id'] = 'ARS';
             $item['unit_price'] = $amount;
@@ -148,7 +148,7 @@ class PayController extends Controller
             $pay->preference_id = $response->id;
             $pay->item_amount = $amount;
             $pay->operation_type = $response->operation_type;
-            $pay->valid_at = $monitoring_expires;
+            $pay->valid_at = $days;
             $pay->collection_status = 'Created (no se generaron cargos - el pago fue abandonado)';
             $pay->init_point = $response->init_point;
 
