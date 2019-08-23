@@ -21,7 +21,7 @@
                                     <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Rango</a>
                                 @endif
                                 @if($device->on_temp && !$device->on_t_set_point)
-                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Set Point</a>
+                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Ciclo Lento</a>
                                 @endif
                                 @if(!$device->on_temp && !$device->on_t_set_point)
                                     <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger m-2">Alerta de Funcionamiento</a>
@@ -51,7 +51,6 @@
                 @endforeach
 
             </div>
-           {{ $devices->render() }}
         </div>
     </div>
 </div>

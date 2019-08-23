@@ -113,7 +113,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->paginate(10);
+        $devices = Auth::user()->devices()->get();
 
         foreach ($devices as $device) {
 
