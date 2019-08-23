@@ -154,6 +154,18 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver un webhook especifico',
         ]);
 
+        //MailAlerts
+        Permission::create([
+            'name' => 'Listar MailAlerts',
+            'slug' => 'mail-alerts.index',
+            'description' => 'Ver todas las alertas por Email de la plataforma',
+        ]);
+        Permission::create([
+            'name' => 'Ver MailAlerts',
+            'slug' => 'mail-alerts.show',
+            'description' => 'Ver una alerta por Email especifica',
+        ]);
+
         //Prices
         Permission::create([
             'name' => 'Listar precios',

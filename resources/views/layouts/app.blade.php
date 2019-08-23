@@ -119,6 +119,9 @@
                                     @can('prices.index')
                                         <a class="dropdown-item" href="{{ route('prices.index') }}">Precios</a>
                                     @endcan
+                                    @can('mail-alerts.index')
+                                        <a class="dropdown-item" href="{{ route('mail-alerts.index') }}">Mail Alerts</a>
+                                    @endcan
                                     @can('webhooks.index')
                                         <a class="dropdown-item" href="{{ route('webhooks.index') }}">Webhooks</a>
                                     @endcan

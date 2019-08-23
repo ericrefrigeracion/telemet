@@ -39,21 +39,22 @@ class SendUserMails implements ShouldQueue
                 $user = User::find($device_values->user_id);
                 $device = Device::find($device_values->device_id);
 
-                $device_values->send_to_user_at = now();
-                $device_values->update();
                 if ($device->send_mails)
                 {
-                    if ($device_values->type == 'onLine') Mail::to($user->notification_mail)->queue(new ConnectMail($device_values, $device, $user));
-                    if ($device_values->type == 'offLine') Mail::to($user->notification_mail)->queue(new DisconnectMail($device_values, $device, $user));
-                    if ($device_values->type == 'temp') Mail::to($user->notification_mail)->queue(new TemperatureMail($device_values, $device, $user));
-                    if ($device_values->type == 'hum') Mail::to($user->notification_mail)->queue(new HumidityMail($device_values, $device, $user));
-                    if ($device_values->type == 'tSetPoint') Mail::to($user->notification_mail)->queue(new TempSetPointMail($device_values, $device, $user));
-                    if ($device_values->type == 'hSetPoint') Mail::to($user->notification_mail)->queue(new HumSetPointMail($device_values, $device, $user));
+                    if ($device_values->type == 'onLine') Mail::to($user->email)->queue(new ConnectMail($device_values, $device, $user));
+                    if ($device_values->type == 'offLine') Mail::to($user->email)->queue(new DisconnectMail($device_values, $device, $user));
+                    if ($device_values->type == 'temp') Mail::to($user->email)->queue(new TemperatureMail($device_values, $device, $user));
+                    if ($device_values->type == 'hum') Mail::to($user->email)->queue(new HumidityMail($device_values, $device, $user));
+                    if ($device_values->type == 'tSetPoint') Mail::to($user->email)->queue(new TempSetPointMail($device_values, $device, $user));
+                    if ($device_values->type == 'hSetPoint') Mail::to($user->email)->queue(new HumSetPointMail($device_values, $device, $user));
                 }
-                if($device_values->type == 'MonitorOn') Mail::to($user->notification_mail)->queue(new MonitorOnMail($device_values, $device, $user));
-                if($device_values->type == 'MonitorOff') Mail::to($user->notification_mail)->queue(new MonitorOffMail($device_values, $device, $user));
-                if($device_values->type == 'MonitorOffNextDay') Mail::to($user->notification_mail)->queue(new MonitorOffNextDayMail($device_values, $device, $user));
-                if($device_values->type == 'MonitorOffNextWeek') Mail::to($user->notification_mail)->queue(new MonitorOffNextWeekMail($device_values, $device, $user));
+                if($device_values->type == 'MonitorOn') Mail::to($user->email)->queue(new MonitorOnMail($device_values, $device, $user));
+                if($device_values->type == 'MonitorOff') Mail::to($user->email)->queue(new MonitorOffMail($device_values, $device, $user));
+                if($device_values->type == 'MonitorOffNextDay') Mail::to($user->email)->queue(new MonitorOffNextDayMail($device_values, $device, $user));
+                if($device_values->type == 'MonitorOffNextWeek') Mail::to($user->email)->queue(new MonitorOffNextWeekMail($device_values, $device, $user));
+
+                $device_values->send_to_user_at = now();
+                $device_values->update();
             }
         }
     }

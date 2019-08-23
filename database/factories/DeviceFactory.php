@@ -23,7 +23,7 @@ $factory->define(Device::class, function (Faker $faker) {
         'admin_mon' => $faker->boolean,
         'send_mails' => $faker->boolean,
         'user_id' => $user->random()->id,
-        'mdl' => $faker->randomElement(['th', 't']),
+        'mdl' => 't',
         't_set_point' => $faker->numberBetween(5,10),
         't_is' => $faker->randomElement(['lower', 'higher']),
         't_change_at' => now(),

@@ -37,8 +37,8 @@
                                     <td>{{ $pay->collection_status }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vigente hasta:</td>
-                                    <td>{{ $pay->valid_at->toFormattedDateString() }}</td>
+                                    <td>Dias:</td>
+                                    <td>{{ $pay->valid_at }}</td>
                                 </tr>
                         </tbody>
                     </table>

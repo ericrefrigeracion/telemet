@@ -37,6 +37,6 @@ class SendUserMailsCommand extends Command
      */
     public function handle()
     {
-        SendUserMailsCommand::dispatch();
+        SendUserMails::dispatch();
     }
 }

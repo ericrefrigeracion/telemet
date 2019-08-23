@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class MailAlertController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,28 +15,10 @@ class MailAlertController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $mail_alerts = MailAlert::paginate(50);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        return view('mail-alerts.index')->with(['mail_alerts' => $mail_alerts]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -44,42 +27,9 @@ class MailAlertController extends Controller
      * @param  \App\MailAlert  $mailAlert
      * @return \Illuminate\Http\Response
      */
-    public function show(MailAlert $mailAlert)
+    public function show(MailAlert $mail_alert)
     {
-        //
+        return view('mail-alerts.show')->with(['mail_alert' => $mail_alert]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\MailAlert  $mailAlert
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MailAlert $mailAlert)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MailAlert  $mailAlert
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MailAlert $mailAlert)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\MailAlert  $mailAlert
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MailAlert $mailAlert)
-    {
-        //
-    }
 }

@@ -60,6 +60,10 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/webhooks', 'WebhookController@index')->name('webhooks.index')->middleware('can:webhooks.index');
 		Route::get('/webhooks/{webhook}', 'WebhookController@show')->name('webhooks.show')->middleware('can:webhooks.show');
 
+		//MailAlerts
+		Route::get('/mail-alerts', 'MailAlertController@index')->name('mail-alerts.index')->middleware('can:mail-alerts.index');
+		Route::get('/mail-alerts/{mail_alert}', 'MailAlertController@show')->name('mail-alerts.show')->middleware('can:mail-alerts.show');
+
 		//Prices
 		Route::get('/prices', 'PriceController@index')->name('prices.index')->middleware('can:prices.index');
 		Route::post('/prices', 'PriceController@store')->name('prices.store')->middleware('can:prices.create');

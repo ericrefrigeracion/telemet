@@ -223,6 +223,6 @@ class PayController extends Controller
     {
         $pays = Pay::paginate(20);
 
-        return view('pays.index')->with(['pays' => $pays]);
+        return view('pays.all')->with(['pays' => $pays]);
     }
 }
