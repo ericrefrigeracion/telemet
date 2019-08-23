@@ -40,6 +40,7 @@ class MaxTempVerification implements ShouldQueue
         foreach($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
+            $last_reception->data01 += $device->tcal;
 
             if($last_reception->data01 > $device->tmax && $device->on_temp)
             {

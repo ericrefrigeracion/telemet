@@ -6,6 +6,7 @@ use App\Jobs\MaxHumVerification;
 use App\Jobs\MinHumVerification;
 use App\Jobs\MaxTempVerification;
 use App\Jobs\MinTempVerification;
+use App\Jobs\PayVigentVerification;
 use App\Jobs\DisconnectVerification;
 use App\Jobs\SetPointTempChangeVerification;
 use App\Jobs\SetPointHumChangeVerification;
@@ -38,6 +39,7 @@ class DevicesCommand extends Command
      */
     public function handle()
     {
+        PayVigentVerification::dispatch();
         DisconnectVerification::dispatch();
         MaxTempVerification::dispatch();
         MinTempVerification::dispatch();

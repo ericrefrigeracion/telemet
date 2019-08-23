@@ -40,6 +40,7 @@ class MaxHumVerification implements ShouldQueue
         foreach($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
+            $last_reception->data02 += $device->hcal;
 
             if($last_reception->data02 > $device->hmax && $device->on_hum)
             {

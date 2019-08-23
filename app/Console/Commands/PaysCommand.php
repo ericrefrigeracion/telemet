@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Jobs\PaysVerification;
-use App\Jobs\PayVigentVerification;
 use Illuminate\Console\Command;
 
 class PaysCommand extends Command
@@ -40,6 +39,5 @@ class PaysCommand extends Command
     public function handle()
     {
         PaysVerification::dispatch();
-        PayVigentVerification::dispatch();
     }
 }

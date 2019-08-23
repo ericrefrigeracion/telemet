@@ -41,13 +41,8 @@ class TimeSetPointVerification implements ShouldQueue
 
         foreach($t_set_point_devices as $device)
         {
-            $delay = now()->subMinutes($device->delay);
+            $delay = now()->subMinutes($device->tdly);
 
-            if ($device->t_change_at > $delay && !$device->on_t_set_point)
-            {
-                $device->on_t_set_point = true;
-                $device->update();
-            }
             if ($device->t_change_at <= $delay && $device->on_t_set_point)
             {
                 $device->on_t_set_point = false;
@@ -66,16 +61,16 @@ class TimeSetPointVerification implements ShouldQueue
                     'last_created_at' => $device->t_change_at,
                 ]);
             }
+            if ($device->t_change_at > $delay && !$device->on_t_set_point)
+            {
+                $device->on_t_set_point = true;
+                $device->update();
+            }
         }
         foreach($h_set_point_devices as $device)
         {
-            $delay = now()->subMinutes($device->delay);
+            $delay = now()->subMinutes($device->hdly);
 
-            if ($device->h_change_at > $delay && !$device->on_h_set_point)
-            {
-                $device->on_h_set_point = true;
-                $device->update();
-            }
             if ($device->h_change_at <= $delay && $device->on_h_set_point)
             {
                 $device->on_h_set_point = false;
@@ -93,6 +88,11 @@ class TimeSetPointVerification implements ShouldQueue
                     'type' => 'hSetPoint',
                     'last_created_at' => $device->h_change_at,
                 ]);
+            }
+            if ($device->h_change_at > $delay && !$device->on_h_set_point)
+            {
+                $device->on_h_set_point = true;
+                $device->update();
             }
         }
     }

@@ -40,6 +40,7 @@ class MinTempVerification implements ShouldQueue
         foreach($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
+            $last_reception->data01 += $device->tcal;
 
             if($last_reception->data01 < $device->tmin && $device->on_temp)
             {
