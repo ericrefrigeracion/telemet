@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('phone_number', 'Numero de Telefono') }}
-                            {{ Form::number('phone_area_code', null, ['class' => 'form-control',]) }}
+                            {{ Form::number('phone_number', null, ['class' => 'form-control',]) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('address', 'Direccion') }}

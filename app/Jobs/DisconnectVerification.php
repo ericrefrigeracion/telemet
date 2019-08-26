@@ -56,7 +56,6 @@ class DisconnectVerification implements ShouldQueue
                         'alert_created_at' => $last_reception->created_at,
                     ]);
                     MailAlert::create([
-                        'last_data' => $last_reception->data01,
                         'last_created_at' => $last_reception->created_at,
                         'type' => 'offLine',
                         'user_id' => $device->user_id,
@@ -78,7 +77,6 @@ class DisconnectVerification implements ShouldQueue
                         'alert_created_at' => $last_reception->created_at,
                     ]);
                     MailAlert::create([
-                        'last_data' => $last_reception->data01,
                         'last_created_at' => $last_reception->created_at,
                         'type' => 'onLine',
                         'user_id' => $device->user_id,

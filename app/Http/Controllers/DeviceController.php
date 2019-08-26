@@ -14,19 +14,6 @@ class DeviceController extends Controller
 {
 
     /**
-     * Display a view.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function info()
-    {
-
-        $pay = Price::where('description', 'Nuevo Dispositivo')->first();
-        return view('devices.info')->with(['pay' => $pay]);
-
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

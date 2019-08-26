@@ -38,7 +38,7 @@
                                 </tr>
                                 <tr>
                                     <td>Dias:</td>
-                                    <td>{{ $pay->valid_at }}</td>
+                                    <td>{{ $pay->days }}</td>
                                 </tr>
                         </tbody>
                     </table>
