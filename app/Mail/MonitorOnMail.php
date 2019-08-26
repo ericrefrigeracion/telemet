@@ -12,7 +12,7 @@ class MonitorOnMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'Monitoreo habilitado.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;

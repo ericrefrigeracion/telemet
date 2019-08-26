@@ -12,7 +12,7 @@ class ConnectMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'Aviso de dispositivo conectado.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;

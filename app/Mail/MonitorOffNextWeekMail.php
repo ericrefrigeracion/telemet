@@ -12,7 +12,7 @@ class MonitorOffNextWeekMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'La semana proxima se deshablita el monitoreo.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;

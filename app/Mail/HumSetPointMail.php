@@ -12,7 +12,7 @@ class HumSetPointMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'Aviso de humedad deseada no alcanzada.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;

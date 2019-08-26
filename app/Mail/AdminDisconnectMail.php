@@ -12,7 +12,7 @@ class AdminDisconnectMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'Aviso de dispositivo desconectado.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;

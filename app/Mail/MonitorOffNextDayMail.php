@@ -12,7 +12,7 @@ class MonitorOffNextDayMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'Mañana se deshabilita el monitoreo.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;
