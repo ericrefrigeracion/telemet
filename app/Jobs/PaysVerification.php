@@ -65,6 +65,13 @@ class PaysVerification implements ShouldQueue
                     $device = Device::find($pay->device_id);
                     $device->monitor_expires_at = $device->monitor_expires_at->addDays($pay->days);
                     $device->update();
+
+                    MailAlert::create([
+                        'device_id' => $pay->device_id,
+                        'user_id' => $pay->user_id,
+                        'type' => 'PayAccredited',
+                        'last_created_at' => $device->monitor_expires_at,
+                    ]);
                 }
             }
         }

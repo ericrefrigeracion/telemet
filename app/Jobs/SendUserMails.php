@@ -48,6 +48,7 @@ class SendUserMails implements ShouldQueue
                     if ($mail_information->type == 'tSetPoint') Mail::to($user->email)->queue(new TempSetPointMail($mail_information, $device, $user));
                     if ($mail_information->type == 'hSetPoint') Mail::to($user->email)->queue(new HumSetPointMail($mail_information, $device, $user));
                 }
+                if($mail_information->type == 'PayAccredited') Mail::to($user->email)->queue(new PayAccreditedMail($mail_information, $device, $user));
                 if($mail_information->type == 'MonitorOn') Mail::to($user->email)->queue(new MonitorOnMail($mail_information, $device, $user));
                 if($mail_information->type == 'MonitorOff') Mail::to($user->email)->queue(new MonitorOffMail($mail_information, $device, $user));
                 if($mail_information->type == 'MonitorOffNextDay') Mail::to($user->email)->queue(new MonitorOffNextDayMail($mail_information, $device, $user));
