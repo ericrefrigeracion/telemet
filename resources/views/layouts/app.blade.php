@@ -50,10 +50,6 @@
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
                                 @endcan
                                 <div class="dropdown-menu">
-                                    @can('devices.buy')
-                                        <a class="dropdown-item" href="{{ route('devices.info')}}">Como comprar un dispositivo?</a>
-                                        <div class="dropdown-divider"></div>
-                                    @endcan
                                     @can('devices.index')
                                         <a class="dropdown-item" href="{{ route('devices.index') }}">Mis Dispositivos</a>
                                     @endcan

@@ -79,7 +79,6 @@ Route::middleware(['verified'])->group(function () {
 
 		//Devices
 		Route::get('/devices/info', 'DeviceController@info')->name('devices.info')->middleware('can:devices.info');
-		Route::get('/devices/buy', 'DeviceController@buy')->name('devices.buy')->middleware('can:devices.buy');
 		Route::get('/devices', 'DeviceController@index')->name('devices.index')->middleware('can:devices.index');
 		Route::post('/devices', 'DeviceController@store')->name('devices.store')->middleware('can:devices.create');
 		Route::get('/devices/create', 'DeviceController@create')->name('devices.create')->middleware('can:devices.create');

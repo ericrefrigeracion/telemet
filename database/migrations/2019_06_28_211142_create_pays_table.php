@@ -20,7 +20,7 @@ class CreatePaysTable extends Migration
             $table->float('item_amount');
             $table->string('preference_id');
             $table->string('operation_type');
-            $table->dateTime('valid_at');
+            $table->integer('days');
             $table->string('collection_status');
             $table->string('init_point');
             $table->string('status_detail')->nullable();

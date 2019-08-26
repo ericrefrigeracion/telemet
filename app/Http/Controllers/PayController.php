@@ -148,7 +148,7 @@ class PayController extends Controller
             $pay->preference_id = $response->id;
             $pay->item_amount = $amount;
             $pay->operation_type = $response->operation_type;
-            $pay->valid_at = $days;
+            $pay->days = $days;
             $pay->collection_status = 'Created (no se generaron cargos - el pago fue abandonado)';
             $pay->init_point = $response->init_point;
 
@@ -173,9 +173,6 @@ class PayController extends Controller
         $pay = Pay::where('preference_id', $request->preference_id)->first();
 
         $pay->update($request->all());
-
-        $device = Device::find($pay->device_id);
-        $device->monitor_expires_at = $pay->valid_at;
 
         return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito y ya se encuentra acreditado en tu cuenta.']);
     }

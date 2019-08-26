@@ -12,6 +12,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
+                                <th>Usr</th>
                                 <th>ID</th>
                                 <th>Estado</th>
                                 <th>Rango</th>
@@ -31,6 +32,7 @@
                         <tbody>
                             @foreach($devices as $device)
                                 <tr>
+                                    <td>{{ $device->user_id }}</td>
                                     <td>{{ $device->id }}</td>
                                     @if($device->on_line)
                                     <td class="text-success">En Linea</td>

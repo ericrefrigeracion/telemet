@@ -23,7 +23,7 @@ class Pay extends Model
         'init_point',
         'operation_type',
         'verified_by_sistem',
-        'valid_at',
+        'days',
         'collection_id',
         'external_reference',
         'merchant_order_id',
@@ -33,7 +33,7 @@ class Pay extends Model
         'merchant_account_id',
     ];
 
-    protected $dates = ['valid_at', 'verified_by_sistem'];
+    protected $dates = ['verified_by_sistem'];
 
     /**
      * The attributes that should be hidden for arrays.
