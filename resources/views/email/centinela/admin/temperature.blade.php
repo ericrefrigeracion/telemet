@@ -3,7 +3,7 @@
 # {{ $device->name }} esta fuera de rango.
 
 El equipo del sr {{ $user->name }} con ID {{ $device->id }} se encuentra fuera de los limites establecidos de temperatura por un tiempo mayor al que se ha determinado en el retardo al aviso.
-El dia {{ $device_values->last_created_at }} el equipo salio de rango.
+El dia {{ $mail_information->last_created_at }} el equipo salio de rango.
 
 <hr>
 El numero de telefono del usuario es {{ $user->phone_area_code }} - {{ $user->phone_number }}, su direccion es {{ $user->address }}.

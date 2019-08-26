@@ -3,7 +3,7 @@
 # {{ $device->name }} esta fuera de rango.
 
 El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra fuera de los limites de temperatura establecidos por un tiempo mayor al retardo que se ha determinado.
-El dia {{ $device_values->last_created_at }} su equipo salio del rango de valores normales.
+El dia {{ $mail_information->last_created_at }} su equipo salio del rango de valores normales.
 <hr>
 Los valores que tiene programados para su equipo son:
 <table>
