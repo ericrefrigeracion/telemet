@@ -43,12 +43,12 @@ class DevicesCommand extends Command
         DisconnectVerification::dispatch();
         MaxTempVerification::dispatch();
         MinTempVerification::dispatch();
-        //MaxHumVerification::dispatch();
-        //MinHumVerification::dispatch();
+        MaxHumVerification::dispatch();
+        MinHumVerification::dispatch();
         SetPointTempChangeVerification::dispatch();
-        //SetPointHumChangeVerification::dispatch();
+        SetPointHumChangeVerification::dispatch();
         TimeTempVerification::dispatch();
-        //TimeHumVerification::dispatch();
+        TimeHumVerification::dispatch();
         TimeSetPointVerification::dispatch();
         SendAdminMails::dispatch();
     }

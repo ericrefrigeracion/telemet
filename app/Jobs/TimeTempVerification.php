@@ -39,7 +39,7 @@ class TimeTempVerification implements ShouldQueue
 
         foreach($devices as $device)
         {
-            $delay = now()->subMinutes($device->delay);
+            $delay = now()->subMinutes($device->tdly);
 
             if ($device->t_out_at <= $delay)
             {

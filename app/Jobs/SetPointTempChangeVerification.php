@@ -39,17 +39,18 @@ class SetPointTempChangeVerification implements ShouldQueue
         foreach($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
+            $last_reception->data01 += $device->tcal;
 
             if($last_reception->data01 > $device->t_set_point && $device->t_is === 'lower')
             {
                 $device->t_is = 'higher';
-                $device->t_change_at = now();
+                $device->t_change_at = $last_reception->created_at;
                 $device->update();
             }
             if($last_reception->data01 < $device->t_set_point && $device->t_is === 'higher')
             {
                 $device->t_is = 'lower';
-                $device->t_change_at = now();
+                $device->t_change_at = $last_reception->created_at;
                 $device->update();
             }
         }

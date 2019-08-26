@@ -36,8 +36,8 @@ class TimeSetPointVerification implements ShouldQueue
      */
     public function handle()
     {
-        $t_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->get();
-        $h_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->get();
+        $t_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('tmon', true)->get();
+        $h_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('hmon', true)->get();
 
         foreach($t_set_point_devices as $device)
         {
@@ -79,7 +79,7 @@ class TimeSetPointVerification implements ShouldQueue
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La humedad no alcanzo el valor deseado en el tiempo previsto.',
-                    'alert_created_at' =>$device->t_change_at,
+                    'alert_created_at' =>$device->h_change_at,
                 ]);
 
                 MailAlert::create([

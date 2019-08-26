@@ -2,14 +2,18 @@
 #Sr. {{ $user->name }}:
 # {{ $device->name }} esta fuera de rango.
 
-El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra fuera de los limites establecidos por un tiempo mayor al retardo que se ha determinado.
-El dia {{ $device_values->last_created_at }} su equipo salio de rango con una temperatura de {{ $device_values->last_data }}°C.
+El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra fuera de los limites de temperatura establecidos por un tiempo mayor al retardo que se ha determinado.
+El dia {{ $device_values->last_created_at }} su equipo salio del rango de valores normales.
 <hr>
 Los valores que tiene programados para su equipo son:
 <table>
 	<tr>
-		<td>Temperatura Deseada: </td>
-		<td>{{ $device->t_set_point }}%.</td>
+		<td>Temperatura Minima: </td>
+		<td>{{ $device->tmax }}°C.</td>
+	</tr>
+	<tr>
+		<td>Temperatura Maxima: </td>
+		<td>{{ $device->tmin }}°C.</td>
 	</tr>
 	<tr>
 		<td>Retardo: </td>

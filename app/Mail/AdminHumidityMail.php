@@ -23,9 +23,9 @@ class AdminHumidityMail extends Mailable
      *
      * @return void
      */
-    public function __construct($device_values, $device, $user)
+    public function __construct($mail_information, $device, $user)
     {
-        $this->device_values = $device_values;
+        $this->mail_information = $mail_information;
         $this->device = $device;
         $this->user = $user;
     }
@@ -37,6 +37,6 @@ class AdminHumidityMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemet@alertas-humedad.com')->markdown('email.centinela.admin.humidity');
+        return $this->from('telemett@alertas-humedad.com')->markdown('email.centinela.admin.humidity');
     }
 }

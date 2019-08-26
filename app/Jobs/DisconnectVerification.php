@@ -49,6 +49,7 @@ class DisconnectVerification implements ShouldQueue
                 {
                     $device->on_line = false;
                     $device->update();
+
                     Alert::create([
                         'device_id' => $device->id,
                         'log' => 'Ultima conexion del dispositivo.',
@@ -70,6 +71,7 @@ class DisconnectVerification implements ShouldQueue
                 {
                     $device->on_line = true;
                     $device->update();
+
                     Alert::create([
                         'device_id' => $device->id,
                         'log' => 'El dispositivo se conecto nuevamente.',

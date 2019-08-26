@@ -7,11 +7,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ConnectMail extends Mailable
+class MonitorOffMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Aviso de dispositivo conectado.';
+    public $subject = 'Monitoreo deshabilitado.';
     public $device_values;
     public $device;
     public $user;
@@ -37,6 +37,6 @@ class ConnectMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemett@alertas-conexion.com')->markdown('email.centinela.users.connect');
+        return $this->from('telemett@alertas-vencimiento.com')->markdown('email.centinela.users.mon_off');
     }
 }

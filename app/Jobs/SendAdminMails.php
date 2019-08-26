@@ -48,48 +48,48 @@ class SendAdminMails implements ShouldQueue
      */
     public function handle()
     {
-        if($devices_values = MailAlert::where('send_to_admin_at', null)->get())
+        if($mails_information = MailAlert::where('send_to_admin_at', null)->get())
         {
             $eric = User::find(1);
             $carlos = User::find(2);
 
-            foreach ($devices_values as $device_values)
+            foreach ($mails_information as $mail_information)
             {
-                $user = User::find($device_values->user_id);
-                $device = Device::find($device_values->device_id);
+                $user = User::find($mail_information->user_id);
+                $device = Device::find($mail_information->device_id);
 
-                if ($device_values->type == 'onLine')
+                if ($mail_information->type == 'onLine')
                 {
-                    Mail::to($eric->email)->queue(new AdminConnectMail($device_values, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminConnectMail($device_values, $device, $user));
+                    Mail::to($eric->email)->queue(new AdminConnectMail($mail_information, $device, $user));
+                    Mail::to($carlos->email)->queue(new AdminConnectMail($mail_information, $device, $user));
                 }
-                if ($device_values->type == 'offLine')
+                if ($mail_information->type == 'offLine')
                 {
-                    Mail::to($eric->email)->queue(new AdminDisconnectMail($device_values, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminDisconnectMail($device_values, $device, $user));
+                    Mail::to($eric->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
+                    Mail::to($carlos->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
                 }
-                if ($device_values->type == 'temp')
+                if ($mail_information->type == 'temp')
                 {
-                    Mail::to($eric->email)->queue(new AdminTemperatureMail($device_values, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminTemperatureMail($device_values, $device, $user));
+                    Mail::to($eric->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
+                    Mail::to($carlos->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
                 }
-                if ($device_values->type == 'hum')
+                if ($mail_information->type == 'hum')
                 {
-                    Mail::to($eric->email)->queue(new AdminHumidityMail($device_values, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminHumidityMail($device_values, $device, $user));
+                    Mail::to($eric->email)->queue(new AdminHumidityMail($mail_information, $device, $user));
+                    Mail::to($carlos->email)->queue(new AdminHumidityMail($mail_information, $device, $user));
                 }
-                if ($device_values->type == 'tSetPoint')
+                if ($mail_information->type == 'tSetPoint')
                 {
-                    Mail::to($eric->email)->queue(new AdminTempSetPointMail($device_values, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminTempSetPointMail($device_values, $device, $user));
+                    Mail::to($eric->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
+                    Mail::to($carlos->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
                 }
-                if ($device_values->type == 'hSetPoint')
+                if ($mail_information->type == 'hSetPoint')
                 {
-                    Mail::to($eric->email)->queue(new AdminHumSetPointMail($device_values, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminHumSetPointMail($device_values, $device, $user));
+                    Mail::to($eric->email)->queue(new AdminHumSetPointMail($mail_information, $device, $user));
+                    Mail::to($carlos->email)->queue(new AdminHumSetPointMail($mail_information, $device, $user));
                 }
-                $device_values->send_to_admin_at = now();
-                $device_values->update();
+                $mail_information->send_to_admin_at = now();
+                $mail_information->update();
             }
         }
     }

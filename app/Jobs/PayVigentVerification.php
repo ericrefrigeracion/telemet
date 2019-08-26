@@ -43,30 +43,24 @@ class PayVigentVerification implements ShouldQueue
                 $device->admin_mon = false;
                 $device->update();
 
-                if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOff')->where('last_created_at', $device->monitor_expires_at)->count())
-                {
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'MonitorOff',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
-                }
+                MailAlert::create([
+                    'device_id' => $device->id,
+                    'user_id' => $device->user_id,
+                    'type' => 'MonitorOff',
+                    'last_created_at' => $device->monitor_expires_at,
+                ]);
             }
             if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
             {
                 $device->admin_mon = true;
                 $device->update();
 
-                if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOn')->where('last_created_at', $device->monitor_expires_at)->count())
-                {
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'MonitorOn',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
-                }
+                MailAlert::create([
+                    'device_id' => $device->id,
+                    'user_id' => $device->user_id,
+                    'type' => 'MonitorOn',
+                    'last_created_at' => $device->monitor_expires_at,
+                ]);
             }
             if($device->monitor_expires_at < $next_day)
             {

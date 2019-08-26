@@ -11,7 +11,7 @@ class TempSetPointMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = 'Aviso de humedad deseada no alcanzada.';
+    public $subject = 'Aviso de temperatura deseada no alcanzada.';
     public $device_values;
     public $device;
     public $user;
@@ -23,9 +23,9 @@ class TempSetPointMail extends Mailable
      *
      * @return void
      */
-    public function __construct($device_values, $device, $user)
+    public function __construct($mail_information, $device, $user)
     {
-        $this->device_values = $device_values;
+        $this->mail_information = $mail_information;
         $this->device = $device;
         $this->user = $user;
     }
@@ -37,6 +37,6 @@ class TempSetPointMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemet@alertas-humedad.com')->markdown('email.centinela.users.hum_set_point');
+        return $this->from('telemett@alertas-humedad.com')->markdown('email.centinela.users.temp_set_point');
     }
 }

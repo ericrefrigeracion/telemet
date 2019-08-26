@@ -12,7 +12,7 @@ class AdminConnectMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject = 'Aviso de dispositivo conectado.';
-    public $device_values;
+    public $mail_information;
     public $device;
     public $user;
     public $tries = 5;
@@ -23,9 +23,9 @@ class AdminConnectMail extends Mailable
      *
      * @return void
      */
-    public function __construct($device_values, $device, $user)
+    public function __construct($mail_information, $device, $user)
     {
-        $this->device_values = $device_values;
+        $this->mail_information = $mail_information;
         $this->device = $device;
         $this->user = $user;
     }
@@ -37,6 +37,6 @@ class AdminConnectMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemet@alertas-conexion.com')->markdown('email.centinela.admin.connect');
+        return $this->from('telemett@alertas-conexion.com')->markdown('email.centinela.admin.connect');
     }
 }

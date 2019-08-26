@@ -2,10 +2,9 @@
 #Sr. {{ $user->name }}:
 # {{ $device->id }} - {{ $device->name }} esta fuera de set point.
 
-El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra fuera de set point al no alcanzar el valor de temperatura deseado en el tiempo previsto en el retardo para el aviso, en la configuracion del dispositivo.
-Normalmente, esto puede deberse a problemas de rendimiento en suequipo.
+El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra con ciclo lento, no ha alcanzado el valor de temperatura deseado en el tiempo previsto en la configuracion del dispositivo.
+Normalmente, esto puede deberse a problemas de rendimiento en su equipo.
 
-Los ultimos datos que tenemos de su equipo son el {{ $device_values->last_created_at }} y se midio una temperatura de {{ $device_values->last_data }}°C.
 <hr>
 Los valores que tiene programados para su equipo son:
 <table>
@@ -14,13 +13,13 @@ Los valores que tiene programados para su equipo son:
 		<td>{{ $device->t_set_point }}%.</td>
 	</tr>
 	<tr>
-		<td>Retardo: </td>
+		<td>Retardo para el aviso: </td>
 		<td>{{ $device->tdly }} minutos.</td>
 	</tr>
 </table>
 <hr>
 
-Desde el siguiente enlace puede revisar las mediciones realizadas por su dispositivo en la ultima hora.
+Desde el siguiente boton puede revisar las mediciones realizadas por su dispositivo en la ultima hora.
 
 @component('mail::button', ['url' => route('receptions.show-hour', $device->id) ])
 Metricas {{ $device->name }}

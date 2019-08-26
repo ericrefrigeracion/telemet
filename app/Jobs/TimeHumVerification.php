@@ -39,7 +39,7 @@ class TimeHumVerification implements ShouldQueue
 
         foreach($devices as $device)
         {
-            $delay = now()->subMinutes($device->delay);
+            $delay = now()->subMinutes($device->hdly);
 
             if ($device->h_out_at <= $delay)
             {

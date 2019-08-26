@@ -13,7 +13,7 @@
                         <thead>
                             <tr>
                                 <th>Alerta</th>
-                                <th>Fecha</th>
+                                <th>Momento de la Falla</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,7 +21,7 @@
 
                                 <tr>
                                     <td>{{ $alert->log }}</td>
-                                    <td>{{ $alert->created_at }}</td>
+                                    <td>{{ $alert->alert_created_at }}</td>
                                 </tr>
 
                             @endforeach

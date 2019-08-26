@@ -2,14 +2,18 @@
 #Sr. {{ $user->name }}:
 # {{ $device->name }} esta fuera de rango.
 
-El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra fuera de los limites establecidos por un tiempo mayor al retardo que se ha determinado.
-El dia {{ $device_values->last_created_at }} su equipo salio de rango con una humedad relativa de {{ $device_values->last_data }}%.
+El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra fuera de los limites de humedad establecidos por un tiempo mayor al retardo que se ha determinado.
+El dia {{ $device_values->last_created_at }} su equipo salio del rango de valores normales.
 <hr>
 Los valores que tiene programados para su equipo son:
 <table>
 	<tr>
-		<td>Humedad Deseada: </td>
-		<td>{{ $device->h_set_point }}%.</td>
+		<td>Humedad Minima: </td>
+		<td>{{ $device->hmax }}%.</td>
+	</tr>
+	<tr>
+		<td>Humedad Maxima: </td>
+		<td>{{ $device->hmin }}%.</td>
 	</tr>
 	<tr>
 		<td>Retardo: </td>

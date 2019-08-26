@@ -32,29 +32,29 @@ class SendUserMails implements ShouldQueue
      */
     public function handle()
     {
-        if($devices_values = MailAlert::where('send_to_user_at', null)->get())
+        if($mails_information = MailAlert::where('send_to_user_at', null)->get())
         {
-            foreach ($devices_values as $device_values)
+            foreach ($mails_information as $mail_information)
             {
-                $user = User::find($device_values->user_id);
-                $device = Device::find($device_values->device_id);
+                $user = User::find($mail_information->user_id);
+                $device = Device::find($mail_information->device_id);
 
                 if ($device->send_mails)
                 {
-                    if ($device_values->type == 'onLine') Mail::to($user->email)->queue(new ConnectMail($device_values, $device, $user));
-                    if ($device_values->type == 'offLine') Mail::to($user->email)->queue(new DisconnectMail($device_values, $device, $user));
-                    if ($device_values->type == 'temp') Mail::to($user->email)->queue(new TemperatureMail($device_values, $device, $user));
-                    if ($device_values->type == 'hum') Mail::to($user->email)->queue(new HumidityMail($device_values, $device, $user));
-                    if ($device_values->type == 'tSetPoint') Mail::to($user->email)->queue(new TempSetPointMail($device_values, $device, $user));
-                    if ($device_values->type == 'hSetPoint') Mail::to($user->email)->queue(new HumSetPointMail($device_values, $device, $user));
+                    if ($mail_information->type == 'onLine') Mail::to($user->email)->queue(new ConnectMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'offLine') Mail::to($user->email)->queue(new DisconnectMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'temp') Mail::to($user->email)->queue(new TemperatureMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'hum') Mail::to($user->email)->queue(new HumidityMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'tSetPoint') Mail::to($user->email)->queue(new TempSetPointMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'hSetPoint') Mail::to($user->email)->queue(new HumSetPointMail($mail_information, $device, $user));
                 }
-                if($device_values->type == 'MonitorOn') Mail::to($user->email)->queue(new MonitorOnMail($device_values, $device, $user));
-                if($device_values->type == 'MonitorOff') Mail::to($user->email)->queue(new MonitorOffMail($device_values, $device, $user));
-                if($device_values->type == 'MonitorOffNextDay') Mail::to($user->email)->queue(new MonitorOffNextDayMail($device_values, $device, $user));
-                if($device_values->type == 'MonitorOffNextWeek') Mail::to($user->email)->queue(new MonitorOffNextWeekMail($device_values, $device, $user));
+                if($mail_information->type == 'MonitorOn') Mail::to($user->email)->queue(new MonitorOnMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOff') Mail::to($user->email)->queue(new MonitorOffMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOffNextDay') Mail::to($user->email)->queue(new MonitorOffNextDayMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOffNextWeek') Mail::to($user->email)->queue(new MonitorOffNextWeekMail($mail_information, $device, $user));
 
-                $device_values->send_to_user_at = now();
-                $device_values->update();
+                $mail_information->send_to_user_at = now();
+                $mail_information->update();
             }
         }
     }

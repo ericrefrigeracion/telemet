@@ -39,17 +39,18 @@ class SetPointHumChangeVerification implements ShouldQueue
         foreach($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
+            $last_reception->data02 += $device->hcal;
 
             if($last_reception->data02 > $device->h_set_point && $device->h_is === 'lower')
             {
                 $device->h_is = 'higher';
-                $device->h_change_at = now();
+                $device->h_change_at = $last_reception->created_at;
                 $device->update();
             }
             if($last_reception->data02 < $device->h_set_point && $device->h_is === 'higher')
             {
                 $device->h_is = 'lower';
-                $device->h_change_at = now();
+                $device->h_change_at = $last_reception->created_at;
                 $device->update();
             }
         }
