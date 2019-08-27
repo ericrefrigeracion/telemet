@@ -189,7 +189,7 @@ class PayController extends Controller
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        return view('pays.index')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
+        return view('pays.index')->with(['pays' => $pays])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
