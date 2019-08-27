@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SendUserMails;
 use Illuminate\Console\Command;
 
 class SendUserMailsCommand extends Command

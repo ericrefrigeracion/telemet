@@ -37,6 +37,6 @@ class HumSetPointMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemett@alertas-humedad.com')->markdown('email.centinela.users.hum_set_point');
+        return $this->from('alertas-humedad@telemett.com')->markdown('email.centinela.users.hum_set_point');
     }
 }

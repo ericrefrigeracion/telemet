@@ -2,7 +2,22 @@
 
 namespace App\Jobs;
 
+use App\User;
+use App\Device;
+use App\MailAlert;
+use App\Mail\ConnectMail;
+use App\Mail\DisconnectMail;
+use App\Mail\HumidityMail;
+use App\Mail\TemperatureMail;
+use App\Mail\HumSetPointMail;
+use App\Mail\TempSetPointMail;
+use App\Mail\PayAccreditedMail;
+use App\Mail\MonitorOnMail;
+use App\Mail\MonitorOffMail;
+use App\Mail\MonitorOffNextDayMail;
+use App\Mail\MonitorOffNextWeekMail;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

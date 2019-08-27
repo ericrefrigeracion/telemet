@@ -37,6 +37,6 @@ class AdminConnectMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemett@alertas-conexion.com')->markdown('email.centinela.admin.connect');
+        return $this->from('alertas-conexion@telemett.com')->markdown('email.centinela.admin.connect');
     }
 }

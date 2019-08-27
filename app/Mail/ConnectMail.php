@@ -37,6 +37,6 @@ class ConnectMail extends Mailable
      */
     public function build()
     {
-        return $this->from('telemett@alertas-conexion.com')->markdown('email.centinela.users.connect');
+        return $this->from('alertas-conexion@telemett.com')->markdown('email.centinela.users.connect');
     }
 }
