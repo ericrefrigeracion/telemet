@@ -54,7 +54,7 @@ class MinTempVerification implements ShouldQueue
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if($last_reception->data01 < $device->hmax && $last_reception->data01 > $device->tmin && !$device->on_temp)
+            if($last_reception->data01 < $device->tmax && $last_reception->data01 > $device->tmin && !$device->on_temp)
             {
                 $device->on_temp = true;
                 $device->t_out_at = null;

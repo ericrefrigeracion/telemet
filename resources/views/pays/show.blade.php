@@ -37,6 +37,10 @@
                                     <td>{{ $pay->collection_status }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Pago verificado:</td>
+                                    <td>{{ $pay->verified_by_sistem }}</td>
+                                </tr>
+                                <tr>
                                     <td>Dias:</td>
                                     <td>{{ $pay->days }}</td>
                                 </tr>

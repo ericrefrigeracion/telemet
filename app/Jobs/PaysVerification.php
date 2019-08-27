@@ -55,7 +55,6 @@ class PaysVerification implements ShouldQueue
                 $response = json_decode( $response->getBody()->getContents() );
 
                 $pay->status_detail = $response->status_detail;
-                $pay->external_reference = $response->external_reference;
                 $pay->update();
 
                 if($response->status_detail == 'accredited')

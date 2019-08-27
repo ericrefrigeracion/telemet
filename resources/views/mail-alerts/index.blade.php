@@ -12,7 +12,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Momento</th>
                                 <th>Dispositivo</th>
                                 <th>Falla</th>
                                 <th>Usuario</th>
@@ -25,12 +25,12 @@
                                         {{ $mail_alert->last_created_at }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('mail-alerts.show', $mail_alert->id) }}" class="btn btn-sm btn-default">
-                                        {{ $mail_alert->type }}</a>
-                                    </td>
-                                    <td>
                                         <a href="{{ route('devices.show', $mail_alert->device_id) }}" class="btn btn-sm btn-default">
                                         {{ $mail_alert->device_id }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('mail-alerts.show', $mail_alert->id) }}" class="btn btn-sm btn-default">
+                                        {{ $mail_alert->type }}</a>
                                     </td>
                                     <td>
                                         <a href="{{ route('users.show', $mail_alert->user_id) }}" class="btn btn-sm btn-default">
