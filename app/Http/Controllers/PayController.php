@@ -172,7 +172,8 @@ class PayController extends Controller
     {
         $pay = Pay::where('preference_id', $request->preference_id)->first();
 
-        $pay->update($request->all());
+        $pay->collection_id = $request->collection_id;
+        $pay->update();
 
         return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito y ya se encuentra acreditado en tu cuenta.']);
     }
@@ -187,7 +188,8 @@ class PayController extends Controller
 
         $pay = Pay::where('preference_id', $request->preference_id)->first();
 
-        $pay->update($request->all());
+        $pay->collection_id = $request->collection_id;
+        $pay->update();
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
@@ -204,7 +206,8 @@ class PayController extends Controller
 
         $pay = Pay::where('preference_id', $request->preference_id)->first();
 
-        $pay->update($request->all());
+        $pay->collection_id = $request->collection_id;
+        $pay->update();
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 

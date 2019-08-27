@@ -43,11 +43,11 @@ class PaysVerification implements ShouldQueue
 
         foreach ($pays as $pay)
         {
-            if($pay->status == 'Created (no se generaron cargos - el pago fue abandonado)' && $pay->created_at < $delay)
+            if(!$pay->collection_id && $pay->created_at < $delay)
             {
                 $pay->delete();
             }
-            else
+            if($pay->collection_id)
             {
                $response = $client->request( 'GET', 'v1/payments/' . $pay->collection_id, [
                     'query' => $query_params
