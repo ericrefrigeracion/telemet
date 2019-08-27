@@ -149,7 +149,7 @@ class PayController extends Controller
             $pay->item_amount = $amount;
             $pay->operation_type = $response->operation_type;
             $pay->days = $days;
-            $pay->collection_status = 'Created (no se generaron cargos - el pago fue abandonado)';
+            $pay->collection_status = 'Pago creado - Falta verificar';
             $pay->init_point = $response->init_point;
 
             $pay->save();

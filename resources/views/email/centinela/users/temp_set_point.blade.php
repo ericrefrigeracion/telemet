@@ -10,7 +10,7 @@ Los valores que tiene programados para su equipo son:
 <table>
 	<tr>
 		<td>Temperatura Deseada: </td>
-		<td>{{ $device->t_set_point }}%.</td>
+		<td>{{ $device->t_set_point }}°C.</td>
 	</tr>
 	<tr>
 		<td>Retardo para el aviso: </td>
