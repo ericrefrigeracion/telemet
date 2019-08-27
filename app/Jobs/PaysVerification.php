@@ -39,7 +39,6 @@ class PaysVerification implements ShouldQueue
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
         $delay = now()->subHour();
-        dd($delay);
 
         foreach ($pays as $pay)
         {
