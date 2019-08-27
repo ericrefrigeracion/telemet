@@ -172,8 +172,7 @@ class PayController extends Controller
     {
         $pay = Pay::where('preference_id', $request->preference_id)->first();
 
-        $pay->collection_id = $request->collection_id;
-        $pay->update();
+        $pay->update($request->all());
 
         return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito y ya se encuentra acreditado en tu cuenta.']);
     }
@@ -185,15 +184,12 @@ class PayController extends Controller
      */
     public function pending(Request $request)
     {
-
         $pay = Pay::where('preference_id', $request->preference_id)->first();
-
-        $pay->collection_id = $request->collection_id;
-        $pay->update();
+        $pay->update($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        return view('pays.index')->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
+        return view('pays.index')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
@@ -203,15 +199,13 @@ class PayController extends Controller
      */
     public function failure(Request $request)
     {
-
         $pay = Pay::where('preference_id', $request->preference_id)->first();
 
-        $pay->collection_id = $request->collection_id;
-        $pay->update();
+        $pay->update($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        return view('pays.create')->with('errors', ['El pago ha fallado y no se hizo ningun cobro. Por favor intenta nuevamente.']);
+        return view('pays.create')->with(['pays' => $pays])->with('errors', ['El pago ha fallado y no se hizo ningun cobro. Por favor intenta nuevamente.']);
     }
 
     /**
