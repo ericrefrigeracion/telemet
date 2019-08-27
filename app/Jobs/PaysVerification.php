@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Pay;
 use App\Device;
+use App\MailAlert;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
