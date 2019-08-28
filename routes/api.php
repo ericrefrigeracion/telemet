@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::get('/webhooks', 'WebhookController@ipn');
 Route::post('/webhooks', 'WebhookController@ipn');
 Route::post('/receptions/incoming', 'ReceptionController@store');
 
