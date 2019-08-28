@@ -44,7 +44,7 @@ class WebhookController extends Controller
     {
         Webhook::create($request->all());
 
-        return response('Ok', 201);
+        return 201;
     }
 
 }
