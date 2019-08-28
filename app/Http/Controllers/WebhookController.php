@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Webhook;
-use GuzzleHttp\Client;
-
-use App\Jobs\RequestPay;
 use Illuminate\Http\Request;
 
 class WebhookController extends Controller
@@ -42,7 +39,10 @@ class WebhookController extends Controller
      */
     public function ipn(Request $request)
     {
-        Webhook::create($request->all());
+        Webhook::create([
+            'webhook_id' => $request->id,
+            'topic' => $request->topic
+        ]);
 
         return 201;
     }
