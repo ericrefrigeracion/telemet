@@ -34,23 +34,6 @@ class WebhookController extends Controller
          return view('webhooks.show')->with(['webhook' => $webhook]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-        Webhook::create($request->all());
-
-        //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
-        //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
-
-        return response('Ok', 201);
-    }
-
      /**
      * Store a newly created resource in storage.
      *
@@ -59,17 +42,7 @@ class WebhookController extends Controller
      */
     public function ipn(Request $request)
     {
-
-        $webhook = new Webhook;
-        $webhook->webhook_id = $request->id;
-        $webhook->topic = $request->topic;
-        $webhook->save();
-
-
-        //Webhook::create($request->all());
-
-        //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
-        //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
+        Webhook::create($request->all());
 
         return response('Ok', 201);
     }
