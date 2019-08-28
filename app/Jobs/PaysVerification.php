@@ -45,7 +45,6 @@ class PaysVerification implements ShouldQueue
         foreach ($pays as $pay)
         {
             if(!$pay->collection_id && $pay->created_at < $delay) $pay->delete();
-            if($pay->collection_status = 'Pago creado - Falta verificar' && $pay->created_at < $four_days) $pay->delete();
             if($pay->collection_id)
             {
                $response = $client->request( 'GET', 'v1/payments/' . $pay->collection_id, [

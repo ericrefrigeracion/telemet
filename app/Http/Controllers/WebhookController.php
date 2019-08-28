@@ -71,7 +71,7 @@ class WebhookController extends Controller
         //if ($webhook->type == 'payment') RequestPay::dispatch($webhook->data_id);
         //if ($webhook->type == 'subscription') RequestSub::dispatch($webhook->data_id);
 
-        return response('Ok', 201);
+        return response(201);
     }
 
 }
