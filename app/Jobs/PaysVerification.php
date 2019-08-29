@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Pay;
+use App\price;
 use App\Device;
 use App\MailAlert;
 use GuzzleHttp\Client;
@@ -42,33 +43,34 @@ class PaysVerification implements ShouldQueue
 
         foreach ($pays as $pay)
         {
-            if($pay->collection_id)
+
+            $response = $client->request( 'GET', 'v1/payments/' . $pay->payment_id, [
+                'query' => $query_params
+            ] );
+
+            $response = json_decode( $response->getBody()->getContents() );
+
+            $pay = Pay::where('payment_id', $payment_id)->first();
+            $pay->operation_type = $response->operation_type;
+            $pay->detail = $response->payments[0]->status_detail;
+            $pay->update();
+
+            if($pay->detail == 'accredited')
             {
-               $response = $client->request( 'GET', 'v1/payments/' . $pay->collection_id, [
-                    'query' => $query_params
-                ] );
-
-                $response = json_decode( $response->getBody()->getContents() );
-
-                $pay->status_detail = $response->status_detail;
+                $pay->status = 'Pago recibido';
+                $pay->verified_by_sistem = now();
                 $pay->update();
+                $device = Device::find($pay->device_id);
+                $price = Price::find($pay->price_id);
+                $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $device->update();
 
-                if($response->status_detail == 'accredited')
-                {
-                    $pay->collection_status = 'Pago recibido';
-                    $pay->verified_by_sistem = now();
-                    $pay->update();
-                    $device = Device::find($pay->device_id);
-                    $device->monitor_expires_at = $device->monitor_expires_at->addDays($pay->days);
-                    $device->update();
-
-                    MailAlert::create([
-                        'device_id' => $pay->device_id,
-                        'user_id' => $pay->user_id,
-                        'type' => 'PayAccredited',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
-                }
+                MailAlert::create([
+                    'device_id' => $pay->device_id,
+                    'user_id' => $pay->user_id,
+                    'type' => 'PayAccredited',
+                    'last_created_at' => $device->monitor_expires_at,
+                ]);
             }
         }
     }

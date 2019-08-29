@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Pay;
+use App\Price;
 use App\Device;
 use App\MailAlert;
 use GuzzleHttp\Client;
@@ -16,7 +17,7 @@ class PaymentRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $webhook_id;
+    public $payment_id;
     public $tries = 5;
     public $timeout = 30;
 
@@ -25,9 +26,9 @@ class PaymentRevissionJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($webhook_id)
+    public function __construct($payment_id)
     {
-         $this->webhook_id = $webhook_id;
+         $this->payment_id = $payment_id;
     }
 
     /**
@@ -37,29 +38,29 @@ class PaymentRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $webhook_id = $this->webhook_id;
+        $payment_id = $this->payment_id;
 
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
 
-        $response = $client->request( 'GET', 'v1/payments/' . $webhook_id, [
+        $response = $client->request( 'GET', 'v1/payments/' . $payment_id, [
             'query' => $query_params
         ] );
         $response = json_decode( $response->getBody()->getContents() );
 
-        $pay = Pay::where('preference_id', $response->preference_id)->first();
-
-        $pay->preference_id = $response->payments[0]->id;
+        $pay = Pay::where('payment_id', $payment_id)->first();
+        $pay->operation_type = $response->operation_type;
+        $pay->detail = $response->payments[0]->status_detail;
         $pay->update();
 
-        if($response->payments[0]->status_detail == 'accredited')
+        if($pay->detail == 'accredited')
         {
-            $pay->status_detail = 'accredited';
-            $pay->collection_status = 'Pago recibido';
+            $pay->status = 'Pago recibido';
             $pay->verified_by_sistem = now();
             $pay->update();
             $device = Device::find($pay->device_id);
-            $device->monitor_expires_at = $device->monitor_expires_at->addDays($pay->days);
+            $price = Price::find($pay->price_id);
+            $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
             $device->update();
 
             MailAlert::create([
