@@ -52,7 +52,7 @@ class PaysVerification implements ShouldQueue
 
             $pay = Pay::where('payment_id', $pay->payment_id)->first();
             $pay->operation_type = $response->operation_type;
-            $pay->detail = $response->payments[0]->status_detail;
+            $pay->detail = $response->status_detail;
             $pay->update();
 
             if($pay->detail == 'accredited')
