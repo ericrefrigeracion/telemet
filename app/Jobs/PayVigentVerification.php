@@ -45,7 +45,7 @@ class PayVigentVerification implements ShouldQueue
                 $device->update();
 
                 Alert::create([
-                    'device_id' => $device_id,
+                    'device_id' => $device->id,
                     'log' => 'Monitoreo deshabilitado por falta de pago.',
                     'alert_created_at' => $device->monitor_expires_at,
                 ]);
@@ -62,7 +62,7 @@ class PayVigentVerification implements ShouldQueue
                 $device->update();
 
                 Alert::create([
-                    'device_id' => $device_id,
+                    'device_id' => $device->id,
                     'log' => 'Monitoreo habilitado nuevamente.',
                     'alert_created_at' => now(),
                 ]);
@@ -78,7 +78,7 @@ class PayVigentVerification implements ShouldQueue
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextDay')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
                     Alert::create([
-                        'device_id' => $device_id,
+                        'device_id' => $device->id,
                         'log' => 'Mañana se deshabilita monitoreo por falta de pago.',
                         'alert_created_at' => now(),
                     ]);
@@ -95,7 +95,7 @@ class PayVigentVerification implements ShouldQueue
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextWeek')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
                     Alert::create([
-                        'device_id' => $device_id,
+                        'device_id' => $device->id,
                         'log' => 'La semana proxima se deshabilita monitoreo por falta de pago.',
                         'alert_created_at' => now(),
                     ]);
