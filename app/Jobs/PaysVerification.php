@@ -39,19 +39,17 @@ class PaysVerification implements ShouldQueue
     public function handle()
     {
         $pays = Pay::where('verified_by_system', NULL)->get();
-        dd($pays);
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
 
         foreach ($pays as $pay)
         {
-
             $response = $client->request( 'GET', 'v1/payments/' . $pay->payment_id, [
                 'query' => $query_params
             ] );
 
             $response = json_decode( $response->getBody()->getContents() );
-
+            dd($response);
             $pay = Pay::where('payment_id', $pay->payment_id)->first();
             $pay->operation_type = $response->operation_type;
             $pay->detail = $response->status_detail;
