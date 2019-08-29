@@ -68,6 +68,18 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('invitado'),
             'remember_token' => Str::random(10),
         ]);
+        User::create([
+            'name' => 'Eric',
+            'surname' => 'Gavernet',
+            'dni' => 32292512,
+            'phone_area_code' => 3385,
+            'phone_number' => 400879,
+            'email' => 'ericlopezrefrigeracion@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'address' => 'Sarmiento 49'
+        ]);
 
     }
 }
