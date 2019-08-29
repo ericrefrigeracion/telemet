@@ -74,6 +74,7 @@ class WebhookController extends Controller
             'status' => 'Pago recibido',
         ]);
 
+        sleep(3);
         PaymentRevissionJob::dispatch($request->data_id);
 
         return 201;
