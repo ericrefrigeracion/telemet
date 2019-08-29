@@ -60,7 +60,7 @@ class WebhookController extends Controller
     public function pay(Request $request, $user, $device, $price)
     {
         $rules = [
-            'payment_id' => 'unique:pays,id',
+            'data_id' => 'unique:pays,payment_id',
         ];
 
         $request->validate($rules);
