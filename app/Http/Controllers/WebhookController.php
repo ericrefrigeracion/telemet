@@ -59,6 +59,14 @@ class WebhookController extends Controller
      */
     public function pay(Request $request, $user, $device, $price)
     {
+        $rules = [
+            'user_id' => 'exists:users,id',
+            'device_id' => 'exists:devices,id',
+            'price_id' => 'exists:prices,id',
+            'payment_id' => 'unique:devices,id',
+        ];
+
+        $request->validate($rules);
 
         Pay::create([
             'user_id' => $user,
