@@ -63,7 +63,7 @@ class WebhookController extends Controller
             'user_id' => 'exists:users,id',
             'device_id' => 'exists:devices,id',
             'price_id' => 'exists:prices,id',
-            'payment_id' => 'unique:devices,id',
+            'payment_id' => 'unique:pays,id',
         ];
 
         $request->validate($rules);
