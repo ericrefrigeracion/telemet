@@ -64,7 +64,7 @@ class WebhookController extends Controller
             'user_id' => $user,
             'device_id' => $device,
             'price_id' => $price,
-            'payment_id' => $request['data.id'],
+            'payment_id' => $request->input('data.id'),
             'payment_type' => $request->type,
             'status' => 'Pago recibido',
         ]);
