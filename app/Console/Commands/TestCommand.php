@@ -39,7 +39,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        PaymentRevissionJob::dispatch(5132388230);
+        //PaymentRevissionJob::dispatch(5132388230);
         //MerchantOrderRevissionJob::dispatch(1137605471);
     }
 }
