@@ -13,10 +13,6 @@
                     <table class="table table-striped table-hover">
                         <tbody>
                                 <tr>
-                                    <td>ID</td>
-                                    <td>{{ $pay->id }}</td>
-                                </tr>
-                                <tr>
                                     <td>Dispositivo pagado:</td>
                                     <td>{{ $pay->device_id }}</td>
                                 </tr>
@@ -25,16 +21,8 @@
                                     <td>{{ $pay->price_id }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Usuario:</td>
-                                    <td>${{ $pay->payment_id }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Tipo de pago:</td>
-                                    <td>{{ $pay->payment_type }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Operacion Tipo:</td>
-                                    <td>{{ $pay->operation_type }}</td>
+                                    <td>Numero de Pago:</td>
+                                    <td>{{ $pay->payment_id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Tipo de pago:</td>
@@ -50,7 +38,7 @@
                                 </tr>
                                 <tr>
                                     <td>Pago verificado:</td>
-                                    <td>{{ $pay->verified_by_sistem }}</td>
+                                    <td>{{ $pay->verified_by_system }}</td>
                                 </tr>
                         </tbody>
                     </table>
