@@ -63,6 +63,11 @@ class PaymentRevissionJob implements ShouldQueue
             $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
             $device->update();
 
+            Alert::create([
+                'device_id' => $device_id,
+                'log' => 'Pago N°' . $pay->payment_id . ' acreditado.',
+                'alert_created_at' => now(),
+            ]);
             MailAlert::create([
                 'device_id' => $pay->device_id,
                 'user_id' => $pay->user_id,

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Alert;
 use App\Device;
 use App\MailAlert;
 use Illuminate\Bus\Queueable;
@@ -43,6 +44,11 @@ class PayVigentVerification implements ShouldQueue
                 $device->admin_mon = false;
                 $device->update();
 
+                Alert::create([
+                    'device_id' => $device_id,
+                    'log' => 'Monitoreo deshabilitado por falta de pago.',
+                    'alert_created_at' => $device->monitor_expires_at,
+                ]);
                 MailAlert::create([
                     'device_id' => $device->id,
                     'user_id' => $device->user_id,
@@ -55,6 +61,11 @@ class PayVigentVerification implements ShouldQueue
                 $device->admin_mon = true;
                 $device->update();
 
+                Alert::create([
+                    'device_id' => $device_id,
+                    'log' => 'Monitoreo habilitado nuevamente.',
+                    'alert_created_at' => now(),
+                ]);
                 MailAlert::create([
                     'device_id' => $device->id,
                     'user_id' => $device->user_id,
@@ -66,6 +77,11 @@ class PayVigentVerification implements ShouldQueue
             {
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextDay')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
+                    Alert::create([
+                        'device_id' => $device_id,
+                        'log' => 'Mañana se deshabilita monitoreo por falta de pago.',
+                        'alert_created_at' => now(),
+                    ]);
                     MailAlert::create([
                         'device_id' => $device->id,
                         'user_id' => $device->user_id,
@@ -78,6 +94,11 @@ class PayVigentVerification implements ShouldQueue
             {
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextWeek')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
+                    Alert::create([
+                        'device_id' => $device_id,
+                        'log' => 'La semana proxima se deshabilita monitoreo por falta de pago.',
+                        'alert_created_at' => now(),
+                    ]);
                     MailAlert::create([
                         'device_id' => $device->id,
                         'user_id' => $device->user_id,

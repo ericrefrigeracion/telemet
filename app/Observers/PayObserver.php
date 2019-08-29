@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Pay;
 
-class WebhookObserver
+class PayObserver
 {
     /**
      * Handle the pay "created" event.
@@ -15,7 +15,6 @@ class WebhookObserver
     public function created(Pay $pay)
     {
         if($pay->payment_type == 'payment') PaymentRevissionJob::dispatch($pay->payment_id);
-        //if($webhook->topic == 'merchant_order') MerchantOrderRevissionJob::dispatch($webhook->webhook_id);
     }
 
     /**
