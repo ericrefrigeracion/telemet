@@ -56,7 +56,7 @@ class PaymentRevissionJob implements ShouldQueue
         if($pay->detail == 'accredited')
         {
             $pay->status = 'Pago recibido';
-            $pay->verified_by_sistem = now();
+            $pay->verified_by_system = now();
             $pay->update();
             $device = Device::find($pay->device_id);
             $price = Price::find($pay->price_id);

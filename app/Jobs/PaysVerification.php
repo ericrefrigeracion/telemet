@@ -37,7 +37,7 @@ class PaysVerification implements ShouldQueue
      */
     public function handle()
     {
-        $pays = Pay::where('verified_by_sistem', NULL)->get();
+        $pays = Pay::where('verified_by_system', NULL)->get();
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
 
@@ -58,7 +58,7 @@ class PaysVerification implements ShouldQueue
             if($pay->detail == 'accredited')
             {
                 $pay->status = 'Pago recibido';
-                $pay->verified_by_sistem = now();
+                $pay->verified_by_system = now();
                 $pay->update();
                 $device = Device::find($pay->device_id);
                 $price = Price::find($pay->price_id);
