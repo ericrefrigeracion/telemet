@@ -71,7 +71,7 @@ class PaymentRevissionJob implements ShouldQueue
             ]);
             MailAlert::create([
                 'device_id' => $device->id,
-                'user_id' => $user->id,
+                'user_id' => $device->user_id,
                 'type' => 'PayAccredited',
                 'last_created_at' => $device->monitor_expires_at,
             ]);
