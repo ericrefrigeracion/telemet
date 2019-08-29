@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Pay;
+use App\Alert;
 use App\Price;
 use App\Device;
 use App\MailAlert;
