@@ -8,6 +8,7 @@ use App\Price;
 use App\Device;
 use App\Webhook;
 use Illuminate\Http\Request;
+use App\Jobs\PaymentRevissionJob;
 
 class WebhookController extends Controller
 {
