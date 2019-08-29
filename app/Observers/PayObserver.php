@@ -14,6 +14,7 @@ class PayObserver
      */
     public function created(Pay $pay)
     {
+        sleep(3);
         if($pay->payment_type == 'payment') PaymentRevissionJob::dispatch($pay->payment_id);
     }
 
