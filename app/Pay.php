@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\User;
+use App\Price;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,24 +18,16 @@ class Pay extends Model
         'id',
         'user_id',
         'device_id',
-        'preference_id',
-        'item_amount',
-        'collection_status',
-        'status_detail',
-        'init_point',
-        'operation_type',
-        'verified_by_sistem',
-        'days',
-        'collection_id',
-        'external_reference',
-        'merchant_order_id',
-        'site_id',
+        'price_id',
+        'payment_id',
         'payment_type',
-        'processing_mode',
-        'merchant_account_id',
+        'status',
+        'detail',
+        'operation_type',
+        'verified_by_system',
     ];
 
-    protected $dates = ['verified_by_sistem'];
+    protected $dates = ['verified_by_system'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -51,5 +45,10 @@ class Pay extends Model
     public function devices()
     {
     	return $this->belongsTo(Device::class);
+    }
+
+    public function prices()
+    {
+        return $this->belongsTo(Price::class);
     }
 }

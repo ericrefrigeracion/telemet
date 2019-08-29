@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Pay;
 use Illuminate\Database\Eloquent\Model;
 
 class Price extends Model
@@ -27,4 +28,9 @@ class Price extends Model
     protected $hidden = [
     	//
     ];
+
+    public function pays()
+    {
+        return $this->hasMany(Pay::class);
+    }
 }

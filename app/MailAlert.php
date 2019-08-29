@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\User;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,8 +31,4 @@ class MailAlert extends Model
     	return $this->belongsTo(Device::class);
     }
 
-    public function users()
-    {
-        return $this->belongsTo(User::class);
-    }
 }

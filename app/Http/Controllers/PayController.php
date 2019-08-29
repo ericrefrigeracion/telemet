@@ -128,7 +128,7 @@ class PayController extends Controller
             $json['payment_methods'] = $payment_methods;
             $json['back_urls'] = $back_urls;
             $json['auto_return'] = 'all';
-            $json['notification_url'] = 'https://sysnet.com.ar/api/webhooks';
+            $json['notification_url'] = 'https://sysnet.com.ar/api/webhooks/'. $user->id . '-' . $device->id . '-' . $price->id;
             $json['external_reference'] = '';
 
             $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
@@ -141,21 +141,8 @@ class PayController extends Controller
 
             $response = json_decode( $response->getBody()->getContents() );
 
-            $pay = new Pay;
-
-            $pay->device_id = $device->id;
-            $pay->user_id = $user->id;
-            $pay->preference_id = $response->id;
-            $pay->item_amount = $amount;
-            $pay->operation_type = $response->operation_type;
-            $pay->days = $days;
-            $pay->collection_status = 'Pago creado - Falta verificar';
-            $pay->init_point = $response->init_point;
-
-            $pay->save();
-
-
             return redirect($response->init_point);
+
             }
         else
         {
@@ -170,11 +157,9 @@ class PayController extends Controller
      */
     public function success(Request $request)
     {
-        $pay = Pay::where('preference_id', $request->preference_id)->first();
+        $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        $pay->update($request->all());
-
-        return view('pays.show')->with(['pay' => $pay])->with('success', ['El pago se ha realizado con exito y ya se encuentra acreditado en tu cuenta.']);
+        return view('pays.index')->with(['pays' => $pays])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
@@ -184,8 +169,6 @@ class PayController extends Controller
      */
     public function pending(Request $request)
     {
-        $pay = Pay::where('preference_id', $request->preference_id)->first();
-        $pay->update($request->all());
 
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
@@ -199,13 +182,9 @@ class PayController extends Controller
      */
     public function failure(Request $request)
     {
-        $pay = Pay::where('preference_id', $request->preference_id)->first();
-
-        $pay->update($request->all());
-
         $pays = Auth::user()->pays()->latest()->paginate(20);
 
-        return view('pays.create')->with(['pays' => $pays])->with('errors', ['El pago ha fallado y no se hizo ningun cobro. Por favor intenta nuevamente.']);
+        return view('pays.index')->with(['pays' => $pays])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
