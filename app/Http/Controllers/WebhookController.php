@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Alert;
+use App\Pay;
 use App\User;
 use App\Price;
 use App\Device;
