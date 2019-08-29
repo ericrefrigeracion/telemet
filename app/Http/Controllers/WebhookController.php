@@ -69,7 +69,6 @@ class WebhookController extends Controller
             'status' => 'Pago recibido',
         ]);
 
-
         return 201;
     }
 

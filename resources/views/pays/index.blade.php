@@ -27,7 +27,7 @@
                                             <a href="{{ route('pays.show', $pay->id) }}" class="btn btn-sm btn-default">{{ $pay->created_at }}</a>
                                         </td>
                                         <td>
-                                            {{ $pay->collection_status }}
+                                            {{ $pay->status }}
                                         </td>
                                     </tr>
                                 @endforeach

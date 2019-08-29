@@ -21,28 +21,36 @@
                                     <td>{{ $pay->device_id }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Monto de la operacion:</td>
-                                    <td>${{ $pay->item_amount }}</td>
+                                    <td>Item:</td>
+                                    <td>{{ $pay->price_id }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Usuario:</td>
+                                    <td>${{ $pay->payment_id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Tipo de pago:</td>
                                     <td>{{ $pay->payment_type }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Operacion N°:</td>
-                                    <td>{{ $pay->collection_id }}</td>
+                                    <td>Operacion Tipo:</td>
+                                    <td>{{ $pay->operation_type }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tipo de pago:</td>
+                                    <td>{{ $pay->payment_type }}</td>
                                 </tr>
                                 <tr>
                                     <td>Estado del pago:</td>
-                                    <td>{{ $pay->collection_status }}</td>
+                                    <td>{{ $pay->status }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Detalle del pago:</td>
+                                    <td>{{ $pay->detail }}</td>
                                 </tr>
                                 <tr>
                                     <td>Pago verificado:</td>
                                     <td>{{ $pay->verified_by_sistem }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dias:</td>
-                                    <td>{{ $pay->days }}</td>
                                 </tr>
                         </tbody>
                     </table>
