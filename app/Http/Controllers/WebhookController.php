@@ -57,13 +57,13 @@ class WebhookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function pay(User $user, Device $device, Price $price)
+    public function pay(Request $request, User $user, Device $device, Price $price)
     {
 
 
         Alert::create([
             'device_id' => $device->id,
-            'log' => $price->id,
+            'log' => $request->id,
             'alert_created_at' => now(),
         ]);
 
