@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Pay;
+use App\Alert;
 use App\User;
 use App\Price;
 use App\Device;
@@ -60,13 +60,11 @@ class WebhookController extends Controller
     public function pay(User $user, Device $device, Price $price)
     {
 
-        $response = json_decode( $request->getBody()->getContents() );
-        dd($response);
 
-        Pay::create([
-            'user_id' => $user->id;
-            'device_id' => $device->id;
-            'item_amount' => $price->id;
+        Alert::create([
+            'device_id' => $device->id,
+            'log' => $price->id,
+            'alert_created_at' => now(),
         ]);
 
 
