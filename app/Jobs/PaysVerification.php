@@ -49,8 +49,6 @@ class PaysVerification implements ShouldQueue
             ] );
 
             $response = json_decode( $response->getBody()->getContents() );
-            dd($response);
-            $pay = Pay::where('payment_id', $pay->payment_id)->first();
             $pay->operation_type = $response->operation_type;
             $pay->detail = $response->status_detail;
             $pay->update();
