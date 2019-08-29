@@ -60,12 +60,11 @@ class WebhookController extends Controller
     public function pay(Request $request, $user, $device, $price)
     {
 
-        $request = json_decode( $request );
         Pay::create([
             'user_id' => $user,
             'device_id' => $device,
             'price_id' => $price,
-            'payment_id' => $request->data->id,
+            'payment_id' => $request->id,
             'payment_type' => $request->type,
             'status' => 'Pago recibido',
         ]);
