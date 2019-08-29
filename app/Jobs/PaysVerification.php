@@ -39,12 +39,9 @@ class PaysVerification implements ShouldQueue
         $pays = Pay::where('verified_by_sistem', NULL)->get();
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
-        $delay = now()->subHour();
-        $four_days = now()->subDays(4);
 
         foreach ($pays as $pay)
         {
-            if(!$pay->collection_id && $pay->created_at < $delay) $pay->delete();
             if($pay->collection_id)
             {
                $response = $client->request( 'GET', 'v1/payments/' . $pay->collection_id, [

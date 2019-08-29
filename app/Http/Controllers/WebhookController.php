@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Pay;
+use App\User;
+use App\Price;
+use App\Device;
 use App\Webhook;
 use Illuminate\Http\Request;
 
@@ -43,6 +47,28 @@ class WebhookController extends Controller
             'webhook_id' => $request->id,
             'topic' => $request->topic
         ]);
+
+        return 201;
+    }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function pay(User $user, Device $device, Price $price)
+    {
+
+        $response = json_decode( $request->getBody()->getContents() );
+        dd($response);
+
+        Pay::create([
+            'user_id' => $user->id;
+            'device_id' => $device->id;
+            'item_amount' => $price->id;
+        ]);
+
 
         return 201;
     }
