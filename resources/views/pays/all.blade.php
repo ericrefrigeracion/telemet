@@ -25,7 +25,7 @@
                                             <a href="{{ route('devices.show', $pay->device_id) }}" class="btn btn-sm btn-default">{{ $pay->device_id }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('users.show', $pay->user_id) }}" class="btn btn-sm btn-default">{{ $pay->device_id }}</a>
+                                            <a href="{{ route('users.show', $pay->user_id) }}" class="btn btn-sm btn-default">{{ $pay->user_id }}</a>
                                         </td>
                                         <td>
                                             <a href="{{ route('pays.show', $pay->id) }}" class="btn btn-sm btn-default">{{ $pay->created_at }}</a>

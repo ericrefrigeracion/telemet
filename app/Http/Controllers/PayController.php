@@ -86,7 +86,6 @@ class PayController extends Controller
 
         if ($user->id === $user_device)
         {
-            if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
             $days = $price->days;
             $multiplicator = Price::where('description', 'Multiplicador')->first();
 
@@ -157,9 +156,7 @@ class PayController extends Controller
      */
     public function success(Request $request)
     {
-        $pays = Auth::user()->pays()->latest()->paginate(20);
-
-        return view('pays.index')->with(['pays' => $pays])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
+        redirect()->route('pays.index')->with('success', ['El pago se ha realizado con exito, ya esta acreditado en tu cuenta.']);
     }
 
     /**
@@ -169,10 +166,7 @@ class PayController extends Controller
      */
     public function pending(Request $request)
     {
-
-        $pays = Auth::user()->pays()->latest()->paginate(20);
-
-        return view('pays.index')->with(['pays' => $pays])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
+        redirect()->route('pays.index')->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
@@ -182,9 +176,7 @@ class PayController extends Controller
      */
     public function failure(Request $request)
     {
-        $pays = Auth::user()->pays()->latest()->paginate(20);
-
-        return view('pays.index')->with(['pays' => $pays])->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
+        redirect()->route('pays.index')->with('warning', ['El pago ha fallado, no se realizo ningun cargo']);
     }
 
     /**
@@ -194,8 +186,6 @@ class PayController extends Controller
      */
     public function all()
     {
-        $pays = Pay::paginate(20);
-
-        return view('pays.all')->with(['pays' => $pays]);
+        return view('pays.all')->with(['pays' => Pay::paginate(20)]);
     }
 }
