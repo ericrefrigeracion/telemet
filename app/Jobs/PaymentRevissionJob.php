@@ -76,6 +76,7 @@ class PaymentRevissionJob implements ShouldQueue
                 'last_created_at' => $device->monitor_expires_at,
             ]);
             $pays = Pay::where('payment_id', $payment_id)->where('detail', '<>', 'accredited')->get();
+            dd($pays);
             foreach ($pays as $pay)
             {
                 $pay->delete();

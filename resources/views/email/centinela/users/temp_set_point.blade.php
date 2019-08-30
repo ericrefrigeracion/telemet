@@ -3,6 +3,7 @@
 # {{ $device->id }} - {{ $device->name }} esta fuera de set point.
 
 El dispositivo {{ $device->name }} ({{ $device->description }}) se encuentra con ciclo lento, no ha alcanzado el valor de temperatura deseado en el tiempo previsto en la configuracion del dispositivo.
+La ultima vez que el equipo llego a la temperatura deseada fue {{ $mail_information->last_created_at }}.
 Normalmente, esto puede deberse a problemas de rendimiento en su equipo.
 
 <hr>
