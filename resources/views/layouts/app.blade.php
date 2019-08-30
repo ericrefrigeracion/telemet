@@ -65,18 +65,14 @@
                             </li>
                             <li class="nav-item dropdown">
                                 @can('alerts.index')
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Reportes</a>
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Alertas</a>
                                 @endcan
                                 <div class="dropdown-menu">
-                                    @can('reports.index')
-                                        <a class="dropdown-item" href="{{ route('reports.index') }}">Mis Reportes</a>
-                                    @endcan
-                                    @can('reports.all')
-                                        <a class="dropdown-item" href="{{ route('reports.all') }}">Todos los Reportes</a>
-                                    @endcan
-                                    <div class="dropdown-divider"></div>
                                     @can('alerts.index')
                                         <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Alertas</a>
+                                    @endcan
+                                    @can('alerts.index')
+                                        <a class="dropdown-item" href="{{ route('alerts.index') }}">Configuracion</a>
                                     @endcan
                                     @can('alerts.all')
                                         <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas las Alertas</a>
