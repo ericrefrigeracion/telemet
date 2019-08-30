@@ -75,12 +75,9 @@ class PaymentRevissionJob implements ShouldQueue
                 'type' => 'PayAccredited',
                 'last_created_at' => $device->monitor_expires_at,
             ]);
+
             $pays = Pay::where('payment_id', $payment_id)->where('verified_by_system', null)->get();
-            dd($pays);
-            foreach ($pays as $pay)
-            {
-                $pay->delete();
-            }
+            foreach ($pays as $pay) $pay->delete();
         }
     }
 }
