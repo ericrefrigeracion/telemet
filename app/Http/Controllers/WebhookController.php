@@ -60,11 +60,6 @@ class WebhookController extends Controller
      */
     public function pay(Request $request, $user, $device, $price)
     {
-        $rules = [
-            'data_id' => 'unique:pays,payment_id',
-        ];
-
-        $request->validate($rules);
 
         Pay::create([
             'user_id' => $user,
@@ -72,10 +67,9 @@ class WebhookController extends Controller
             'price_id' => $price,
             'payment_id' => $request->data_id,
             'payment_type' => $request->type,
-            'status' => 'Pago recibido',
+            'status' => 'Pago generado - pendiente de acreditacion',
         ]);
 
-        sleep(3);
         PaymentRevissionJob::dispatch($request->data_id);
 
         return 201;

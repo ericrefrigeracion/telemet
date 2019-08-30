@@ -12,17 +12,19 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Tipo</th>
-                                <th>User(MP)</th>
-                                <th>Pago ID(MP)</th>
+                                <th>ID</th>
+                                <th>Webhook_ID</th>
+                                <th>Topic</th>
+                                <th>Creado</th>
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach($webhooks as $webhook)
                                     <tr>
-                                        <td>{{ $webhook->type }}</td>
-                                        <td>{{ $webhook->user_id }}</td>
-                                        <td><a href="{{ route('webhooks.show', $webhook->id) }}" class="btn btn-sm btn-default">{{ $webhook->data_id }}<a/></td>
+                                        <td>{{ $webhook->id }}</td>
+                                        <td>{{ $webhook->webhook_id }}</td>
+                                        <td>{{ $webhook->topic }}<a/></td>
+                                        <td>{{ $webhook->created_at}}</td>
                                     </tr>
                                 @endforeach
                         </tbody>

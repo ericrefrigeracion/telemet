@@ -25,22 +25,6 @@
                                     <td>Usuario de MercadoPago</td>
                                     <td>{{ $webhook->user_id }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Accion</td>
-                                    <td>{{ $webhook->action }}</td>
-                                </tr>
-                                <tr>
-                                    <td>ID de pago MercadoPago</td>
-                                    <td>{{ $webhook->data_id }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Fecha de creacion MercadoPago</td>
-                                    <td>{{ $webhook->date_created }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Fecha de creacion Telemet</td>
-                                    <td>{{ $webhook->created_at }}</td>
-                                </tr>
                         </tbody>
                     </table>
                 </div>
