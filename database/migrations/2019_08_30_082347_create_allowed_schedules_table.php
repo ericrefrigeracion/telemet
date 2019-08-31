@@ -16,9 +16,8 @@ class CreateAllowedSchedulesTable extends Migration
         Schema::create('allowed_schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('device_id');
-            $table->string('usr_day');
             $table->string('day');
-            $table->dateTime('star_time');
+            $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->timestamps();
 

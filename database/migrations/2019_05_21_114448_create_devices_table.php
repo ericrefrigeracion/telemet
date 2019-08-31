@@ -19,11 +19,11 @@ class CreateDevicesTable extends Migration
             $table->string('mdl');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('allowed_schedule_type');
+            $table->string('rule_type');
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
             $table->boolean('admin_mon');
-            $table->boolean('allowed_schedule');
+            $table->boolean('protected');
             $table->boolean('on_line');
             $table->boolean('on_temp');
             $table->boolean('on_hum');

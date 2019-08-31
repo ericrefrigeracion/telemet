@@ -90,12 +90,12 @@ class DeviceController extends Controller
         $device->user_id = Auth::user()->id;
         $device->name = $request->name;
         $device->description = $request->description;
-        $device->allowed_schedule_type = 'never';
+        $device->rule_type = 'allways';
         $device->view_alerts_at = now();
         $device->monitor_expires_at = now()->addWeek();
         $device->send_mails = false;
         $device->admin_mon = false;
-        $device->allowed_schedule = false;
+        $device->protected = false;
         $device->on_line = false;
         $device->on_temp = false;
         $device->on_hum = false;

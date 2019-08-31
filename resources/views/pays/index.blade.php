@@ -12,8 +12,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Dispositivo</th>
-                                <th>Creado Fecha</th>
+                                <th>Pago N°</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
@@ -21,10 +20,7 @@
                                 @foreach($pays as $pay)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('devices.show', $pay->device_id) }}" class="btn btn-sm btn-default">{{ $pay->device_id }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('pays.show', $pay->id) }}" class="btn btn-sm btn-default">{{ $pay->created_at }}</a>
+                                            <a href="{{ route('pays.show', $pay->id) }}" class="btn btn-sm btn-default">{{ $pay->payment_id }}</a>
                                         </td>
                                         <td>
                                             {{ $pay->status }}

@@ -17,7 +17,7 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'user_id', 'mdl', 'name', 'description', 'allowed_schedule_type', 'lat', 'long', 'admin_mon', 'allowed_schedule', 'on_line', 'on_temp', 'on_hum', 'on_t_set_point', 'on_h_set_point', 'send_mails', 'monitor_expires_at', 'view_alerts_at', 'tmon', 'tdly', 'tcal', 't_set_point', 't_is', 't_change_at', 'tmin', 't_out_at', 'tmax', 'hmon', 'hdly', 'hcal', 'h_set_point', 'h_is', 'h_change_at', 'hmin', 'h_out_at', 'hmax',
+        'id', 'user_id', 'mdl', 'name', 'description', 'rule_type', 'lat', 'long', 'admin_mon', 'protected', 'on_line', 'on_temp', 'on_hum', 'on_t_set_point', 'on_h_set_point', 'send_mails', 'monitor_expires_at', 'view_alerts_at', 'tmon', 'tdly', 'tcal', 't_set_point', 't_is', 't_change_at', 'tmin', 't_out_at', 'tmax', 'hmon', 'hdly', 'hcal', 'h_set_point', 'h_is', 'h_change_at', 'hmin', 'h_out_at', 'hmax',
     ];
 
     protected $dates = ['t_out_at', 'h_out_at', 'monitor_expires_at','view_alerts_at', 't_change_at', 'h_change_at'];
