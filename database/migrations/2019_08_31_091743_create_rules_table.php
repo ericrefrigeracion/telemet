@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAllowedSchedulesTable extends Migration
+class CreateRulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAllowedSchedulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('allowed_schedules', function (Blueprint $table) {
+        Schema::create('rules', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('device_id');
             $table->string('day');
@@ -32,6 +32,6 @@ class CreateAllowedSchedulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('allowed_schedules');
+        Schema::dropIfExists('rules');
     }
 }

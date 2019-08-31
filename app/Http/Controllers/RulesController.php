@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\AllowedSchedule;
+use App\Rules;
 use Illuminate\Http\Request;
 
-class AllowedScheduleController extends Controller
+class RulesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class AllowedScheduleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\AllowedSchedule  $allowedSchedule
+     * @param  \App\Rules  $rules
      * @return \Illuminate\Http\Response
      */
-    public function show(AllowedSchedule $allowedSchedule)
+    public function show(Rules $rules)
     {
         //
     }
@@ -52,10 +52,10 @@ class AllowedScheduleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\AllowedSchedule  $allowedSchedule
+     * @param  \App\Rules  $rules
      * @return \Illuminate\Http\Response
      */
-    public function edit(AllowedSchedule $allowedSchedule)
+    public function edit(Rules $rules)
     {
         //
     }
@@ -64,10 +64,10 @@ class AllowedScheduleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\AllowedSchedule  $allowedSchedule
+     * @param  \App\Rules  $rules
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AllowedSchedule $allowedSchedule)
+    public function update(Request $request, Rules $rules)
     {
         //
     }
@@ -75,10 +75,10 @@ class AllowedScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\AllowedSchedule  $allowedSchedule
+     * @param  \App\Rules  $rules
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AllowedSchedule $allowedSchedule)
+    public function destroy(Rules $rules)
     {
         //
     }
