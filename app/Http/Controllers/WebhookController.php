@@ -58,19 +58,10 @@ class WebhookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function pay(Request $request, $user, $device, $price)
+    public function pay(Request $request, $user_id, $device_id, $price_id)
     {
 
-        Pay::create([
-            'user_id' => $user,
-            'device_id' => $device,
-            'price_id' => $price,
-            'payment_id' => $request->data_id,
-            'payment_type' => $request->type,
-            'status' => 'Pago generado - pendiente de acreditacion',
-        ]);
-
-        PaymentRevissionJob::dispatch($request->data_id);
+        PaymentRevissionJob::dispatch($request, $user_id, $device_id, $price_id);
 
         return 201;
     }

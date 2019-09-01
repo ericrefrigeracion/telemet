@@ -18,7 +18,10 @@ class PaymentRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $payment_id;
+    public $request;
+    public $user_id;
+    public $device_id;
+    public $price_id;
     public $tries = 5;
     public $timeout = 30;
 
@@ -27,9 +30,12 @@ class PaymentRevissionJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($payment_id)
+    public function __construct($request, $user_id, $device_id, $price_id)
     {
-         $this->payment_id = $payment_id;
+         $this->request = $request;
+         $this->user_id = $user_id;
+         $this->device_id = $device_id;
+         $this->price_id = $price_id;
     }
 
     /**
@@ -39,7 +45,11 @@ class PaymentRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $payment_id = $this->payment_id;
+        $payment_id = $this->request->data_id;
+        $payment_type = $this->request->type;
+        $user_id = $this->user_id;
+        $device_id = $this->device_id;
+        $price_id = $this->price_id;
 
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
@@ -49,35 +59,77 @@ class PaymentRevissionJob implements ShouldQueue
         ] );
         $response = json_decode( $response->getBody()->getContents() );
 
-        $pay = Pay::where('payment_id', $payment_id)->first();
-        $pay->operation_type = $response->operation_type;
-        $pay->detail = $response->status_detail;
-        $pay->update();
-
-        if($pay->detail == 'accredited')
+        if(!$pay = Pay::where('payment_id', $payment_id)->first())
         {
-            $pay->status = 'Pago recibido';
-            $pay->verified_by_system = now();
-            $pay->update();
-            $device = Device::find($pay->device_id);
-            $price = Price::find($pay->price_id);
-            $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
-            $device->update();
+            if($response->status_detail == 'accredited')
+            {
+                $device = Device::find($device_id);
+                $price = Price::find($price_id);
+                $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $device->update();
+                Pay::create([
+                    'user_id' => $user_id,
+                    'device_id' => $device_id,
+                    'price_id' => $price_id,
+                    'payment_id' => $payment_id,
+                    'payment_type' => $payment_type,
+                    'status' => 'Pago recibido',
+                    'detail' => 'Acreditado',
+                    'operation_type' => $response->operation_type,
+                    'verified_by_system' => now();
+                ]);
+                Alert::create([
+                    'device_id' => $device_id,
+                    'log' => 'Pago N°' . $payment_id . ' acreditado.',
+                    'alert_created_at' => now(),
+                ]);
+                MailAlert::create([
+                    'device_id' => $device->id,
+                    'user_id' => $device->user_id,
+                    'type' => 'PayAccredited',
+                    'last_created_at' => $device->monitor_expires_at,
+                ]);
+            }
+            else
+            {
+                Pay::create([
+                    'user_id' => $user_id,
+                    'device_id' => $device_id,
+                    'price_id' => $price_id,
+                    'payment_id' => $payment_id,
+                    'payment_type' => $payment_type,
+                    'status' => 'Pago recibido',
+                    'detail' => 'Pendiente de acreditacion',
+                    'operation_type' => $response->operation_type,
+                ]);
+            }
+        }
+        else
+        {
+            if($response->status_detail == 'accredited')
+            {
+                $device = Device::find($device_id);
+                $price = Price::find($price_id);
+                $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $device->update();
 
-            Alert::create([
-                'device_id' => $device->id,
-                'log' => 'Pago N°' . $pay->payment_id . ' acreditado.',
-                'alert_created_at' => now(),
-            ]);
-            MailAlert::create([
-                'device_id' => $device->id,
-                'user_id' => $device->user_id,
-                'type' => 'PayAccredited',
-                'last_created_at' => $device->monitor_expires_at,
-            ]);
+                $pay->status = 'Pago recibido';
+                $pay->detail = 'Acreditado';
+                $pay->verified_by_system = now();
+                $pay->update();
 
-            $pays = Pay::where('payment_id', $payment_id)->where('verified_by_system', null)->get();
-            foreach ($pays as $pay) $pay->delete();
+                Alert::create([
+                    'device_id' => $device_id,
+                    'log' => 'Pago N°' . $payment_id . ' acreditado.',
+                    'alert_created_at' => now(),
+                ]);
+                MailAlert::create([
+                    'device_id' => $device->id,
+                    'user_id' => $device->user_id,
+                    'type' => 'PayAccredited',
+                    'last_created_at' => $device->monitor_expires_at,
+                ]);
+            }
         }
     }
 }

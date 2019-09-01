@@ -17,13 +17,10 @@ class AlertController extends Controller
      */
     public function all()
     {
+        $last_day = now()->subDay();
+        $alerts = Alert::where('created_at', '>=', $last_day)->latest()->paginate(20);
 
-        $devices = Device::paginate(20);
-        foreach ($devices as $device) {
-            $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
-        }
-
-        return view('alerts.index')->with(['devices' => $devices]);
+        return view('alerts.all')->with(['alerts' => $alerts]);
 
     }
     /**

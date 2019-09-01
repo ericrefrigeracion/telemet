@@ -49,24 +49,23 @@ class PaysVerification implements ShouldQueue
             ] );
 
             $response = json_decode( $response->getBody()->getContents() );
-            $pay->operation_type = $response->operation_type;
-            $pay->detail = $response->status_detail;
-            $pay->update();
 
-            if($pay->detail == 'accredited')
+            if($response->status_detail == 'accredited')
             {
-                $pay->status = 'Pago recibido';
-                $pay->verified_by_system = now();
-                $pay->update();
-                $device = Device::find($pay->device_id);
-                $price = Price::find($pay->price_id);
+                $device = Device::find($device_id);
+                $price = Price::find($price_id);
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
                 $device->update();
 
+                $pay->status = 'Pago recibido';
+                $pay->detail = 'Acreditado';
+                $pay->verified_by_system = now();
+                $pay->update();
+
                 Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'Pago N°' . $pay->payment_id . ' acreditado.',
-                    'alert_created_at' => now()
+                    'device_id' => $device_id,
+                    'log' => 'Pago N°' . $payment_id . ' acreditado.',
+                    'alert_created_at' => now(),
                 ]);
                 MailAlert::create([
                     'device_id' => $device->id,

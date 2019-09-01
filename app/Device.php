@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Pay;
+use App\Rule;
 use App\User;
 use App\Alert;
 use App\Receptions;
@@ -48,8 +49,8 @@ class Device extends Model
         return $this->hasMany(Pay::class);
     }
 
-    public function allowed_schedules()
+    public function rules()
     {
-        return $this->hasMany(AllowedSchedule::class);
+        return $this->hasMany(Rule::class);
     }
 }

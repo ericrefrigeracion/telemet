@@ -17,8 +17,8 @@ class CreateRulesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('device_id');
             $table->string('day');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->time('start_time');
+            $table->time('stop_time');
             $table->timestamps();
 
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');

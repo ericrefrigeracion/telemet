@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Rules;
+use App\Rule;
 use Faker\Generator as Faker;
 
-$factory->define(Rules::class, function (Faker $faker) {
+$factory->define(Rule::class, function (Faker $faker) {
     return [
         //
     ];

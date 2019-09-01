@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\PaymentRevissionJob;
-use App\Jobs\MerchantOrderRevissionJob;
+use App\Jobs\PaysVerification;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -39,7 +38,6 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        PaymentRevissionJob::dispatch(5137062801);
-        //MerchantOrderRevissionJob::dispatch(1137605471);
+        PaysVerification::dispatch();
     }
 }

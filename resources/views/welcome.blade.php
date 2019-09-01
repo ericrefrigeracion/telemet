@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>TelemeTT</title>
+        <title>TelemeT - IOT Services</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -17,7 +17,7 @@
                 background-size: cover;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
-                font-weight: 200;
+                font-weight: 250;
                 height: 100vh;
                 margin: 0;
             }
@@ -47,7 +47,12 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 74px;
+            }
+
+            .subtitle {
+                font-weight: bold;
+                font-size: 30px;
             }
 
             .links > a {
@@ -83,12 +88,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    TelemeTT
+                    TelemeT
                 </div>
-
-                <div class="links">
+                <div class="subtitle m-b-md">
+                    Sistema de Gestion de Temperaturas y Monitoreo
                 </div>
             </div>
+
         </div>
     </body>
 </html>

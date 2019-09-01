@@ -165,15 +165,14 @@ class DeviceController extends Controller
     public function edit(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
-
+        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        {
             return view('devices.edit', compact('device'));
-
-        }else{
+        }
+        else
+        {
             abort(403, 'Accion no Autorizada');
         }
-
-
     }
 
     /**
