@@ -18,7 +18,7 @@ class PaymentRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $reception;
+    public $payment_id;
     public $user_id;
     public $device_id;
     public $price_id;
@@ -30,9 +30,9 @@ class PaymentRevissionJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($reception, $user_id, $device_id, $price_id)
+    public function __construct($payment_id, $user_id, $device_id, $price_id)
     {
-         $this->reception = $reception;
+         $this->payment_id = $payment_id;
          $this->user_id = $user_id;
          $this->device_id = $device_id;
          $this->price_id = $price_id;
@@ -45,8 +45,7 @@ class PaymentRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $payment_id = $this->reception->data_id;
-        $payment_type = $this->reception->type;
+        $payment_id = $this->payment_id;
         $user_id = $this->user_id;
         $device_id = $this->device_id;
         $price_id = $this->price_id;
@@ -72,7 +71,7 @@ class PaymentRevissionJob implements ShouldQueue
                     'device_id' => $device_id,
                     'price_id' => $price_id,
                     'payment_id' => $payment_id,
-                    'payment_type' => $payment_type,
+                    'payment_type' => $response->payment_type_id,
                     'status' => 'Pago recibido',
                     'detail' => 'Acreditado',
                     'operation_type' => $response->operation_type,
@@ -97,7 +96,7 @@ class PaymentRevissionJob implements ShouldQueue
                     'device_id' => $device_id,
                     'price_id' => $price_id,
                     'payment_id' => $payment_id,
-                    'payment_type' => $payment_type,
+                    'payment_type' => $response->payment_type_id,
                     'status' => 'Pago recibido',
                     'detail' => 'Pendiente de acreditacion',
                     'operation_type' => $response->operation_type,

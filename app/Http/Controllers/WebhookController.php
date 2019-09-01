@@ -61,8 +61,8 @@ class WebhookController extends Controller
     public function pay(Request $request, $user_id, $device_id, $price_id)
     {
 
-        $reception = $request->all();
-        PaymentRevissionJob::dispatch($reception, $user_id, $device_id, $price_id);
+        $payment_id = $request->data_id;
+        PaymentRevissionJob::dispatch($payment_id, $user_id, $device_id, $price_id);
 
         return 201;
     }
