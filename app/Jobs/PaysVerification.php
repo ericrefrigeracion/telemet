@@ -52,8 +52,8 @@ class PaysVerification implements ShouldQueue
 
             if($response->status_detail == 'accredited')
             {
-                $device = Device::find($device_id);
-                $price = Price::find($price_id);
+                $device = Device::find($pay->device_id);
+                $price = Price::find($pay->price_id);
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
                 $device->update();
 
