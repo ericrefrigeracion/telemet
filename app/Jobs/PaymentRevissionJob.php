@@ -18,7 +18,7 @@ class PaymentRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $request;
+    public $reception;
     public $user_id;
     public $device_id;
     public $price_id;
@@ -30,9 +30,9 @@ class PaymentRevissionJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($request, $user_id, $device_id, $price_id)
+    public function __construct($reception, $user_id, $device_id, $price_id)
     {
-         $this->request = $request;
+         $this->reception = $reception;
          $this->user_id = $user_id;
          $this->device_id = $device_id;
          $this->price_id = $price_id;
@@ -45,8 +45,8 @@ class PaymentRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $payment_id = $this->request->data_id;
-        $payment_type = $this->request->type;
+        $payment_id = $this->reception->data_id;
+        $payment_type = $this->reception->type;
         $user_id = $this->user_id;
         $device_id = $this->device_id;
         $price_id = $this->price_id;
@@ -76,7 +76,7 @@ class PaymentRevissionJob implements ShouldQueue
                     'status' => 'Pago recibido',
                     'detail' => 'Acreditado',
                     'operation_type' => $response->operation_type,
-                    'verified_by_system' => now();
+                    'verified_by_system' => now(),
                 ]);
                 Alert::create([
                     'device_id' => $device_id,
