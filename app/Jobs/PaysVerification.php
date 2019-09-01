@@ -63,7 +63,7 @@ class PaysVerification implements ShouldQueue
                 $pay->update();
 
                 Alert::create([
-                    'device_id' => $device_id,
+                    'device_id' => $device->id,
                     'log' => 'Pago N°' . $payment_id . ' acreditado.',
                     'alert_created_at' => now(),
                 ]);
