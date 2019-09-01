@@ -64,7 +64,7 @@ class PaysVerification implements ShouldQueue
 
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'Pago N°' . $payment_id . ' acreditado.',
+                    'log' => 'Pago N°' . $pay->payment_id . ' acreditado.',
                     'alert_created_at' => now(),
                 ]);
                 MailAlert::create([
