@@ -15,7 +15,6 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Slug</th>
                                 <th>Nombre</th>
                                 <th>Descripcion</th>
@@ -25,7 +24,6 @@
                         <tbody>
                             @foreach($permissions as $permission)
                                 <tr>
-                                    <td>{{ $permission->id }}</td>
                                     <td>{{ $permission->slug }}</td>
                                     <td>{{ $permission->name }}</td>
                                     <td>{{ $permission->description }}</td>

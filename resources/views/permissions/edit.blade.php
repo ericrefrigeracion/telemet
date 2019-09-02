@@ -10,10 +10,6 @@
                 </div>
                 <div class="card-body justify-content-center">
                     {!! Form::model($permission, ['route' => ['permissions.update', $permission->id], 'method' => 'PUT']) !!}
-                         <div class="form-group">
-                            {{ Form::label('id', 'ID del permiso') }}
-                            {{ Form::number('id', null, ['class' => 'form-control', 'required']) }}
-                        </div>
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre del permiso') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength=25']) }}

@@ -4,52 +4,81 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <div class="card-columns">
-
+            <div class="card">
+                <div class="card-header">
+                    Horarios programados en los que se desactiva el monitoreo de los dispositivos
+                </div>
                 @foreach($devices as $device)
-                    <div class="card text-center">
-                        <div class="card-header">
-                            {{ $device->name }}
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-subtitle text-muted">{{ $device->description }}</h6>
-                            @if($device->admin_mon && $device->tmon)
-                                @if($device->on_temp && $device->on_t_set_point)
-                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-success m-2">Todo en Orden</a>
-                                @endif
-                                @if(!$device->on_temp && $device->on_t_set_point)
-                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Fuera de Rango</a>
-                                @endif
-                                @if($device->on_temp && !$device->on_t_set_point)
-                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-warning m-2">Ciclo Lento</a>
-                                @endif
-                                @if(!$device->on_temp && !$device->on_t_set_point)
-                                    <a href="{{ route('alerts.show', $device->id) }}" class="btn btn-sm btn-danger m-2">Alerta de Funcionamiento</a>
-                                @endif
-                            @endif
-                            <h4 class="card-title display-4">{{ $device->last_data01 }}°C</h4>
-                            @can('receptions.show-hour')
-                                <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary">Metricas</a>
-                            @endcan
-                            @can('devices.show')
-                                <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-primary">Configuracion</a>
-                            @endcan
-                            @can('devices.log')
-                                <a href="{{ route('devices.log', $device->id) }}" class="btn btn-sm btn-primary">Logs</a>
-                            @endcan
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">
-                                @if($device->admin_mon)
-                                {{ $device->on_line? 'En Linea':'Sin Conexion'}} - {{ $device->last_created_at }}
-                                @else
-                                Monitoreo vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
-                                @endif
-                            </small>
-                        </div>
-                    </div>
-                @endforeach
+                <div class="card-body">
+                    Reglas para {{ $device->name }} ({{ $device->description }})
+                    {!! Form::open(['route' => ['rules.store']]) !!}
+                        {{ Form::hidden('device_id', $device->id) }}
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Dia de la Semana</th>
+                                    <th>Hora de Inicio</th>
+                                    <th>Hora de Finalizacion</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($device->rules as $rule)
+                                    <tr>
+                                        <td>{{ $rule->day }}</td>
+                                        <td>{{ $rule->start_time }}</td>
+                                        <td>{{ $rule->stop_time }}</td>
+                                        @can('rules.show')
+                                            <td><a href="{{ route('rules.show', $rule->id) }}" class="btn btn-sm btn-default">Ver</a></td>
+                                        @endcan
+                                        @can('rules.edit')
+                                            <td><a href="{{ route('rules.edit', $rule->id) }}" class="btn btn-sm btn-default">Editar</a></td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                {{ Form::select('day', [
+                                                        '' => 'Seleccione un Dia',
+                                                        'Domingo' => 'Domingo',
+                                                        'Lunes' => 'Lunes',
+                                                        'Martes' => 'Martes',
+                                                        'Miercoles' => 'Miercoles',
+                                                        'Jueves' => 'Jueves',
+                                                        'Viernes' => 'Viernes',
+                                                        'Sabado' => 'Sabado',
+                                                        'Lunes a Viernes' => 'Lunes a Viernes',
+                                                        'Todos los Dias' => 'Todos los Dias',
+                                                    ], null, ['class' => 'form-control']) }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                {{ Form::time('start_time', null, ['class' => 'form-control']) }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                {{ Form::time('stop_time', null, ['class' => 'form-control',]) }}
+                                            </div>
+                                        </td>
+                                        <td colspan="2">
+                                        @can('rules.create')
+                                            <div>
+                                                {{ Form::submit('Crear Regla', ['class' => 'btn btn-sm btn-block btn-success mt-1']) }}
+                                            </div>
+                                        @endcan
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    {!! Form::close() !!}
 
+
+                </div>
+                @endforeach
             </div>
         </div>
     </div>

@@ -101,13 +101,13 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/receptions-all/{device}', 'ReceptionController@show_all')->name('receptions.show-all')->middleware('can:receptions.show-all');
 
 		//Rules
-		Route::get('/rules', 'PriceController@index')->name('rules.index')->middleware('can:rules.index');
-		Route::post('/rules', 'PriceController@store')->name('rules.store')->middleware('can:rules.create');
-		Route::get('/rules/create', 'PriceController@create')->name('rules.create')->middleware('can:rules.create');
-		Route::delete('/rules/{rule}', 'PriceController@destroy')->name('rules.destroy')->middleware('can:rules.destroy');
-		Route::put('/rules/{rule}', 'PriceController@update')->name('rules.update')->middleware('can:rules.edit');
-		Route::get('/rules/{rule}', 'PriceController@show')->name('rules.show')->middleware('can:rules.show');
-		Route::get('/rules/{rule}/edit', 'PriceController@edit')->name('rules.edit')->middleware('can:rules.edit');
+		Route::get('/rules', 'RuleController@index')->name('rules.index')->middleware('can:rules.index');
+		Route::post('/rules', 'RuleController@store')->name('rules.store')->middleware('can:rules.create');
+		Route::get('/rules/create', 'RuleController@create')->name('rules.create')->middleware('can:rules.create');
+		Route::delete('/rules/{rule}', 'RuleController@destroy')->name('rules.destroy')->middleware('can:rules.destroy');
+		Route::put('/rules/{rule}', 'RuleController@update')->name('rules.update')->middleware('can:rules.edit');
+		Route::get('/rules/{rule}', 'RuleController@show')->name('rules.show')->middleware('can:rules.show');
+		Route::get('/rules/{rule}/edit', 'RuleController@edit')->name('rules.edit')->middleware('can:rules.edit');
 
 		//Alerts
 		Route::get('/alerts', 'AlertController@index')->name('alerts.index')->middleware('can:alerts.index');

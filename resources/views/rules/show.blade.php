@@ -6,108 +6,16 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    Centinela - <strong>{{ $device->name }} ({{ $device->description }})</strong>
-                    @can('devices.edit')
-                        <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
-                    @endcan
-                    @can('pays.create')
-                        <a href="{{ route('pays.create', $device->id) }}" class="btn btn-sm btn-default float-right">Pagar por el Monitoreo</a>
-                    @endcan
+                    Regla Programada para dispositivo N°{{ $rule->device_id }}
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>NOMBRE</th>
-                                <th>VALOR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>{{ $device->id }}</td>
-                                </tr>
-                                <tr>
-                                    <td>NOMBRE</td>
-                                    <td>{{ $device->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>CREADO</td>
-                                    <td>{{ $device->created_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>MONITOREO VALIDO HASTA</td>
-                                    <td>{{ $device->monitor_expires_at->toFormattedDateString() }}</td>
-                                </tr>
-                                <tr>
-                                    <td>AVISO POR E-MAIL</td>
-                                    <td>{{ $device->send_mails ? 'ACTIVO' : 'INACTIVO' }}</td>
-                                </tr>
-                                <tr>
-                                    <td>MONITOREO TEMPERATURA</td>
-                                    <td>{{ $device->tmon ? 'ACTIVO' : 'INACTIVO' }}</td>
-                                </tr>
-                                @if($device->tmon)
-                                        <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
-                                        <tr>
-                                            <td>Calibracion de la Medicion (°C)</td>
-                                            <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Temperatura Deseada (°C)</td>
-                                            <td>{{ $device->t_set_point }}</td>
-                                        </tr>
-                                        @can('devices.all')
-                                            <tr>
-                                                <td>Minima Establecida (°C)</td>
-                                                <td>{{ $device->tmin }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maxima Establecida (°C)</td>
-                                                <td>{{ $device->tmax }}</td>
-                                            </tr>
-                                        @endcan
-                                        <tr>
-                                            <td>Retardo al Aviso (minutos)</td>
-                                            <td>{{ $device->tdly }}</td>
-                                        </tr>
-                                @endif
-                                @if($device->mdl == 'th')
-                                <tr>
-                                    <td>MONITOREO HUMEDAD</td>
-                                    <td>{{ $device->hmon ? 'ACTIVO' : 'INACTIVO' }}</td>
-                                </tr>
-                                @if($device->hmon)
-                                        <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
-                                        <tr>
-                                            <td>Calibracion de la Medicion (%)</td>
-                                            <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Humedad Deseada (%)</td>
-                                            <td>{{ $device->h_set_point }}</td>
-                                        </tr>
-                                        @can('devices.all')
-                                            <tr>
-                                                <td>Minima Establecida (%)</td>
-                                                <td>{{ $device->hmin }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maxima Establecida (%)</td>
-                                                <td>{{ $device->hmax }}</td>
-                                            </tr>
-                                        @endcan
-                                        <tr>
-                                            <td>Retardo al Aviso (minutos)</td>
-                                            <td>{{ $device->hdly }}</td>
-                                        </tr>
-                                @endif
-                                @endif
-                        </tbody>
-                    </table>
-                    @can('devices.destroy')
-                        {!! Form::open(['route' => ['devices.destroy', $device->id], 'method' => 'DELETE']) !!}
-                            <button class="btn btn-sm btn-danger float-right">Eliminar Dispositivo</button>
+                    <p>
+                        Esta regla permite que el dispositivo N°{{ $rule->device_id }} se encuentre fuera de rango sin generar ningun aviso por Email o alertas en el panel de control los dias {{ $rule->day }} entre la hora {{ $rule->start_time }} y la hora {{ $rule->stop_time }}.
+                    </p>
+
+                    @can('rules.destroy')
+                        {!! Form::open(['route' => ['rules.destroy', $rule->id], 'method' => 'DELETE']) !!}
+                            <button class="btn btn-sm btn-danger float-right">Eliminar Regla</button>
                         {!! Form::close() !!}
                     @endcan
                 </div>

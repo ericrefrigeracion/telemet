@@ -16,7 +16,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('permissions.index')->with(['permissions' => Permission::all()]);
+        $permissions = Permission::where('id', '>', 0)->orderBy('slug', 'asc')->get();
+        return view('permissions.index')->with(['permissions' => $permissions]);
     }
 
     /**

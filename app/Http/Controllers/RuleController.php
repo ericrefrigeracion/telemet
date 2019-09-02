@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Rule;
+use App\Device;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RuleController extends Controller
 {
@@ -14,19 +16,13 @@ class RuleController extends Controller
      */
     public function index()
     {
-        $rules = Auth::user()->devices()->rules()->paginate(20);
+        $devices = Auth::user()->devices()->get();
+        foreach ($devices as $device)
+        {
+            $device->rules = $device->rules()->get();
+        }
 
-        return view('pays.index')->with(['pays' => $pays]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('rules.index')->with(['devices' => $devices]);
     }
 
     /**
@@ -40,10 +36,9 @@ class RuleController extends Controller
         $rules = [
             'device_id' => 'required|exists:devices,id',
             'day' => 'required',
-            'start_time' => 'required|lt:stop_time',
-            'stop_time' => 'required|gt:start_time',
+            'start_time' => 'required|before:stop_time',
+            'stop_time' => 'required|after:start_time',
         ];
-
         $request->validate($rules);
         Rule::create($request->all());
 
@@ -58,7 +53,7 @@ class RuleController extends Controller
      */
     public function show(Rule $rule)
     {
-        if (Auth::user()->id === $rule->device()->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if ($rule)
         {
             return view('rules.show')->with(['rule' => $rule]);
         }
@@ -77,7 +72,7 @@ class RuleController extends Controller
     public function edit(Rule $rule)
     {
 
-        if (Auth::user()->id === $rule->device()->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if ($rule)
         {
             return view('rules.edit', compact('rule'));
         }
@@ -96,7 +91,16 @@ class RuleController extends Controller
      */
     public function update(Request $request, Rule $rule)
     {
-        //
+        $rules = [
+            'device_id' => 'required|exists:devices,id',
+            'day' => 'required',
+            'start_time' => 'required|before:stop_time',
+            'stop_time' => 'required|after:start_time',
+        ];
+        $request->validate($rules);
+        $rule->update($request->all());
+
+        return redirect()->route('rules.show', $rule->id)->with('success', ['Regla actualizada con exito']);
     }
 
     /**
@@ -107,12 +111,13 @@ class RuleController extends Controller
      */
     public function destroy(Rule $rule)
     {
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
-
-            $device->delete();
-            return redirect()->route('devices.index')->with('success', ['Dispositivo eliminado con exito']);
-
-        }else{
+        if ($rule)
+        {
+            $rule->delete();
+            return redirect()->route('rules.index')->with('success', ['Regla eliminada con exito']);
+        }
+        else
+        {
             abort(403, 'Accion no Autorizada');
         }
     }

@@ -6,84 +6,35 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    Editar Informacion: <strong>{{ $device->id }} - {{ $device->name }}</strong> ({{ $device->description }}).
+                    Editar Regla: <strong>{{ $rule->day }}, de {{ $rule->start_time }}hs a {{ $rule->stop_time }}hs.</strong>
                 </div>
                 <div class="card-body justify-content-center">
-                    {!! Form::model($device, ['route' => ['devices.update', $device->id], 'method' => 'PUT']) !!}
+                    {!! Form::model($rule, ['route' => ['rules.update', $rule->id], 'method' => 'PUT']) !!}
+                        {{ Form::hidden('device_id', $rule->device_id) }}
                         <div class="form-group">
-                            {{ Form::label('name', 'Nombre del Dispositivo') }}
-                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('description', 'Descripcion del Dispositivo') }}
-                            {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
-                        </div>
-                        <p>Avisos por E-mail</p>
-                        <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label class="btn btn-secondary{{ $device->send_mails ? ' focus active' : '' }}">{{ Form::radio('send_mails', '1') }} Activar</label>
-                            <label class="btn btn-secondary{{ !$device->send_mails ? ' focus active' : '' }}">{{ Form::radio('send_mails', '0') }} Desactivar</label>
-                        </div>
-                        <hr><br>
-                        <div class="row">
-                        <div class="col-md-6">
-                        <h3>Valores de Temperatura</h3><br>
-                        <p>Monitoreo de Temperatura</p>
-                        <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label class="btn btn-secondary{{ $device->tmon ? ' focus active' : '' }}">{{ Form::radio('tmon', '1') }} Activar</label><br>
-                            <label class="btn btn-secondary{{ !$device->tmon ? ' focus active' : '' }}">{{ Form::radio('tmon', '0') }} Desactivar</label>
+                            {{ Form::label('day', 'Dia Permitido') }}
+                            {{ Form::select('day', [
+                                '' => 'Seleccione un Dia',
+                                'Domingo' => 'Domingo',
+                                'Lunes' => 'Lunes',
+                                'Martes' => 'Martes',
+                                'Miercoles' => 'Miercoles',
+                                'Jueves' => 'Jueves',
+                                'Viernes' => 'Viernes',
+                                'Sabado' => 'Sabado',
+                                'Lunes a Viernes' => 'Lunes a Viernes',
+                                'Todos los Dias' => 'Todos los Dias',
+                            ], null, ['class' => 'form-control']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('tcal', 'Calibracion de la Medicion (°C)') }}
-                            {{ Form::number('tcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
+                            {{ Form::label('start_time', 'Momento en que se desactiva el monitoreo') }}
+                            {{ Form::text('start_time', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('t_set_point', 'Temperatura Deseada (°C)') }}
-                            {{ Form::number('t_set_point', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
+                            {{ Form::label('stop_time', 'Momento en que se vuelve a activar el monitoreo') }}
+                            {{ Form::text('stop_time', null, ['class' => 'form-control', 'required']) }}
                         </div>
-                        <div class="form-group">
-                            {{ Form::label('tmin', 'Minima Temperatura Permitida (°C)') }}
-                            {{ Form::number('tmin', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('tmax', 'Maxima Temperatura Permitida (°C)') }}
-                            {{ Form::number('tmax', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('tdly', 'Retardo al Aviso (minutos)') }}
-                            {{ Form::number('tdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
-                        </div>
-                        </div>
-                        @if($device->mdl == 'th')
-                            <div class="col-md-6">
-                            <h3>Valores de Humedad</h3><br>
-                            <p>Monitoreo de Humedad</p>
-                            <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                                <label class="btn btn-secondary{{ $device->hmon ? ' focus active' : '' }}">{{ Form::radio('hmon', '1') }} Activar</label><br>
-                                <label class="btn btn-secondary{{ !$device->hmon ? ' focus active' : '' }}">{{ Form::radio('hmon', '0') }} Desactivar</label>
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hcal', 'Calibracion de la Medicion (% HR)') }}
-                                {{ Form::number('hcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                    {{ Form::label('h_set_point', 'Humedad Deseada (% HR)') }}
-                                    {{ Form::number('h_set_point', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hmin', 'Minima Humedad Permitida (% HR)') }}
-                                {{ Form::number('hmin', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hmax', 'Maxima Humedad Permitida (% HR)') }}
-                                {{ Form::number('hmax', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hdly', 'Retardo al Aviso (minutos)') }}
-                                {{ Form::number('hdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
-                            </div>
-                            </div>
-                        @endif
-                        </div>
+
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
                         </div>

@@ -11,10 +11,6 @@
                 <div class="card-body">
                     {!! Form::open(['route' => ['permissions.store']]) !!}
                         <div class="form-group">
-                            {{ Form::label('id', 'ID del permiso') }}
-                            {{ Form::number('id', null, ['class' => 'form-control', 'required']) }}
-                        </div>
-                        <div class="form-group">
                             {{ Form::label('name', 'Nombre del permiso') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength=25']) }}
                         </div>
