@@ -45,67 +45,70 @@
                                     Panel Principal</a>
                                 </li>
                             @endcan
-                            <li class="nav-item dropdown">
-                                @can('devices.index')
+                            @can('devices.menu')
+                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
-                                @endcan
-                                <div class="dropdown-menu">
-                                    @can('devices.index')
-                                        <a class="dropdown-item" href="{{ route('devices.index') }}">Mis Dispositivos</a>
-                                    @endcan
-                                    @can('devices.all')
-                                        <a class="dropdown-item" href="{{ route('devices.all') }}">Todos los Dispositivos</a>
-                                    @endcan
-                                    @can('devices.create')
-                                        <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
-                                        <div class="dropdown-divider"></div>
-                                    @endcan
-                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                @can('alerts.index')
+                                    <div class="dropdown-menu">
+                                        @can('devices.index')
+                                            <a class="dropdown-item" href="{{ route('devices.index') }}">Mis Dispositivos</a>
+                                        @endcan
+                                        @can('devices.all')
+                                            <a class="dropdown-item" href="{{ route('devices.all') }}">Todos los Dispositivos</a>
+                                        @endcan
+                                        @can('devices.create')
+                                            <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
+                                            <div class="dropdown-divider"></div>
+                                        @endcan
+                                        <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
+                                    </div>
+                                </li>
+                            @endcan
+                            @can('alerts.menu')
+                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Alertas</a>
-                                @endcan
-                                <div class="dropdown-menu">
-                                    @can('alerts.index')
-                                        <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Alertas</a>
-                                    @endcan
-                                    @can('alerts.index')
-                                        <a class="dropdown-item" href="{{ route('alerts.index') }}">Configuracion</a>
-                                    @endcan
-                                    @can('alerts.all')
-                                        <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas las Alertas</a>
-                                    @endcan
-                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                @can('pays.index')
+                                    <div class="dropdown-menu">
+                                        @can('alerts.index')
+                                            <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Alertas</a>
+                                        @endcan
+                                        @can('alerts.index')
+                                            <a class="dropdown-item" href="{{ route('rules.index') }}">Horarios Permitidos</a>
+                                        @endcan
+                                        @can('alerts.all')
+                                            <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas las Alertas</a>
+                                        @endcan
+                                        <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
+                                    </div>
+                                </li>
+                            @endcan
+                            @can('pays.menu')
+                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Pagos</a>
-                                @endcan
-                                <div class="dropdown-menu">
-                                    @can('pays.index')
-                                        <a class="dropdown-item" href="{{ route('pays.index') }}">Mis Pagos</a>
-                                    @endcan
-                                    @can('pays.all')
-                                        <a class="dropdown-item" href="{{ route('pays.all') }}">Todos los Pagos</a>
-                                    @endcan
-                                    <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
-                                </div>
-                            </li>
+                                    <div class="dropdown-menu">
+                                        @can('pays.index')
+                                            <a class="dropdown-item" href="{{ route('pays.index') }}">Mis Pagos</a>
+                                        @endcan
+                                        @can('pays.all')
+                                            <a class="dropdown-item" href="{{ route('pays.all') }}">Todos los Pagos</a>
+                                        @endcan
+                                        <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
+                                    </div>
+                                </li>
+                            @endcan
                         </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        @can('users.index')
+                        @can('config.menu')
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
                                 <div class="dropdown-menu">
-                                    @can('roles.index')
-                                        <a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
-                                    @endcan
                                     @can('users.index')
                                         <a class="dropdown-item" href="{{ route('users.index') }}">Usuarios</a>
+                                    @endcan
+                                    @can('permissions.index')
+                                        <a class="dropdown-item" href="{{ route('permissions.index') }}">Permisos</a>
+                                    @endcan
+                                    @can('roles.index')
+                                        <a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
                                     @endcan
                                     <div class="dropdown-divider"></div>
                                     @can('prices.index')

@@ -41,6 +41,15 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/roles/{role}', 'RoleController@show')->name('roles.show')->middleware('can:roles.show');
 		Route::get('/roles/{role}/edit', 'RoleController@edit')->name('roles.edit')->middleware('can:roles.edit');
 
+		//Permissions
+		Route::get('/permissions', 'PermissionController@index')->name('permissions.index')->middleware('can:permissions.index');
+		Route::post('/permissions', 'PermissionController@store')->name('permissions.store')->middleware('can:permissions.create');
+		Route::get('/permissions/create', 'PermissionController@create')->name('permissions.create')->middleware('can:permissions.create');
+		Route::delete('/permissions/{permission}', 'PermissionController@destroy')->name('permissions.destroy')->middleware('can:permissions.destroy');
+		Route::put('/permissions/{permission}', 'PermissionController@update')->name('permissions.update')->middleware('can:permissions.edit');
+		Route::get('/permissions/{permission}', 'PermissionController@show')->name('permissions.show')->middleware('can:permissions.show');
+		Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('permissions.edit')->middleware('can:permissions.edit');
+
 		//logs
 		Route::get('/device-log/{id}', 'DeviceController@log')->name('devices.log')->middleware('can:devices.log');
 
@@ -49,9 +58,6 @@ Route::middleware(['verified'])->group(function () {
 
 		//Alerts-all
 		Route::get('/alerts/all', 'AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
-
-		//Reports-all
-		Route::get('/reports/all', 'ReportController@all')->name('reports.all')->middleware('can:reports.all');
 
 		//Pays-all
 		Route::get('/pays/all', 'PayController@all')->name('pays.all')->middleware('can:pays.all');
@@ -94,13 +100,18 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/receptions-last-month/{device}', 'ReceptionController@show_month')->name('receptions.show-month')->middleware('can:receptions.show-month');
 		Route::get('/receptions-all/{device}', 'ReceptionController@show_all')->name('receptions.show-all')->middleware('can:receptions.show-all');
 
+		//Rules
+		Route::get('/rules', 'PriceController@index')->name('rules.index')->middleware('can:rules.index');
+		Route::post('/rules', 'PriceController@store')->name('rules.store')->middleware('can:rules.create');
+		Route::get('/rules/create', 'PriceController@create')->name('rules.create')->middleware('can:rules.create');
+		Route::delete('/rules/{rule}', 'PriceController@destroy')->name('rules.destroy')->middleware('can:rules.destroy');
+		Route::put('/rules/{rule}', 'PriceController@update')->name('rules.update')->middleware('can:rules.edit');
+		Route::get('/rules/{rule}', 'PriceController@show')->name('rules.show')->middleware('can:rules.show');
+		Route::get('/rules/{rule}/edit', 'PriceController@edit')->name('rules.edit')->middleware('can:rules.edit');
+
 		//Alerts
 		Route::get('/alerts', 'AlertController@index')->name('alerts.index')->middleware('can:alerts.index');
 		Route::get('/alerts/{device}', 'AlertController@show')->name('alerts.show')->middleware('can:alerts.show');
-
-		//Reports
-		Route::get('/reports', 'ReportController@index')->name('reports.index')->middleware('can:reports.index');
-		Route::get('/reports/{device}', 'ReportController@show')->name('reports.show')->middleware('can:reports.show');
 
 	});
 
