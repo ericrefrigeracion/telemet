@@ -30,6 +30,6 @@ class AlwaysProtectedDeviceRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        Device::where('admin_mon', true)->where('on_line', true)->where('rule_type', 'Siempre Protegido')->where('protected', false)->update(['protected' => true]);
+        Device::where('admin_mon', true)->where('rule_type', 'Siempre Protegido')->where('protected', false)->update(['protected' => true]);
     }
 }
