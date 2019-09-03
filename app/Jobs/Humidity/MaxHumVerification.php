@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Humidity;
 
+use App\Alert;
 use App\Device;
 use App\Reception;
 use Illuminate\Bus\Queueable;
@@ -10,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class SetPointHumChangeVerification implements ShouldQueue
+class MaxHumVerification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -41,16 +42,22 @@ class SetPointHumChangeVerification implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data02 += $device->hcal;
 
-            if($last_reception->data02 > $device->h_set_point && $device->h_is === 'lower')
+            if($last_reception->data02 > $device->hmax && $device->on_hum)
             {
-                $device->h_is = 'higher';
-                $device->h_change_at = $last_reception->created_at;
+                $device->on_hum = false;
+                $device->h_out_at = $last_reception->created_at;
                 $device->update();
+
+                Alert::create([
+                    'device_id' => $device->id,
+                    'log' => 'La humedad se encuentra por encima de la maxima permitida.',
+                    'alert_created_at' => $last_reception->created_at
+                ]);
             }
-            if($last_reception->data02 < $device->h_set_point && $device->h_is === 'higher')
+            if($last_reception->data02 < $device->hmax && $last_reception->data02 > $device->hmin && !$device->on_hum)
             {
-                $device->h_is = 'lower';
-                $device->h_change_at = $last_reception->created_at;
+                $device->on_hum = true;
+                $device->h_out_at = null;
                 $device->update();
             }
         }

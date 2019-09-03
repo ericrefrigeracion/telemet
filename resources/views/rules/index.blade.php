@@ -10,7 +10,7 @@
                 </div>
                 @foreach($devices as $device)
                 <div class="card-body">
-                    Reglas para {{ $device->name }} ({{ $device->description }})
+                    Horarios Permitidos para {{ $device->name }} ({{ $device->description }})
                     {!! Form::open(['route' => ['rules.store']]) !!}
                         {{ Form::hidden('device_id', $device->id) }}
                         <table class="table table-striped table-hover">

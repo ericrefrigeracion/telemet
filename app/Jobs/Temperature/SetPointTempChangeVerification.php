@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Temperature;
 
 use App\Device;
 use App\Reception;

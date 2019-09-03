@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Humidity;
 
 use App\Alert;
 use App\Device;
@@ -11,7 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class MaxHumVerification implements ShouldQueue
+class MinHumVerification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -42,7 +42,7 @@ class MaxHumVerification implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data02 += $device->hcal;
 
-            if($last_reception->data02 > $device->hmax && $device->on_hum)
+            if($last_reception->data02 < $device->hmin && $device->on_hum)
             {
                 $device->on_hum = false;
                 $device->h_out_at = $last_reception->created_at;
@@ -50,7 +50,7 @@ class MaxHumVerification implements ShouldQueue
 
                 Alert::create([
                     'device_id' => $device->id,
-                    'log' => 'La humedad se encuentra por encima de la maxima permitida.',
+                    'log' => 'La humedad se encuentra por debajo de la minima permitida.',
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }

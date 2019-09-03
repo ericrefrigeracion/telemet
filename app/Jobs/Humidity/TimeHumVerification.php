@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Humidity;
 
 use App\Device;
 use App\Reception;

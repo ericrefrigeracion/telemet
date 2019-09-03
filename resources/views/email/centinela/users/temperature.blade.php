@@ -9,11 +9,11 @@ Los valores que tiene programados para su equipo son:
 <table>
 	<tr>
 		<td>Temperatura Minima: </td>
-		<td>{{ $device->tmax }}°C.</td>
+		<td>{{ $device->tmin }}°C.</td>
 	</tr>
 	<tr>
 		<td>Temperatura Maxima: </td>
-		<td>{{ $device->tmin }}°C.</td>
+		<td>{{ $device->tmax }}°C.</td>
 	</tr>
 	<tr>
 		<td>Retardo: </td>

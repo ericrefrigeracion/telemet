@@ -18,6 +18,15 @@
                             {{ Form::label('description', 'Descripcion del Dispositivo') }}
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
+                        <div class="form-group">
+                            {{ Form::label('rule_type', 'Protegido:') }}
+                            {{ Form::select('rule_type', [
+                                '' => 'Seleccione un Tipo de Proteccion',
+                                'Siempre Protegido' => 'Siempre Protegido',
+                                'Protegido cuando cierro mi Comercio' => 'Protegido cuando cierro mi Comercio',
+                                'Con horarios Permitidos (Perzonalizado)' => 'Con horarios Permitidos (Perzonalizado)',
+                            ], null, ['class' => 'form-control']) }}
+                        </div>
                         <p>Avisos por E-mail</p>
                         <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
                             <label class="btn btn-secondary{{ $device->send_mails ? ' focus active' : '' }}">{{ Form::radio('send_mails', '1') }} Activar</label>

@@ -44,6 +44,10 @@
                                     <td>{{ $device->send_mails ? 'ACTIVO' : 'INACTIVO' }}</td>
                                 </tr>
                                 <tr>
+                                    <td>DISPOSITIVO PROTEGIDO</td>
+                                    <td>{{ $device->rule_type }}</td>
+                                </tr>
+                                <tr>
                                     <td>MONITOREO TEMPERATURA</td>
                                     <td>{{ $device->tmon ? 'ACTIVO' : 'INACTIVO' }}</td>
                                 </tr>

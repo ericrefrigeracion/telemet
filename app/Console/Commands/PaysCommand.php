@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\PaysVerification;
+use App\Jobs\Pay\PaysVerification;
 use Illuminate\Console\Command;
 
 class PaysCommand extends Command

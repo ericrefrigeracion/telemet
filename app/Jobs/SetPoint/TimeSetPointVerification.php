@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\SetPoint;
 
 use App\Alert;
 use App\Device;

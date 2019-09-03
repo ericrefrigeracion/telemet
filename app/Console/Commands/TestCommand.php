@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\PaysVerification;
+use App\Jobs\Rule\ProtectedDeviceRevissionJob;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -38,6 +38,6 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        PaysVerification::dispatch();
+        ProtectedDeviceRevissionJob::dispatch();
     }
 }

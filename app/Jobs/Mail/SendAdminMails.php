@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Mail;
 
 use App\User;
 use App\Device;
