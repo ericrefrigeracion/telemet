@@ -57,7 +57,7 @@ class PaymentRevissionJob implements ShouldQueue
             'query' => $query_params
         ] );
         $response = json_decode( $response->getBody()->getContents() );
-        $pay = Pay::where('payment_id', $payment_id)->first()
+        $pay = Pay::where('payment_id', $payment_id)->first();
         if($pay == null)
         {
             if($response->status_detail == 'accredited')
