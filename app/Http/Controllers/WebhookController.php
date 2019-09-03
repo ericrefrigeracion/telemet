@@ -62,6 +62,7 @@ class WebhookController extends Controller
     {
 
         $payment_id = $request->data_id;
+        echo $payment_id . ' ' . $user_id . ' ' . $device_id . ' ' . $price_id;
         PaymentRevissionJob::dispatch($payment_id, $user_id, $device_id, $price_id);
 
         return 201;
