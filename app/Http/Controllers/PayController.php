@@ -156,7 +156,7 @@ class PayController extends Controller
      */
     public function success()
     {
-        redirect()->route('pays.index')->with('success', ['El pago se ha realizado con exito, ya esta acreditado en tu cuenta.']);
+        return redirect()->route('pays.index')->with('success', ['El pago se ha realizado con exito, ya esta acreditado en tu cuenta.']);
     }
 
     /**
@@ -166,7 +166,7 @@ class PayController extends Controller
      */
     public function pending()
     {
-        redirect()->route('pays.index')->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
+        return redirect()->route('pays.index')->with('success', ['El pago se ha realizado con exito, esperamos la acreditacion en tu cuenta.']);
     }
 
     /**
@@ -176,7 +176,7 @@ class PayController extends Controller
      */
     public function failure()
     {
-        redirect()->route('pays.index')->with('warning', ['El pago ha fallado, no se realizo ningun cargo']);
+        return redirect()->route('pays.index')->with('warning', ['El pago ha fallado, no se realizo ningun cargo']);
     }
 
     /**
