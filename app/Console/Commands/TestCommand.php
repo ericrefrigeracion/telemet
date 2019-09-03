@@ -41,7 +41,7 @@ class TestCommand extends Command
     public function handle()
     {
         //ProtectedDeviceRevissionJob::dispatch();
-        PaysVerification::dispatch();
-        //PaymentRevissionJob::dispatch(5153779296, 4, 1234, 1);
+        //PaysVerification::dispatch();
+        PaymentRevissionJob::dispatch(5153884714, 4, 1234, 1);
     }
 }
