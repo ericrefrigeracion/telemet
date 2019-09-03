@@ -42,6 +42,6 @@ class TestCommand extends Command
     {
         //ProtectedDeviceRevissionJob::dispatch();
         //PaysVerification::dispatch();
-        PaymentRevissionJob::dispatch(5153884714, 4, 1234, 1);
+        PaymentRevissionJob::dispatch(5145146876, 4, 1234, 1);
     }
 }
