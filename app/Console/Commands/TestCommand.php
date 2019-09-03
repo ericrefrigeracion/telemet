@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\Rule\ProtectedDeviceRevissionJob;
+use App\Jobs\Pay\PaymentRevissionJob;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -38,6 +39,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        ProtectedDeviceRevissionJob::dispatch();
+        //ProtectedDeviceRevissionJob::dispatch();
+        PaymentRevissionJob::dispatch(5153779296, 4, 1234, 1);
     }
 }

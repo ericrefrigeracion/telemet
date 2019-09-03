@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Rule;
 
+use App\Device;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -12,14 +13,18 @@ class CommerceProtectedDeviceRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $device;
+    public $tries = 5;
+    public $timeout = 30;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Device $device)
     {
-        //
+        $this->device = $device;
     }
 
     /**
@@ -29,6 +34,6 @@ class CommerceProtectedDeviceRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $device = $this->device;
     }
 }

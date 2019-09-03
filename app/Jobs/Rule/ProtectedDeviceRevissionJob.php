@@ -16,6 +16,9 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 5;
+    public $timeout = 30;
+
     /**
      * Create a new job instance.
      *
@@ -37,9 +40,9 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
 
         foreach($devices as $device)
         {
-            if($device->rule_type == 'Siempre Protegido') AlwaysProtectedDeviceRevissionJob::dispatch();
-            if($device->rule_type == 'Protegido cuando cierro mi Comercio') CommerceProtectedDeviceRevissionJob::dispatch();
-            if($device->rule_type == 'Con horarios Permitidos (Perzonalizado)') RuleProtectedDeviceRevissionJob::dispatch();
+            if($device->rule_type == 'Siempre Protegido') AlwaysProtectedDeviceRevissionJob::dispatch($device);
+            if($device->rule_type == 'Protegido cuando cierro mi Comercio') CommerceProtectedDeviceRevissionJob::dispatch($device);
+            if($device->rule_type == 'Con horarios Permitidos (Perzonalizado)') RuleProtectedDeviceRevissionJob::dispatch($device);
         }
     }
 }
