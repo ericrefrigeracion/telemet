@@ -57,8 +57,8 @@ class PaymentRevissionJob implements ShouldQueue
             'query' => $query_params
         ] );
         $response = json_decode( $response->getBody()->getContents() );
-
-        if(!$pay = Pay::where('payment_id', $payment_id)->first())
+        $pay = Pay::where('payment_id', $payment_id)->first()
+        if($pay == null)
         {
             if($response->status_detail == 'accredited')
             {
@@ -89,7 +89,7 @@ class PaymentRevissionJob implements ShouldQueue
                     'last_created_at' => $device->monitor_expires_at,
                 ]);
             }
-            else
+            if($response->status_detail != 'accredited')
             {
                 Pay::create([
                     'user_id' => $user_id,
@@ -103,7 +103,7 @@ class PaymentRevissionJob implements ShouldQueue
                 ]);
             }
         }
-        else
+        if($pay != null)
         {
             if($response->status_detail == 'accredited')
             {
