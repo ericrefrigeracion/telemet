@@ -105,7 +105,7 @@ class PaymentRevissionJob implements ShouldQueue
         }
         else
         {
-            if($response->status_detail == 'accredited' && $pay->verified_by_system == null)
+            if($response->status_detail == 'accredited' && $pay->verified_by_system == NULL)
             {
                 $device = Device::find($device_id);
                 $price = Price::find($price_id);
