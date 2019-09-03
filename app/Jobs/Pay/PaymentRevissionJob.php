@@ -57,7 +57,7 @@ class PaymentRevissionJob implements ShouldQueue
             'query' => $query_params
         ] );
         $response = json_decode( $response->getBody()->getContents() );
-        $pay = Pay::where('payment_id', $payment_id)->first()
+        $pay = Pay::where('payment_id', 1234)->first();
         dd($pay);
 
         if(!$pay = Pay::where('payment_id', $payment_id)->first())
