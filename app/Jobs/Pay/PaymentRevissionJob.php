@@ -57,8 +57,6 @@ class PaymentRevissionJob implements ShouldQueue
             'query' => $query_params
         ] );
         $response = json_decode( $response->getBody()->getContents() );
-        $pay = Pay::where('payment_id', 1234)->first();
-        dd($pay);
 
         if(!$pay = Pay::where('payment_id', $payment_id)->first())
         {
@@ -107,7 +105,7 @@ class PaymentRevissionJob implements ShouldQueue
         }
         else
         {
-            if($response->status_detail == 'accredited')
+            if($response->status_detail == 'accredited' $$ $pay->verified_by_system == null)
             {
                 $device = Device::find($device_id);
                 $price = Price::find($price_id);
