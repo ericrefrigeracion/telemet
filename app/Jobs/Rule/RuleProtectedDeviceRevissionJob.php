@@ -63,6 +63,13 @@ class RuleProtectedDeviceRevissionJob implements ShouldQueue
                 $rules = Rule::where('device_id', $device->id)->where('day', 'Sabado')->get();
                 break;
             default:
+                if($every_day = Rule::where('device_id', $device->id)->where('day', 'Todos los Dias')->get())
+                {
+                    foreach ($every_day as $every)
+                    {
+                        if($every->start_time < $time && $every->stop_time > $time) $device_protected_flag = false;
+                    }
+                }
                 break;
         }
         foreach ($rules as $rule)
