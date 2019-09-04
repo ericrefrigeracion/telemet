@@ -57,6 +57,9 @@ Route::middleware(['verified'])->group(function () {
 		//Devices-all
 		Route::get('/devices/all', 'DeviceController@all')->name('devices.all')->middleware('can:devices.all');
 
+		//Rules-all
+		Route::get('/rules/all', 'RuleController@all')->name('rules.all')->middleware('can:rules.all');
+
 		//Alerts-all
 		Route::get('/alerts/all', 'AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
 

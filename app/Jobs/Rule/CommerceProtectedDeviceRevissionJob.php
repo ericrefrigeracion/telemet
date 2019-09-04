@@ -35,5 +35,28 @@ class CommerceProtectedDeviceRevissionJob implements ShouldQueue
     public function handle()
     {
         $device = $this->device;
+        $day = now()->dayOfWeek;
+        $time = now()->toTimeString();
+        $device_protected_flag = true;
+
+        switch ($day) {
+            case 0:
+                break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                if($time > '8:00:00' && $time < '12:00:00') $device_protected_flag = false;
+                if($time > '16:00:00' && $time < '20:00:00') $device_protected_flag = false;
+                break;
+            case 6:
+                if($time > '8:00:00' && $time < '12:00:00') $device_protected_flag = false;
+            default:
+                break;
+        }
+        if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
+        if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
     }
 }
+

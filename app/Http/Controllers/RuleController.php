@@ -9,6 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class RuleController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        $devices = Device::all();
+        foreach ($devices as $device)
+        {
+            $device->rules = $device->rules()->get();
+        }
+
+        return view('rules.index')->with(['devices' => $devices]);
+
+    }
+
     /**
      * Display a listing of the resource.
      *

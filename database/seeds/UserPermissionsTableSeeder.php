@@ -36,12 +36,12 @@ class UserPermissionsTableSeeder extends Seeder
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [22, 3]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [23, 3]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [24, 3]);
-        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [43, 3]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [44, 3]);
-        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [51, 3]);
+        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [45, 3]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [52, 3]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [53, 3]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [54, 3]);
+        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [55, 3]);
 
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [1, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [3, 4]);
@@ -50,15 +50,15 @@ class UserPermissionsTableSeeder extends Seeder
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [11, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [12, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [13, 4]);
+        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [14, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [16, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [17, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [20, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [21, 4]);
-        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [43, 4]);
-        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [51, 4]);
+        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [44, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [52, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [53, 4]);
         DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [54, 4]);
-
+        DB::insert('insert into permission_role (permission_id, role_id) values (?, ?)', [55, 4]);
     }
 }

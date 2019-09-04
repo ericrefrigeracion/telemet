@@ -70,11 +70,14 @@
                                         @can('alerts.index')
                                             <a class="dropdown-item" href="{{ route('alerts.index') }}">Mis Alertas</a>
                                         @endcan
+                                        @can('alerts.all')
+                                            <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas las Alertas</a>
+                                        @endcan
                                         @can('alerts.index')
                                             <a class="dropdown-item" href="{{ route('rules.index') }}">Horarios Permitidos</a>
                                         @endcan
-                                        @can('alerts.all')
-                                            <a class="dropdown-item" href="{{ route('alerts.all') }}">Todas las Alertas</a>
+                                        @can('rules.all')
+                                            <a class="dropdown-item" href="{{ route('rules.all') }}">Todas las Reglas</a>
                                         @endcan
                                         <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
                                     </div>

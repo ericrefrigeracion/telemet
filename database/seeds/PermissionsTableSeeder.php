@@ -19,7 +19,7 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Listar y navegar todos sus dispositivos',
         ]);
         Permission::create([
-            'name' => 'Listar todos los dispositivos de todos los usuarios',
+            'name' => 'Todos los dispositivos de todos los usuarios',
             'slug' => 'devices.all',
             'description' => 'Listar y navegar todos los dispositivos existentes',
         ]);
@@ -61,7 +61,7 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver todas las alertas de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Listar todas las alertas de todos los usuarios',
+            'name' => 'Todas las alertas de todos los usuarios',
             'slug' => 'alerts.all',
             'description' => 'Listar y navegar todas las alertas ocurridas organizadas por dispositivo',
         ]);
@@ -89,7 +89,7 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver el grafico delultimo mes de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Ver todos los datos',
+            'name' => 'Todos los datos',
             'slug' => 'receptions.show-all',
             'description' => 'Ver el grafico de todos los datos de un dispositivo',
         ]);
@@ -111,7 +111,7 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Crear un pago para un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Ver todos los pagos',
+            'name' => 'Todos los pagos',
             'slug' => 'pays.all',
             'description' => 'Ver todos los pagos de todos los usuarios',
         ]);
@@ -141,6 +141,11 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Editar regla',
             'slug' => 'rules.edit',
             'description' => 'Editar la informacion de una regla',
+        ]);
+        Permission::create([
+            'name' => 'Todas las Reglas',
+            'slug' => 'rules.all',
+            'description' => 'Ver todas las Reglas de todos los Dispositivos',
         ]);
 
         //Webhooks
