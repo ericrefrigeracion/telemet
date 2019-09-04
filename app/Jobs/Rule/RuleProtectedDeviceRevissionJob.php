@@ -39,6 +39,7 @@ class RuleProtectedDeviceRevissionJob implements ShouldQueue
         $day = now()->dayOfWeek;
         $time = now()->toTimeString();
         $device_protected_flag = true;
+        $every_day = Rule::where('device_id', $device->id)->where('day', 'Todos los Dias')->get();
 
         switch ($day) {
             case 0:
@@ -63,19 +64,11 @@ class RuleProtectedDeviceRevissionJob implements ShouldQueue
                 $rules = Rule::where('device_id', $device->id)->where('day', 'Sabado')->get();
                 break;
             default:
-                if($every_day = Rule::where('device_id', $device->id)->where('day', 'Todos los Dias')->get())
-                {
-                    foreach ($every_day as $every)
-                    {
-                        if($every->start_time < $time && $every->stop_time > $time) $device_protected_flag = false;
-                    }
-                }
                 break;
         }
-        foreach ($rules as $rule)
-        {
-            if($rule->start_time < $time && $rule->stop_time > $time) $device_protected_flag = false;
-        }
+        if(isset($rules)) foreach ($rules as $rule) if($rule->start_time < $time && $rule->stop_time > $time) $device_protected_flag = false;
+        if(isset($every_day)) foreach ($every_day as $every) if($every->start_time < $time && $every->stop_time > $time) $device_protected_flag = false;
+
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
         if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
     }
