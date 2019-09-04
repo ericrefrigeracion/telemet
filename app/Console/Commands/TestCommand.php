@@ -40,8 +40,8 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        //ProtectedDeviceRevissionJob::dispatch();
+        ProtectedDeviceRevissionJob::dispatch();
         //PaysVerification::dispatch();
-        PaymentRevissionJob::dispatch(5145146876, 4, 1234, 1);
+        //PaymentRevissionJob::dispatch(5145146876, 4, 1234, 1);
     }
 }
