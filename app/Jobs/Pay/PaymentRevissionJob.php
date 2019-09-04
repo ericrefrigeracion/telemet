@@ -97,7 +97,7 @@ class PaymentRevissionJob implements ShouldQueue
                     'price_id' => $price_id,
                     'payment_id' => $payment_id,
                     'payment_type' => $response->payment_type_id,
-                    'status' => 'Pago recibido',
+                    'status' => 'Pago recibido (Pendiente)',
                     'detail' => 'Pendiente de acreditacion',
                     'operation_type' => $response->operation_type,
                 ]);

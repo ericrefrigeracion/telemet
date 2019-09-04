@@ -20,7 +20,7 @@ class ReceptionController extends Controller
     public function show_hour(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $time = now()->subHour();
 
@@ -56,7 +56,7 @@ class ReceptionController extends Controller
     public function show_day(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $time = now()->subDay();
 
@@ -92,7 +92,7 @@ class ReceptionController extends Controller
     public function show_week(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
 
             $time = now()->subWeek();
@@ -126,7 +126,7 @@ class ReceptionController extends Controller
     public function show_month(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $time = now()->subMonth();
 
@@ -162,7 +162,7 @@ class ReceptionController extends Controller
     public function show_all(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->get();
             if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->get();
@@ -193,16 +193,13 @@ class ReceptionController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'device_id' => 'starts_with:1,2|required|integer|min:1000|exists:devices,id',
+            'device_id' => 'exists:devices,id',
             'data01' => 'required|numeric',
         ];
 
         $request->validate($rules);
 
         $reception = Reception::create($request->all());
-
-        return $reception;
-
     }
 
 }

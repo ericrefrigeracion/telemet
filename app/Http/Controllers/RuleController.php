@@ -51,16 +51,26 @@ class RuleController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'device_id' => 'required|exists:devices,id',
-            'day' => 'required',
-            'start_time' => 'required|before:stop_time',
-            'stop_time' => 'required|after:start_time',
-        ];
-        $request->validate($rules);
-        Rule::create($request->all());
+        $user = Auth::user();
+        $user_device = Device::findOrFail($request->device_id)->user_id;
 
-        return redirect()->route('rules.index')->with('success', ['Regla creada con exito']);
+        if ($user->id === $user_device || Auth::user()->id < 3)
+        {
+            $rules = [
+                'device_id' => 'required|exists:devices,id',
+                'day' => 'required',
+                'start_time' => 'required|before:stop_time',
+                'stop_time' => 'required|after:start_time',
+            ];
+            $request->validate($rules);
+            Rule::create($request->all());
+
+            return redirect()->route('rules.index')->with('success', ['Regla creada con exito']);
+        }
+        else
+        {
+            abort(403, 'Accion no Autorizada');
+        }
     }
 
     /**
@@ -71,7 +81,10 @@ class RuleController extends Controller
      */
     public function show(Rule $rule)
     {
-        if ($rule)
+        $user = Auth::user();
+        $user_device = Device::findOrFail($rule->device_id)->user_id;
+
+        if ($user->id === $user_device || Auth::user()->id < 3)
         {
             return view('rules.show')->with(['rule' => $rule]);
         }
@@ -90,7 +103,10 @@ class RuleController extends Controller
     public function edit(Rule $rule)
     {
 
-        if ($rule)
+        $user = Auth::user();
+        $user_device = Device::findOrFail($rule->device_id)->user_id;
+
+        if ($user->id === $user_device || Auth::user()->id < 3)
         {
             return view('rules.edit', compact('rule'));
         }
@@ -109,16 +125,26 @@ class RuleController extends Controller
      */
     public function update(Request $request, Rule $rule)
     {
-        $rules = [
-            'device_id' => 'required|exists:devices,id',
-            'day' => 'required',
-            'start_time' => 'required|before:stop_time',
-            'stop_time' => 'required|after:start_time',
-        ];
-        $request->validate($rules);
-        $rule->update($request->all());
+        $user = Auth::user();
+        $user_device = Device::findOrFail($rule->device_id)->user_id;
 
-        return redirect()->route('rules.show', $rule->id)->with('success', ['Regla actualizada con exito']);
+        if ($user->id === $user_device || Auth::user()->id < 3)
+        {
+            $rules = [
+                'device_id' => 'required|exists:devices,id',
+                'day' => 'required',
+                'start_time' => 'required|before:stop_time',
+                'stop_time' => 'required|after:start_time',
+            ];
+            $request->validate($rules);
+            $rule->update($request->all());
+
+            return redirect()->route('rules.show', $rule->id)->with('success', ['Regla actualizada con exito']);
+        }
+        else
+        {
+            abort(403, 'Accion no Autorizada');
+        }
     }
 
     /**
@@ -129,7 +155,10 @@ class RuleController extends Controller
      */
     public function destroy(Rule $rule)
     {
-        if ($rule)
+        $user = Auth::user();
+        $user_device = Device::findOrFail($rule->device_id)->user_id;
+
+        if ($user->id === $user_device || Auth::user()->id < 3)
         {
             $rule->delete();
             return redirect()->route('rules.index')->with('success', ['Regla eliminada con exito']);

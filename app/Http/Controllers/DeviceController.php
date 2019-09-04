@@ -132,11 +132,12 @@ class DeviceController extends Controller
     public function show(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
-
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        {
             return view('devices.show')->with(['device' => $device]);
-
-        }else{
+        }
+        else
+        {
             abort(403, 'Accion no Autorizada');
         }
     }
@@ -153,7 +154,6 @@ class DeviceController extends Controller
         $device_logs = Reception::where('device_id', $id)->where('log', '!=', 200)->latest()->paginate(20);
 
         return view('devices.log')->with(['device_logs' => $device_logs, 'device' => $device]);
-
     }
 
     /**
@@ -164,8 +164,7 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2)
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             return view('devices.edit', compact('device'));
         }
@@ -185,7 +184,8 @@ class DeviceController extends Controller
     public function update(Request $request, Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        {
 
             $rules = [
                 'name' => 'required|max:25',
@@ -213,7 +213,9 @@ class DeviceController extends Controller
             $device->update($request->all());
             return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);
 
-        }else{
+        }
+        else
+        {
             abort(403, 'Accion no Autorizada');
         }
     }
@@ -227,12 +229,13 @@ class DeviceController extends Controller
     public function destroy(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id === 1 || Auth::user()->id === 2) {
-
+        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        {
             $device->delete();
             return redirect()->route('devices.index')->with('success', ['Dispositivo eliminado con exito']);
-
-        }else{
+        }
+        else
+        {
             abort(403, 'Accion no Autorizada');
         }
     }
