@@ -35,7 +35,7 @@ class TimeHumVerification implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('hmon', true)->where('admin_mon', true)->where('on_line', true)->where('on_hum', false)->get();
+        $devices = Device::where('hmon', true)->where('admin_mon', true)->where('on_line', true)->where('on_hum', false)->where('protected', true)->get();
 
         foreach($devices as $device)
         {

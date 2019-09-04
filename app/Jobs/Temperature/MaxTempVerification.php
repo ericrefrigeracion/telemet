@@ -35,7 +35,7 @@ class MaxTempVerification implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all()->where('tmon', true)->where('admin_mon', true)->where('on_line', true);
+        $devices = Device::all()->where('tmon', true)->where('admin_mon', true)->where('on_line', true)->where('protected', true);
 
         foreach($devices as $device)
         {

@@ -35,7 +35,7 @@ class TimeTempVerification implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('tmon', true)->where('admin_mon', true)->where('on_line', true)->where('on_temp', false)->get();
+        $devices = Device::where('tmon', true)->where('admin_mon', true)->where('on_line', true)->where('on_temp', false)->where('protected', true)->get();
 
         foreach($devices as $device)
         {

@@ -36,8 +36,8 @@ class TimeSetPointVerification implements ShouldQueue
      */
     public function handle()
     {
-        $t_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('tmon', true)->get();
-        $h_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('hmon', true)->get();
+        $t_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('tmon', true)->where('protected', true)->get();
+        $h_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('hmon', true)->where('protected', true)->get();
 
         foreach($t_set_point_devices as $device)
         {
