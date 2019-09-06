@@ -59,7 +59,7 @@
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
-                                    <h4 class="card-title display-4 m-2">{{ $device->last_data01 }}°C</h4>
+                                    <div class="card-title h1 m-2">{{ $device->last_data01 }}°C</div>
                                 </div>
                             </div>
 
