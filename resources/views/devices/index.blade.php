@@ -26,6 +26,9 @@
                                                 @if(!$device->on_temp && $device->on_t_set_point)
                                                     Fuera de Rango<i class="fas fa-exclamation text-warning m-2"></i>
                                                 @endif
+                                                 @if($device->on_temp && !$device->on_t_set_point)
+                                                    Ciclo Lento<i class="fas fa-exclamation text-warning m-2"></i>
+                                                @endif
                                                 @if(!$device->on_temp && !$device->on_t_set_point)
                                                     Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
                                                 @endif
