@@ -40,7 +40,7 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
 
         foreach($devices as $device)
         {
-            if($device->rule_type == 'Siempre Protegido') AlwaysProtectedDeviceRevissionJob::dispatch($device);
+            if($device->rule_type == 'Siempre Protegido' && !$device->protected) AlwaysProtectedDeviceRevissionJob::dispatch($device);
             if($device->rule_type == 'Protegido cuando cierro mi Comercio') CommerceProtectedDeviceRevissionJob::dispatch($device);
             if($device->rule_type == 'Con horarios Permitidos (Perzonalizado)') RuleProtectedDeviceRevissionJob::dispatch($device);
         }

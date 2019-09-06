@@ -13,7 +13,7 @@
                         <thead>
                             <tr>
                                 <th>Alerta</th>
-                                <th>Momento de la Falla</th>
+                                <th>Ocurido</th>
                             </tr>
                         </thead>
                         <tbody>

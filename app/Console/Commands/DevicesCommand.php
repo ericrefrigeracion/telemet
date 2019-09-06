@@ -4,10 +4,12 @@ namespace App\Console\Commands;
 
 use App\Jobs\Mail\SendAdminMails;
 use App\Jobs\Pay\PayVigentVerification;
+use App\Jobs\Humidity\HumidityVerificationJob;
 use App\Jobs\Humidity\MaxHumVerification;
 use App\Jobs\Humidity\MinHumVerification;
 use App\Jobs\Humidity\TimeHumVerification;
 use App\Jobs\Humidity\SetPointHumChangeVerification;
+use App\Jobs\Temperature\TemperatureVerificationJob;
 use App\Jobs\Temperature\MaxTempVerification;
 use App\Jobs\Temperature\MinTempVerification;
 use App\Jobs\Temperature\TimeTempVerification;
@@ -43,14 +45,8 @@ class DevicesCommand extends Command
         PayVigentVerification::dispatch();
         DisconnectVerification::dispatch();
         ProtectedDeviceRevissionJob::dispatch();
-        MaxTempVerification::dispatch();
-        MinTempVerification::dispatch();
-        MaxHumVerification::dispatch();
-        MinHumVerification::dispatch();
-        SetPointTempChangeVerification::dispatch();
-        SetPointHumChangeVerification::dispatch();
-        TimeTempVerification::dispatch();
-        TimeHumVerification::dispatch();
+        TemperatureVerificationJob::dispatch();
+        //HumidityVerificationJob::dispatch();
         TimeSetPointVerification::dispatch();
         SendAdminMails::dispatch();
     }

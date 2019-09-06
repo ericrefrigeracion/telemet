@@ -12,7 +12,7 @@ $factory->define(Device::class, function (Faker $faker) {
     	'id' => $faker->unique()->numberBetween(1000, 2999),
         'name' => $faker->sentence(2),
         'description' => $faker->sentence(4),
-        'rule_type' => 'allways',
+        'rule_type' => $faker->randomElement(['Siempre Protegido', 'Protegido cuando cierro mi Comercio', 'Con horarios Permitidos (Perzonalizado)']),
         'lat' => $faker->latitude(),
         'lon' => $faker->longitude(),
         'on_line' => $faker->boolean,

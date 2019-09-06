@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Jobs\Rule;
+namespace App\Jobs\Humidity;
 
-use App\Device;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Jobs\Humidity\MaxHumVerification;
+use App\Jobs\Humidity\MinHumVerification;
+use App\Jobs\Humidity\TimeHumVerification;
+use App\Jobs\Humidity\SetPointHumChangeVerification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class AlwaysProtectedDeviceRevissionJob implements ShouldQueue
+class HumidityVerificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    public $device;
-    public $tries = 5;
-    public $timeout = 30;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Device $device)
+    public function __construct()
     {
-        $this->device = $device;
+        //
     }
 
     /**
@@ -34,7 +33,9 @@ class AlwaysProtectedDeviceRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $device = $this->device;
-        $device->update(['protected' => true]);
+        MaxHumVerification::dispatch();
+        MinHumVerification::dispatch();
+        SetPointHumChangeVerification::dispatch();
+        TimeHumVerification::dispatch();
     }
 }
