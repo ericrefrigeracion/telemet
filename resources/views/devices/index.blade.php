@@ -17,7 +17,7 @@
                             </div>
                             <div class="row">
                                  <div class="col text-center m-2">
-                                            @if($device->admin_mon && $device->tmon)
+                                            @if($device->admin_mon && $device->tmon && $device->on_line)
                                                 @if($device->on_temp  && $device->on_t_set_point)
                                                     Funcionamiento Normal<i class="far fa-check-circle text-success m-2"></i>
                                                 @endif
@@ -62,8 +62,6 @@
                                     <div class="card-title h1 m-2">{{ $device->last_data01 }}°C</div>
                                 </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col h4 text-center m-0 mt-3">
                                     @can('receptions.show-hour')
