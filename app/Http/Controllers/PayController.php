@@ -116,9 +116,9 @@ class PayController extends Controller
             $payment_methods['excluded_payment_types'] = $excluded_payments_types;
             $payment_methods['installments'] = $price->installments;
 
-            $back_urls['success'] = route('pais.success');
-            $back_urls['pending'] = route('pais.pending');
-            $back_urls['failure'] = route('pais.failure');
+            $back_urls['success'] = route('pays.success');
+            $back_urls['pending'] = route('pays.pending');
+            $back_urls['failure'] = route('pays.failure');
 
             $query_params['access_token'] = config('services.mercadopago.token');
             $headers['Content-Type'] = 'application/json';
