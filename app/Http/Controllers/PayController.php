@@ -127,7 +127,7 @@ class PayController extends Controller
             $json['payment_methods'] = $payment_methods;
             $json['back_urls'] = $back_urls;
             $json['auto_return'] = 'all';
-            $json['notification_url'] = 'https://sysnet.com.ar/api/webhooks/'. $user->id . '-' . $device->id . '-' . $price->id;
+            $json['notification_url'] = url('/') . '/api/webhooks/'. $user->id . '-' . $device->id . '-' . $price->id;
             $json['external_reference'] = '';
 
             $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
