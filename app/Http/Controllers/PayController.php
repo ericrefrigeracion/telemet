@@ -116,9 +116,9 @@ class PayController extends Controller
             $payment_methods['excluded_payment_types'] = $excluded_payments_types;
             $payment_methods['installments'] = $price->installments;
 
-            $back_urls['success'] = 'https://sysnet.com.ar/pays/success';
-            $back_urls['pending'] = 'https://sysnet.com.ar/pays/pending';
-            $back_urls['failure'] = 'https://sysnet.com.ar/pays/failure';
+            $back_urls['success'] = route('pais.success');
+            $back_urls['pending'] = route('pais.pending');
+            $back_urls['failure'] = route('pais.failure');
 
             $query_params['access_token'] = config('services.mercadopago.token');
             $headers['Content-Type'] = 'application/json';
