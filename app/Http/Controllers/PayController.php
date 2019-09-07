@@ -56,13 +56,13 @@ class PayController extends Controller
 
         if ($user->id === $user_device)
         {
-            $prices = Price::where('device_mdl', $device->mdl)->get();
+            $prices = Price::where('device_mdl', $device->mdl)->orderBy('days', 'asc')->get();
             $multiplicator = Price::where('description', 'Multiplicador')->first();
 
             foreach ($prices as $price)
             {
                 $price->amount = $price->price * $multiplicator->price;
-                $price->diary = ($price->price * $multiplicator->price) / $price->days;
+                $price->diary = round(($price->price * $multiplicator->price / $price->days), 2);
             }
 
             return view('pays.create')->with(['device' => $device, 'prices' => $prices]);
