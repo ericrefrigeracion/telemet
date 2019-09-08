@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/receptions/incoming', 'ReceptionController@store');
 Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
