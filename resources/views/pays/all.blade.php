@@ -14,7 +14,7 @@
                             <tr>
                                 <th>Dispositivo</th>
                                 <th>Usuario</th>
-                                <th>Creado Fecha</th>
+                                <th>Numero de Pago</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
@@ -28,7 +28,7 @@
                                             <a href="{{ route('users.show', $pay->user_id) }}" class="btn btn-sm btn-default">{{ $pay->user_id }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('pays.show', $pay->id) }}" class="btn btn-sm btn-default">{{ $pay->created_at }}</a>
+                                            <a href="{{ route('pays.show', $pay->payment_id) }}" class="btn btn-sm btn-default">{{ $pay->created_at }}</a>
                                         </td>
                                         <td>
                                             {{ $pay->status }}

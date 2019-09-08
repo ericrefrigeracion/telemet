@@ -89,7 +89,23 @@
                         </div>
                     </div>
                 @endforeach
-
+                @can('devices.create')
+                    <div class="card text-center bg-success">
+                        <div class="card-header text-white">
+                            Agregar Dispositivo
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="{{ route('devices.create') }}" class="btn btn-xl text-white"><i class="fas fa-plus h1 display-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-white">
+                            <a href="{{ route('devices.create') }}" class="btn btn-default m-0 text-white">Informacion</a>
+                        </div>
+                    </div>
+                @endcan
             </div>
         </div>
     </div>

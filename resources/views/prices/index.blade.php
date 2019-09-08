@@ -35,7 +35,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $prices->render() }}
                 </div>
             </div>
         </div>

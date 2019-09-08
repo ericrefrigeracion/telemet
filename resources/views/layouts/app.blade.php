@@ -20,6 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a2f903f9d9.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -202,5 +203,6 @@
         </main>
     </div>
     @yield('pie')
+    @yield('script')
 </body>
 </html>
