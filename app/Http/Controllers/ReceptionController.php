@@ -200,6 +200,7 @@ class ReceptionController extends Controller
         $request->validate($rules);
 
         $reception = Reception::create($request->all());
+        return 200;
     }
 
 }
