@@ -18,6 +18,8 @@ Route::get('/pays/success', 'PayController@success')->name('pays.success');
 Route::get('/pays/pending', 'PayController@pending')->name('pays.pending');
 Route::get('/pays/failure', 'PayController@failure')->name('pays.failure');
 
+Route::get('/receptions/incoming', 'ReceptionController@store');
+
 Route::middleware(['verified'])->group(function () {
 
 	Route::get('/home', 'HomeController@index')->name('home');
