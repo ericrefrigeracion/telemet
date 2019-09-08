@@ -19,6 +19,7 @@ Route::get('/pays/pending', 'PayController@pending')->name('pays.pending');
 Route::get('/pays/failure', 'PayController@failure')->name('pays.failure');
 
 Route::get('/receptions/incoming', 'ReceptionController@store');
+Route::post('/receptions/incoming', 'ReceptionController@store');
 
 Route::middleware(['verified'])->group(function () {
 
