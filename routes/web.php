@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/receptions/incoming', 'ReceptionController@store');
 Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
-Route::get('/receptions/incoming', 'ReceptionController@store');
 
 Route::get('/pays/success', 'PayController@success')->name('pays.success');
 Route::get('/pays/pending', 'PayController@pending')->name('pays.pending');
