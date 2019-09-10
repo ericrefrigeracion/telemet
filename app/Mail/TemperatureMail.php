@@ -37,6 +37,6 @@ class TemperatureMail extends Mailable
      */
     public function build()
     {
-        return $this->from('alertas-temperatura@telemett.com')->markdown('email.centinela.users.temperature');
+        return $this->from('alertas-temperatura@telemet.com')->markdown('email.centinela.users.temperature');
     }
 }

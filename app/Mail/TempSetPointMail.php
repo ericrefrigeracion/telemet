@@ -37,6 +37,6 @@ class TempSetPointMail extends Mailable
      */
     public function build()
     {
-        return $this->from('alertas-temperatura@telemett.com')->markdown('email.centinela.users.temp_set_point');
+        return $this->from('alertas-temperatura@telemet.com')->markdown('email.centinela.users.temp_set_point');
     }
 }

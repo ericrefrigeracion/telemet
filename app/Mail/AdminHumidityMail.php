@@ -37,6 +37,6 @@ class AdminHumidityMail extends Mailable
      */
     public function build()
     {
-        return $this->from('alertas-humedad@telemett.com')->markdown('email.centinela.admin.humidity');
+        return $this->from('alertas-humedad@telemet.com')->markdown('email.centinela.admin.humidity');
     }
 }

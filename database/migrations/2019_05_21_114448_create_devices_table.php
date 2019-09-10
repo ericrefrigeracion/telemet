@@ -16,10 +16,10 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
             $table->unsignedBigInteger('user_id');
-            $table->string('mdl');
+            $table->string('type_device_id');
+            $table->string('type_rule_id');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('rule_type');
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
             $table->boolean('admin_mon');
@@ -53,6 +53,8 @@ class CreateDevicesTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('type_device_id')->references('id')->on('type_devices')->onDelete('cascade');
+            $table->foreign('type_rule_id')->references('id')->on('type_rules')->onDelete('cascade');
         });
     }
 
