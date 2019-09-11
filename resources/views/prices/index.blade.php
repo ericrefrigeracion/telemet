@@ -24,7 +24,7 @@
                             @foreach($prices as $price)
                                 <tr>
                                     <td>{{ $price->description }}</td>
-                                    <td>{{ $price->device_mdl }}</td>
+                                    <td>{{ $price->type_device_id }}</td>
                                     @can('prices.show')
                                         <td><a href="{{ route('prices.show', $price->id) }}" class="btn btn-sm btn-success">Ver</a></td>
                                     @endcan

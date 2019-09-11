@@ -27,7 +27,7 @@
                                 </tr>
                                 <tr>
                                     <td>Para dispositivo modelo</td>
-                                    <td>{{ $price->device_mdl }}</td>
+                                    <td>{{ $price->type_device_id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Dias de servicio</td>
