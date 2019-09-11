@@ -28,8 +28,8 @@
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('device_mdl', 'Modelo de dispositivo') }}
-                            {{ Form::text('device_mdl', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::label('type_device_id', 'Modelo de dispositivo') }}
+                            {{ Form::number('type_device_id', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('price', 'Valor del Item') }}
