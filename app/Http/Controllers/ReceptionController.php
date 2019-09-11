@@ -139,7 +139,6 @@ class ReceptionController extends Controller
 
             if (isset($datas))
             {
-
             foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
             return view('receptions.show-last-month')->with(['device' => $device, 'datas' => $datas]);
@@ -168,9 +167,9 @@ class ReceptionController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            if ($device->mdl == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->get();
-            if ($device->mdl == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->get();
-            if ($device->mdl == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')->where('device_id', $device->id)->get();
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->get();
+            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->get();
+            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')->where('device_id', $device->id)->get();
 
             if (isset($datas))
             {

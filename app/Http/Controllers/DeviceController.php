@@ -87,7 +87,7 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'starts_with:1,2|required|integer|min:1000|unique:devices,id',
+            'id' => 'starts_with:10,20,90|required|integer|min:10000|unique:devices,id',
             'name' => 'required|max:25',
             'description' => 'max:50',
         ];
