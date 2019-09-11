@@ -15,7 +15,7 @@ class PriceController extends Controller
     public function index()
     {
 
-        $prices = Price::where('description','!=','')->orderBy('device_mdl', 'asc')->orderBy('days', 'asc')->get();
+        $prices = Price::where('description','!=','')->orderBy('type_device_id', 'asc')->orderBy('days', 'asc')->get();
 
         return view('prices.index', compact('prices'));
 
