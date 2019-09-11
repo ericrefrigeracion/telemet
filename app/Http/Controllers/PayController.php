@@ -56,7 +56,7 @@ class PayController extends Controller
 
         if ($user->id === $user_device)
         {
-            $prices = Price::where('device_mdl', $device->mdl)->orderBy('days', 'asc')->get();
+            $prices = Price::where('type_device_id', $device->type_device_id)->orderBy('days', 'asc')->get();
             $multiplicator = Price::where('description', 'Multiplicador')->first();
 
             foreach ($prices as $price)
