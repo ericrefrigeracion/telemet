@@ -116,12 +116,12 @@ class DeviceController extends Controller
         $device->tmon = true;
         $device->tmin = 0;
         $device->tmax = 0;
-        $device->tdly = 0;
+        $device->tdly = 30;
         $device->tcal = 0;
         $device->hmon = false;
         $device->hmin = 50;
         $device->hmax = 50;
-        $device->hdly = 0;
+        $device->hdly = 30;
         $device->hcal = 0;
         $device->t_set_point = 0;
         $device->t_is = 'higher';
