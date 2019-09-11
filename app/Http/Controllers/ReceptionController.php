@@ -24,8 +24,9 @@ class ReceptionController extends Controller
         {
             $time = now()->subHour();
 
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->max('created_at'))
             {
@@ -60,8 +61,9 @@ class ReceptionController extends Controller
         {
             $time = now()->subDay();
 
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->max('created_at'))
             {
@@ -97,8 +99,9 @@ class ReceptionController extends Controller
 
             $time = now()->subWeek();
 
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->max('created_at'))
             {
@@ -130,8 +133,9 @@ class ReceptionController extends Controller
         {
             $time = now()->subMonth();
 
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
+            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')->where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->max('created_at'))
             {
@@ -164,10 +168,11 @@ class ReceptionController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            if ($device->mdl == 't') $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->get();
-            if ($device->mdl == 'th') $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->get();
+            if ($device->mdl == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->get();
+            if ($device->mdl == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->get();
+            if ($device->mdl == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')->where('device_id', $device->id)->get();
 
-            if ($datas->max('created_at'))
+            if (isset($datas))
             {
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 

@@ -15,7 +15,7 @@ class CreateTypeRulesTable extends Migration
     {
         Schema::create('type_rules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('type')->nullable();
+            $table->string('type');
             $table->string('description')->nullable();
             $table->timestamps();
         });

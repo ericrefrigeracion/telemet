@@ -19,18 +19,17 @@
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('rule_type', 'Protegido:') }}
-                            {{ Form::select('rule_type', [
-                                '' => 'Seleccione un Tipo de Proteccion',
-                                'Siempre Protegido' => 'Siempre Protegido',
-                                'Protegido cuando cierro mi Comercio' => 'Protegido cuando cierro mi Comercio',
-                                'Con horarios Permitidos (Perzonalizado)' => 'Con horarios Permitidos (Perzonalizado)',
+                            {{ Form::label('type_rule_id', 'Protegido:') }}
+                            {{ Form::select('type_rule_id', [
+                                1 => 'Siempre Protegido',
+                                2 => 'Protegido cuando cierro mi Comercio',
+                                3 => 'Con horarios Permitidos (Perzonalizado)',
                             ], null, ['class' => 'form-control']) }}
                         </div>
                         <p>Avisos por E-mail</p>
                         <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label class="btn btn-secondary{{ $device->send_mails ? ' focus active' : '' }}">{{ Form::radio('send_mails', '1') }} Activar</label>
-                            <label class="btn btn-secondary{{ !$device->send_mails ? ' focus active' : '' }}">{{ Form::radio('send_mails', '0') }} Desactivar</label>
+                            <label class="btn btn-secondary{{ $device->send_mails ? ' active' : '' }}">{{ Form::radio('send_mails', '1') }} Activar</label>
+                            <label class="btn btn-secondary{{ !$device->send_mails ? ' active' : '' }}">{{ Form::radio('send_mails', '0') }} Desactivar</label>
                         </div>
                         <hr><br>
                         <div class="row">
@@ -38,8 +37,8 @@
                         <h3>Valores de Temperatura</h3><br>
                         <p>Monitoreo de Temperatura</p>
                         <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label class="btn btn-secondary{{ $device->tmon ? ' focus active' : '' }}">{{ Form::radio('tmon', '1') }} Activar</label><br>
-                            <label class="btn btn-secondary{{ !$device->tmon ? ' focus active' : '' }}">{{ Form::radio('tmon', '0') }} Desactivar</label>
+                            <label class="btn btn-secondary{{ $device->tmon ? ' active' : '' }}">{{ Form::radio('tmon', '1') }} Activar</label><br>
+                            <label class="btn btn-secondary{{ !$device->tmon ? ' active' : '' }}">{{ Form::radio('tmon', '0') }} Desactivar</label>
                         </div>
                         <div class="form-group">
                             {{ Form::label('tcal', 'Calibracion de la Medicion (°C)') }}
@@ -62,7 +61,7 @@
                             {{ Form::number('tdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
                         </div>
                         </div>
-                        @if($device->mdl == 'th')
+                        @if($device->type_device_id == 3)
                             <div class="col-md-6">
                             <h3>Valores de Humedad</h3><br>
                             <p>Monitoreo de Humedad</p>

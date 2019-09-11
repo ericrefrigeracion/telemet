@@ -10,9 +10,10 @@ $factory->define(Device::class, function (Faker $faker) {
 	$user = User::all();
     return [
     	'id' => $faker->unique()->numberBetween(1000, 2999),
+        'type_device_id' => 10,
+        'type_rule_id' => $faker->randomElement([1, 2, 3]),
         'name' => $faker->sentence(2),
         'description' => $faker->sentence(4),
-        'rule_type' => $faker->randomElement(['Siempre Protegido', 'Protegido cuando cierro mi Comercio', 'Con horarios Permitidos (Perzonalizado)']),
         'lat' => $faker->latitude(),
         'lon' => $faker->longitude(),
         'on_line' => $faker->boolean,
@@ -25,7 +26,6 @@ $factory->define(Device::class, function (Faker $faker) {
         'admin_mon' => $faker->boolean,
         'send_mails' => $faker->boolean,
         'user_id' => $user->random()->id,
-        'mdl' => 't',
         't_set_point' => $faker->numberBetween(5,10),
         't_is' => $faker->randomElement(['lower', 'higher']),
         't_change_at' => now(),

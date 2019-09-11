@@ -47,19 +47,19 @@
                                         @else
                                             <i class="fas fa-temperature-high text-danger m-2" title="Control de Temperatura Desactivado"></i>
                                         @endif
-                                        @if($device->rule_type == 'Siempre Protegido')
-                                            <i class="far fa-check-square text-success m-2" title="Siempre Protegido"></i>
+                                        @if($device->type_rule_id == 1)
+                                            <i class="far fa-check-square text-success m-2" title="{{ $device->type_rule_description }}"></i>
                                         @endif
-                                        @if($device->rule_type == 'Protegido cuando cierro mi Comercio')
-                                            <i class="fas fa-cash-register text-success m-2" title="Protegido cuando cierro mi Comercio"></i>
+                                        @if($device->type_rule_id == 2)
+                                            <i class="fas fa-cash-register text-success m-2" title="{{ $device->type_rule_description }}"></i>
                                         @endif
-                                        @if($device->rule_type == 'Con horarios Permitidos (Perzonalizado)')
-                                            <a href="{{ route('rules.index') }}"><i class="far fa-clock text-success m-2" title="Con horarios Permitidos (Perzonalizado)"></i></a>
+                                        @if($device->type_rule_id == 3)
+                                            <a href="{{ route('rules.index') }}"><i class="far fa-clock text-success m-2" title="{{ $device->type_rule_description }}"></i></a>
                                         @endif
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
-                                    <div class="card-title h1 m-2">{{ $device->last_data01 }}°C</div>
+                                    <div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
                                 </div>
                             </div>
                             <div class="row">

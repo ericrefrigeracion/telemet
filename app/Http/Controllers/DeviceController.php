@@ -6,6 +6,8 @@ use App\Pay;
 use App\Alert;
 use App\Price;
 use App\Device;
+use App\TypeRule;
+use App\TypeDevice;
 use App\Reception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -38,11 +40,12 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
 
+            $device->type_rule_description = TypeRule::find($device->type_rule_id)->description;
             if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
             {
                 if($device->on_line)
                 {
-                    $device->last_data01 = $last_reception->data01;
+                    $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
                     $device->last_rssi = $last_reception->rssi;
                 }
@@ -91,16 +94,15 @@ class DeviceController extends Controller
 
         $request->validate($rules);
 
+        $type_device = TypeDevice::where('prefix', substr($request->id, 0, 2))->first();
         $device = new Device;
+
         $device->id = $request->id;
-
-        if( substr($device->id, 0, 1) == 1 ) $device->mdl = 't';
-        if( substr($device->id, 0, 1) == 2 ) $device->mdl = 'th';
-
         $device->user_id = Auth::user()->id;
+        $device->type_device_id = $type_device->id;
+        $device->type_rule_id = 1;
         $device->name = $request->name;
         $device->description = $request->description;
-        $device->rule_type = 'Siempre Protegido';
         $device->view_alerts_at = now();
         $device->monitor_expires_at = now()->addWeek();
         $device->send_mails = true;
@@ -144,7 +146,8 @@ class DeviceController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            return view('devices.show')->with(['device' => $device]);
+            $type_rule = TypeRule::find($device->type_rule_id);
+            return view('devices.show')->with(['device' => $device, 'rule' => $type_rule]);
         }
         else
         {
@@ -196,12 +199,11 @@ class DeviceController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-
             $rules = [
                 'name' => 'required|max:25',
                 'description' => 'max:50',
+                'type_rule_id' => 'required|exists:type_rules,id',
                 'send_mails' => 'boolean',
-                'rule_type' => 'string|required',
                 't_set_point' => 'filled|numeric|min:-30|max:80',
                 'tcal' => 'filled|numeric|min:-5|max:5',
                 'tmon' => 'boolean',
@@ -209,9 +211,9 @@ class DeviceController extends Controller
                 'tmin' => 'filled|numeric|min:-30|max:80',
                 'tmax' => 'filled|numeric|min:-30|max:80',
                 'tdly' => 'filled|integer|min:0|max:60',
+                'hmon' => 'boolean',
                 'h_set_point' => 'filled|numeric|min:-30|max:80',
                 'hcal' => 'filled|numeric|min:-5|max:5',
-                'hmon' => 'boolean',
                 'h_set_point' => 'filled|numeric|min:-30|max:80',
                 'hmin' => 'filled|numeric|min:0|max:95',
                 'hmax' => 'filled|numeric|min:0|max:95',

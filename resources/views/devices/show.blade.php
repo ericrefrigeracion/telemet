@@ -45,7 +45,7 @@
                                 </tr>
                                 <tr>
                                     <td>DISPOSITIVO PROTEGIDO</td>
-                                    <td>{{ $device->rule_type }}</td>
+                                    <td>{{ $rule->description }}</td>
                                 </tr>
                                 <tr>
                                     <td>MONITOREO TEMPERATURA</td>
@@ -76,7 +76,7 @@
                                             <td>{{ $device->tdly }}</td>
                                         </tr>
                                 @endif
-                                @if($device->mdl == 'th')
+                                @if($device->type_device_id == 3)
                                 <tr>
                                     <td>MONITOREO HUMEDAD</td>
                                     <td>{{ $device->hmon ? 'ACTIVO' : 'INACTIVO' }}</td>
@@ -91,16 +91,14 @@
                                             <td>Humedad Deseada (%)</td>
                                             <td>{{ $device->h_set_point }}</td>
                                         </tr>
-                                        @can('devices.all')
-                                            <tr>
-                                                <td>Minima Establecida (%)</td>
-                                                <td>{{ $device->hmin }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maxima Establecida (%)</td>
-                                                <td>{{ $device->hmax }}</td>
-                                            </tr>
-                                        @endcan
+                                        <tr>
+                                            <td>Minima Establecida (%)</td>
+                                            <td>{{ $device->hmin }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maxima Establecida (%)</td>
+                                            <td>{{ $device->hmax }}</td>
+                                        </tr>
                                         <tr>
                                             <td>Retardo al Aviso (minutos)</td>
                                             <td>{{ $device->hdly }}</td>

@@ -14,7 +14,7 @@ class PricesTableSeeder extends Seeder
     {
         Price::create([
         	'price' => 13,
-            'device_mdl' => 't',
+            'type_device_id' => 2,
         	'description' => 'Monitoreo 30 dias',
         	'days' => 30,
             'installments' => 1,
@@ -22,7 +22,7 @@ class PricesTableSeeder extends Seeder
         ]);
         Price::create([
         	'price' => 22,
-            'device_mdl' => 't',
+            'type_device_id' => 2,
         	'description' => 'Monitoreo 90 dias',
         	'days' => 90,
             'installments' => 1,
@@ -30,7 +30,7 @@ class PricesTableSeeder extends Seeder
         ]);
         Price::create([
         	'price' => 108,
-            'device_mdl' => 't',
+            'type_device_id' => 2,
         	'description' => 'Monitoreo 360 dias',
         	'days' => 360,
             'installments' => 3,
@@ -38,7 +38,7 @@ class PricesTableSeeder extends Seeder
         ]);
         Price::create([
             'price' => 19,
-            'device_mdl' => 'th',
+            'type_device_id' => 3,
             'description' => 'Monitoreo 30 dias',
             'days' => 30,
             'installments' => 1,
@@ -46,7 +46,7 @@ class PricesTableSeeder extends Seeder
         ]);
         Price::create([
             'price' => 36,
-            'device_mdl' => 'th',
+            'type_device_id' => 3,
             'description' => 'Monitoreo 60 dias',
             'days' => 60,
             'installments' => 1,
@@ -54,7 +54,7 @@ class PricesTableSeeder extends Seeder
         ]);
         Price::create([
             'price' => 190,
-            'device_mdl' => 'th',
+            'type_device_id' => 3,
             'description' => 'Monitoreo 360 dias',
             'days' => 360,
             'installments' => 3,
@@ -62,7 +62,7 @@ class PricesTableSeeder extends Seeder
         ]);
         Price::create([
         	'price' => 60,
-            'device_mdl' => 'admin',
+            'type_device_id' => 1,
         	'description' => 'Multiplicador',
         	'days' => 0,
             'installments' => 1,

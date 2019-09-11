@@ -36,7 +36,7 @@ $.getJSON(
                     valueDecimals: 2
                 }
             },
-            @if($device->mdl == 'th')
+            @if($device->type_device_id == 3)
             {
                 name: 'Humedad Relativa %',
                 data: [

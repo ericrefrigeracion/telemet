@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Pay;
+use App\TypeDevice;
 use Illuminate\Database\Eloquent\Model;
 
 class Price extends Model
@@ -13,7 +14,7 @@ class Price extends Model
      * @var array
      */
     protected $fillable = [
-        'days', 'description', 'price', 'excluded', 'installments', 'type', 'device_mdl',
+        'days', 'description', 'price', 'excluded', 'installments', 'type_device_id',
     ];
 
      protected $dates = [
@@ -32,5 +33,10 @@ class Price extends Model
     public function pays()
     {
         return $this->hasMany(Pay::class);
+    }
+
+    public function type_device()
+    {
+        return $this->belongsTo(TypeDevice::class);
     }
 }

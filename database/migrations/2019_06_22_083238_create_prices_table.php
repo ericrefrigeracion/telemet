@@ -15,13 +15,15 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('device_mdl');
+            $table->unsignedBigInteger('type_device_id');
             $table->float('price');
             $table->string('description');
             $table->string('excluded')->nullable();
             $table->integer('days')->nullable();
             $table->integer('installments')->nullable();
             $table->timestamps();
+
+            $table->foreign('type_device_id')->references('id')->on('type_devices')->onDelete('cascade');
         });
     }
 

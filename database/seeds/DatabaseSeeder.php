@@ -1,6 +1,5 @@
 <?php
 
-use App\Pay;
 use App\User;
 use App\Alert;
 use App\Device;
@@ -17,6 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class);
+        $this->call(TypeRulesTableSeeder::class);
+        $this->call(TypeDevicesTableSeeder::class);
         $this->call(PricesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(UserPermissionsTableSeeder::class);

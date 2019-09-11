@@ -43,7 +43,7 @@ class PriceController extends Controller
         $rules = [
             'days' => 'required|numeric',
             'description' => 'required|string',
-            'device_mdl' => 'required|string',
+            'type_device_id' => 'required|exists:type_device,id',
             'price' => 'required|numeric|min:1',
             'excluded' => 'string|nullable',
             'installments' => 'numeric|min:1|max:12',
@@ -96,6 +96,7 @@ class PriceController extends Controller
         $rules = [
             'days' => 'required|numeric',
             'description' => 'required|string',
+            'type_device_id' => 'required|exists:type_device,id',
             'price' => 'required|numeric|min:1',
             'excluded' => 'string|nullable',
             'installments' => 'numeric|min:1|max:12',
