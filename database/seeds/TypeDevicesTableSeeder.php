@@ -1,5 +1,6 @@
 <?php
 
+//
 use App\TypeDevice;
 use Illuminate\Database\Seeder;
 

@@ -1,5 +1,6 @@
 <?php
 
+//
 use App\TypeRule;
 use Illuminate\Database\Seeder;
 
