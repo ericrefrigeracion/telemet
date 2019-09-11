@@ -3,19 +3,6 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-    </div>
-    <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
@@ -28,8 +15,10 @@
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('type_device_id', 'Modelo de dispositivo') }}
-                            {{ Form::number('type_device_id', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::label('type_device_id', 'Modelo de dispositivo') }}<br>
+                            <label>{{ Form::radio('type_device_id', 1) }} Centinela T</label><br>
+                            <label>{{ Form::radio('type_device_id', 2) }} Centinela TH</label><br>
+                            <label>{{ Form::radio('type_device_id', 3) }} Centinela TTA</label><br>
                         </div>
                         <div class="form-group">
                             {{ Form::label('price', 'Valor del Item') }}

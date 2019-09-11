@@ -15,8 +15,10 @@
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('device_mdl', 'Modelo de dispositivo') }}
-                            {{ Form::text('device_mdl', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::label('type_device_id', 'Modelo de dispositivo') }}<br>
+                            <label>{{ Form::radio('type_device_id', 1) }} Centinela T</label><br>
+                            <label>{{ Form::radio('type_device_id', 2) }} Centinela TH</label><br>
+                            <label>{{ Form::radio('type_device_id', 3) }} Centinela TTA</label><br>
                         </div>
                         <div class="form-group">
                             {{ Form::label('price', 'Valor del Item en Pesos') }}
