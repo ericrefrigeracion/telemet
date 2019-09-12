@@ -13,9 +13,6 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <h6 class="col card-subtitle text-muted m-0">{{ $device->description }}</h6>
-                            </div>
-                            <div class="row">
                                  <div class="col text-center m-2">
                                             @if($device->admin_mon && $device->tmon && $device->on_line)
                                                 @if($device->on_temp  && $device->on_t_set_point)
