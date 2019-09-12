@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                 <div class="col text-center m-2">
+                                 <div class="col text-center">
                                             @if($device->admin_mon && $device->tmon && $device->on_line)
                                                 @if($device->on_temp  && $device->on_t_set_point)
                                                     Funcionamiento Normal<i class="far fa-check-circle text-success m-2"></i>

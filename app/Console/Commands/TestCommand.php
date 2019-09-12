@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\Rule\ProtectedDeviceRevissionJob;
+use App\Jobs\Reception\EliminateReceptionsJob;
 use App\Jobs\Pay\PaymentRevissionJob;
 use App\Jobs\Pay\PaysVerification;
 use App\Jobs\Mail\SendAdminMails;
@@ -44,7 +45,8 @@ class TestCommand extends Command
     {
         //ProtectedDeviceRevissionJob::dispatch();
         //SendUserMails::dispatch();
-        SendAdminMails::dispatch();
+        //SendAdminMails::dispatch();
+        EliminateReceptionsJob::dispatch();
         //PaysVerification::dispatch();
         //PaymentRevissionJob::dispatch(5145146876, 4, 1234, 1);
     }
