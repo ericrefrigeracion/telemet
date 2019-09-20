@@ -13,7 +13,8 @@
                         <thead>
                             <tr>
                                 <th>Usr</th>
-                                <th>ID</th>
+                                <th>Dispositivo</th>
+                                <th>Protegido</th>
                                 <th>Estado</th>
                                 <th>Rango</th>
                                 <th>Ciclo</th>
@@ -32,8 +33,15 @@
                         <tbody>
                             @foreach($devices as $device)
                                 <tr>
-                                    <td>{{ $device->user_id }}</td>
+                                    @can('users.show')
+                                    <td><a href="{{ route('users.show', $device->user_id) }}" class="btn btn-sm btn-default">{{ $device->user_id }}</a></td>
+                                    @endcan
                                     <td>{{ $device->id }}</td>
+                                    @if($device->protected)
+                                    <td class="text-success">SI</td>
+                                    @else
+                                    <td class="text-danger">NO</td>
+                                    @endif
                                     @if($device->on_line)
                                     <td class="text-success">En Linea</td>
                                     @else
@@ -51,7 +59,7 @@
                                     @endif
                                     @can('devices.show')
                                         <td>
-                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-primary">Configuracion</a>
+                                            <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-primary">Config</a>
                                         </td>
                                     @endcan
                                     @can('receptions.show-hour')

@@ -89,10 +89,10 @@ class UserController extends Controller
             $rules = [
                 'name' => 'required|max:25',
                 'surname' => 'required|max:25',
-                'email' => 'nullable|email',
+                'email' => 'required|email',
                 'dni' => 'nullable|numeric',
-                'phone_area_code' => 'nullable|numeric',
-                'phone_number' => 'nullable|numeric',
+                'phone_area_code' => 'required|numeric',
+                'phone_number' => 'required|numeric',
                 'address' => 'nullable|string'
             ];
 
@@ -116,10 +116,10 @@ class UserController extends Controller
         $rules = [
             'name' => 'required|max:25',
             'surname' => 'required|max:25',
-            'email' => 'nullable|email',
+            'email' => 'required|email',
             'dni' => 'nullable|numeric',
-            'phone_area_code' => 'nullable|numeric',
-            'phone_number' => 'nullable|numeric',
+            'phone_area_code' => 'required|numeric',
+            'phone_number' => 'required|numeric',
             'address' => 'nullable|string'
         ];
 

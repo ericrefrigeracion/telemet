@@ -25,11 +25,12 @@ class CreateDevicesTable extends Migration
             $table->boolean('admin_mon');
             $table->boolean('protected');
             $table->boolean('on_line');
+            $table->string('send_mails');
+
             $table->boolean('on_temp');
             $table->boolean('on_hum');
             $table->boolean('on_t_set_point');
             $table->boolean('on_h_set_point');
-            $table->boolean('send_mails');
             $table->dateTime('monitor_expires_at');
             $table->dateTime('view_alerts_at');
             $table->boolean('tmon');

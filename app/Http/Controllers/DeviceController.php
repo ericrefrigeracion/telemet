@@ -23,7 +23,7 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $devices = Device::where('admin_mon', true)->where('protected', true)->orderBy('user_id', 'asc')->get();
+        $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
 
         return view('devices.all')->with(['devices' => $devices]);
 
