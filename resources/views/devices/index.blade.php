@@ -16,7 +16,7 @@
                                  <div class="col text-center">
                                             @if($device->admin_mon && $device->tmon && $device->on_line)
                                                 @if($device->on_temp  && $device->on_t_set_point)
-                                                    Funcionamiento Normal<i class="far fa-check-circle text-success m-2"></i>
+                                                    Todo en orden<i class="far fa-check-circle text-success m-2"></i>
                                                 @endif
                                                 @if(!$device->on_temp && $device->on_t_set_point)
                                                     Fuera de Rango<i class="fas fa-exclamation text-warning m-2"></i>
@@ -28,7 +28,7 @@
                                                     Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
                                                 @endif
                                                 @if($device->protected)
-                                                    <i class="far fa-eye text-success m-2" title="Protegido"></i></a>
+                                                    <i class="far fa-eye text-success m-2" title="Protegido"></i>
                                                 @else
                                                     <i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i>
                                                 @endif
