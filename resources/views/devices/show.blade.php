@@ -28,8 +28,16 @@
                                     <td>{{ $device->id }}</td>
                                 </tr>
                                 <tr>
+                                    <td>DISPOSITIVO MODELO</td>
+                                    <td>{{ $device->type_device->model }}</td>
+                                </tr>
+                                <tr>
                                     <td>NOMBRE</td>
                                     <td>{{ $device->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>DESCRIPCION</td>
+                                    <td>{{ $device->description }}</td>
                                 </tr>
                                 <tr>
                                     <td>CREADO</td>
@@ -40,70 +48,19 @@
                                     <td>{{ $device->monitor_expires_at->toFormattedDateString() }}</td>
                                 </tr>
                                 <tr>
-                                    <td>AVISO POR E-MAIL</td>
-                                    <td>{{ $device->send_mails ? 'ACTIVO' : 'INACTIVO' }}</td>
+                                    <td>NOTIFICACIONES AL E-MAIL</td>
+                                    <td>{{ $device->notification_email }}</td>
                                 </tr>
                                 <tr>
-                                    <td>DISPOSITIVO PROTEGIDO</td>
-                                    <td>{{ $rule->description }}</td>
+                                    <td>LLAMADAS AL TELEFONO</td>
+                                    <td>{{ $device->notification_phone_number }}</td>
                                 </tr>
                                 <tr>
-                                    <td>MONITOREO TEMPERATURA</td>
-                                    <td>{{ $device->tmon ? 'ACTIVO' : 'INACTIVO' }}</td>
+                                    <td>TIPO DE PROTECCION</td>
+                                    <td>{{ $device->type_rule->description }}</td>
                                 </tr>
-                                @if($device->tmon)
-                                        <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
-                                        <tr>
-                                            <td>Calibracion de la Medicion (°C)</td>
-                                            <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Temperatura Deseada (°C)</td>
-                                            <td>{{ $device->t_set_point }}</td>
-                                        </tr>
-                                        @can('devices.all')
-                                            <tr>
-                                                <td>Minima Establecida (°C)</td>
-                                                <td>{{ $device->tmin }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maxima Establecida (°C)</td>
-                                                <td>{{ $device->tmax }}</td>
-                                            </tr>
-                                        @endcan
-                                        <tr>
-                                            <td>Retardo al Aviso (minutos)</td>
-                                            <td>{{ $device->tdly }}</td>
-                                        </tr>
-                                @endif
-                                @if($device->type_device_id == 3)
-                                <tr>
-                                    <td>MONITOREO HUMEDAD</td>
-                                    <td>{{ $device->hmon ? 'ACTIVO' : 'INACTIVO' }}</td>
-                                </tr>
-                                @if($device->hmon)
-                                        <tr><th>CONFIGURACION</th><th>VALOR</th></tr>
-                                        <tr>
-                                            <td>Calibracion de la Medicion (%)</td>
-                                            <td>{{ $device->tcal > 0 ? "+" . $device->tcal : $device->tcal }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Humedad Deseada (%)</td>
-                                            <td>{{ $device->h_set_point }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Minima Establecida (%)</td>
-                                            <td>{{ $device->hmin }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Maxima Establecida (%)</td>
-                                            <td>{{ $device->hmax }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Retardo al Aviso (minutos)</td>
-                                            <td>{{ $device->hdly }}</td>
-                                        </tr>
-                                @endif
+                                @if($device->type_device_id == 2)
+                                    @include('devices.partials.tiny_t_show')
                                 @endif
                         </tbody>
                     </table>

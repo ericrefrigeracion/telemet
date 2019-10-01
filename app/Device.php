@@ -7,8 +7,9 @@ use App\Rule;
 use App\User;
 use App\Alert;
 use App\TypeRule;
-use App\TypeDevice;
 use App\Receptions;
+use App\TypeDevice;
+use App\TinyTDevice;
 use App\AllowedSchedule;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,10 +21,25 @@ class Device extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'user_id', 'type_device_id', 'name', 'description', 'type_rule_id', 'lat', 'long', 'admin_mon', 'protected', 'on_line', 'on_temp', 'on_hum', 'on_t_set_point', 'on_h_set_point', 'send_mails', 'monitor_expires_at', 'view_alerts_at', 'tmon', 'tdly', 'tcal', 't_set_point', 't_is', 't_change_at', 'tmin', 't_out_at', 'tmax', 'hmon', 'hdly', 'hcal', 'h_set_point', 'h_is', 'h_change_at', 'hmin', 'h_out_at', 'hmax',
+        'id',
+        'user_id',
+        'type_device_id',
+        'type_rule_id',
+        'name',
+        'description',
+        'lat',
+        'lon',
+        'admin_mon',
+        'protected',
+        'on_line',
+        'monitor_expires_at',
+        'view_alerts_at',
+        'notification_email',
+        'notification_phone_area_code',
+        'notification_phone_number',
     ];
 
-    protected $dates = ['t_out_at', 'h_out_at', 'monitor_expires_at','view_alerts_at', 't_change_at', 'h_change_at'];
+    protected $dates = ['monitor_expires_at','view_alerts_at',];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,14 +48,19 @@ class Device extends Model
      */
     protected $hidden = [];
 
-    public function users()
+    public function user()
     {
     	return $this->belongsTo(User::class);
     }
 
-    public function type_devices()
+    public function type_device()
     {
         return $this->belongsTo(TypeDevice::class);
+    }
+
+    public function tiny_t_device()
+    {
+        return $this->hasOne(TinyTDevice::class);
     }
 
     public function type_rule()

@@ -43,6 +43,7 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
             if($device->type_rule_id == 1 && !$device->protected) AlwaysProtectedDeviceRevissionJob::dispatch($device);
             if($device->type_rule_id == 2) CommerceProtectedDeviceRevissionJob::dispatch($device);
             if($device->type_rule_id == 3) RuleProtectedDeviceRevissionJob::dispatch($device);
+            if($device->type_rule_id == 4 && $device->protected) NeverProtectedDeviceRevissionJob::dispatch($device);
         }
     }
 }

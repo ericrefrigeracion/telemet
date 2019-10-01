@@ -54,11 +54,15 @@ class PaysVerification implements ShouldQueue
             {
                 $device = Device::find($pay->device_id);
                 $price = Price::find($pay->price_id);
+                $period_start = $device->monitor_expires_at;
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $period_finish = $device->monitor_expires_at;
                 $device->update();
 
                 $pay->status = 'Pago recibido';
                 $pay->detail = 'Acreditado';
+                $pay->period_start = $period_start;
+                $pay->period_finish = $period_finish;
                 $pay->verified_by_system = now();
                 $pay->update();
 

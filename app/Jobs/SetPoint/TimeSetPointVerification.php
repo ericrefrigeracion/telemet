@@ -36,62 +36,33 @@ class TimeSetPointVerification implements ShouldQueue
      */
     public function handle()
     {
-        $t_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('tmon', true)->where('protected', true)->get();
-        $h_set_point_devices = Device::where('admin_mon', true)->where('on_line', true)->where('hmon', true)->where('protected', true)->get();
+        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->get();
 
-        foreach($t_set_point_devices as $device)
+        foreach($devices as $device)
         {
-            $delay = now()->subMinutes($device->tdly);
+            $delay = now()->subMinutes($device->tiny_t_device->tdly);
 
-            if ($device->t_change_at <= $delay && $device->on_t_set_point)
+            if ($device->tiny_t_device->t_change_at <= $delay && $device->tiny_t_device->on_t_set_point)
             {
-                $device->on_t_set_point = false;
+                $device->tiny_t_device->on_t_set_point = false;
                 $device->update();
 
                 Alert::create([
                     'device_id' => $device->id,
                     'log' => 'La temperatura no alcanzo el valor deseado en el tiempo previsto.',
-                    'alert_created_at' => $device->t_change_at,
+                    'alert_created_at' => $device->tiny_t_device->t_change_at,
                 ]);
 
                 MailAlert::create([
                     'device_id' => $device->id,
                     'user_id' => $device->user_id,
                     'type' => 'tSetPoint',
-                    'last_created_at' => $device->t_change_at,
+                    'last_created_at' => $device->tiny_t_device->t_change_at,
                 ]);
             }
-            if ($device->t_change_at > $delay && !$device->on_t_set_point)
+            if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point)
             {
-                $device->on_t_set_point = true;
-                $device->update();
-            }
-        }
-        foreach($h_set_point_devices as $device)
-        {
-            $delay = now()->subMinutes($device->hdly);
-
-            if ($device->h_change_at <= $delay && $device->on_h_set_point)
-            {
-                $device->on_h_set_point = false;
-                $device->update();
-
-                Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'La humedad no alcanzo el valor deseado en el tiempo previsto.',
-                    'alert_created_at' =>$device->h_change_at,
-                ]);
-
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'hSetPoint',
-                    'last_created_at' => $device->h_change_at,
-                ]);
-            }
-            if ($device->h_change_at > $delay && !$device->on_h_set_point)
-            {
-                $device->on_h_set_point = true;
+                $device->tiny_t_device->on_t_set_point = true;
                 $device->update();
             }
         }

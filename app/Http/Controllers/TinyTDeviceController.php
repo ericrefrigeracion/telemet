@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Pay;
 use App\Alert;
 use App\Price;
-use App\Device;
 use App\TinyTDevice;
 use App\TypeRule;
 use App\TypeDevice;
@@ -14,7 +13,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DeviceController extends Controller
+class TinyTDeviceController extends Controller
 {
 
     /**
@@ -24,7 +23,7 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
+        $devices = TinyTDevice::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
 
         return view('devices.all')->with(['devices' => $devices]);
 
@@ -41,6 +40,7 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
 
+            $device->type_rule_description = TypeRule::find($device->type_rule_id)->description;
             if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
             {
                 if($device->on_line)
@@ -95,41 +95,42 @@ class DeviceController extends Controller
         $request->validate($rules);
 
         $type_device = TypeDevice::where('prefix', substr($request->id, 0, 2))->first();
-        $user = Auth::user();
+        $device = new TinyTDevice;
 
-        Device::create([
-            'id' => $request->id,
-            'user_id' => $user->id,
-            'type_device_id' => $type_device->id,
-            'type_rule_id' => 1,
-            'name' => $request->name,
-            'description' => $request->description,
-            'admin_mon' => true,
-            'protected' => true,
-            'on_line' => false,
-            'notification_email' => $user->email,
-            'notification_phone_number' => $user->phone_area_code . ' - ' . $user->phone_number,
-            'monitor_expires_at' => now()->addWeek(),
-            'view_alerts_at' => now(),
-        ]);
+        $device->id = $request->id;
+        $device->user_id = Auth::user()->id;
+        $device->type_device_id = $type_device->id;
+        $device->type_rule_id = 1;
+        $device->name = $request->name;
+        $device->description = $request->description;
+        $device->view_alerts_at = now();
+        $device->monitor_expires_at = now()->addWeek();
+        $device->send_mails = true;
+        $device->admin_mon = true;
+        $device->protected = true;
+        $device->on_line = false;
+        $device->on_temp = false;
+        $device->on_hum = false;
+        $device->on_t_set_point = false;
+        $device->on_h_set_point = false;
+        $device->tmon = true;
+        $device->tmin = 0;
+        $device->tmax = 0;
+        $device->tdly = 30;
+        $device->tcal = 0;
+        $device->hmon = false;
+        $device->hmin = 50;
+        $device->hmax = 50;
+        $device->hdly = 30;
+        $device->hcal = 0;
+        $device->t_set_point = 0;
+        $device->t_is = 'higher';
+        $device->t_change_at = now();
+        $device->h_set_point = 50;
+        $device->h_is = 'higher';
+        $device->h_change_at = now();
 
-
-        if($type_device->id == 2)
-        {
-            TinyTDevice::create([
-                'id' => $request->id,
-                'device_id' => $request->id,
-                'on_temp' => false,
-                'on_t_set_point' => false,
-                'tmin' => 0,
-                'tmax' => 0,
-                'tdly' => 30,
-                'tcal' => 0,
-                't_set_point' => 0,
-                't_is' => 'higher',
-                't_change_at' => now(),
-            ]);
-        }
+        $device->save();
 
         return redirect()->route('devices.show', $request->id)->with('success', ['Dispositivo creado con exito']);
     }
@@ -140,14 +141,13 @@ class DeviceController extends Controller
      * @param  \App\Devices  $devices
      * @return \Illuminate\Http\Response
      */
-    public function show(Device $device)
+    public function show(TinyTDevice $device)
     {
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            $type_rule = $device->type_rule()->first();
-            $tiny_t_device = $device->tiny_t_device()->first();
-            return view('devices.show')->with(['device' => $device, 'rule' => $type_rule, 'tiny_t_device' => $tiny_t_device]);
+            $type_rule = TypeRule::find($device->type_rule_id);
+            return view('devices.show')->with(['device' => $device, 'rule' => $type_rule]);
         }
         else
         {
@@ -163,7 +163,7 @@ class DeviceController extends Controller
      */
     public function log($id)
     {
-        $device = Device::findOrFail($id);
+        $device = TinyTDevice::findOrFail($id);
         $device_logs = Reception::where('device_id', $id)->where('log', '!=', 200)->latest()->paginate(20);
 
         return view('devices.log')->with(['device_logs' => $device_logs, 'device' => $device]);
@@ -175,13 +175,11 @@ class DeviceController extends Controller
      * @param  \App\Devices  $devices
      * @return \Illuminate\Http\Response
      */
-    public function edit(Device $device)
+    public function edit(TinyTDevice $device)
     {
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            $type_rules = TypeRule::all();
-            $tiny_t_device = $device->tiny_t_device;
-            return view('devices.edit')->with(['device' => $device, 'type_rules' => $type_rules, 'tiny_t_device' => $tiny_t_device]);
+            return view('devices.edit', compact('device'));
         }
         else
         {
@@ -196,55 +194,36 @@ class DeviceController extends Controller
      * @param  \App\Devices  $devices
      * @return \Illuminate\Http\Response
      */
-    public function update_device(Request $request, Device $device)
+    public function update(Request $request, TinyTDevice $device)
     {
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $rules = [
-                'type_rule_id' => 'required|exists:type_rules,id',
                 'name' => 'required|max:25',
                 'description' => 'max:50',
-                'notification_email' => 'required|string',
-                'notification_phone_number' => 'required',
+                'type_rule_id' => 'required|exists:type_rules,id',
+                'send_mails' => 'boolean',
+                't_set_point' => 'filled|numeric|min:-30|max:80',
+                'tcal' => 'filled|numeric|min:-5|max:5',
+                'tmon' => 'boolean',
+                't_set_point' => 'filled|numeric|min:-30|max:80',
+                'tmin' => 'filled|numeric|min:-30|max:80',
+                'tmax' => 'filled|numeric|min:-30|max:80',
+                'tdly' => 'filled|integer|min:0|max:60',
+                'hmon' => 'boolean',
+                'h_set_point' => 'filled|numeric|min:-30|max:80',
+                'hcal' => 'filled|numeric|min:-5|max:5',
+                'h_set_point' => 'filled|numeric|min:-30|max:80',
+                'hmin' => 'filled|numeric|min:0|max:95',
+                'hmax' => 'filled|numeric|min:0|max:95',
+                'hdly' => 'filled|integer|min:0|max:60',
             ];
 
             $request->validate($rules);
+
             $device->update($request->all());
-
             return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);
-
-        }
-        else
-        {
-            abort(403, 'Accion no Autorizada');
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Devices  $devices
-     * @return \Illuminate\Http\Response
-     */
-    public function update_tiny_t(Request $request, TinyTDevice $tiny_t_device)
-    {
-
-        if (Auth::user()->id === $tiny_t_device->device->user_id || Auth::user()->id < 3)
-        {
-
-            $rules = [
-                'tcal' => 'required|numeric|min:-5|max:5',
-                't_set_point' => 'required|numeric|min:-30|max:80',
-                'tmin' => 'required|numeric|min:-30|max:80|lt:tmax',
-                'tmax' => 'required|numeric|min:-30|max:80|gt:tmin',
-                'tdly' => 'required|integer|min:0|max:60',
-            ];
-            $request->validate($rules);
-            $tiny_t_device->update($request->all());
-
-            return redirect()->route('devices.show', $tiny_t_device->device->id)->with('success', ['Dispositivo actualizado con exito']);
 
         }
         else
@@ -259,7 +238,7 @@ class DeviceController extends Controller
      * @param  \App\Devices  $devices
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Device $device)
+    public function destroy(TinyTDevice $device)
     {
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)

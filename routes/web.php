@@ -94,7 +94,8 @@ Route::middleware(['verified'])->group(function () {
 		Route::post('/devices', 'DeviceController@store')->name('devices.store')->middleware('can:devices.create');
 		Route::get('/devices/create', 'DeviceController@create')->name('devices.create')->middleware('can:devices.create');
 		Route::delete('/devices/{device}', 'DeviceController@destroy')->name('devices.destroy')->middleware('can:devices.destroy');
-		Route::put('/devices/{device}', 'DeviceController@update')->name('devices.update')->middleware('can:devices.edit');
+		Route::put('/devices/{device}', 'DeviceController@update_device')->name('devices.update_device')->middleware('can:devices.edit');
+		Route::put('/devices/tiny-t/{tiny_t_device}', 'DeviceController@update_tiny_t')->name('devices.update_tiny_t')->middleware('can:devices.edit');
 		Route::get('/devices/{device}', 'DeviceController@show')->name('devices.show')->middleware('can:devices.show');
 		Route::get('/devices/{device}/edit', 'DeviceController@edit')->name('devices.edit')->middleware('can:devices.edit');
 

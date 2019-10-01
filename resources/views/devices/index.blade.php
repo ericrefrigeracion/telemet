@@ -14,17 +14,17 @@
                         <div class="card-body">
                             <div class="row">
                                  <div class="col text-center">
-                                            @if($device->admin_mon && $device->tmon && $device->on_line)
-                                                @if($device->on_temp  && $device->on_t_set_point)
+                                            @if($device->admin_mon && $device->on_line)
+                                                @if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_t_set_point)
                                                     Todo en orden<i class="far fa-check-circle text-success m-2"></i>
                                                 @endif
-                                                @if(!$device->on_temp && $device->on_t_set_point)
+                                                @if(!$device->tiny_t_device->on_temp && $device->tiny_t_device->on_t_set_point)
                                                     Fuera de Rango<i class="fas fa-exclamation text-warning m-2"></i>
                                                 @endif
-                                                 @if($device->on_temp && !$device->on_t_set_point)
+                                                 @if($device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
                                                     Ciclo Lento<i class="fas fa-exclamation text-warning m-2"></i>
                                                 @endif
-                                                @if(!$device->on_temp && !$device->on_t_set_point)
+                                                @if(!$device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
                                                     Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
                                                 @endif
                                                 @if($device->protected)
@@ -38,21 +38,13 @@
                             <div class="row">
                                 @if($device->admin_mon)
                                     <div class="col-2">
-                                        <i class="fas fa-user-shield text-success m-2" title="Monitoreo Activo"></i>
-                                        @if($device->tmon)
-                                            <i class="fas fa-temperature-high text-success m-2" title="Control de Temperatura Activo"></i>
-                                        @else
-                                            <i class="fas fa-temperature-high text-danger m-2" title="Control de Temperatura Desactivado"></i>
-                                        @endif
-                                        @if($device->type_rule_id == 1)
-                                            <i class="far fa-check-square text-success m-2" title="{{ $device->type_rule_description }}"></i>
-                                        @endif
-                                        @if($device->type_rule_id == 2)
-                                            <i class="fas fa-cash-register text-success m-2" title="{{ $device->type_rule_description }}"></i>
-                                        @endif
-                                        @if($device->type_rule_id == 3)
-                                            <a href="{{ route('rules.index') }}"><i class="far fa-clock text-success m-2" title="{{ $device->type_rule_description }}"></i></a>
-                                        @endif
+                                        <i class="fas fa-user-shield text-success m-2" title="Monitoreo Vigente"></i>
+                                        <i class="{{ $device->type_rule->class }}" title="{{ $device->type_rule->description }}"></i>
+                                    </div>
+                                @else
+                                    <div class="col-2">
+                                        <i class="fas fa-user-shield text-danger m-2" title="Monitoreo Vencido"></i>
+                                        <i class="{{ $device->type_rule->class }}" title="{{ $device->type_rule->description }}"></i>
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
@@ -80,7 +72,7 @@
                                 @if($device->admin_mon)
                                     {{ $device->on_line ? 'En Linea':'Sin Conexion'}} - {{ $device->last_created_at }}
                                 @else
-                                    Monitoreo vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
+                                    Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
                                 @endif
                             </small>
                         </div>

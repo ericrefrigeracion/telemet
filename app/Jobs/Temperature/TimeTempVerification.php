@@ -35,22 +35,25 @@ class TimeTempVerification implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('tmon', true)->where('admin_mon', true)->where('on_line', true)->where('on_temp', false)->where('protected', true)->get();
+        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->get();
 
         foreach($devices as $device)
         {
-            $delay = now()->subMinutes($device->tdly);
-
-            if ($device->t_out_at <= $delay)
+            if(!$device->tiny_t_device->on_temp)
             {
-                if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->t_out_at)->count())
+                $delay = now()->subMinutes($device->tiny_t_device->tdly);
+
+                if ($device->tiny_t_device->t_out_at <= $delay)
                 {
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'temp',
-                        'last_created_at' => $device->t_out_at,
-                    ]);
+                    if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
+                    {
+                        MailAlert::create([
+                            'device_id' => $device->id,
+                            'user_id' => $device->user_id,
+                            'type' => 'temp',
+                            'last_created_at' => $device->tiny_t_device->t_out_at,
+                        ]);
+                    }
                 }
             }
         }

@@ -24,6 +24,8 @@ class CreatePaysTable extends Migration
             $table->string('detail')->nullable();
             $table->string('operation_type')->nullable();
             $table->dateTime('verified_by_system')->nullable();
+            $table->dateTime('period_start')->nullable();
+            $table->dateTime('period_finish')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

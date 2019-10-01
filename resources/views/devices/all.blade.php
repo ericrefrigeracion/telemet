@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>Usr</th>
                                 <th>Dispositivo</th>
                                 <th>Protegido</th>
@@ -23,7 +23,7 @@
                         </thead>
                         <tbody>
                             @foreach($devices as $device)
-                                <tr>
+                                <tr class="text-center">
                                     @can('users.show')
                                     <td><a href="{{ route('users.show', $device->user_id) }}" class="btn btn-sm btn-default">{{ $device->user_id }}</a></td>
                                     @endcan

@@ -17,6 +17,7 @@ class CreateTypeRulesTable extends Migration
             $table->bigIncrements('id');
             $table->string('type');
             $table->string('description')->nullable();
+            $table->string('class')->nullable();
             $table->timestamps();
         });
     }

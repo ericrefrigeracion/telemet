@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'phone_area_code', 'phone_number', 'address', 'dni',
+        'name', 'surname', 'email', 'password', 'phone_area_code', 'phone_number', 'address', 'dni','notification_email_1', 'notification_email_2', 'notification_email_3', 'notification_phone_number_1', 'notification_phone_number_2', 'notification_phone_number_3',
     ];
 
      protected $dates = [];
@@ -49,10 +49,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Device::class);
     }
 
-    public function mail_alerts()
-    {
-        return $this->hasMany(MailAlert::class);
-    }
     public function pays()
     {
         return $this->hasMany(Pay::class);

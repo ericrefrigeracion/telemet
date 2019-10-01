@@ -64,7 +64,9 @@ class PaymentRevissionJob implements ShouldQueue
             {
                 $device = Device::find($device_id);
                 $price = Price::find($price_id);
+                $period_start = $device->monitor_expires_at;
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $period_finish = $device->monitor_expires_at;
                 $device->update();
                 Pay::create([
                     'user_id' => $user_id,
@@ -75,6 +77,8 @@ class PaymentRevissionJob implements ShouldQueue
                     'status' => 'Pago recibido',
                     'detail' => 'Acreditado',
                     'operation_type' => $response->operation_type,
+                    'period_start' => $period_start,
+                    'period_finish' => $period_finish,
                     'verified_by_system' => now(),
                 ]);
                 Alert::create([
@@ -109,11 +113,15 @@ class PaymentRevissionJob implements ShouldQueue
             {
                 $device = Device::find($device_id);
                 $price = Price::find($price_id);
+                $period_start = $device->monitor_expires_at;
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $period_finish = $device->monitor_expires_at;
                 $device->update();
 
                 $pay->status = 'Pago recibido';
                 $pay->detail = 'Acreditado';
+                $pay->period_start = $period_start;
+                $pay->period_finish = $period_finish;
                 $pay->verified_by_system = now();
                 $pay->update();
 

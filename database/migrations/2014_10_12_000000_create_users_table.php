@@ -21,10 +21,18 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
             $table->integer('dni')->nullable();
-            $table->string('phone_area_code')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->integer('phone_area_code')->nullable();
+            $table->integer('phone_number')->nullable();
             $table->string('address')->nullable();
+
+            $table->string('notification_email_1')->nullable();
+            $table->string('notification_email_2')->nullable();
+            $table->string('notification_email_3')->nullable();
+            $table->string('notification_phone_number_1')->nullable();
+            $table->string('notification_phone_number_2')->nullable();
+            $table->string('notification_phone_number_3')->nullable();
             $table->timestamps();
         });
     }

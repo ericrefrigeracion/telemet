@@ -40,7 +40,6 @@ class DevicesCommand extends Command
         DisconnectVerification::dispatch();
         ProtectedDeviceRevissionJob::dispatch();
         TemperatureVerificationJob::dispatch();
-        //HumidityVerificationJob::dispatch();
         TimeSetPointVerification::dispatch();
         SendAdminMails::dispatch();
     }

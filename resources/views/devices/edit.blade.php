@@ -9,93 +9,61 @@
                     Editar Informacion: <strong>{{ $device->id }} - {{ $device->name }}</strong> ({{ $device->description }}).
                 </div>
                 <div class="card-body justify-content-center">
-                    {!! Form::model($device, ['route' => ['devices.update', $device->id], 'method' => 'PUT']) !!}
-                        <div class="form-group">
-                            {{ Form::label('name', 'Nombre del Dispositivo') }}
-                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('description', 'Descripcion del Dispositivo') }}
-                            {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('type_rule_id', 'Protegido:') }}
-                            {{ Form::select('type_rule_id', [
-                                1 => 'Siempre Protegido',
-                                2 => 'Protegido cuando cierro mi Comercio',
-                                3 => 'Con horarios Permitidos (Perzonalizado)',
-                            ], null, ['class' => 'form-control']) }}
-                        </div>
-                        <p>Avisos por E-mail</p>
-                        <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label class="btn btn-secondary{{ $device->send_mails ? ' active' : '' }}">{{ Form::radio('send_mails', '1') }} Activar</label>
-                            <label class="btn btn-secondary{{ !$device->send_mails ? ' active' : '' }}">{{ Form::radio('send_mails', '0') }} Desactivar</label>
-                        </div>
-                        <hr><br>
-                        <div class="row">
+                    <div class="row">
                         <div class="col-md-6">
-                        <h3>Valores de Temperatura</h3><br>
-                        <p>Monitoreo de Temperatura</p>
-                        <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                            <label class="btn btn-secondary{{ $device->tmon ? ' active' : '' }}">{{ Form::radio('tmon', '1') }} Activar</label><br>
-                            <label class="btn btn-secondary{{ !$device->tmon ? ' active' : '' }}">{{ Form::radio('tmon', '0') }} Desactivar</label>
+                             <h3>Valores del Dispositivo</h3><br>
+                            {!! Form::model($device, ['route' => ['devices.update_device', $device->id], 'method' => 'PUT']) !!}
+                                <div class="form-group">
+                                    {{ Form::label('name', 'Nombre del Dispositivo') }}
+                                    {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::label('description', 'Descripcion del Dispositivo') }}
+                                    {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::label('notification_email', 'Enviar Notificaciones A:') }}
+                                    {{ Form::select('notification_email', [
+                                        $device->user->email => $device->user->email,
+                                        $device->user->notification_email_1 => $device->user->notification_email_1,
+                                        $device->user->notification_email_1 => $device->user->notification_email_1,
+                                        $device->user->notification_email_1 => $device->user->notification_email_1,
+                                        'No quiero recibir notificaciones' => 'No quiero recibir notificaciones',
+                                    ], null, ['class' => 'form-control']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::label('notification_phone_number', 'Llamar A:') }}
+                                    {{ Form::select('notification_phone_number', [
+                                        $device->user->phone_area_code . ' - ' . $device->user->phone_number => $device->user->phone_area_code . ' - ' . $device->user->phone_number,
+                                        $device->user->notification_phone_number_1 => $device->user->notification_phone_number_1,
+                                        $device->user->notification_phone_number_2 => $device->user->notification_phone_number_2,
+                                        $device->user->notification_phone_number_3 => $device->user->notification_phone_number_3,
+                                        'No llamar a Nadie' => 'No llamar a Nadie',
+                                    ], null, ['class' => 'form-control']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::label('type_rule_id', 'Protegido:') }}
+                                    {{ Form::select('type_rule_id', [
+                                        $type_rules[0]->id => $type_rules[0]->description,
+                                        $type_rules[1]->id => $type_rules[1]->description,
+                                        $type_rules[2]->id => $type_rules[2]->description,
+                                        $type_rules[3]->id => $type_rules[3]->description,
+                                        1 => 'Siempre Protegido',
+                                        2 => 'Protegido cuando cierro mi Comercio',
+                                        3 => 'Con horarios Permitidos (Perzonalizado)',
+                                        4 => 'Siempre Desprotegido (Monitoreo Deshabilitado)',
+                                    ], null, ['class' => 'form-control']) }}
+                                </div>
+                                <div>
+                                    {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
+                                </div>
+                            {!! Form::close() !!}
+                            <br><hr><br>
                         </div>
-                        <div class="form-group">
-                            {{ Form::label('tcal', 'Calibracion de la Medicion (°C)') }}
-                            {{ Form::number('tcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('t_set_point', 'Temperatura Deseada (°C)') }}
-                            {{ Form::number('t_set_point', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('tmin', 'Minima Temperatura Permitida (°C)') }}
-                            {{ Form::number('tmin', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('tmax', 'Maxima Temperatura Permitida (°C)') }}
-                            {{ Form::number('tmax', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('tdly', 'Retardo al Aviso (minutos)') }}
-                            {{ Form::number('tdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
-                        </div>
-                        </div>
-                        @if($device->type_device_id == 3)
-                            <div class="col-md-6">
-                            <h3>Valores de Humedad</h3><br>
-                            <p>Monitoreo de Humedad</p>
-                            <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-                                <label class="btn btn-secondary{{ $device->hmon ? ' focus active' : '' }}">{{ Form::radio('hmon', '1') }} Activar</label><br>
-                                <label class="btn btn-secondary{{ !$device->hmon ? ' focus active' : '' }}">{{ Form::radio('hmon', '0') }} Desactivar</label>
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hcal', 'Calibracion de la Medicion (% HR)') }}
-                                {{ Form::number('hcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                    {{ Form::label('h_set_point', 'Humedad Deseada (% HR)') }}
-                                    {{ Form::number('h_set_point', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hmin', 'Minima Humedad Permitida (% HR)') }}
-                                {{ Form::number('hmin', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hmax', 'Maxima Humedad Permitida (% HR)') }}
-                                {{ Form::number('hmax', null, ['class' => 'form-control', 'required', 'min' => 30, 'max' => 95, 'step' => 0.01]) }}
-                            </div>
-                            <div class="form-group">
-                                {{ Form::label('hdly', 'Retardo al Aviso (minutos)') }}
-                                {{ Form::number('hdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
-                            </div>
-                            </div>
+                        @if($device->type_device_id == 2)
+                            @include('devices.partials.tiny_t_edit')
                         @endif
-                        </div>
-                        <div>
-                            {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
-                        </div>
-                    {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

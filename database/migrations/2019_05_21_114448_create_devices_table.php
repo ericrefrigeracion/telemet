@@ -15,42 +15,25 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
+
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('type_device_id');
             $table->unsignedBigInteger('type_rule_id');
+
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('lat')->nullable();
             $table->string('lon')->nullable();
+
             $table->boolean('admin_mon');
             $table->boolean('protected');
             $table->boolean('on_line');
-            $table->string('send_mails');
 
-            $table->boolean('on_temp');
-            $table->boolean('on_hum');
-            $table->boolean('on_t_set_point');
-            $table->boolean('on_h_set_point');
             $table->dateTime('monitor_expires_at');
             $table->dateTime('view_alerts_at');
-            $table->boolean('tmon');
-            $table->integer('tdly')->unsigned();
-            $table->float('tcal');
-            $table->float('t_set_point');
-            $table->string('t_is');
-            $table->dateTime('t_change_at');
-            $table->float('tmin');
-            $table->dateTime('t_out_at')->nullable();
-            $table->float('tmax');
-            $table->boolean('hmon');
-            $table->integer('hdly')->unsigned();
-            $table->float('hcal');
-            $table->float('h_set_point');
-            $table->string('h_is');
-            $table->dateTime('h_change_at');
-            $table->float('hmin');
-            $table->dateTime('h_out_at')->nullable();
-            $table->float('hmax');
+            $table->string('notification_email')->nullable();
+            $table->string('notification_phone_number')->nullable();
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

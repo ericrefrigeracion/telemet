@@ -15,19 +15,19 @@ class TypeDevicesTableSeeder extends Seeder
     {
         TypeDevice::create([
     		'prefix' => 0,
-			'model' => '',
+			'model' => 'Admin',
 			'description' => 'Administrador'
     	]);
     	TypeDevice::create([
     		'prefix' => 10,
-			'model' => 't',
+			'model' => 'Centinela Tiny t',
 			'description' => 'Una temperatura',
 			'data01_unit' => '°C',
 			'data01_name' => 'Temperatura',
     	]);
     	TypeDevice::create([
     		'prefix' => 20,
-			'model' => 'th',
+			'model' => 'Centinela Tiny th',
 			'description' => 'Una temperatura, una Humedad',
 			'data01_unit' => '°C',
 			'data01_name' => 'Temperatura',
@@ -36,7 +36,7 @@ class TypeDevicesTableSeeder extends Seeder
     	]);
     	TypeDevice::create([
     		'prefix' => 90,
-			'model' => 'tta',
+			'model' => 'Centinela tta',
 			'description' => 'Dos temperaturas, una Humedad',
 			'data01_unit' => '°C',
 			'data01_name' => 'Temperatura',

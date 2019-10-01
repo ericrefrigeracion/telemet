@@ -15,6 +15,10 @@ class PayVigentVerification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 5;
+    public $timeout = 30;
+
+
     /**
      * Create a new job instance.
      *

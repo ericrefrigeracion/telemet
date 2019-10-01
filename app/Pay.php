@@ -25,9 +25,11 @@ class Pay extends Model
         'detail',
         'operation_type',
         'verified_by_system',
+        'period_start',
+        'period_finish'
     ];
 
-    protected $dates = ['verified_by_system'];
+    protected $dates = ['verified_by_system', 'period_start', 'period_finish'];
 
     /**
      * The attributes that should be hidden for arrays.

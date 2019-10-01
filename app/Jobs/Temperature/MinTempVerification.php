@@ -35,18 +35,18 @@ class MinTempVerification implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all()->where('tmon', true)->where('admin_mon', true)->where('on_line', true)->where('protected', true);
+        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->get();
 
         foreach($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
-            $last_reception->data01 += $device->tcal;
+            $last_reception->data01 += $device->tiny_t_device->tcal;
 
-            if($last_reception->data01 < $device->tmin && $device->on_temp)
+            if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
             {
-                $device->on_temp = false;
-                $device->t_out_at = $last_reception->created_at;
-                $device->update();
+                $device->tiny_t_device->on_temp = false;
+                $device->tiny_t_device->t_out_at = $last_reception->created_at;
+                $device->tiny_t_device->update();
 
                 Alert::create([
                     'device_id' => $device->id,
@@ -54,11 +54,11 @@ class MinTempVerification implements ShouldQueue
                     'alert_created_at' => $last_reception->created_at
                 ]);
             }
-            if($last_reception->data01 < $device->tmax && $last_reception->data01 > $device->tmin && !$device->on_temp)
+            if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
-                $device->on_temp = true;
-                $device->t_out_at = null;
-                $device->update();
+                $device->tiny_t_device->on_temp = true;
+                $device->tiny_t_device->t_out_at = null;
+                $device->tiny_t_device->update();
             }
         }
     }

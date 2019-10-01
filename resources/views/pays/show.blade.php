@@ -40,6 +40,10 @@
                                     <td>Pago verificado:</td>
                                     <td>{{ $pay->verified_by_system }}</td>
                                 </tr>
+                                <tr>
+                                    <td>Vigencia del pago:</td>
+                                    <td>{{ $pay->period_start }} - {{ $pay->period_finish }}</td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
