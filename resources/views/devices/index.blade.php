@@ -39,12 +39,12 @@
                                 @if($device->admin_mon)
                                     <div class="col-2">
                                         <i class="fas fa-user-shield text-success m-2" title="Monitoreo Vigente"></i>
-                                        <i class="{{ $device->type_rule->class }}" title="{{ $device->type_rule->description }}"></i>
+                                        <i class="{{ $device->protection->class }}" title="{{ $device->protection->description }}"></i>
                                     </div>
                                 @else
                                     <div class="col-2">
                                         <i class="fas fa-user-shield text-danger m-2" title="Monitoreo Vencido"></i>
-                                        <i class="{{ $device->type_rule->class }}" title="{{ $device->type_rule->description }}"></i>
+                                        <i class="{{ $device->protection->class }}" title="{{ $device->protection->description }}"></i>
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">

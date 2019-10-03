@@ -7,7 +7,7 @@ use App\Alert;
 use App\Price;
 use App\Device;
 use App\TinyTDevice;
-use App\TypeRule;
+use App\Protection;
 use App\TypeDevice;
 use App\Reception;
 use GuzzleHttp\Client;
@@ -101,7 +101,7 @@ class DeviceController extends Controller
             'id' => $request->id,
             'user_id' => $user->id,
             'type_device_id' => $type_device->id,
-            'type_rule_id' => 1,
+            'protection_id' => 1,
             'name' => $request->name,
             'description' => $request->description,
             'admin_mon' => true,
@@ -145,9 +145,9 @@ class DeviceController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            $type_rule = $device->type_rule()->first();
+            $protection = $device->protection()->first();
             $tiny_t_device = $device->tiny_t_device()->first();
-            return view('devices.show')->with(['device' => $device, 'rule' => $type_rule, 'tiny_t_device' => $tiny_t_device]);
+            return view('devices.show')->with(['device' => $device, 'protection' => $protection, 'tiny_t_device' => $tiny_t_device]);
         }
         else
         {
@@ -179,9 +179,9 @@ class DeviceController extends Controller
     {
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            $type_rules = TypeRule::all();
+            $protections = Protection::all();
             $tiny_t_device = $device->tiny_t_device;
-            return view('devices.edit')->with(['device' => $device, 'type_rules' => $type_rules, 'tiny_t_device' => $tiny_t_device]);
+            return view('devices.edit')->with(['device' => $device, 'protections' => $protections, 'tiny_t_device' => $tiny_t_device]);
         }
         else
         {
@@ -202,7 +202,7 @@ class DeviceController extends Controller
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $rules = [
-                'type_rule_id' => 'required|exists:type_rules,id',
+                'protection_id' => 'required|exists:protections,id',
                 'name' => 'required|max:25',
                 'description' => 'max:50',
                 'notification_email' => 'required|string',

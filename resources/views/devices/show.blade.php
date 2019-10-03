@@ -57,7 +57,7 @@
                                 </tr>
                                 <tr>
                                     <td>TIPO DE PROTECCION</td>
-                                    <td>{{ $device->type_rule->description }}</td>
+                                    <td>{{ $device->protection->description }}</td>
                                 </tr>
                                 @if($device->type_device_id == 2)
                                     @include('devices.partials.tiny_t_show')

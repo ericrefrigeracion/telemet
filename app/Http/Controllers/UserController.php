@@ -93,7 +93,13 @@ class UserController extends Controller
                 'dni' => 'nullable|numeric',
                 'phone_area_code' => 'required|numeric',
                 'phone_number' => 'required|numeric',
-                'address' => 'nullable|string'
+                'address' => 'nullable|string',
+                'notification_email_1' => 'nullable|email',
+                'notification_email_2' => 'nullable|email',
+                'notification_email_3' => 'nullable|email',
+                'notification_phone_number_1' => 'nullable|string',
+                'notification_phone_number_2' => 'nullable|string',
+                'notification_phone_number_3' => 'nullable|string',
             ];
 
             $request->validate($rules);
@@ -120,7 +126,13 @@ class UserController extends Controller
             'dni' => 'nullable|numeric',
             'phone_area_code' => 'required|numeric',
             'phone_number' => 'required|numeric',
-            'address' => 'nullable|string'
+            'address' => 'nullable|string',
+            'notification_email_1' => 'nullable|email',
+            'notification_email_2' => 'nullable|email',
+            'notification_email_3' => 'nullable|email',
+            'notification_phone_number_1' => 'nullable|string',
+            'notification_phone_number_2' => 'nullable|string',
+            'notification_phone_number_3' => 'nullable|string',
         ];
 
         $user = Auth::user();

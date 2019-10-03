@@ -26,8 +26,8 @@
                                     {{ Form::select('notification_email', [
                                         $device->user->email => $device->user->email,
                                         $device->user->notification_email_1 => $device->user->notification_email_1,
-                                        $device->user->notification_email_1 => $device->user->notification_email_1,
-                                        $device->user->notification_email_1 => $device->user->notification_email_1,
+                                        $device->user->notification_email_2 => $device->user->notification_email_2,
+                                        $device->user->notification_email_3 => $device->user->notification_email_3,
                                         'No quiero recibir notificaciones' => 'No quiero recibir notificaciones',
                                     ], null, ['class' => 'form-control']) }}
                                 </div>
@@ -42,16 +42,12 @@
                                     ], null, ['class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ Form::label('type_rule_id', 'Protegido:') }}
-                                    {{ Form::select('type_rule_id', [
-                                        $type_rules[0]->id => $type_rules[0]->description,
-                                        $type_rules[1]->id => $type_rules[1]->description,
-                                        $type_rules[2]->id => $type_rules[2]->description,
-                                        $type_rules[3]->id => $type_rules[3]->description,
-                                        1 => 'Siempre Protegido',
-                                        2 => 'Protegido cuando cierro mi Comercio',
-                                        3 => 'Con horarios Permitidos (Perzonalizado)',
-                                        4 => 'Siempre Desprotegido (Monitoreo Deshabilitado)',
+                                    {{ Form::label('protection_id', 'Protegido:') }}
+                                    {{ Form::select('protection_id', [
+                                        $protections[0]->id => $protections[0]->description,
+                                        $protections[1]->id => $protections[1]->description,
+                                        $protections[2]->id => $protections[2]->description,
+                                        $protections[3]->id => $protections[3]->description,
                                     ], null, ['class' => 'form-control']) }}
                                 </div>
                                 <div>

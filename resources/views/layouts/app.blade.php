@@ -119,6 +119,13 @@
                                     @can('prices.index')
                                         <a class="dropdown-item" href="{{ route('prices.index') }}">Precios</a>
                                     @endcan
+                                    @can('protections.index')
+                                        <a class="dropdown-item" href="{{ route('protections.index') }}">Tipo Proteccion</a>
+                                    @endcan
+                                    @can('type-devices.index')
+                                        <a class="dropdown-item" href="{{ route('type-devices.index') }}">Tipo Dispositivos</a>
+                                    @endcan
+                                    <div class="dropdown-divider"></div>
                                     @can('mail-alerts.index')
                                         <a class="dropdown-item" href="{{ route('mail-alerts.index') }}">Mail Alerts</a>
                                     @endcan

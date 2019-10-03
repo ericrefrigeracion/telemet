@@ -6,7 +6,7 @@ use App\Pay;
 use App\Rule;
 use App\User;
 use App\Alert;
-use App\TypeRule;
+use App\Protection;
 use App\Receptions;
 use App\TypeDevice;
 use App\TinyTDevice;
@@ -24,7 +24,7 @@ class Device extends Model
         'id',
         'user_id',
         'type_device_id',
-        'type_rule_id',
+        'protection_id',
         'name',
         'description',
         'lat',
@@ -63,9 +63,9 @@ class Device extends Model
         return $this->hasOne(TinyTDevice::class);
     }
 
-    public function type_rule()
+    public function protection()
     {
-        return $this->belongsTo(TypeRule::class);
+        return $this->belongsTo(Protection::class);
     }
 
 	public function receptions()

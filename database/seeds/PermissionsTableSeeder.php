@@ -312,5 +312,59 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Acceso al panel principal',
         ]);
 
+        //Protections
+        Permission::create([
+            'name' => 'Listar tipo proteccion',
+            'slug' => 'protections.index',
+            'description' => 'Listar y navegar todos los tipos de protecciones',
+        ]);
+        Permission::create([
+            'name' => 'Ver proteccion',
+            'slug' => 'protections.show',
+            'description' => 'Ver informacion de una proteccion especifica',
+        ]);
+        Permission::create([
+            'name' => 'Crear tipo proteccion',
+            'slug' => 'protections.create',
+            'description' => 'Crear un nuevo tipo de proteccion',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar tipo proteccion',
+            'slug' => 'protections.destroy',
+            'description' => 'Elimina un tipo de proteccion y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar tipo proeccion',
+            'slug' => 'protections.edit',
+            'description' => 'Editar la informacion de un tipo de proteccion',
+        ]);
+
+        //Type-devices
+        Permission::create([
+            'name' => 'Listar tipo dispositivos',
+            'slug' => 'type-devices.index',
+            'description' => 'Listar y navegar todos los tipos de dispositivos',
+        ]);
+        Permission::create([
+            'name' => 'Ver tipo dispositivo',
+            'slug' => 'type-devices.show',
+            'description' => 'Ver informacion de un tipo de dispositivo especifico',
+        ]);
+        Permission::create([
+            'name' => 'Crear tipo dispositivo',
+            'slug' => 'type-devices.create',
+            'description' => 'Crear un nuevo tipo de dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar tipo dispositivo',
+            'slug' => 'type-devices.destroy',
+            'description' => 'Elimina un tipo de dispositivo y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar tipo dispositivo',
+            'slug' => 'type-devices.edit',
+            'description' => 'Editar la informacion de un tipo de dispositivo',
+        ]);
+
     }
 }

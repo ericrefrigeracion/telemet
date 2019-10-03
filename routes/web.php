@@ -84,6 +84,24 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/prices/{price}', 'PriceController@show')->name('prices.show')->middleware('can:prices.show');
 		Route::get('/prices/{price}/edit', 'PriceController@edit')->name('prices.edit')->middleware('can:prices.edit');
 
+		//TypeDevices
+		Route::get('/type-devices', 'TypeDeviceController@index')->name('type-devices.index')->middleware('can:type-devices.index');
+		Route::post('/type-devices', 'TypeDeviceController@store')->name('type-devices.store')->middleware('can:type-devices.create');
+		Route::get('/type-devices/create', 'TypeDeviceController@create')->name('type-devices.create')->middleware('can:type-devices.create');
+		Route::delete('/type-devices/{type_device}', 'TypeDeviceController@destroy')->name('type-devices.destroy')->middleware('can:type-devices.destroy');
+		Route::put('/type-devices/{type_device}', 'TypeDeviceController@update')->name('type-devices.update')->middleware('can:type-devices.edit');
+		Route::get('/type-devices/{type_device}', 'TypeDeviceController@show')->name('type-devices.show')->middleware('can:type-devices.show');
+		Route::get('/type-devices/{type_device}/edit', 'TypeDeviceController@edit')->name('type-devices.edit')->middleware('can:type-devices.edit');
+
+		//Protections
+		Route::get('/protections', 'ProtectionController@index')->name('protections.index')->middleware('can:protections.index');
+		Route::post('/protections', 'ProtectionController@store')->name('protections.store')->middleware('can:protections.create');
+		Route::get('/protections/create', 'ProtectionController@create')->name('protections.create')->middleware('can:protections.create');
+		Route::delete('/protections/{protection}', 'ProtectionController@destroy')->name('protections.destroy')->middleware('can:protections.destroy');
+		Route::put('/protections/{protection}', 'ProtectionController@update')->name('protections.update')->middleware('can:protections.edit');
+		Route::get('/protections/{protection}', 'ProtectionController@show')->name('protections.show')->middleware('can:protections.show');
+		Route::get('/protections/{protection}/edit', 'ProtectionController@edit')->name('protections.edit')->middleware('can:protections.edit');
+
 	});
 
 	Route::prefix('centinela')->group(function () {

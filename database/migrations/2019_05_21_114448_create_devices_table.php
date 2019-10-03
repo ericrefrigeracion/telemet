@@ -18,7 +18,7 @@ class CreateDevicesTable extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('type_device_id');
-            $table->unsignedBigInteger('type_rule_id');
+            $table->unsignedBigInteger('protection_id');
 
             $table->string('name');
             $table->string('description')->nullable();
@@ -38,7 +38,7 @@ class CreateDevicesTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('type_device_id')->references('id')->on('type_devices')->onDelete('cascade');
-            $table->foreign('type_rule_id')->references('id')->on('type_rules')->onDelete('cascade');
+            $table->foreign('protection_id')->references('id')->on('protections')->onDelete('cascade');
         });
     }
 

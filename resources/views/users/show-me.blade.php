@@ -40,6 +40,30 @@
                                     <td>Direccion:</td>
                                     <td>{{ $user->address }}</td>
                                 </tr>
+                                <tr>
+                                    <td>Numero de Telefono para Avisos 1:</td>
+                                    <td>{{ $user->notification_phone_number_1 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Numero de Telefono para Avisos 2:</td>
+                                    <td>{{ $user->notification_phone_number_2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Numero de Telefono para Avisos 3:</td>
+                                    <td>{{ $user->notification_phone_number_3 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-Mail para Avisos 1:</td>
+                                    <td>{{ $user->notification_email_1 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-Mail para Avisos 2:</td>
+                                    <td>{{ $user->notification_email_2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-Mail para Avisos 3:</td>
+                                    <td>{{ $user->notification_email_3 }}</td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
