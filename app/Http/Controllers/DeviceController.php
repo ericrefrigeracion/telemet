@@ -236,9 +236,9 @@ class DeviceController extends Controller
 
             $rules = [
                 'tcal' => 'required|numeric|min:-5|max:5',
-                't_set_point' => 'required|numeric|min:-30|max:80',
-                'tmin' => 'required|numeric|min:-30|max:80|lt:tmax',
-                'tmax' => 'required|numeric|min:-30|max:80|gt:tmin',
+                't_set_point' => 'required|numeric|lt:tmax|gt:tmin',
+                'tmin' => 'required|numeric|min:-30|lt:tmax',
+                'tmax' => 'required|numeric|max:80|gt:tmin',
                 'tdly' => 'required|integer|min:0|max:60',
             ];
             $request->validate($rules);
