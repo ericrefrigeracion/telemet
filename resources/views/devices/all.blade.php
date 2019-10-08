@@ -38,12 +38,12 @@
                                     @else
                                     <td class="text-danger" title="Desconectado"><i class="fas fa-wifi"></i></td>
                                     @endif
-                                    @if($device->on_temp)
+                                    @if($device->tiny_t_device->on_temp)
                                     <td><i class="fas fa-temperature-high text-success m-2" title="Temperatura dentro de los Limites"></i></td>
                                     @else
                                     <td><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
                                     @endif
-                                    @if($device->on_t_set_point)
+                                    @if($device->tiny_t_device->on_t_set_point)
                                     <td><i class="far fa-check-circle text-success" title="Ciclo Normal"></i></td>
                                     @else
                                     <td><i class="far fa-times-circle text-danger" title="Ciclo Lento"></i></td>
