@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::paginate(10);
+        $users = User::paginate(20);
 
         return view('users.index')->with(['users' => $users]);
 
@@ -89,7 +89,7 @@ class UserController extends Controller
             $rules = [
                 'name' => 'required|max:25',
                 'surname' => 'required|max:25',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users,email',
                 'dni' => 'nullable|numeric',
                 'phone_area_code' => 'required|numeric',
                 'phone_number' => 'required|numeric',
@@ -122,7 +122,7 @@ class UserController extends Controller
         $rules = [
             'name' => 'required|max:25',
             'surname' => 'required|max:25',
-            'email' => 'required|email',
+            'email' => 'email' => 'required|email|unique:users,email',
             'dni' => 'nullable|numeric',
             'phone_area_code' => 'required|numeric',
             'phone_number' => 'required|numeric',

@@ -58,6 +58,18 @@ class WebhookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function sms(Request $request)
+    {
+
+        return 201;
+    }
+
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function pay(Request $request, $user_id, $device_id, $price_id)
     {
 

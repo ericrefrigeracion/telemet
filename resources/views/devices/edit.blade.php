@@ -54,7 +54,6 @@
                                     {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
                                 </div>
                             {!! Form::close() !!}
-                            <br><hr><br>
                         </div>
                         @if($device->type_device_id == 2)
                             @include('devices.partials.tiny_t_edit')

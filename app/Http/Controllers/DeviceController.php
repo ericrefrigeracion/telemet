@@ -122,7 +122,7 @@ class DeviceController extends Controller
                 'on_temp' => false,
                 'on_t_set_point' => false,
                 'tmin' => 0,
-                'tmax' => 0,
+                'tmax' => 1,
                 'tdly' => 30,
                 'tcal' => 0,
                 't_set_point' => 0,
