@@ -50,7 +50,7 @@ class SetPointTempChangeVerification implements ShouldQueue
             if($last_reception->data01 < $device->tiny_t_device->t_set_point && $device->tiny_t_device->t_is === 'higher')
             {
                 $device->tiny_t_device->t_is = 'lower';
-                $device->tiny_t_device->t_change_at = $last_reception->tiny_t_device->created_at;
+                $device->tiny_t_device->t_change_at = $last_reception->created_at;
                 $device->tiny_t_device->update();
             }
         }
