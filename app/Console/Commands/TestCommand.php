@@ -44,8 +44,8 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        DisconnectVerification::dispatch();
-        //ProtectedDeviceRevissionJob::dispatch();
+        //DisconnectVerification::dispatch();
+        ProtectedDeviceRevissionJob::dispatch();
         //SendUserMails::dispatch();
         //SendAdminMails::dispatch();
         //EliminateReceptionsJob::dispatch();
