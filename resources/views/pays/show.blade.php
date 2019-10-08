@@ -42,7 +42,7 @@
                                 </tr>
                                 <tr>
                                     <td>Vigencia del pago:</td>
-                                    <td>{{ $pay->period_start }} - {{ $pay->period_finish }}</td>
+                                    <td>{{ $pay->period_start->toFormattedDateString() }} - {{ $pay->period_finish->toFormattedDateString() }}</td>
                                 </tr>
                         </tbody>
                     </table>
