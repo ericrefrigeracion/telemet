@@ -10,7 +10,11 @@
                 </div>
                 <div class="card-body">
                     <p>El dispositivo a pagar es el N°{{ $device->id }} con el nombre {{ $device->name }} ({{ $device->description }}).</p>
-                    <p>En este momento el monitoreo esta vigente hasta el dia {{ $device->monitor_expires_at->toFormattedDateString() }}.</p>
+                    @if($device->monitor_expires_at > now())
+                        <p>En este momento el monitoreo esta vigente hasta el dia {{ $device->monitor_expires_at->toFormattedDateString() }}.</p>
+                    @else
+                        <p>En este momento el monitoreo se encuentra vencido, comenzara a estar vigente desde el momento en que se acredite el pago.</p>
+                    @endif
                     <p>En la lista de abajo se encuentran los distintos periodos que puede pagar con la cantitad de cuotas posibles, el monto total en pesos y el costo diario de cada periodo.</p>
 
                     <ul>

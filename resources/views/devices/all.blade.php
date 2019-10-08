@@ -28,10 +28,14 @@
                                     <td><a href="{{ route('users.show', $device->user_id) }}" class="btn btn-sm btn-default">{{ $device->user_id }}</a></td>
                                     @endcan
                                     <td>{{ $device->id }}</td>
-                                    @if($device->protected)
-                                    <td><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
+                                    @if($device->protection_id == 4)
+                                    <td><i class="far fa-eye-slash text-danger m-2" title="Proteccion Deshabilitada"></i></td>
                                     @else
-                                    <td><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
+                                        @if($device->protected)
+                                        <td><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
+                                        @else
+                                        <td><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
+                                        @endif
                                     @endif
                                     @if($device->on_line)
                                     <td class="text-success" title="En Linea"><i class="fas fa-wifi"></i></td>

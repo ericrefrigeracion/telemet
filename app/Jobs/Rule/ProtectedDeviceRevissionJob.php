@@ -67,7 +67,16 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
                 break;
         }
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
-        if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
+        if(!$device->protected && $device_protected_flag)
+        {
+            $device->update(['protected' => true]);
+            $device->tiny_t_device->update([
+                'on_t_set_point' => true,
+                'on_temp' => true,
+                't_change_at' => now(),
+                't_out_at' => null,
+            ]);
+        }
     }
 
     public function RuleProtectedDeviceRevission(Device $device)
@@ -106,6 +115,15 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
         if(isset($every_day)) foreach ($every_day as $every) if($every->start_time < $time && $every->stop_time > $time) $device_protected_flag = false;
 
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
-        if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
+        if(!$device->protected && $device_protected_flag)
+        {
+            $device->update(['protected' => true]);
+            $device->tiny_t_device->update([
+                'on_t_set_point' => true,
+                'on_temp' => true,
+                't_change_at' => now(),
+                't_out_at' => null,
+            ]);
+        }
     }
 }
