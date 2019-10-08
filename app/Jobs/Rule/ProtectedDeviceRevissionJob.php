@@ -40,10 +40,10 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
 
         foreach($devices as $device)
         {
-            if($device->type_rule_id == 1 && !$device->protected) AlwaysProtectedDeviceRevissionJob::dispatch($device);
-            if($device->type_rule_id == 2) CommerceProtectedDeviceRevissionJob::dispatch($device);
-            if($device->type_rule_id == 3) RuleProtectedDeviceRevissionJob::dispatch($device);
-            if($device->type_rule_id == 4 && $device->protected) NeverProtectedDeviceRevissionJob::dispatch($device);
+            if($device->protection_id == 1 && !$device->protected) AlwaysProtectedDeviceRevissionJob::dispatch($device);
+            if($device->protection_id == 2) CommerceProtectedDeviceRevissionJob::dispatch($device);
+            if($device->protection_id == 3) RuleProtectedDeviceRevissionJob::dispatch($device);
+            if($device->protection_id == 4 && $device->protected) NeverProtectedDeviceRevissionJob::dispatch($device);
         }
     }
 }
