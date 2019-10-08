@@ -2,10 +2,8 @@
 
 namespace App\Jobs\Rule;
 
+use App\Rule;
 use App\Device;
-use App\Jobs\Rule\AlwaysProtectedDeviceRevissionJob;
-use App\Jobs\Rule\CommerceProtectedDeviceRevissionJob;
-use App\Jobs\Rule\RuleProtectedDeviceRevissionJob;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
