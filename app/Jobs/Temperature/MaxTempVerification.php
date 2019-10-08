@@ -56,9 +56,9 @@ class MaxTempVerification implements ShouldQueue
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
-                $device->on_temp = true;
-                $device->t_out_at = null;
-                $device->update();
+                $device->tiny_t_device->on_temp = true;
+                $device->tiny_t_device->t_out_at = null;
+                $device->tiny_t_device->update();
             }
         }
     }
