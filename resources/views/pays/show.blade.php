@@ -18,7 +18,7 @@
                                 </tr>
                                 <tr>
                                     <td>Item:</td>
-                                    <td>{{ $pay->price->description }}</td>
+                                    <td>{{ $pay->price_id }}</td>
                                 </tr>
                                 <tr>
                                     <td>Numero de Pago:</td>
