@@ -47,8 +47,7 @@ class DisconnectVerification implements ShouldQueue
                 //en la base de datos(on_line=true)
                 if ( $last_reception->created_at < $delay && $device->on_line )
                 {
-                    $device->on_line = false;
-                    $device->update();
+                    $device->update(['on_line'=> false]);
 
                     Alert::create([
                         'device_id' => $device->id,
@@ -68,8 +67,7 @@ class DisconnectVerification implements ShouldQueue
                 //en la base de datos(on_line=false)
                 if( $last_reception->created_at > $delay && !$device->on_line )
                 {
-                    $device->on_line = true;
-                    $device->update();
+                    $device->update(['on_line'=> true]);
 
                     Alert::create([
                         'device_id' => $device->id,

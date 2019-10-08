@@ -40,10 +40,15 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
 
         foreach($devices as $device)
         {
-            if($device->protection_id == 1 && !$device->protected) AlwaysProtectedDeviceRevissionJob::dispatch($device);
+            if($device->protection_id == 1 && !$device->protected) AlwaysProtectedDevice($device);
             if($device->protection_id == 2) CommerceProtectedDeviceRevissionJob::dispatch($device);
             if($device->protection_id == 3) RuleProtectedDeviceRevissionJob::dispatch($device);
             if($device->protection_id == 4 && $device->protected) NeverProtectedDeviceRevissionJob::dispatch($device);
         }
+    }
+
+    public function AlwaysProtectedDevice(Device $device)
+    {
+        $device->update(['protected' => true]);
     }
 }

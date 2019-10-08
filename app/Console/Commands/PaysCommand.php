@@ -19,7 +19,7 @@ class PaysCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Revision del estado de los pagos realizados';
+    protected $description = 'Revision del estado de los pagos no verificados por el sistema';
 
     /**
      * Create a new command instance.

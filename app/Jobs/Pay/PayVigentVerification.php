@@ -45,8 +45,7 @@ class PayVigentVerification implements ShouldQueue
         {
             if($device->monitor_expires_at < $current_time && $device->admin_mon)
             {
-                $device->admin_mon = false;
-                $device->update();
+                $device->update(['admin_mon' => false]);
 
                 Alert::create([
                     'device_id' => $device->id,
@@ -62,8 +61,7 @@ class PayVigentVerification implements ShouldQueue
             }
             if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
             {
-                $device->admin_mon = true;
-                $device->update();
+                $device->update(['admin_mon' => true]);
 
                 Alert::create([
                     'device_id' => $device->id,
