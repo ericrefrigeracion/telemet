@@ -34,20 +34,13 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('admin_mon', true)->get();
 
+        $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 1)->where('protection_id', '!=', 4)->get();
         foreach($devices as $device)
         {
-            if($device->protection_id == 1 && !$device->protected) $this->AlwaysProtectedDeviceRevission($device);
             if($device->protection_id == 2) $this->CommerceProtectedDeviceRevission($device);
             if($device->protection_id == 3) $this->RuleProtectedDeviceRevission($device);
-            if($device->protection_id == 4 && $device->protected) $this->NeverProtectedDeviceRevission($device);
         }
-    }
-
-    public function AlwaysProtectedDeviceRevission(Device $device)
-    {
-        $device->update(['protected' => true]);
     }
 
     public function CommerceProtectedDeviceRevission(Device $device)
@@ -114,10 +107,5 @@ class ProtectedDeviceRevissionJob implements ShouldQueue
 
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
         if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
-    }
-
-    public function NeverProtectedDeviceRevission(Device $device)
-    {
-        $device->update(['protected' => false]);
     }
 }

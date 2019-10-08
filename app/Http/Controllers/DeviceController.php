@@ -210,6 +210,8 @@ class DeviceController extends Controller
             ];
 
             $request->validate($rules);
+            if($request->protection_id == 1) $device->protected = true;
+            if($request->protection_id == 4) $device->protected = false;
             $device->update($request->all());
 
             return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);
