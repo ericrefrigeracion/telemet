@@ -49,7 +49,7 @@ class Pay extends Model
     	return $this->belongsTo(Device::class);
     }
 
-    public function prices()
+    public function price()
     {
         return $this->belongsTo(Price::class);
     }
