@@ -9,7 +9,7 @@
                     Crear Tipo de Dispositivo
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => ['type_devices.store']]) !!}
+                    {!! Form::open(['route' => ['type-devices.store']]) !!}
                         <div class="form-group">
                             {{ Form::label('prefix', 'Prefijo para identificacion') }}
                             {{ Form::number('prefix', null, ['class' => 'form-control', 'required', 'default' => 0, 'min' => 10, 'max' => 99, 'step' => 1]) }}
