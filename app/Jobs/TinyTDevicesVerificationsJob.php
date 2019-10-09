@@ -15,6 +15,9 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $tries = 5;
+    public $timeout = 30;
+
     /**
      * Create a new job instance.
      *
@@ -52,7 +55,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
             {
                 $this->IsOutTemperature($device, $last_reception->created_at);
-                $this->AlertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+                AlertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
@@ -65,7 +68,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
             {
                 $this->IsOutTemperature($device, $last_reception->created_at);
-                $this->AlertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+                AlertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
@@ -101,7 +104,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                 {
                     if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
                     {
-                        $this->MailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
+                        MailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
                     }
                 }
             }
@@ -114,8 +117,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if ($device->tiny_t_device->t_change_at <= $delay && $device->tiny_t_device->on_t_set_point)
             {
                 $device->tiny_t_device->update(['on_t_set_point' => false]);
-                $this->AlertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
-                $this->MailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
+                AlertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
+                MailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
             }
             if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
     }
@@ -134,27 +137,4 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             't_out_at' => $moment
         ]);
     }
-
-    public function AlertCreate($device, $log, $moment)
-    {
-        Alert::create([
-            'device_id' => $device->id,
-            'log' => $log,
-            'alert_created_at' => $moment,
-        ]);
-    }
-
-    public function MailAlertCreate($device, $type, $moment)
-    {
-        MailAlert::create([
-            'device_id' => $device->id,
-            'user_id' => $device->user_id,
-            'type' => $type,
-            'last_created_at' => $moment,
-        ]);
-    }
-
-
-
-
 }
