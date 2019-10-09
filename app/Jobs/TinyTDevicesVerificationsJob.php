@@ -52,7 +52,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
             {
                 $this->IsOutTemperature($device, $last_reception->created_at);
-
                 $this->AlertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
@@ -66,7 +65,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
             {
                 $this->IsOutTemperature($device, $last_reception->created_at);
-
                 $this->AlertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
@@ -116,11 +114,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if ($device->tiny_t_device->t_change_at <= $delay && $device->tiny_t_device->on_t_set_point)
             {
                 $device->tiny_t_device->update(['on_t_set_point' => false]);
-
                 $this->AlertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
-
                 $this->MailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
-
             }
             if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
     }

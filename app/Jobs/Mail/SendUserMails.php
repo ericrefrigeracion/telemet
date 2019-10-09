@@ -54,23 +54,19 @@ class SendUserMails implements ShouldQueue
                 $user = User::find($mail_information->user_id);
                 $device = Device::find($mail_information->device_id);
 
-                if ($device->send_mails)
+                if ($device->notification_email != 'No quiero recibir notificaciones')
                 {
-                    if ($mail_information->type == 'onLine') Mail::to($user->email)->queue(new ConnectMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'offLine') Mail::to($user->email)->queue(new DisconnectMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'temp') Mail::to($user->email)->queue(new TemperatureMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'hum') Mail::to($user->email)->queue(new HumidityMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'tSetPoint') Mail::to($user->email)->queue(new TempSetPointMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'hSetPoint') Mail::to($user->email)->queue(new HumSetPointMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'onLine') Mail::to($device->notification_email)->queue(new ConnectMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'offLine') Mail::to($device->notification_email)->queue(new DisconnectMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'temp') Mail::to($device->notification_email)->queue(new TemperatureMail($mail_information, $device, $user));
+                    if ($mail_information->type == 'tSetPoint') Mail::to($device->notification_email)->queue(new TempSetPointMail($mail_information, $device, $user));
                 }
-                if($mail_information->type == 'PayAccredited') Mail::to($user->email)->queue(new PayAccreditedMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOn') Mail::to($user->email)->queue(new MonitorOnMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOff') Mail::to($user->email)->queue(new MonitorOffMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOffNextDay') Mail::to($user->email)->queue(new MonitorOffNextDayMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOffNextWeek') Mail::to($user->email)->queue(new MonitorOffNextWeekMail($mail_information, $device, $user));
-
-                $mail_information->send_to_user_at = now();
-                $mail_information->update();
+                if($mail_information->type == 'PayAccredited') Mail::to($device->notification_email)->queue(new PayAccreditedMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOn') Mail::to($device->notification_email)->queue(new MonitorOnMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOff') Mail::to($device->notification_email)->queue(new MonitorOffMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOffNextDay') Mail::to($device->notification_email)->queue(new MonitorOffNextDayMail($mail_information, $device, $user));
+                if($mail_information->type == 'MonitorOffNextWeek') Mail::to($device->notification_email)->queue(new MonitorOffNextWeekMail($mail_information, $device, $user));
+                $mail_information->update(['send_to_user_at' => now()]);
             }
         }
     }
