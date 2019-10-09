@@ -23,11 +23,11 @@ class CreateTinyTDevicesTable extends Migration
             $table->integer('tdly')->unsigned();
             $table->float('tcal');
             $table->float('t_set_point');
+            $table->float('tmin');
+            $table->float('tmax');
             $table->string('t_is');
             $table->dateTime('t_change_at');
-            $table->float('tmin');
             $table->dateTime('t_out_at')->nullable();
-            $table->float('tmax');
 
             $table->timestamps();
 
