@@ -210,7 +210,16 @@ class DeviceController extends Controller
             ];
 
             $request->validate($rules);
-            if($request->protection_id == 1) $device->protected = true;
+            if($request->protection_id == 1)
+                {
+                    $device->protected = true;
+                    $device->tiny_t_device->update([
+                        'on_t_set_point' => true,
+                        'on_temp' => true,
+                        't_change_at' => now(),
+                        't_out_at' => null,
+                    ]);
+                }
             if($request->protection_id == 4) $device->protected = false;
             $device->update($request->all());
 

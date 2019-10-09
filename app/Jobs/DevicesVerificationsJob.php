@@ -67,66 +67,30 @@ class DevicesVerificationsJob implements ShouldQueue
             {
                 $device->update(['admin_mon' => false]);
 
-                Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'Monitoreo deshabilitado por falta de pago.',
-                    'alert_created_at' => $device->monitor_expires_at,
-                ]);
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'MonitorOff',
-                    'last_created_at' => $device->monitor_expires_at,
-                ]);
+                $this->AlertCreate($device, 'Monitoreo deshabilitado por falta de pago.', $device->monitor_expires_at);
+                $this->MailAlertCreate($device, 'MonitorOff',$device->monitor_expires_at);
             }
             if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
             {
                 $device->update(['admin_mon' => true]);
 
-                Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'Monitoreo habilitado nuevamente.',
-                    'alert_created_at' => now(),
-                ]);
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'MonitorOn',
-                    'last_created_at' => $device->monitor_expires_at,
-                ]);
+                $this->AlertCreate($device, 'Monitoreo habilitado nuevamente.', now());
+                $this->MailAlertCreate($device, 'MonitorOn',$device->monitor_expires_at);
             }
             if($device->monitor_expires_at < $next_day)
             {
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextDay')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'Mañana se deshabilita monitoreo por falta de pago.',
-                        'alert_created_at' => now(),
-                    ]);
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'MonitorOffNextDay',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
+                    $this->AlertCreate($device, 'Mañana se deshabilita monitoreo por falta de pago.', now());
+                    $this->MailAlertCreate($device, 'MonitorOffNextDay',$device->monitor_expires_at);
                 }
             }
             if($device->monitor_expires_at < $next_week)
             {
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextWeek')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'La semana proxima se deshabilita monitoreo por falta de pago.',
-                        'alert_created_at' => now(),
-                    ]);
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'MonitorOffNextWeek',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
+                    $this->AlertCreate($device, 'La semana proxima se deshabilita monitoreo por falta de pago.', now());
+                    $this->MailAlertCreate($device, 'MonitorOffNextWeek',$device->monitor_expires_at);
                 }
             }
         }
@@ -145,19 +109,8 @@ class DevicesVerificationsJob implements ShouldQueue
                 if ( $last_reception->created_at < $delay && $device->on_line )
                 {
                     $device->update(['on_line'=> false]);
-
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'Ultima conexion del dispositivo.',
-                        'alert_created_at' => $last_reception->created_at,
-                    ]);
-                    MailAlert::create([
-                        'last_created_at' => $last_reception->created_at,
-                        'type' => 'offLine',
-                        'user_id' => $device->user_id,
-                        'device_id' => $device->id,
-                    ]);
-
+                    $this->AlertCreate($device, 'Ultima conexion del dispositivo.', $last_reception->created_at);
+                    $this->MailAlertCreate($device, 'offLine',$last_reception->created_at);
                 }
 
                 //Si el tiempo de recepcion es mayor al delay(o sea mas nuevo) && el dispocitivo figura fuera de linea
@@ -166,17 +119,8 @@ class DevicesVerificationsJob implements ShouldQueue
                 {
                     $device->update(['on_line'=> true]);
 
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'El dispositivo se conecto nuevamente.',
-                        'alert_created_at' => $last_reception->created_at,
-                    ]);
-                    MailAlert::create([
-                        'last_created_at' => $last_reception->created_at,
-                        'type' => 'onLine',
-                        'user_id' => $device->user_id,
-                        'device_id' => $device->id,
-                    ]);
+                    $this->AlertCreate($device, 'El dispositivo se conecto nuevamente.', $last_reception->created_at);
+                    $this->MailAlertCreate($device, 'onLine',$last_reception->created_at);
                 }
             }
         }
@@ -273,6 +217,25 @@ class DevicesVerificationsJob implements ShouldQueue
                 't_out_at' => null,
             ]);
         }
+    }
+
+    public function AlertCreate($device, $log, $moment)
+    {
+        Alert::create([
+            'device_id' => $device->id,
+            'log' => $log,
+            'alert_created_at' => $moment,
+        ]);
+    }
+
+    public function MailAlertCreate($device, $type, $moment)
+    {
+        MailAlert::create([
+            'device_id' => $device->id,
+            'user_id' => $device->user_id,
+            'type' => $type,
+            'last_created_at' => $moment,
+        ]);
     }
 
 

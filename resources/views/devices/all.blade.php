@@ -14,8 +14,8 @@
                             <tr class="text-center">
                                 <th>Usr</th>
                                 <th>Dispositivo</th>
-                                <th>Protegido</th>
                                 <th>Estado</th>
+                                <th>Protegido</th>
                                 <th>Rango</th>
                                 <th>Ciclo</th>
                                 <th colspan="4">Acciones</th>
@@ -28,29 +28,33 @@
                                     <td><a href="{{ route('users.show', $device->user_id) }}" class="btn btn-sm btn-default">{{ $device->user_id }}</a></td>
                                     @endcan
                                     <td>{{ $device->id }}</td>
-                                    @if($device->protection_id == 4)
-                                    <td><i class="far fa-eye-slash text-danger m-2" title="Proteccion Deshabilitada"></i></td>
-                                    @else
-                                        @if($device->protected)
-                                        <td><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
-                                        @else
-                                        <td><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
-                                        @endif
-                                    @endif
                                     @if($device->on_line)
-                                    <td class="text-success" title="En Linea"><i class="fas fa-wifi"></i></td>
+                                        <td class="text-success" title="En Linea"><i class="fas fa-wifi"></i></td>
                                     @else
-                                    <td class="text-danger" title="Desconectado"><i class="fas fa-wifi"></i></td>
+                                        <td class="text-danger" title="Desconectado"><i class="fas fa-wifi"></i></td>
                                     @endif
-                                    @if($device->tiny_t_device->on_temp)
-                                    <td><i class="fas fa-temperature-high text-success m-2" title="Temperatura dentro de los Limites"></i></td>
+                                    @if($device->protected)
+                                        <td><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
+                                        @if($device->tiny_t_device->on_temp)
+                                            <td><i class="fas fa-temperature-high text-success m-2" title="Temperatura dentro de los Limites"></i></td>
+                                        @else
+                                            <td><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
+                                        @endif
+                                        @if($device->tiny_t_device->on_t_set_point)
+                                            <td><i class="far fa-check-circle text-success" title="Ciclo Normal"></i></td>
+                                        @else
+                                            <td><i class="far fa-times-circle text-danger" title="Ciclo Lento"></i></td>
+                                        @endif
                                     @else
-                                    <td><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
-                                    @endif
-                                    @if($device->tiny_t_device->on_t_set_point)
-                                    <td><i class="far fa-check-circle text-success" title="Ciclo Normal"></i></td>
-                                    @else
-                                    <td><i class="far fa-times-circle text-danger" title="Ciclo Lento"></i></td>
+                                        @if($device->protection_id == 4)
+                                            <td><i class="far fa-eye-slash text-danger m-2" title="Proteccion Deshabilitada"></i></td>
+                                            <td><i class="fas fa-temperature-high text-muted m-2" title="Rango sin Monitoreo"></i></td>
+                                            <td><i class="far fa-times-circle text-muted" title="Ciclo sin Monitoreo"></i></td>
+                                        @else
+                                            <td><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
+                                            <td><i class="fas fa-temperature-high text-muted m-2" title="Control de temperatura deshabilitado momentaneamente"></i></td>
+                                            <td><i class="far fa-check-circle text-muted" title="Control de ciclo deshabilitado momentaneamente"></i></td>
+                                        @endif
                                     @endif
                                     @can('devices.show')
                                         <td>
@@ -84,8 +88,5 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function(){
-
-        });
     </script>
 @endsection
