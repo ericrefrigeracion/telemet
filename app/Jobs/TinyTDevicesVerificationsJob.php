@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Alert;
 use App\Device;
+use App\MailAlert;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -150,8 +151,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
             if ($device->tiny_t_device->t_change_at <= $delay && $device->tiny_t_device->on_t_set_point)
             {
-                $device->tiny_t_device->on_t_set_point = false;
-                $device->tiny_t_device->update();
+                $device->tiny_t_device->update(['on_t_set_point' => false]);
 
                 Alert::create([
                     'device_id' => $device->id,
