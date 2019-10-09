@@ -37,7 +37,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         {
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
-            dd($last_reception);
+
             $this->MaxTempVerification($device, $last_reception);
             $this->MinTempVerification($device, $last_reception);
             $this->TemperatureTimeVerification($device);
