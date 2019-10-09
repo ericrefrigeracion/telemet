@@ -2,13 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\Rule\ProtectedDeviceRevissionJob;
-use App\Jobs\Reception\EliminateReceptionsJob;
-use App\Jobs\Pay\PaymentRevissionJob;
-use App\Jobs\Pay\PaysVerification;
-use App\Jobs\Mail\SendAdminMails;
-use App\Jobs\Mail\SendUserMails;
-use App\Jobs\Disconnect\DisconnectVerification;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -44,12 +37,6 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        //DisconnectVerification::dispatch();
-        ProtectedDeviceRevissionJob::dispatch();
-        //SendUserMails::dispatch();
-        //SendAdminMails::dispatch();
-        //EliminateReceptionsJob::dispatch();
-        //PaysVerification::dispatch();
-        //PaymentRevissionJob::dispatch(5145146876, 4, 1234, 1);
+
     }
 }
