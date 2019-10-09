@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\DevicesVerificationsJob;
+use App\Jobs\TinyTDevicesVerificationsJob;
 use App\Jobs\Reception\EliminateReceptionsJob;
 use App\Jobs\Pay\PayVigentVerification;
 use App\Jobs\Disconnect\DisconnectVerification;
@@ -35,12 +37,14 @@ class DevicesCommand extends Command
      */
     public function handle()
     {
-        EliminateReceptionsJob::dispatch();
-        PayVigentVerification::dispatch();
-        DisconnectVerification::dispatch();
-        ProtectedDeviceRevissionJob::dispatch();
-        TemperatureVerificationJob::dispatch();
-        TimeSetPointVerification::dispatch();
+        DevicesVerificationsJob::dispatch();
+        TinyTDevicesVerificationsJob::dispatch();
+        //EliminateReceptionsJob::dispatch();
+        //PayVigentVerification::dispatch();
+        //DisconnectVerification::dispatch();
+        //ProtectedDeviceRevissionJob::dispatch();
+        //TemperatureVerificationJob::dispatch();
+        //TimeSetPointVerification::dispatch();
         SendAdminMails::dispatch();
     }
 }
