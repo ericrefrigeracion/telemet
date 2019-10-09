@@ -51,19 +51,13 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
             if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
             {
-                $device->tiny_t_device->update([
-                    'on_temp' => false,
-                    't_out_at' => $last_reception->created_at
-                ]);
+                $this->IsOutTemperature($device, $last_reception->created_at);
 
                 $this->AlertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
-                $device->tiny_t_device->update([
-                    'on_temp' => true,
-                    't_out_at' => null
-                ]);
+                $this->IsOnTemperature($device);
             }
     }
 
@@ -71,19 +65,13 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
             if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
             {
-                $device->tiny_t_device->update([
-                    'on_temp' => false,
-                    't_out_at' => $last_reception->created_at
-                ]);
+                $this->IsOutTemperature($device, $last_reception->created_at);
 
                 $this->AlertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
-                $device->tiny_t_device->update([
-                    'on_temp' => true,
-                    't_out_at' => null
-                ]);
+                $this->IsOnTemperature($device);
             }
     }
 
@@ -135,6 +123,21 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
             }
             if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
+    }
+
+    public function IsOnTemperature($device)
+    {
+        $device->tiny_t_device->update([
+            'on_temp' => true,
+            't_out_at' => null
+        ]);
+    }
+
+    public function IsOutTemperature($device, $moment){
+        $device->tiny_t_device->update([
+            'on_temp' => false,
+            't_out_at' => $moment
+        ]);
     }
 
     public function AlertCreate($device, $log, $moment)
