@@ -3,10 +3,8 @@
 namespace App\Jobs\Pay;
 
 use App\Pay;
-use App\Alert;
 use App\Price;
 use App\Device;
-use App\MailAlert;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -68,8 +66,8 @@ class PaysVerification implements ShouldQueue
                 $pay->update();
 
                 $log = 'Pago N°' . $payment_id . ' acreditado.';
-                AlertCreate($device, $log, now());
-                MailAlertCreate($device, 'PayAccredited', $device->monitor_expires_at);
+                alertCreate($device, $log, now());
+                mailAlertCreate($device, 'PayAccredited', $device->monitor_expires_at);
             }
         }
     }

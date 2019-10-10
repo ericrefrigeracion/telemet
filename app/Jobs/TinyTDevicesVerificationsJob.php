@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Alert;
 use App\Device;
 use App\MailAlert;
 use Illuminate\Bus\Queueable;
@@ -55,7 +54,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
             {
                 $this->IsOutTemperature($device, $last_reception->created_at);
-                AlertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+                alertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
@@ -68,7 +67,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
             {
                 $this->IsOutTemperature($device, $last_reception->created_at);
-                AlertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+                alertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
@@ -104,7 +103,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                 {
                     if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
                     {
-                        MailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
+                        mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
                     }
                 }
             }
@@ -117,8 +116,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if ($device->tiny_t_device->t_change_at <= $delay && $device->tiny_t_device->on_t_set_point)
             {
                 $device->tiny_t_device->update(['on_t_set_point' => false]);
-                AlertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
-                MailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
+                alertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
+                mailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
             }
             if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
     }

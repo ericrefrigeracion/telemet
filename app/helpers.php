@@ -9,7 +9,7 @@ function setActive($routeName) {
 
 }
 
-function AlertCreate($device, $log, $moment)
+function alertCreate($device, $log, $moment)
 {
     Alert::create([
         'device_id' => $device->id,
@@ -18,7 +18,7 @@ function AlertCreate($device, $log, $moment)
     ]);
 }
 
-function MailAlertCreate($device, $type, $moment)
+function mailAlertCreate($device, $type, $moment)
 {
     MailAlert::create([
         'device_id' => $device->id,
