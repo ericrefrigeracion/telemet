@@ -113,7 +113,6 @@ class DeviceController extends Controller
             'view_alerts_at' => now(),
         ]);
 
-
         if($type_device->id == 2)
         {
             TinyTDevice::create([
@@ -122,14 +121,15 @@ class DeviceController extends Controller
                 'on_temp' => false,
                 'on_t_set_point' => false,
                 'tmin' => 0,
-                'tmax' => 1,
+                'tmax' => 2,
                 'tdly' => 30,
                 'tcal' => 0,
-                't_set_point' => 0,
+                't_set_point' => 1,
                 't_is' => 'higher',
                 't_change_at' => now(),
             ]);
         }
+        AlertCreate($request, 'Dispositivo creado con exito.', now());
 
         return redirect()->route('devices.show', $request->id)->with('success', ['Dispositivo creado con exito']);
     }
@@ -210,17 +210,19 @@ class DeviceController extends Controller
             ];
 
             $request->validate($rules);
-            if($request->protection_id == 1)
-                {
-                    $device->protected = true;
-                    $device->tiny_t_device->update([
-                        'on_t_set_point' => true,
-                        'on_temp' => true,
-                        't_change_at' => now(),
-                        't_out_at' => null,
-                    ]);
-                }
-            if($request->protection_id == 4) $device->protected = false;
+
+            if($device->protection_id != 1 && $request->protection_id == 1)
+            {
+                $device->protected = true;
+                $device->tiny_t_device->update([
+                    'on_t_set_point' => true,
+                    'on_temp' => true,
+                    't_change_at' => now(),
+                    't_out_at' => null,
+                ]);
+            }
+            if($device->protection_id != 4 && $request->protection_id == 4) $device->protected = false;
+
             $device->update($request->all());
 
             return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);

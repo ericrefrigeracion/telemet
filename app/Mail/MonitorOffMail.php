@@ -37,6 +37,6 @@ class MonitorOffMail extends Mailable
      */
     public function build()
     {
-        return $this->from('alertas-vencimiento@telemet.com')->markdown('email.centinela.users.mon_off');
+        return $this->from('administracion@telemet.com.ar')->markdown('email.centinela.users.mon_off');
     }
 }

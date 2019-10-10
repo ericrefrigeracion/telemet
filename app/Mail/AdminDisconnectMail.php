@@ -37,6 +37,6 @@ class AdminDisconnectMail extends Mailable
      */
     public function build()
     {
-        return $this->from('alertas-desconexion@telemet.com')->markdown('email.centinela.admin.disconnect');
+        return $this->from('alertas-conexion@telemet.com.ar')->markdown('email.centinela.admin.disconnect');
     }
 }

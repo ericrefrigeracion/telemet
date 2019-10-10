@@ -46,67 +46,29 @@ class PayVigentVerification implements ShouldQueue
             if($device->monitor_expires_at < $current_time && $device->admin_mon)
             {
                 $device->update(['admin_mon' => false]);
-
-                Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'Monitoreo deshabilitado por falta de pago.',
-                    'alert_created_at' => $device->monitor_expires_at,
-                ]);
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'MonitorOff',
-                    'last_created_at' => $device->monitor_expires_at,
-                ]);
+                AlertCreate($device, 'Monitoreo deshabilitado por falta de pago.', $device->monitor_expires_at);
+                MailAlertCreate($device, 'MonitorOff', $device->monitor_expires_at);
             }
             if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
             {
                 $device->update(['admin_mon' => true]);
-
-                Alert::create([
-                    'device_id' => $device->id,
-                    'log' => 'Monitoreo habilitado nuevamente.',
-                    'alert_created_at' => now(),
-                ]);
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'MonitorOn',
-                    'last_created_at' => $device->monitor_expires_at,
-                ]);
+                AlertCreate($device, 'Monitoreo habilitado nuevamente.', now());
+                MailAlertCreate($device, 'MonitorOn', $device->monitor_expires_at);
             }
             if($device->monitor_expires_at < $next_day)
             {
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextDay')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'Mañana se deshabilita monitoreo por falta de pago.',
-                        'alert_created_at' => now(),
-                    ]);
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'MonitorOffNextDay',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
+                    AlertCreate($device, 'Mañana se deshabilita monitoreo por falta de pago.', now());
+                    MailAlertCreate($device, 'MonitorOffNextDay', $device->monitor_expires_at);
                 }
             }
             if($device->monitor_expires_at < $next_week)
             {
                 if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextWeek')->where('last_created_at', $device->monitor_expires_at)->count())
                 {
-                    Alert::create([
-                        'device_id' => $device->id,
-                        'log' => 'La semana proxima se deshabilita monitoreo por falta de pago.',
-                        'alert_created_at' => now(),
-                    ]);
-                    MailAlert::create([
-                        'device_id' => $device->id,
-                        'user_id' => $device->user_id,
-                        'type' => 'MonitorOffNextWeek',
-                        'last_created_at' => $device->monitor_expires_at,
-                    ]);
+                    AlertCreate($device, 'La semana proxima se deshabilita monitoreo por falta de pago.', now());
+                    MailAlertCreate($device, 'MonitorOffNextWeek', $device->monitor_expires_at);
                 }
             }
         }

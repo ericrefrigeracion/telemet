@@ -37,6 +37,6 @@ class PayAccreditedMail extends Mailable
      */
     public function build()
     {
-        return $this->from('pagos@telemet.com')->markdown('email.centinela.users.accredited_pay');
+        return $this->from('administracion@telemet.com.ar')->markdown('email.centinela.users.accredited_pay');
     }
 }

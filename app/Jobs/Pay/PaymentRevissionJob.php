@@ -82,17 +82,11 @@ class PaymentRevissionJob implements ShouldQueue
                     'period_finish' => $period_finish,
                     'verified_by_system' => now(),
                 ]);
-                Alert::create([
-                    'device_id' => $device_id,
-                    'log' => 'Pago N°' . $payment_id . ' acreditado.',
-                    'alert_created_at' => now(),
-                ]);
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'PayAccredited',
-                    'last_created_at' => $device->monitor_expires_at,
-                ]);
+
+                $log = 'Pago N°' . $payment_id . ' acreditado.';
+                AlertCreate($device, $log, now());
+                MailAlertCreate($device, 'PayAccredited', $device->monitor_expires_at);
+
             }
             else
             {
@@ -127,17 +121,9 @@ class PaymentRevissionJob implements ShouldQueue
                 $pay->verified_by_system = now();
                 $pay->update();
 
-                Alert::create([
-                    'device_id' => $device_id,
-                    'log' => 'Pago N°' . $payment_id . ' acreditado.',
-                    'alert_created_at' => now(),
-                ]);
-                MailAlert::create([
-                    'device_id' => $device->id,
-                    'user_id' => $device->user_id,
-                    'type' => 'PayAccredited',
-                    'last_created_at' => $device->monitor_expires_at,
-                ]);
+                $log = 'Pago N°' . $payment_id . ' acreditado.';
+                AlertCreate($device, $log, now());
+                MailAlertCreate($device, 'PayAccredited', $device->monitor_expires_at);
             }
         }
     }
