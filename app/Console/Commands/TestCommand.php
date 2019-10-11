@@ -12,12 +12,6 @@ class TestCommand extends Command
      * @var string
      */
     protected $signature = 'test:command';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'comando para prueba de jobs';
 
     /**

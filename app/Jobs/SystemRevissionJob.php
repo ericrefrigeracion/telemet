@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Jobs\Pay;
+namespace App\Jobs;
 
 use App\Pay;
+use App\Alert;
 use App\Price;
 use App\Device;
+use App\Reception;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -12,7 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class PaysVerification implements ShouldQueue
+class SystemRevissionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -35,6 +37,12 @@ class PaysVerification implements ShouldQueue
      * @return void
      */
     public function handle()
+    {
+        $this->paysVerification();
+        $this->eliminateDatas();
+    }
+
+    public function paysVerification()
     {
         $pays = Pay::where('verified_by_system', NULL)->get();
         $query_params['access_token'] = config('services.mercadopago.token');
@@ -71,4 +79,16 @@ class PaysVerification implements ShouldQueue
             }
         }
     }
+
+    public function eliminateDatas()
+    {
+        Reception::where('data01', -127)->delete();
+        Reception::where('data01', 85)->delete();
+        Reception::where('created_at', '<', now()->subDays(60))->delete();
+        Alert::where('created_at', '<', now()->subDays(60))->delete();
+    }
+
+
+
+
 }

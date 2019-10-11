@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Rule;
+use App\Alert;
 use App\Device;
 use App\MailAlert;
 use App\Reception;
@@ -37,27 +38,18 @@ class DevicesVerificationsJob implements ShouldQueue
     public function handle()
     {
 
-        $this->EliminatedReceptions();
-
         $devices = Device::all();
-        $this->PayVigentVerification($devices);
+        $this->payVigentVerification($devices);
 
         $devices = Device::where('admin_mon', true)->get();
-        $this->DisconnectVerification($devices);
+        $this->disconnectVerification($devices);
 
         $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 1)->where('protection_id', '!=', 4)->get();
-        $this->ProtectedVerification($devices);
+        $this->protectedVerification($devices);
 
     }
 
-    public function EliminatedReceptions()
-    {
-        Reception::where('data01', -127)->delete();
-        Reception::where('data01', 85)->delete();
-        Reception::where('created_at', '<', now()->subDays(60))->delete();
-    }
-
-    public function PayVigentVerification($devices)
+    public function payVigentVerification($devices)
     {
         $current_time = now();
         $next_day = now()->addDay();
@@ -98,7 +90,7 @@ class DevicesVerificationsJob implements ShouldQueue
         }
     }
 
-    public function DisconnectVerification($devices)
+    public function disconnectVerification($devices)
     {
         $delay = now()->subMinutes(10);
 
@@ -128,16 +120,16 @@ class DevicesVerificationsJob implements ShouldQueue
         }
     }
 
-    public function ProtectedVerification($devices)
+    public function protectedVerification($devices)
     {
         foreach($devices as $device)
         {
-            if($device->protection_id == 2) $this->CommerceProtectedDeviceRevission($device);
-            if($device->protection_id == 3) $this->RuleProtectedDeviceRevission($device);
+            if($device->protection_id == 2) $this->commerceProtectedDeviceRevission($device);
+            if($device->protection_id == 3) $this->ruleProtectedDeviceRevission($device);
         }
     }
 
-    public function CommerceProtectedDeviceRevission(Device $device)
+    public function commerceProtectedDeviceRevission(Device $device)
     {
         $day = now()->dayOfWeek;
         $time = now()->toTimeString();
@@ -173,7 +165,7 @@ class DevicesVerificationsJob implements ShouldQueue
         }
     }
 
-    public function RuleProtectedDeviceRevission(Device $device)
+    public function ruleProtectedDeviceRevission(Device $device)
     {
         $day = now()->dayOfWeek;
         $time = now()->toTimeString();

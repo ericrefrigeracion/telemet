@@ -109,7 +109,7 @@ class DeviceController extends Controller
             'on_line' => false,
             'notification_email' => $user->email,
             'notification_phone_number' => $user->phone_area_code . ' - ' . $user->phone_number,
-            'monitor_expires_at' => now()->addWeek(),
+            'monitor_expires_at' => now()->addDays(40),
             'view_alerts_at' => now(),
         ]);
 

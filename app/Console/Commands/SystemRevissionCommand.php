@@ -2,24 +2,18 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\Pay\PaysVerification;
+use App\Jobs\SystemRevissionJob;
 use Illuminate\Console\Command;
 
-class PaysCommand extends Command
+class SystemRevissionCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'pays:revission';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Revision del estado de los pagos no verificados por el sistema';
+    protected $signature = 'system:revission';
+    protected $description = 'Revisiones generales diarias del sistema';
 
     /**
      * Create a new command instance.
@@ -38,6 +32,6 @@ class PaysCommand extends Command
      */
     public function handle()
     {
-        PaysVerification::dispatch();
+        SystemRevissionJob::dispatch();
     }
 }

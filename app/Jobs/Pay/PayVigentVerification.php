@@ -47,6 +47,7 @@ class PayVigentVerification implements ShouldQueue
                 $device->update(['admin_mon' => false]);
                 alertCreate($device, 'Monitoreo deshabilitado por falta de pago.', $device->monitor_expires_at);
                 mailAlertCreate($device, 'MonitorOff', $device->monitor_expires_at);
+                eliminateDatas($device);
             }
             if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
             {
@@ -72,5 +73,12 @@ class PayVigentVerification implements ShouldQueue
             }
         }
 
+    }
+
+    public function eliminateDatas($device)
+    {
+        $last_day = now()->subDay();
+        $device->alerts()->where('created_at', '<', $last_day)->delete();
+        $device->receptions()->where('created_at', '<', $last_day)->delete();
     }
 }

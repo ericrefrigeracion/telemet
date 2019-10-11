@@ -13,12 +13,6 @@ class SendUserMailsCommand extends Command
      * @var string
      */
     protected $signature = 'mails:user';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Envia los mails a los usuarios.';
 
     /**
