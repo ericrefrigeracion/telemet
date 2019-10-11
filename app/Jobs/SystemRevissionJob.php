@@ -39,7 +39,7 @@ class SystemRevissionJob implements ShouldQueue
     public function handle()
     {
         $this->paysVerification();
-        $this->eliminateDatas();
+        $this->deleteOldDatas();
     }
 
     public function paysVerification()
@@ -80,15 +80,26 @@ class SystemRevissionJob implements ShouldQueue
         }
     }
 
-    public function eliminateDatas()
+    public function deleteOldDatas()
     {
-        Reception::where('data01', -127)->delete();
-        Reception::where('data01', 85)->delete();
+
         Reception::where('created_at', '<', now()->subDays(60))->delete();
+
         Alert::where('created_at', '<', now()->subDays(60))->delete();
+
+        $devices = Device::where('admin_mon', false)->get();
+        $this->deleteUnmonitorDeviceDatas($devices);
     }
 
-
+    public function deleteUnmonitorDeviceDatas($devices)
+    {
+        foreach ($devices as $device)
+        {
+            $last_day = now()->subDay();
+            $device->receptions()->where('created_at', '<', $last_day)->delete();
+            $device->alerts()->where('created_at', '<', $last_day)->delete();
+        }
+    }
 
 
 }

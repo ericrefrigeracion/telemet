@@ -37,6 +37,7 @@ class DevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
+        $this->deleteErrorReceptions();
 
         $devices = Device::all();
         $this->payVigentVerification($devices);
@@ -211,6 +212,12 @@ class DevicesVerificationsJob implements ShouldQueue
                 't_out_at' => null,
             ]);
         }
+    }
+
+    public function deleteErrorReceptions()
+    {
+        Reception::where('data01', -127)->delete();
+        Reception::where('data01', 85)->delete();
     }
 
 }
