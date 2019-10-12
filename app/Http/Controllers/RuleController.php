@@ -64,7 +64,7 @@ class RuleController extends Controller
             ];
             $request->validate($rules);
             Rule::create($request->all());
-
+            if($user < 3) return redirect()->route('rules.all')->with('success', ['Regla creada con exito']);
             return redirect()->route('rules.index')->with('success', ['Regla creada con exito']);
         }
         else

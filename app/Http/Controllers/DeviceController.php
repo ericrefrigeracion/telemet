@@ -47,7 +47,21 @@ class DeviceController extends Controller
                 {
                     $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    $device->last_rssi = $last_reception->rssi;
+                    if ($last_reception->rssi > -60)
+                    {
+                         $device->wifi_color = 'text-success';
+                         $device->wifi_description = 'Señal WiFi Buena';
+                    }
+                    if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
+                    {
+                         $device->wifi_color = 'text-warning';
+                         $device->wifi_description = 'Señal WiFi Aceptable';
+                    }
+                    if ($last_reception->rssi < -75)
+                    {
+                         $device->wifi_color = 'text-danger';
+                         $device->wifi_description = 'Señal WiFi Mala';
+                    }
                 }
                 else
                 {

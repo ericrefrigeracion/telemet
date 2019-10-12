@@ -39,12 +39,14 @@
                                 @if($device->admin_mon)
                                     <div class="col-2">
                                         <i class="fas fa-user-shield text-success m-2" title="Monitoreo Vigente"></i>
-                                        <i class="{{ $device->protection->class }}" title="{{ $device->protection->description }}"></i>
+                                        <i class="{{ $device->protection->class }} m-2" title="{{ $device->protection->description }}"></i>
+                                        <i class="fas fa-wifi {{ $device->wifi_color }} m-2" title="{{ $device->wifi_description }}"></i>
                                     </div>
                                 @else
                                     <div class="col-2">
                                         <i class="fas fa-user-shield text-danger m-2" title="Monitoreo Vencido"></i>
-                                        <i class="{{ $device->protection->class }}" title="{{ $device->protection->description }}"></i>
+                                        <i class="{{ $device->protection->class }} text-danger m-2" title="{{ $device->protection->description }} (Deshabilitado por falta de Pago)"></i>
+                                        <i class="fas fa-wifi {{ $device->wifi_color }} m-2" title="{{ $device->wifi_description }}"></i>
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
