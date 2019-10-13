@@ -3,6 +3,7 @@
 namespace App\Jobs\Mail;
 
 use App\User;
+use App\Alert;
 use App\Device;
 use App\MailAlert;
 use App\Mail\ConnectMail;
@@ -14,6 +15,7 @@ use App\Mail\TempSetPointMail;
 use App\Mail\PayAccreditedMail;
 use App\Mail\MonitorOnMail;
 use App\Mail\MonitorOffMail;
+use App\Mail\UserNotificationsMail;
 use App\Mail\MonitorOffNextDayMail;
 use App\Mail\MonitorOffNextWeekMail;
 use Illuminate\Bus\Queueable;
@@ -47,27 +49,37 @@ class SendUserMails implements ShouldQueue
      */
     public function handle()
     {
-        if($mails_information = MailAlert::where('send_to_user_at', null)->get())
-        {
-            foreach ($mails_information as $mail_information)
-            {
-                $user = User::find($mail_information->user_id);
-                $device = Device::find($mail_information->device_id);
+        $devices = Device::where('admin_mon', true)->where('notification_email', '!=', 'No quiero recibir notificaciones')->get();
+        if($devices->isNotEmpty()) $this->sendAlertsMail($devices);
 
-                if ($device->notification_email != 'No quiero recibir notificaciones')
-                {
-                    if ($mail_information->type == 'onLine') Mail::to($device->notification_email)->queue(new ConnectMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'offLine') Mail::to($device->notification_email)->queue(new DisconnectMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'temp') Mail::to($device->notification_email)->queue(new TemperatureMail($mail_information, $device, $user));
-                    if ($mail_information->type == 'tSetPoint') Mail::to($device->notification_email)->queue(new TempSetPointMail($mail_information, $device, $user));
-                }
-                if($mail_information->type == 'PayAccredited') Mail::to($device->notification_email)->queue(new PayAccreditedMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOn') Mail::to($device->notification_email)->queue(new MonitorOnMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOff') Mail::to($device->notification_email)->queue(new MonitorOffMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOffNextDay') Mail::to($device->notification_email)->queue(new MonitorOffNextDayMail($mail_information, $device, $user));
-                if($mail_information->type == 'MonitorOffNextWeek') Mail::to($device->notification_email)->queue(new MonitorOffNextWeekMail($mail_information, $device, $user));
-                $mail_information->update(['send_to_user_at' => now()]);
-            }
+        $mail_alerts = MailAlert::where('send_to_user_at', null)->get();
+        if($mail_alerts->isNotEmpty()) $this->sendMailAlertsMail($mail_alerts);
+    }
+
+    public function sendAlertsMail($devices)
+    {
+        $yesterday = now()->subDay();
+        foreach ($devices as $device)
+        {
+            $alerts = $device->alerts()->where('created_at', '>', $yesterday)->get();
+            if($alerts->isNotEmpty()) Mail::to($device->notification_email)->queue(new UserNotificationsMail($alerts, $device));
         }
     }
+
+    public function sendMailAlertsMail($mail_alerts)
+    {
+        foreach ($mail_alerts as $mail_alert)
+        {
+            $user = User::find($mail_alert->user_id);
+            $device = Device::find($mail_alert->device_id);
+
+            if($mail_alert->type == 'PayAccredited') Mail::to($device->notification_email)->queue(new PayAccreditedMail($mail_alert, $device, $user));
+            if($mail_alert->type == 'MonitorOn') Mail::to($device->notification_email)->queue(new MonitorOnMail($mail_alert, $device, $user));
+            if($mail_alert->type == 'MonitorOff') Mail::to($device->notification_email)->queue(new MonitorOffMail($mail_alert, $device, $user));
+            if($mail_alert->type == 'MonitorOffNextDay') Mail::to($device->notification_email)->queue(new MonitorOffNextDayMail($mail_alert, $device, $user));
+            if($mail_alert->type == 'MonitorOffNextWeek') Mail::to($device->notification_email)->queue(new MonitorOffNextWeekMail($mail_alert, $device, $user));
+            $mail_alert->update(['send_to_user_at' => now()]);
+        }
+    }
+
 }

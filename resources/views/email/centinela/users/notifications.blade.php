@@ -1,0 +1,19 @@
+@component('mail::message')
+#Sr. {{ $device->user->name }}:
+#Estas son las notificaciones de {{ $device->name }} en las ultimas 24hs.
+
+<hr>
+@foreach($alerts as $alert)
+{{ $alert->log }} - ocurrido: {{ $alert->alert_created_at }}.<br>
+@endforeach
+<hr>
+
+Desde el siguiente boton puede revisar los detalles de las alertas de su dispositivo.
+
+@component('mail::button', ['url' => route('alerts.index', $device->id) ])
+Alertas de {{ $device->name }}
+@endcomponent
+
+Atentamente,<br>
+{{ config('app.name') }}
+@endcomponent

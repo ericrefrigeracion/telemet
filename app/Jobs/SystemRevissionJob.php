@@ -60,7 +60,9 @@ class SystemRevissionJob implements ShouldQueue
             {
                 $device = Device::find($pay->device_id);
                 $price = Price::find($pay->price_id);
+
                 if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
+
                 $period_start = $device->monitor_expires_at;
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
                 $period_finish = $device->monitor_expires_at;
