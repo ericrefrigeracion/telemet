@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         {{ Form::label('tdly', 'Retardo al Aviso (minutos)') }}
-        {{ Form::number('tdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 60]) }}
+        {{ Form::number('tdly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 120]) }}
     </div>
     <div>
         {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}

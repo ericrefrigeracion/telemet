@@ -37,7 +37,7 @@ class TypeDevicesTableSeeder extends Seeder
     	TypeDevice::create([
     		'prefix' => 90,
 			'model' => 'Centinela tta',
-			'description' => 'Dos temperaturas, una Humedad',
+			'description' => 'Dos temperaturas, un consumo',
 			'data01_unit' => '°C',
 			'data01_name' => 'Temperatura',
 			'data02_unit' => '°C',

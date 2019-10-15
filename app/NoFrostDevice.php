@@ -1,32 +1,19 @@
 <?php
 
+namespace App;
+
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
-
-class TinyTDevice extends Model
+class NoFrostDevice extends Model
 {
-    protected $fillable = [
+	protected $fillable = [
         'id',
         'device_id',
-        'on_temp',
-		'on_t_set_point',
-		'tdly',
-		'tcal',
-		't_set_point',
-		't_is',
-		't_change_at',
-		'tmin',
-		't_out_at',
-		'tmax',
     ];
 
     protected $dates = [
-    	't_change_at',
-    	't_out_at'
+
     ];
 
     /**
@@ -40,5 +27,4 @@ class TinyTDevice extends Model
     {
     	return $this->belongsTo(Device::class);
     }
-
 }

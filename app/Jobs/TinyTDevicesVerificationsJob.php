@@ -40,42 +40,58 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
 
-            $this->MaxTempVerification($device, $last_reception);
-            $this->MinTempVerification($device, $last_reception);
-            $this->TemperatureTimeVerification($device);
-            $this->SetPointChangeVerification($device, $last_reception);
-            $this->SetPointTimeVerification($device);
+            $this->maxTempVerification($device, $last_reception);
+            $this->minTempVerification($device, $last_reception);
+            $this->temperatureTimeVerification($device);
+            $this->setPointChangeVerification($device, $last_reception);
+            $this->setPointTimeVerification($device);
         }
 
     }
 
-    public function MaxTempVerification($device, $last_reception)
+    public function maxTempVerification($device, $last_reception)
     {
             if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
             {
-                $this->IsOutTemperature($device, $last_reception->created_at);
+                $this->isOutTemperature($device, $last_reception->created_at);
                 alertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
-                $this->IsOnTemperature($device);
+                $this->isOnTemperature($device);
             }
     }
 
-    public function MinTempVerification($device, $last_reception)
+    public function minTempVerification($device, $last_reception)
     {
             if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
             {
-                $this->IsOutTemperature($device, $last_reception->created_at);
+                $this->isOutTemperature($device, $last_reception->created_at);
                 alertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
             }
             if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
-                $this->IsOnTemperature($device);
+                $this->isOnTemperature($device);
             }
     }
 
-    public function SetPointChangeVerification($device, $last_reception)
+    public function temperatureTimeVerification($device)
+    {
+            if(!$device->tiny_t_device->on_temp)
+            {
+                $delay = now()->subMinutes($device->tiny_t_device->tdly);
+
+                if ($device->tiny_t_device->t_out_at <= $delay)
+                {
+                    if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
+                    {
+                        mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
+                    }
+                }
+            }
+    }
+
+    public function setPointChangeVerification($device, $last_reception)
     {
             if($last_reception->data01 > $device->tiny_t_device->t_set_point && $device->tiny_t_device->t_is === 'lower')
             {
@@ -93,23 +109,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             }
     }
 
-    public function TemperatureTimeVerification($device)
-    {
-            if(!$device->tiny_t_device->on_temp)
-            {
-                $delay = now()->subMinutes($device->tiny_t_device->tdly);
-
-                if ($device->tiny_t_device->t_out_at <= $delay)
-                {
-                    if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
-                    {
-                        mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
-                    }
-                }
-            }
-    }
-
-    public function SetPointTimeVerification($device)
+    public function setPointTimeVerification($device)
     {
             $delay = now()->subMinutes($device->tiny_t_device->tdly);
 
@@ -122,7 +122,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
     }
 
-    public function IsOnTemperature($device)
+    public function isOnTemperature($device)
     {
         $device->tiny_t_device->update([
             'on_temp' => true,
@@ -130,10 +130,11 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function IsOutTemperature($device, $moment){
+    public function isOutTemperature($device, $moment){
         $device->tiny_t_device->update([
             'on_temp' => false,
             't_out_at' => $moment
         ]);
     }
+
 }

@@ -7,6 +7,7 @@ use App\Alert;
 use App\Price;
 use App\Device;
 use App\TinyTDevice;
+use App\NoFrostDevice;
 use App\Protection;
 use App\TypeDevice;
 use App\Reception;
@@ -43,7 +44,7 @@ class DeviceController extends Controller
 
             if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
             {
-                if($device->on_line)
+                if($device->on_line && $device->type_device_id == 2)
                 {
                     $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
@@ -143,6 +144,15 @@ class DeviceController extends Controller
                 't_change_at' => now(),
             ]);
         }
+
+        if($type_device->id == 4)
+        {
+            NoFrostDevice::create([
+                'id' => $request->id,
+                'device_id' => $request->id,
+            ]);
+        }
+
         alertCreate($request, 'Dispositivo creado con exito.', now());
 
         return redirect()->route('devices.show', $request->id)->with('success', ['Dispositivo creado con exito']);
@@ -273,7 +283,7 @@ class DeviceController extends Controller
                 't_set_point' => 'required|numeric|lt:tmax|gt:tmin',
                 'tmin' => 'required|numeric|min:-30|lt:tmax',
                 'tmax' => 'required|numeric|max:80|gt:tmin',
-                'tdly' => 'required|integer|min:0|max:60',
+                'tdly' => 'required|integer|min:0|max:120',
             ];
             $request->validate($rules);
 
