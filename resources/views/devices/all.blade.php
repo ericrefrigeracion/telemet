@@ -29,9 +29,9 @@
                                     @endcan
                                     <td>{{ $device->id }}</td>
                                     @if($device->on_line)
-                                        <td class="text-success" title="En Linea"><i class="fas fa-wifi"></i></td>
+                                        <td class="text-success" title="En Linea"><i class="fas fa-link"></i></td>
                                     @else
-                                        <td class="text-danger" title="Desconectado"><i class="fas fa-wifi"></i></td>
+                                        <td class="text-danger" title="Desconectado"><i class="fas fa-unlink"></i></td>
                                     @endif
                                     @if($device->protected)
                                         <td><i class="far fa-eye text-success m-2" title="Protegido"></i></td>

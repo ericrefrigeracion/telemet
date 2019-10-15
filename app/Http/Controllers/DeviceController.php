@@ -44,7 +44,7 @@ class DeviceController extends Controller
 
             if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
             {
-                if($device->on_line && $device->type_device_id == 2)
+                if($device->on_line)
                 {
                     $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
