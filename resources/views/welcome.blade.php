@@ -94,6 +94,26 @@
                     Sistema de Gestion de Temperaturas y Monitoreo
                 </div>
             </div>
+        </div>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="subtitle m-b-md">
+                    Complete el siguiente formulario para solicitar informacion
+                </div>
+                <div class="subtitle m-b-md">
+
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="subtitle m-b-md">
+
+                </div>
+                <div class="subtitle m-b-md">
+
+                </div>
+            </div>
+
 
         </div>
     </body>

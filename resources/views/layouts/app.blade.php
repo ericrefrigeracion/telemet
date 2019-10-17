@@ -25,7 +25,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img width="18px" src="/favicon.ico" alt="Logo TelemeTT">
                     {{ config('app.name', 'Laravel') }}
@@ -175,7 +175,7 @@
 
         <main class="py-4">
             @if(isset($errors) && $errors->any())
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="alert alert-danger">
@@ -191,7 +191,7 @@
             </div>
             @endif
             @if(session()->has('success'))
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-10">
                         <div class="alert alert-success">
