@@ -14,7 +14,7 @@
                             <tr>
                                 <th>Dispositivo</th>
                                 <th>Alerta</th>
-                                <th>Momento de la Falla</th>
+                                <th>Ocurrido</th>
                             </tr>
                         </thead>
                         <tbody>
