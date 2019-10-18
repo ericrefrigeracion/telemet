@@ -29,7 +29,8 @@
                                                 @endif
                                                 @if($device->protected)
                                                     <i class="far fa-eye text-success m-2" title="Protegido"></i>
-                                                @else
+                                                @endif
+                                                @if(!$device->protected && $device->protection_id != 4)
                                                     <i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i>
                                                 @endif
                                             @endif
