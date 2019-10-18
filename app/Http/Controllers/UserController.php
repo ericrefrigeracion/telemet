@@ -87,6 +87,7 @@ class UserController extends Controller
     {
 
             $rules = [
+                'email' => 'email',
                 'name' => 'required|max:25',
                 'surname' => 'required|max:25',
                 'dni' => 'nullable|numeric',
@@ -102,6 +103,9 @@ class UserController extends Controller
             ];
 
             $request->validate($rules);
+
+            if($request->has('email') && $request->email != $user->email) $user->email_verified_at = null;
+
             $user->update($request->all());
             $user->roles()->sync($request->get('roles'));
 
@@ -119,6 +123,7 @@ class UserController extends Controller
     {
 
         $rules = [
+            'email' => 'email',
             'name' => 'required|max:25',
             'surname' => 'required|max:25',
             'dni' => 'nullable|numeric',
@@ -135,6 +140,16 @@ class UserController extends Controller
 
         $user = Auth::user();
         $request->validate($rules);
+
+        if($request->has('email') && $request->email != $user->email)
+        {
+            $rules = ['email' => 'email|max:255|unique:users,email'];
+            $request->validate($rules);
+            $user->email_verified_at = null;
+            Device::where('notification_email', $user->email)->update(['notification_email' => 'No quiero recibir notificaciones']);
+        }
+
+
         $user->update($request->all());
 
         return redirect()->route('users.show-me')->with('success', ['Usuario actualizado con exito']);

@@ -237,7 +237,7 @@ class DeviceController extends Controller
 
             if($device->protection_id != 1 && $request->protection_id == 1)
             {
-                $request->protected = true;
+                $request['protected'] = true;
                 $device->tiny_t_device->update([
                     'on_t_set_point' => true,
                     'on_temp' => true,
@@ -245,14 +245,14 @@ class DeviceController extends Controller
                     't_out_at' => null,
                 ]);
             }
-            if($device->protection_id != 4 && $request->protection_id == 4) $request->protected = false;
+            if($device->protection_id != 4 && $request->protection_id == 4) $request['protected'] = false;
 
             if($request->has('protection_id') && $request->protection_id != $device->protection_id) alertCreate($device, "Cambio el tipo de proteccion a $request->protection_id", now());
             if($request->has('name') && $request->name != $device->name) alertCreate($device, "Cambio nombre de dispositivo a $request->name", now());
             if($request->has('description') && $request->description != $device->description) alertCreate($device, "Cambio la descripcion de dispositivo a $request->description", now());
             if($request->has('notification_email') && $request->notification_email != $device->notification_email) alertCreate($device, "Cambio el E-mail de notificacion a $request->notification_email", now());
             if($request->has('notification_phone_number') && $request->notification_phone_number != $device->notification_phone_number) alertCreate($device, "Cambio numero de notificacion a $request->notification_phone_number", now());
-
+            dd($request->all());
             $device->update($request->all());
 
             return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);
