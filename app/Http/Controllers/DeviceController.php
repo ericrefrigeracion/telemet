@@ -252,7 +252,7 @@ class DeviceController extends Controller
             if($request->has('description') && $request->description != $device->description) alertCreate($device, "Cambio la descripcion de dispositivo a $request->description", now());
             if($request->has('notification_email') && $request->notification_email != $device->notification_email) alertCreate($device, "Cambio el E-mail de notificacion a $request->notification_email", now());
             if($request->has('notification_phone_number') && $request->notification_phone_number != $device->notification_phone_number) alertCreate($device, "Cambio numero de notificacion a $request->notification_phone_number", now());
-            dd($request->all());
+
             $device->update($request->all());
 
             return redirect()->route('devices.show', $device->id)->with('success', ['Dispositivo actualizado con exito']);
