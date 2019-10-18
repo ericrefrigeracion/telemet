@@ -14,7 +14,7 @@
                         <div class="card-body">
                             <div class="row">
                                  <div class="col text-center">
-                                            @if($device->admin_mon && $device->on_line)
+                                            @if($device->admin_mon && $device->on_line && $device->protected)
                                                 @if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_t_set_point)
                                                     Todo en orden<i class="far fa-check-circle text-success m-2"></i>
                                                 @endif
