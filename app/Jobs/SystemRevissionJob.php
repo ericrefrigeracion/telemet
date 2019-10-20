@@ -38,13 +38,14 @@ class SystemRevissionJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->paysVerification();
+        $pays = Pay::where('verified_by_system', NULL)->get();
+        if($pays->isNotEmpty()) $this->paysVerification($pays);
+
         $this->deleteOldDatas();
     }
 
-    public function paysVerification()
+    public function paysVerification($pays)
     {
-        $pays = Pay::where('verified_by_system', NULL)->get();
         $query_params['access_token'] = config('services.mercadopago.token');
         $client = new Client([ 'base_uri' => config('services.mercadopago.base_uri') ]);
 
@@ -90,7 +91,7 @@ class SystemRevissionJob implements ShouldQueue
         Alert::where('created_at', '<', now()->subDays(60))->delete();
 
         $devices = Device::where('admin_mon', false)->get();
-        $this->deleteUnmonitorDeviceDatas($devices);
+        if($devices->isNotEmpty()) $this->deleteUnmonitorDeviceDatas($devices);
     }
 
     public function deleteUnmonitorDeviceDatas($devices)

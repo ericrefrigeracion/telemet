@@ -42,41 +42,48 @@ class SendAdminMails implements ShouldQueue
      */
     public function handle()
     {
-        if($mails_information = MailAlert::where('send_to_admin_at', null)->get())
+        $mails_information = MailAlert::where('send_to_admin_at', null)->get()
+
+        if($mails_information->isNotEmpty()) $this->sendUrgentMails();
+    }
+
+    public function sendUrgentMails()
+    {
+        $eric = User::find(1);
+        $carlos = User::find(2);
+
+        foreach ($mails_information as $mail_information)
         {
-            $eric = User::find(1);
-            $carlos = User::find(2);
+            $user = User::find($mail_information->user_id);
+            $device = Device::find($mail_information->device_id);
 
-            foreach ($mails_information as $mail_information)
+            if ($mail_information->type == 'onLine')
             {
-                $user = User::find($mail_information->user_id);
-                $device = Device::find($mail_information->device_id);
-
-                if ($mail_information->type == 'onLine')
-                {
-                    Mail::to($eric->email)->queue(new AdminConnectMail($mail_information, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminConnectMail($mail_information, $device, $user));
-                    $mail_information->update(['send_to_admin_at' => now()]);
-                }
-                if ($mail_information->type == 'offLine')
-                {
-                    Mail::to($eric->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
-                    $mail_information->update(['send_to_admin_at' => now()]);
-                }
-                if ($mail_information->type == 'temp')
-                {
-                    Mail::to($eric->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
-                    $mail_information->update(['send_to_admin_at' => now()]);
-                }
-                if ($mail_information->type == 'tSetPoint')
-                {
-                    Mail::to($eric->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
-                    Mail::to($carlos->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
-                    $mail_information->update(['send_to_admin_at' => now()]);
-                }
+                Mail::to($eric->email)->queue(new AdminConnectMail($mail_information, $device, $user));
+                Mail::to($carlos->email)->queue(new AdminConnectMail($mail_information, $device, $user));
+                $mail_information->update(['send_to_admin_at' => now()]);
+            }
+            if ($mail_information->type == 'offLine')
+            {
+                Mail::to($eric->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
+                Mail::to($carlos->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
+                $mail_information->update(['send_to_admin_at' => now()]);
+            }
+            if ($mail_information->type == 'temp')
+            {
+                Mail::to($eric->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
+                Mail::to($carlos->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
+                $mail_information->update(['send_to_admin_at' => now()]);
+            }
+            if ($mail_information->type == 'tSetPoint')
+            {
+                Mail::to($eric->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
+                Mail::to($carlos->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
+                $mail_information->update(['send_to_admin_at' => now()]);
             }
         }
     }
+
+
+
 }

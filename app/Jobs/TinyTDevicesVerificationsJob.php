@@ -35,6 +35,11 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     public function handle()
     {
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
+        if($devices->isNotEmpty()) $this->allVerifications($devices);
+    }
+
+    public function allVerifications($devices)
+    {
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
@@ -46,7 +51,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->setPointChangeVerification($device, $last_reception);
             $this->setPointTimeVerification($device);
         }
-
     }
 
     public function maxTempVerification($device, $last_reception)

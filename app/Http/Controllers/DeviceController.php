@@ -48,7 +48,7 @@ class DeviceController extends Controller
                 {
                     $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    if ($last_reception->rssi > -60)
+                    if ($last_reception->rssi >= -60)
                     {
                          $device->wifi_color = 'text-success';
                          $device->wifi_description = 'Señal WiFi Buena';

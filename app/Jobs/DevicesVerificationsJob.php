@@ -50,6 +50,12 @@ class DevicesVerificationsJob implements ShouldQueue
 
     }
 
+    public function deleteErrorReceptions()
+    {
+        Reception::where('data01', -127)->delete();
+        Reception::where('data01', 85)->delete();
+    }
+
     public function payVigentVerification($devices)
     {
         $current_time = now();
@@ -114,7 +120,7 @@ class DevicesVerificationsJob implements ShouldQueue
                 {
                     $device->update(['on_line'=> true]);
 
-                    alertCreate($device, 'El dispositivo se conecto nuevamente.', $last_reception->created_at);
+                    alertCreate($device, 'El dispositivo esta conectado.', $last_reception->created_at);
                     mailAlertCreate($device, 'onLine',$last_reception->created_at);
                 }
             }
@@ -212,12 +218,6 @@ class DevicesVerificationsJob implements ShouldQueue
                 't_out_at' => null,
             ]);
         }
-    }
-
-    public function deleteErrorReceptions()
-    {
-        Reception::where('data01', -127)->delete();
-        Reception::where('data01', 85)->delete();
     }
 
 }
