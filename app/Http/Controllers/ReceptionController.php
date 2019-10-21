@@ -40,7 +40,7 @@ class ReceptionController extends Controller
                                                         ->where('data02', '!=', null)
                                                         ->where('data03', '!=', null)->get();
 
-            if (isset($datas))
+            if ($datas->isNotEmpty())
             {
 
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
@@ -89,7 +89,7 @@ class ReceptionController extends Controller
                                                         ->where('data02', '!=', null)
                                                         ->where('data03', '!=', null)->get();
 
-            if (isset($datas))
+            if ($datas->isNotEmpty())
             {
 
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
@@ -139,7 +139,7 @@ class ReceptionController extends Controller
                                                         ->where('data02', '!=', null)
                                                         ->where('data03', '!=', null)->get();
 
-            if (isset($datas))
+            if ($datas->isNotEmpty())
             {
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
@@ -185,7 +185,7 @@ class ReceptionController extends Controller
                                                         ->where('data02', '!=', null)
                                                         ->where('data03', '!=', null)->get();
 
-            if (isset($datas))
+            if ($datas->isNotEmpty())
             {
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
@@ -219,7 +219,7 @@ class ReceptionController extends Controller
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('data01', '!=', null)->where('data02', '!=', null)->get();
             if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')->where('device_id', $device->id)->where('data01', '!=', null)->where('data02', '!=', null)->where('data03', '!=', null)->get();
 
-            if (isset($datas))
+            if ($datas->isNotEmpty())
             {
                 foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
