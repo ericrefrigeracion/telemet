@@ -68,12 +68,16 @@ class DeviceController extends Controller
                 {
                     $device->last_data01 = '--.--';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
+                    $device->wifi_color = 'text-muted';
+                    $device->wifi_description = 'Sin Señal WiFi';
                 }
             }
             else
             {
                 $device->last_data01 = 'Sin datos';
                 $device->last_created_at = 'Sin datos';
+                $device->wifi_color = 'text-muted';
+                $device->wifi_description = 'Sin Señal WiFi';
             }
             $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
 
