@@ -44,10 +44,10 @@ class SendAdminMails implements ShouldQueue
     {
         $mails_information = MailAlert::where('send_to_admin_at', null)->get();
 
-        if($mails_information->isNotEmpty()) $this->sendUrgentMails();
+        if($mails_information->isNotEmpty()) $this->sendUrgentMails($mails_information);
     }
 
-    public function sendUrgentMails()
+    public function sendUrgentMails($mails_information)
     {
         $eric = User::find(1);
         $carlos = User::find(2);
