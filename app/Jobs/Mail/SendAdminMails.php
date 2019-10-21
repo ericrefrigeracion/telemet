@@ -42,7 +42,7 @@ class SendAdminMails implements ShouldQueue
      */
     public function handle()
     {
-        $mails_information = MailAlert::where('send_to_admin_at', null)->get()
+        $mails_information = MailAlert::where('send_to_admin_at', null)->get();
 
         if($mails_information->isNotEmpty()) $this->sendUrgentMails();
     }

@@ -25,9 +25,9 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
+        $tiny_t_devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
 
-        return view('devices.all')->with(['devices' => $devices]);
+        return view('devices.all')->with(['devices' => $tiny_t_devices]);
 
     }
 
@@ -38,9 +38,9 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->get();
+        $tiny_t_devices = Auth::user()->devices()->where('type_device_id', 2)->get();
 
-        foreach ($devices as $device) {
+        foreach ($tiny_t_devices as $device) {
 
             if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
             {
@@ -79,7 +79,7 @@ class DeviceController extends Controller
 
         }
 
-        return view('devices.index')->with(['devices' => $devices]);
+        return view('devices.index')->with(['devices' => $tiny_t_devices]);
 
     }
 
@@ -170,7 +170,7 @@ class DeviceController extends Controller
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $protection = $device->protection()->first();
-            $tiny_t_device = $device->tiny_t_device()->first();
+            if($device->type_device_id ==2) $tiny_t_device = $device->tiny_t_device()->first();
             return view('devices.show')->with(['device' => $device, 'protection' => $protection, 'tiny_t_device' => $tiny_t_device]);
         }
         else
