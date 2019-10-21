@@ -67,7 +67,6 @@ class DevicesVerificationsJob implements ShouldQueue
             if($device->monitor_expires_at < $current_time && $device->admin_mon)
             {
                 $device->update(['admin_mon' => false]);
-                $device->update(['protection_id' => 4]);
 
                 alertCreate($device, 'Monitoreo deshabilitado por falta de pago.', $device->monitor_expires_at);
                 mailAlertCreate($device, 'MonitorOff',$device->monitor_expires_at);
