@@ -29,9 +29,9 @@
                                     @endcan
                                     <td>{{ $device->id }}</td>
                                     @if($device->on_line)
-                                        <td class="text-success" title="En Linea"><i class="fas fa-link"></i></td>
+                                        <td class="text-success" title="En Linea"><i class="fas fa-link m-2"></i></td>
                                     @else
-                                        <td class="text-danger" title="Desconectado"><i class="fas fa-unlink"></i></td>
+                                        <td class="text-danger" title="Desconectado"><i class="fas fa-unlink m-2"></i></td>
                                     @endif
                                     @if($device->protected)
                                         <td><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
@@ -41,39 +41,39 @@
                                             <td><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
                                         @endif
                                         @if($device->tiny_t_device->on_t_set_point)
-                                            <td><i class="far fa-check-circle text-success" title="Ciclo Normal"></i></td>
+                                            <td><i class="far fa-check-circle text-success m-2" title="Ciclo Normal"></i></td>
                                         @else
-                                            <td><i class="far fa-times-circle text-danger" title="Ciclo Lento"></i></td>
+                                            <td><i class="far fa-times-circle text-danger m-2" title="Ciclo Lento"></i></td>
                                         @endif
                                     @else
                                         @if($device->protection_id == 4)
                                             <td><i class="far fa-eye-slash text-danger m-2" title="Proteccion Deshabilitada"></i></td>
                                             <td><i class="fas fa-temperature-high text-muted m-2" title="Rango sin Monitoreo"></i></td>
-                                            <td><i class="far fa-times-circle text-muted" title="Ciclo sin Monitoreo"></i></td>
+                                            <td><i class="far fa-times-circle text-muted m-2" title="Ciclo sin Monitoreo"></i></td>
                                         @else
                                             <td><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
                                             <td><i class="fas fa-temperature-high text-muted m-2" title="Control de temperatura deshabilitado momentaneamente"></i></td>
-                                            <td><i class="far fa-check-circle text-muted" title="Control de ciclo deshabilitado momentaneamente"></i></td>
+                                            <td><i class="far fa-check-circle text-muted m-2" title="Control de ciclo deshabilitado momentaneamente"></i></td>
                                         @endif
                                     @endif
                                     @can('devices.show')
                                         <td>
-                                            <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
+                                            <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs m-2"></i></a>
                                         </td>
                                     @endcan
                                     @can('receptions.show-hour')
                                         <td>
-                                            <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Graficos De Temperatura"><i class="fas fa-chart-line"></i></a>
+                                            <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Graficos De Temperatura"><i class="fas fa-chart-line m-2"></i></a>
                                         </td>
                                     @endcan
                                     @can('devices.log')
                                         <td>
-                                            <a href="{{ route('devices.log', $device->id) }}" class="text-primary m-2" title="Logs Dispositivo"><i class="fas fa-clipboard-list"></i></a>
+                                            <a href="{{ route('devices.log', $device->id) }}" class="text-primary m-2" title="Logs Dispositivo"><i class="fas fa-clipboard-list m-2"></i></a>
                                         </td>
                                     @endcan
                                     @can('alerts.show')
                                         <td>
-                                            <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell"></i></a>
+                                            <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell m-2"></i></a>
                                         </td>
                                     @endcan
                                 </tr>

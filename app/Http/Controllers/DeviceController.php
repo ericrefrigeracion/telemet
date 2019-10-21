@@ -25,10 +25,9 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $tiny_t_devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
+        $devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
 
-        return view('devices.all')->with(['devices' => $tiny_t_devices]);
-
+        return view('devices.all')->with(['devices' => $devices]);
     }
 
     /**
@@ -38,9 +37,9 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $tiny_t_devices = Auth::user()->devices()->where('type_device_id', 2)->get();
+        $devices = Auth::user()->devices()->where('type_device_id', 2)->get();
 
-        foreach ($tiny_t_devices as $device) {
+        foreach ($devices as $device) {
 
             if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
             {
@@ -83,7 +82,7 @@ class DeviceController extends Controller
 
         }
 
-        return view('devices.index')->with(['devices' => $tiny_t_devices]);
+        return view('devices.index')->with(['devices' => $devices]);
 
     }
 
@@ -173,9 +172,8 @@ class DeviceController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            $protection = $device->protection()->first();
-            if($device->type_device_id ==2) $tiny_t_device = $device->tiny_t_device()->first();
-            return view('devices.show')->with(['device' => $device, 'protection' => $protection, 'tiny_t_device' => $tiny_t_device]);
+
+            return view('devices.show')->with(['device' => $device]);
         }
         else
         {
@@ -208,8 +206,7 @@ class DeviceController extends Controller
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
             $protections = Protection::all();
-            $tiny_t_device = $device->tiny_t_device;
-            return view('devices.edit')->with(['device' => $device, 'protections' => $protections, 'tiny_t_device' => $tiny_t_device]);
+            return view('devices.edit')->with(['device' => $device, 'protections' => $protections]);
         }
         else
         {
@@ -249,13 +246,14 @@ class DeviceController extends Controller
                     't_out_at' => null,
                 ]);
             }
+
             if($device->protection_id != 4 && $request->protection_id == 4) $request['protected'] = false;
 
-            if($request->has('protection_id') && $request->protection_id != $device->protection_id) alertCreate($device, "Cambio el tipo de proteccion a $request->protection_id", now());
-            if($request->has('name') && $request->name != $device->name) alertCreate($device, "Cambio el nombre de dispositivo a $request->name", now());
-            if($request->has('description') && $request->description != $device->description) alertCreate($device, "Cambio la descripcion de dispositivo a $request->description", now());
-            if($request->has('notification_email') && $request->notification_email != $device->notification_email) alertCreate($device, "Cambio el E-mail de notificacion a $request->notification_email", now());
-            if($request->has('notification_phone_number') && $request->notification_phone_number != $device->notification_phone_number) alertCreate($device, "Cambio numero de notificacion a $request->notification_phone_number", now());
+            if($request->has('protection_id') && $request->protection_id != $device->protection_id) alertCreate($device, "Cambio el tipo de proteccion a $request->protection_id.", now());
+            if($request->has('name') && $request->name != $device->name) alertCreate($device, "Cambio el nombre de dispositivo a $request->name.", now());
+            if($request->has('description') && $request->description != $device->description) alertCreate($device, "Cambio la descripcion de dispositivo a $request->description.", now());
+            if($request->has('notification_email') && $request->notification_email != $device->notification_email) alertCreate($device, "Cambio el E-mail de notificacion a $request->notification_email.", now());
+            if($request->has('notification_phone_number') && $request->notification_phone_number != $device->notification_phone_number) alertCreate($device, "Cambio numero de notificacion a $request->notification_phone_number.", now());
 
             $device->update($request->all());
 
@@ -290,10 +288,10 @@ class DeviceController extends Controller
             ];
             $request->validate($rules);
 
-            if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, "Cambio la calibracion a $request->tcal °C.", now());
-            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, "Cambio la temperatura deseada a $request->t_set_point °C.", now());
-            if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, "Cambio la temperatura minima a $request->tmin °C.", now());
-            if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, "Cambio la temperatura maxima a $request->tmax °C.", now());
+            if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, "Cambio la calibracion a $request->tcal°C.", now());
+            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, "Cambio la temperatura deseada a $request->t_set_point°C.", now());
+            if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, "Cambio la temperatura minima a $request->tmin°C.", now());
+            if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, "Cambio la temperatura maxima a $request->tmax°C.", now());
             if($request->has('tdly') && $request->tdly != $tiny_t_device->tdly) alertCreate($tiny_t_device, "Cambio el retardo para el aviso a $request->tdly minutos.", now());
 
             $tiny_t_device->update($request->all());

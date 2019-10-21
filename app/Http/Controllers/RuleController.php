@@ -64,7 +64,7 @@ class RuleController extends Controller
             $request->validate($rules);
             Rule::create($request->all());
 
-            alertCreate($device, "Regla para $request->day creada con exito", now());
+            alertCreate($device, "Se creo una regla para $request->day.", now());
 
             if($user->id < 3) return redirect()->route('rules.all')->with('success', ['Regla creada con exito']);
             return redirect()->route('rules.index')->with('success', ['Regla creada con exito']);
@@ -139,13 +139,13 @@ class RuleController extends Controller
             ];
             $request->validate($rules);
 
-            if($request->has('day') && $request->day != $rule->day) alertCreate($device, "Cambio dia de horario permitido a $request->day", now());
-            if($request->has('start_time') && $request->start_time != $rule->start_time) alertCreate($device, "Cambio hora de inicio de horario permitido a $request->start_time", now());
-            if($request->has('stop_time') && $request->stop_time != $rule->stop_time) alertCreate($device, "Cambio hora de finalizacion de horario permitido a $request->stop_time", now());
+            if($request->has('day') && $request->day != $rule->day) alertCreate($device, "Cambio dia de horario permitido a $request->day.", now());
+            if($request->has('start_time') && $request->start_time != $rule->start_time) alertCreate($device, "Cambio hora de inicio de horario permitido a $request->start_time.", now());
+            if($request->has('stop_time') && $request->stop_time != $rule->stop_time) alertCreate($device, "Cambio hora de finalizacion de horario permitido a $request->stop_time.", now());
 
             $rule->update($request->all());
 
-            if($user->id < 3) return redirect()->route('rules.all')->with('success', ['Regla editada con exito']);
+            if($user->id < 3) return redirect()->route('rules.all')->with('success', ['Regla actualizada con exito']);
             return redirect()->route('rules.show', $rule->id)->with('success', ['Regla actualizada con exito']);
         }
         else
@@ -168,7 +168,7 @@ class RuleController extends Controller
         if ($user->id === $user_device || Auth::user()->id < 3)
         {
             $rule->delete();
-            alertCreate($device, "Regla para $rule->day eliminada con exito", now());
+            alertCreate($device, "Se elimino una regla para $rule->day.", now());
             return redirect()->route('rules.index')->with('success', ['Regla eliminada con exito']);
         }
         else

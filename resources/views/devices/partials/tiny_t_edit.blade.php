@@ -1,6 +1,6 @@
 <div class="col-md-6 mb-2">
     <h3>Valores de Temperatura</h3><br>
-    {!! Form::model($tiny_t_device, ['route' => ['devices.update_tiny_t', $device->id], 'method' => 'PUT']) !!}
+    {!! Form::model($device->tiny_t_device, ['route' => ['devices.update_tiny_t', $device->id], 'method' => 'PUT']) !!}
     <div class="form-group">
         {{ Form::label('tcal', 'Calibracion de la Medicion (°C)') }}
         {{ Form::number('tcal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 0.01]) }}
