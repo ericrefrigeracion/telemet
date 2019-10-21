@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-6 mb-2">
     <h3>Valores de Temperatura</h3><br>
     {!! Form::model($tiny_t_device, ['route' => ['devices.update_tiny_t', $device->id], 'method' => 'PUT']) !!}
     <div class="form-group">

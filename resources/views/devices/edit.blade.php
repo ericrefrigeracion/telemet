@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body justify-content-center">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                              <h3>Valores del Dispositivo</h3><br>
                             {!! Form::model($device, ['route' => ['devices.update_device', $device->id], 'method' => 'PUT']) !!}
                                 <div class="form-group">

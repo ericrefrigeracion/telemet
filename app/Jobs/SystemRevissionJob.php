@@ -42,6 +42,9 @@ class SystemRevissionJob implements ShouldQueue
         if($pays->isNotEmpty()) $this->paysVerification($pays);
 
         $this->deleteOldDatas();
+
+        $devices = Device::where('admin_mon', false)->get();
+        if($devices->isNotEmpty()) $this->deleteUnmonitorDeviceDatas($devices);
     }
 
     public function paysVerification($pays)
@@ -89,9 +92,6 @@ class SystemRevissionJob implements ShouldQueue
         Reception::where('created_at', '<', now()->subDays(60))->delete();
 
         Alert::where('created_at', '<', now()->subDays(60))->delete();
-
-        $devices = Device::where('admin_mon', false)->get();
-        if($devices->isNotEmpty()) $this->deleteUnmonitorDeviceDatas($devices);
     }
 
     public function deleteUnmonitorDeviceDatas($devices)
