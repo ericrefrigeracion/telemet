@@ -14,27 +14,30 @@
                         <div class="card-body">
                             <div class="row">
                                  <div class="col text-center">
-                                            @if($device->admin_mon && $device->on_line && $device->protected)
-                                                @if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_t_set_point)
-                                                    Todo en orden<i class="far fa-check-circle text-success m-2"></i>
-                                                @endif
-                                                @if(!$device->tiny_t_device->on_temp && $device->tiny_t_device->on_t_set_point)
-                                                    Fuera de Rango<i class="fas fa-exclamation text-warning m-2"></i>
-                                                @endif
-                                                 @if($device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
-                                                    Ciclo Lento<i class="fas fa-exclamation text-warning m-2"></i>
-                                                @endif
-                                                @if(!$device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
-                                                    Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
-                                                @endif
-                                                @if($device->protected)
-                                                    <i class="far fa-eye text-success m-2" title="Protegido"></i>
-                                                @endif
-                                                @if(!$device->protected && $device->protection_id != 4)
-                                                    <i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i>
-                                                @endif
-                                            @endif
-                                        </div>
+                                    @if($device->admin_mon && $device->on_line && $device->protected)
+                                        @if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_t_set_point)
+                                            Todo en orden<i class="far fa-check-circle text-success m-2"></i>
+                                        @endif
+                                        @if(!$device->tiny_t_device->on_temp && $device->tiny_t_device->on_t_set_point)
+                                            Fuera de Rango<i class="fas fa-exclamation text-warning m-2"></i>
+                                        @endif
+                                        @if($device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
+                                            Ciclo Lento<i class="fas fa-exclamation text-warning m-2"></i>
+                                        @endif
+                                        @if(!$device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
+                                            Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
+                                        @endif
+                                        @if($device->protected)
+                                            <i class="far fa-eye text-success m-2" title="Protegido"></i>
+                                        @endif
+                                        @if(!$device->protected && $device->protection_id != 4)
+                                            <i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i>
+                                        @endif
+                                    @endif
+                                    @if(!$device->admin_mon)
+                                        Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
+                                    @endif
+                                    </div>
                                 </div>
                             <div class="row">
                                 @if($device->admin_mon)
@@ -75,7 +78,7 @@
                                 @if($device->admin_mon)
                                     {{ $device->on_line ? 'En Linea':'Sin Conexion'}} - {{ $device->last_created_at }}
                                 @else
-                                    Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
+                                    {{ $device->last_created_at }}
                                 @endif
                             </small>
                         </div>
