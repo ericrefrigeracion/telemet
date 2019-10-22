@@ -35,7 +35,9 @@
                                         @endif
                                     @endif
                                     @if(!$device->admin_mon)
-                                        Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
+                                        <small>
+                                            Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
+                                       </small>
                                     @endif
                                     </div>
                                 </div>
