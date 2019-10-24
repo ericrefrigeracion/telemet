@@ -288,10 +288,10 @@ class DeviceController extends Controller
             ];
             $request->validate($rules);
 
-            if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, "Cambio la calibracion a $request->tcal°C.", now());
-            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, "Cambio la temperatura deseada a $request->t_set_point°C.", now());
-            if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, "Cambio la temperatura minima a $request->tmin°C.", now());
-            if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, "Cambio la temperatura maxima a $request->tmax°C.", now());
+            if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, "Cambio la calibracion a $request->tcal °C.", now());
+            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, "Cambio la temperatura deseada a $request->t_set_point °C.", now());
+            if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, "Cambio la temperatura minima a $request->tmin °C.", now());
+            if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, "Cambio la temperatura maxima a $request->tmax °C.", now());
             if($request->has('tdly') && $request->tdly != $tiny_t_device->tdly) alertCreate($tiny_t_device, "Cambio el retardo para el aviso a $request->tdly minutos.", now());
 
             $tiny_t_device->update($request->all());
