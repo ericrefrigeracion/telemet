@@ -4,7 +4,7 @@
 
 <hr>
 @foreach($alerts as $alert)
-{{ $alert->log }} -> Ocurrido: {{ $alert->alert_created_at }}.<br>
+{{ $alert->alert_created_at }} -> {{ $alert->log }}<br>
 @endforeach
 <hr>
 
