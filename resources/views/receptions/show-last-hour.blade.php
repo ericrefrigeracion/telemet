@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('scripts')
+@section('head_scripts')
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-10 mb-3">
             <div class="card">
@@ -33,7 +33,7 @@
 </div>
 @endsection
 
-@section('pie')
+@section('footer_scripts')
 @if(isset($datas))
     <script type="text/javascript">
         @include('receptions.partials.plot')

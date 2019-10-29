@@ -35,6 +35,18 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function real_time_all()
+    {
+        $devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
+
+        return $devices;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $devices = Auth::user()->devices()->where('type_device_id', 2)->get();
@@ -127,7 +139,7 @@ class DeviceController extends Controller
             'on_line' => false,
             'notification_email' => $user->email,
             'notification_phone_number' => $user->phone_area_code . ' - ' . $user->phone_number,
-            'monitor_expires_at' => now()->addDays(40),
+            'monitor_expires_at' => now()->addDays(70),
             'view_alerts_at' => now(),
         ]);
 
