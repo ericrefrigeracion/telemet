@@ -7,14 +7,14 @@ $.getJSON(
                 zoomType: 'x'
             },
             title: {
-                text: null
+                text: ''
             },
             xAxis: {
                 type: 'datetime'
             },
             yAxis: {
                 title: {
-                    text: null
+                    text: ''
                 }
             },
             legend: {
@@ -25,35 +25,29 @@ $.getJSON(
 
             series: [{
                 type: 'spline',
-                name: '{{ $device->type_device->data01_name }}',
+                name: 'Temperatura °C',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
                         @endforeach
                 ],
+                type: 'spline',
                 tooltip: {
-                    headerFormat: '{point.y} {{ $device->type_device->data01_unit }}',
                     valueDecimals: 2
-                },
-                marker: {
-                    enabled: false
-                },
+                }
             },
             @if($device->type_device_id == 3)
             {
-                name: '{{ $device->type_device->data02_name }}',
+                name: 'Humedad Relativa %',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->hcal }} ],
                         @endforeach
                 ],
+                type: 'spline',
                 tooltip: {
-                    headerFormat: '{point.y} {{ $device->type_device->data02_unit }}',
-                    valueDecimals: 1
-                },
-                marker: {
-                    enabled: false
-                },
+                    valueDecimals: 2
+                }
             },
             @endif
             ]
