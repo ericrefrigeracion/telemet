@@ -39,7 +39,6 @@ $.getJSON(
                 marker: {
                     enabled: false
                 },
-                threshold: null
             },
             @if($device->type_device_id == 3)
             {
@@ -53,7 +52,10 @@ $.getJSON(
                 tooltip: {
                     headerFormat: '{point.y} {{ $device->type_device->data02_unit }}',
                     valueDecimals: 1
-                }
+                },
+                marker: {
+                    enabled: false
+                },
             },
             @endif
             ]
