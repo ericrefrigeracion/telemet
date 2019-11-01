@@ -17,10 +17,6 @@ $.getJSON(
                     text: null
                 }
             },
-            tooltip: {
-                headerFormat: '{point.x} {{ $device->type_device->data01_unit }}',
-                shared: true
-            },
             legend: {
                 enabled: true
             },
@@ -37,6 +33,7 @@ $.getJSON(
                 ],
                 type: 'spline',
                 tooltip: {
+                    headerFormat: '{point.y} {{ $device->type_device->data01_unit }}',
                     valueDecimals: 2
                 }
             },
