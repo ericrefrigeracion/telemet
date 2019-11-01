@@ -31,7 +31,6 @@ $.getJSON(
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
                         @endforeach
                 ],
-                type: 'spline',
                 tooltip: {
                     headerFormat: '{point.y} {{ $device->type_device->data01_unit }}',
                     valueDecimals: 2
@@ -48,7 +47,6 @@ $.getJSON(
                             [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->hcal }} ],
                         @endforeach
                 ],
-                type: 'spline',
                 tooltip: {
                     headerFormat: '{point.y} {{ $device->type_device->data02_unit }}',
                     valueDecimals: 1
