@@ -25,7 +25,7 @@ $.getJSON(
 
             series: [{
                 type: 'spline',
-                name: 'Temperatura °C',
+                name: '{{ $device->type_device->data01_unit }}',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
@@ -38,7 +38,7 @@ $.getJSON(
             },
             @if($device->type_device_id == 3)
             {
-                name: 'Humedad Relativa %',
+                name: '{{ $device->type_device->data02_unit }}',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->hcal }} ],
