@@ -52,7 +52,6 @@ class DevicesVerificationsJob implements ShouldQueue
 
     public function deleteErrorReceptions()
     {
-        Reception::where('data01', -127)->delete();
         Reception::where('data01', 85)->delete();
     }
 
