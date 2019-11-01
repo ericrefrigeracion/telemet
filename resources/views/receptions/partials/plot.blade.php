@@ -25,6 +25,8 @@ $.getJSON(
 
             series: [{
                 type: 'spline',
+                color: 'black',
+                fillOpacity: 0.5,
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
