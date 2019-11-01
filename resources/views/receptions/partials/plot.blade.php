@@ -15,10 +15,11 @@ $.getJSON(
             yAxis: {
                 title: {
                     text: null
-                },
-                labels: {
-                    format: '{value} {{ $device->type_device->data01_unit }}'
                 }
+            },
+            tooltip: {
+                headerFormat: '{point.x} {{ $device->type_device->data01_unit }}',
+                shared: true
             },
             legend: {
                 enabled: true
@@ -28,7 +29,6 @@ $.getJSON(
 
             series: [{
                 type: 'spline',
-                fillOpacity: 0.5,
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
