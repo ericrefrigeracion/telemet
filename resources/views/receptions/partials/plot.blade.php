@@ -35,7 +35,11 @@ $.getJSON(
                 tooltip: {
                     headerFormat: '{point.y} {{ $device->type_device->data01_unit }}',
                     valueDecimals: 2
-                }
+                },
+                marker: {
+                    enabled: false
+                },
+                threshold: null
             },
             @if($device->type_device_id == 3)
             {
@@ -47,7 +51,8 @@ $.getJSON(
                 ],
                 type: 'spline',
                 tooltip: {
-                    valueDecimals: 2
+                    headerFormat: '{point.y} {{ $device->type_device->data02_unit }}',
+                    valueDecimals: 1
                 }
             },
             @endif
