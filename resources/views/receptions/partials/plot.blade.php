@@ -25,13 +25,15 @@ $.getJSON(
 
             series: [{
                 type: 'spline',
-                fillOpacity: 0.5,
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
                         @endforeach
                 ],
+                lineColor: Highcharts.getOptions().colors[1],
+                color: Highcharts.getOptions().colors[2],
+                fillOpacity: 0.5,
                 tooltip: {
                     headerFormat: '{point.y} {{ $device->type_device->data01_unit }}',
                     valueDecimals: 2
