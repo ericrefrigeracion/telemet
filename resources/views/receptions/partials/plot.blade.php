@@ -4,7 +4,7 @@ $.getJSON(
 
         Highcharts.chart('plot', {
             chart: {
-                type: 'spline',
+                type: 'areaspline',
                 zoomType: 'x'
             },
             title: {
