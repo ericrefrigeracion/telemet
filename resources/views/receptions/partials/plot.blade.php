@@ -21,7 +21,7 @@ $.getJSON(
                     to: {{ $device->tiny_t_device->tmax }},
                     color: 'rgba(68, 170, 213, 0.1)',
                     label: {
-                        text: 'Temperatura deseada',
+                        text: null,
                         style: {
                             color: '#606060'
                         }
