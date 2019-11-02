@@ -1,4 +1,4 @@
-    function () {
+    function (data) {
 
         Highcharts.chart('plot', {
             chart: {
