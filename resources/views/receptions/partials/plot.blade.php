@@ -1,4 +1,6 @@
-    function (data) {
+$.getJSON(
+    '',
+    function () {
 
         Highcharts.chart('plot', {
             chart: {
@@ -78,4 +80,5 @@
             @endif
             ]
         });
-    };
+    }
+);
