@@ -17,7 +17,7 @@ $.getJSON(
                 title: {
                     text: null
                 },
-                valueSuffix: ' {{ $device->type_device->data01_unit }}'
+
                 plotBands: [ {
                     from: {{ $device->tiny_t_device->tmin }},
                     to: {{ $device->tiny_t_device->tmax }},
