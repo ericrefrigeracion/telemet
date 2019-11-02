@@ -27,18 +27,24 @@ class ReceptionController extends Controller
             if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
-                                                        ->where('data01', '!=', -127)->get();
+                                                        ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
-                                                        ->where('data02', '!=', -127)->get();
+                                                        ->where('data01', '!=', 85)
+                                                        ->where('data02', '!=', -127)
+                                                        ->where('data02', '!=', 85)->get();
             if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)
                                                         ->where('data02', '!=', -127)
-                                                        ->where('data03', '!=', -127)->get();
+                                                        ->where('data02', '!=', 85)
+                                                        ->where('data03', '!=', -127)
+                                                        ->where('data03', '!=', 85)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -76,18 +82,24 @@ class ReceptionController extends Controller
             if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
-                                                        ->where('data01', '!=', -127)->get();
+                                                        ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
-                                                        ->where('data02', '!=', -127)->get();
+                                                        ->where('data01', '!=', 85)
+                                                        ->where('data02', '!=', -127)
+                                                        ->where('data02', '!=', 85)->get();
             if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)
                                                         ->where('data02', '!=', -127)
-                                                        ->where('data03', '!=', -127)->get();
+                                                        ->where('data02', '!=', 85)
+                                                        ->where('data03', '!=', -127)
+                                                        ->where('data03', '!=', 85)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -126,18 +138,24 @@ class ReceptionController extends Controller
             if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
-                                                        ->where('data01', '!=', -127)->get();
+                                                        ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
-                                                        ->where('data02', '!=', -127)->get();
+                                                        ->where('data01', '!=', 85)
+                                                        ->where('data02', '!=', -127)
+                                                        ->where('data02', '!=', 85)->get();
             if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)
                                                         ->where('data02', '!=', -127)
-                                                        ->where('data03', '!=', -127)->get();
+                                                        ->where('data02', '!=', 85)
+                                                        ->where('data03', '!=', -127)
+                                                        ->where('data03', '!=', 85)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -172,18 +190,24 @@ class ReceptionController extends Controller
             if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
+                                                        ->where('data01', '!=', 85)
                                                         ->where('data01', '!=', -127)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
-                                                        ->where('data02', '!=', -127)->get();
+                                                        ->where('data01', '!=', 85)
+                                                        ->where('data02', '!=', -127)
+                                                        ->where('data02', '!=', 85)->get();
             if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02','data03', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
+                                                        ->where('data01', '!=', 85)
                                                         ->where('data02', '!=', -127)
-                                                        ->where('data03', '!=', -127)->get();
+                                                        ->where('data02', '!=', 85)
+                                                        ->where('data03', '!=', -127)
+                                                        ->where('data03', '!=', 85)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -215,9 +239,24 @@ class ReceptionController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')->where('device_id', $device->id)->where('data01', '!=', -127)->get();
-            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')->where('device_id', $device->id)->where('data01', '!=', -127)->where('data02', '!=', -127)->get();
-            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')->where('device_id', $device->id)->where('data01', '!=', -127)->where('data02', '!=', -127)->where('data03', '!=', -127)->get();
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')
+                                                            ->where('device_id', $device->id)
+                                                            ->where('data01', '!=', -127)
+                                                            ->where('data01', '!=', 85)->get();
+            if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
+                                                            ->where('device_id', $device->id)
+                                                            ->where('data01', '!=', -127)
+                                                            ->where('data01', '!=', 85)
+                                                            ->where('data02', '!=', -127)
+                                                            ->where('data02', '!=', 85)->get();
+            if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')
+                                                            ->where('device_id', $device->id)
+                                                            ->where('data01', '!=', -127)
+                                                            ->where('data01', '!=', 85)
+                                                            ->where('data02', '!=', -127)
+                                                            ->where('data02', '!=', 85)
+                                                            ->where('data03', '!=', -127)
+                                                            ->where('data03', '!=', 85)->get();
 
             if ($datas->isNotEmpty())
             {
