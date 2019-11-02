@@ -1,3 +1,7 @@
+$.getJSON(
+    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
+    function (data) {
+
         Highcharts.chart('plot', {
             chart: {
                 type: 'spline',
@@ -29,11 +33,6 @@
                 enabled: true
             },
             plotOptions: {
-                series: {
-                    marker: {
-                        enabled: true
-                    }
-                }
             },
 
             series: [{
@@ -68,3 +67,5 @@
             @endif
             ]
         });
+    }
+);
