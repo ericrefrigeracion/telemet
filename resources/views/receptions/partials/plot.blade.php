@@ -1,5 +1,6 @@
         Highcharts.chart('plot', {
             chart: {
+                type: 'spline',
                 zoomType: 'x'
             },
             title: {
@@ -31,7 +32,6 @@
             },
 
             series: [{
-                type: 'spline',
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
