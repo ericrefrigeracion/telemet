@@ -1,6 +1,4 @@
-$.getJSON(
-    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
-    function (data) {
+    function () {
 
         Highcharts.chart('plot', {
             chart: {
@@ -80,5 +78,4 @@ $.getJSON(
             @endif
             ]
         });
-    }
-);
+    };
