@@ -17,17 +17,6 @@ $.getJSON(
                 title: {
                     text: null
                 },
-                plotBands: [ {
-                    from: {{ $device->tiny_t_device->tmin }},
-                    to: {{ $device->tiny_t_device->tmax }},
-                    color: 'rgba(68, 170, 213, 0.1)',
-                    label: {
-                        text: null,
-                        style: {
-                            color: '#606060'
-                        }
-                    }
-                }]
             },
             legend: {
                 enabled: true
