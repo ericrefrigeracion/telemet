@@ -17,7 +17,6 @@ $.getJSON(
                 title: {
                     text: null
                 },
-
                 plotBands: [ {
                     from: {{ $device->tiny_t_device->tmin }},
                     to: {{ $device->tiny_t_device->tmax }},
@@ -44,7 +43,8 @@ $.getJSON(
                         @endforeach
                 ],
                 tooltip: {
-                    valueDecimals: 2
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
                 },
                 marker: {
                     enabled: false
