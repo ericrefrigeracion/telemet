@@ -16,9 +16,9 @@ $.getJSON(
                 title: {
                     text: null
                 },
-                plotBands: [ { // High wind
+                plotBands: [ {
                     from: {{ $device->tiny_t_device->tmin }},
-                    to: {{ $device->tiny_t_device->tmin }},
+                    to: {{ $device->tiny_t_device->tmax }},
                     color: 'rgba(68, 170, 213, 0.1)',
                     label: {
                         text: 'Temperatura deseada',
