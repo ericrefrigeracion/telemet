@@ -29,6 +29,11 @@
                 enabled: true
             },
             plotOptions: {
+                series: {
+                    marker: {
+                        enabled: true
+                    }
+                }
             },
 
             series: [{
