@@ -1,7 +1,3 @@
-$.getJSON(
-    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
-    function (data) {
-
         Highcharts.chart('plot', {
             chart: {
                 zoomType: 'x'
@@ -67,5 +63,3 @@ $.getJSON(
             @endif
             ]
         });
-    }
-);
