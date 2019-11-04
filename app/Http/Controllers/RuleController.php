@@ -134,8 +134,8 @@ class RuleController extends Controller
         {
             $rules = [
                 'day' => 'required',
-                'start_time' => 'required|before:stop_time',
-                'stop_time' => 'required|after:start_time',
+                'start_time' => 'required|regex:/[0-2][0-3]:[0-5][0-9]:[0-5][0-9]/|before:stop_time',
+                'stop_time' => 'required|regex:/[0-2][0-3]:[0-5][0-9]:[0-5][0-9]/|after:start_time',
             ];
             $request->validate($rules);
 
