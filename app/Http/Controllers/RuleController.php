@@ -163,9 +163,9 @@ class RuleController extends Controller
     public function destroy(Rule $rule)
     {
         $user = Auth::user();
-        $user_device = Device::findOrFail($rule->device_id)->user_id;
+        $device = Device::findOrFail($rule->device_id);
 
-        if ($user->id === $user_device || Auth::user()->id < 3)
+        if ($user->id === $device->id || Auth::user()->id < 3)
         {
             $rule->delete();
             alertCreate($device, "Se elimino una regla para $rule->day.", now());
