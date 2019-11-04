@@ -111,6 +111,12 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                     't_change_at' => $last_reception->created_at
                 ]);
             }
+            if($last_reception->data01 = $device->tiny_t_device->t_set_point)
+            {
+                $device->tiny_t_device->update([
+                    't_change_at' => $last_reception->created_at
+                ]);
+            }
     }
 
     public function setPointTimeVerification($device)
