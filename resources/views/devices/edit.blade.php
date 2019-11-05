@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('description', 'Descripcion del Dispositivo') }}
-                                    {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
+                                    {{ Form::text('description', null, ['class' => 'form-control', 'maxlength' => '25']) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('notification_email', 'Enviar Notificaciones A:') }}
