@@ -52,6 +52,9 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/permissions/{permission}', 'PermissionController@show')->name('permissions.show')->middleware('can:permissions.show');
 		Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('permissions.edit')->middleware('can:permissions.edit');
 
+		//Home-all
+		Route::get('/home/all', 'HomeController@all')->name('home.all')->middleware('can:home.all');
+
 		//logs
 		Route::get('/device-log/{id}', 'DeviceController@log')->name('devices.log')->middleware('can:devices.log');
 

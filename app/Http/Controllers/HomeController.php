@@ -28,6 +28,7 @@ class HomeController extends Controller
     {
         return view('info');
     }
+
     /**
      * Show the application dashboard.
      *
@@ -35,8 +36,24 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $devices = Device::where('user_id', $user_id)->get();
+        $devices = Auth::user()->devices()->get();
+
+        foreach ($devices as $device)
+        {
+            $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
+        }
+
+        return view('home')->with(['devices' => $devices]);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function all()
+    {
+        $devices = Device::all();
 
         foreach ($devices as $device)
         {

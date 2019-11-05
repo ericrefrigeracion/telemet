@@ -25,6 +25,9 @@
                             @can('devices.index')
                                 <tr><td colspan="5">Dirijase a la pestaña <a href="{{ route('devices.index') }}">Mis Dispositivos</a> para mas informacion</td></tr>
                             @endcan
+                            @can('home.all')
+                                <tr><td colspan="5">Ver el vencimiento de <a href="{{ route('home.all') }}">Todos los Dispositivos</a></td></tr>
+                            @endcan
                         </tbody>
 
                     </table>

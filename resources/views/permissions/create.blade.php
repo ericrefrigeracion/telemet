@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('description', 'Descripcion del permiso') }}
-                            {{ Form::text('description', null, ['class' => 'form-control', 'maxlength=25']) }}
+                            {{ Form::text('description', null, ['class' => 'form-control', 'maxlength=50']) }}
                         </div>
                         <div>
                             {{ Form::submit('Crear Permiso', ['class' => 'btn btn-sm btn-primary']) }}
