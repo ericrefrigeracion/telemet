@@ -36,7 +36,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->orderBy('monitor_expires_at', 'DESC')->get();
+        $devices = Auth::user()->devices()->get();
 
         foreach ($devices as $device)
         {
@@ -53,7 +53,7 @@ class HomeController extends Controller
      */
     public function all()
     {
-        $devices = Device::all();
+        $devices = Device::where('admin_mon', true)->orderBy('monitor_expires_at', 'ASC')->get();
 
         foreach ($devices as $device)
         {
