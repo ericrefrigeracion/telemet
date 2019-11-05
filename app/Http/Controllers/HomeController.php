@@ -36,7 +36,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->get();
+        $devices = Auth::user()->devices()->orderBy('monitor_expires_at', 'DESC')->get();
 
         foreach ($devices as $device)
         {
