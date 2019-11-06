@@ -1,10 +1,15 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Dispositivo</th>
+                                @can('devices.show')
+                                    <th>Dispositivo</th>
+                                @endcan
+                                @can('users.show')
+                                    <th>Usuario</th>
+                                @endcan
                                 <th>Monitoreo Vence</th>
                                 @can('pays.create')
-                                <th></th>
+                                    <th></th>
                                 @endcan
                             </tr>
                         </thead>
@@ -13,6 +18,10 @@
                                 <tr>
                                     @can('devices.show')
                                     <td><a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-default">{{ $device->id }}</a></td>
+                                    @endcan
+
+                                    @can('users.show')
+                                    <td><a href="{{ route('users.show', $device->user->id) }}" class="btn btn-sm btn-default">{{ $device->user->id }}</a></td>
                                     @endcan
 
                                     <td>{{ $device->monitor_expires }}</td>

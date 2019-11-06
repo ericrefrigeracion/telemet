@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function info()
     {
-        return view('info');
+        return view('home.info');
     }
 
     /**
@@ -43,7 +43,7 @@ class HomeController extends Controller
             $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
         }
 
-        return view('home')->with(['devices' => $devices]);
+        return view('home.index')->with(['devices' => $devices]);
     }
 
     /**
@@ -60,6 +60,6 @@ class HomeController extends Controller
             $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
         }
 
-        return view('home')->with(['devices' => $devices]);
+        return view('home.all')->with(['devices' => $devices]);
     }
 }
