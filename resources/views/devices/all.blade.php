@@ -63,7 +63,7 @@
                                     @endcan
                                     @can('receptions.show-hour')
                                         <td>
-                                            <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Graficos De Temperatura"><i class="fas fa-chart-line m-2"></i></a>
+                                            <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Evolucion delas Temperaturas"><i class="fas fa-chart-line m-2"></i></a>
                                         </td>
                                     @endcan
                                     @can('devices.log')

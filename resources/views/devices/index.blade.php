@@ -62,7 +62,7 @@
                             <div class="row">
                                 <div class="col h4 text-center m-0 mt-3">
                                     @can('receptions.show-hour')
-                                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Graficos De Temperatura"><i class="fas fa-chart-line"></i></a>
+                                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
                                     @endcan
                                     @can('devices.show')
                                         <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>

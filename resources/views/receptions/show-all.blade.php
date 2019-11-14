@@ -13,7 +13,7 @@
         <div class="col-md-10 mb-3">
             <div class="card">
                 <div class="card-header">
-                    Datos disponibles de {{ $device->name }} ({{ $device->description }})
+                    Evolucion de Temperaturas {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
                     @if(isset($datas))
