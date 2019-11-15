@@ -20,7 +20,7 @@
 <body>
     <div id="app">
         @include('partials.nav_bar')
-        <main class="py-4">
+        <main class="py-4 mt-5 mb-5">
             @include('partials.errors')
             @yield('content')
         </main>
