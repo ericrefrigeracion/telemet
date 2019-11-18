@@ -55,7 +55,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function maxTempVerification($device, $last_reception)
     {
-            if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
+            if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp && $last_reception->data01 != 85)
             {
                 $this->isOutTemperature($device, $last_reception->created_at);
                 alertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
@@ -68,7 +68,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function minTempVerification($device, $last_reception)
     {
-            if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
+            if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp && last_reception->data01 != -127)
             {
                 $this->isOutTemperature($device, $last_reception->created_at);
                 alertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
