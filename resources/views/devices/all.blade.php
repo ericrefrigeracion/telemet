@@ -14,10 +14,7 @@
                             <tr class="text-center">
                                 <th>Usr</th>
                                 <th>Dispositivo</th>
-                                <th>Estado</th>
-                                <th>Protegido</th>
-                                <th>Rango</th>
-                                <th>Ciclo</th>
+                                <th colspan="4">Estado</th>
                                 <th colspan="4">Acciones</th>
                             </tr>
                         </thead>

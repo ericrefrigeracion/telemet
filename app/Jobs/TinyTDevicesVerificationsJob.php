@@ -167,7 +167,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function proportional($device, $last_reception, $field)
     {
-        $proportional = $device->tiny_t_device->t_set_point - ($last_reception->data01 + $device->tiny_t_device->tcal);
+        $proportional = $device->tiny_t_device->t_set_point - $last_reception->data01;
         $last_reception->update([$field => $proportional]);
     }
 
