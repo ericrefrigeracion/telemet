@@ -83,9 +83,6 @@
                         @foreach($datas as $data)
                             [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
                         @endforeach
-                        @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $data->data03 }} ],
-                        @endforeach
                 ],
                 tooltip: {
                     valueDecimals: 2,
