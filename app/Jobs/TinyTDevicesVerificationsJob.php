@@ -54,10 +54,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->temperatureTimeVerification($device);
             $this->setPointChangeVerification($device, $last_reception);
             $this->setPointTimeVerification($device);
-            //$this->avgLastHour($device, $last_reception, $last_hour);
-            //$this->avgLastSixHours($device, $last_reception, $last_six_hours);
-            //$this->avgLastTwelveHours($device, $last_reception, $last_twelve_hours);
-            //$this->avgLastDay($device, $last_reception, $last_day);
+            $this->avgForTime($device, $last_reception, $last_hour, 'data02');
+            $this->avgForTime($device, $last_reception, $last_six_hours, 'data03');
+            $this->avgForTime($device, $last_reception, $last_twelve_hours, 'data04');
+            $this->avgForTime($device, $last_reception, $last_day, 'data05');
             //$this->proportional($device, $last_reception);
             //$this->integral($device, $last_reception);
             //$this->derivate($device, $last_reception);
@@ -159,10 +159,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function avgLastHour($device, $last_reception, $last_hour)
+    public function avgForTime($device, $last_reception, $time, $field)
     {
-        $avg = $device->receptions()->select('data01')->where('created_at', '>', $last_hour)->avg();
-
+        $avg = $device->receptions()->select('data01')->where('created_at', '>', $time)->avg();
+        $last_reception->update([$field => $avg]);
     }
 
 }
