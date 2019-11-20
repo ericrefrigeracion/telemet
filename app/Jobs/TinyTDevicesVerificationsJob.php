@@ -40,6 +40,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function allVerifications($devices)
     {
+        $last_hour = now()->subHour();
+        $last_six_hours = now()->subHours(6);
+        $last_twelve_hours = now()->subHours(12);
+        $last_day = now()->subDay();
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
@@ -50,6 +54,13 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->temperatureTimeVerification($device);
             $this->setPointChangeVerification($device, $last_reception);
             $this->setPointTimeVerification($device);
+            //$this->avgLastHour($device, $last_reception, $last_hour);
+            //$this->avgLastSixHours($device, $last_reception, $last_six_hours);
+            //$this->avgLastTwelveHours($device, $last_reception, $last_twelve_hours);
+            //$this->avgLastDay($device, $last_reception, $last_day);
+            //$this->proportional($device, $last_reception);
+            //$this->integral($device, $last_reception);
+            //$this->derivate($device, $last_reception);
         }
     }
 
@@ -68,7 +79,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function minTempVerification($device, $last_reception)
     {
-            if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp && last_reception->data01 != -127)
+            if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp && $last_reception->data01 != -127)
             {
                 $this->isOutTemperature($device, $last_reception->created_at);
                 alertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
@@ -140,11 +151,18 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function isOutTemperature($device, $moment){
+    public function isOutTemperature($device, $moment)
+    {
         $device->tiny_t_device->update([
             'on_temp' => false,
             't_out_at' => $moment
         ]);
+    }
+
+    public function avgLastHour($device, $last_reception, $last_hour)
+    {
+        $avg = $device->receptions()->select('data01')->where('created_at', '>', $last_hour)->avg();
+
     }
 
 }
