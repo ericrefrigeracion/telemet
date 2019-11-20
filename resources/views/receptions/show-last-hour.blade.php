@@ -85,6 +85,16 @@
                             [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
                             @endif
                         @endforeach
+                        @foreach($datas as $data)
+                            @if($data->data03)
+                            [ {{ $data->created_at_unix }}, {{ $data->data03 }} ],
+                            @endif
+                        @endforeach
+                        @foreach($datas as $data)
+                            @if($data->data04)
+                            [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
+                            @endif
+                        @endforeach
                 ],
                 tooltip: {
                     valueDecimals: 2,
