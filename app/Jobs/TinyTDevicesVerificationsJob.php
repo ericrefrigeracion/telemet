@@ -161,7 +161,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function avgForTime($device, $last_reception, $time, $field)
     {
-        $avg = $device->receptions()->select('data01')->where('created_at', '>', $time)->avg();
+        $avg = $device->receptions()->where('created_at', '>', $time)->avg('data01');
         $last_reception->update([$field => $avg]);
     }
 
