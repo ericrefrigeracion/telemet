@@ -81,7 +81,9 @@
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
+                            @if($data->data02)
                             [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
