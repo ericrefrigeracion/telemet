@@ -58,7 +58,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->avgForTime($device, $last_reception, $last_six_hours, 'data03');
             $this->avgForTime($device, $last_reception, $last_twelve_hours, 'data04');
             $this->avgForTime($device, $last_reception, $last_day, 'data05');
-            //$this->proportional($device, $last_reception);
+            $this->proportional($device, $last_reception, 'data06');
             //$this->integral($device, $last_reception);
             //$this->derivate($device, $last_reception);
         }
@@ -163,6 +163,12 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         $avg = $device->receptions()->where('created_at', '>', $time)->avg('data01');
         $last_reception->update([$field => $avg]);
+    }
+
+    public function proportional($device, $last_reception, $field)
+    {
+        $proportional = $device->tiny_t_device->t_set_point - ($last_reception->data01 + $device->tiny_t_device->tcal);
+        $last_reception->update([$field => $proportional]);
     }
 
 }
