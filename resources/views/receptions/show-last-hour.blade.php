@@ -86,7 +86,15 @@
                             @endif
                         @endforeach
                 ],
-                name:'promedio ultimas 6hs',
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'promedio ultimas 6hs',
                 data: [
                         @foreach($datas as $data)
                             @if($data->data03)
@@ -101,7 +109,7 @@
                 marker: {
                     enabled: false
                 },
-            },
+            }
 
             ]
         });
