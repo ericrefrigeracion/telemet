@@ -109,6 +109,54 @@
                 marker: {
                     enabled: false
                 },
+            },{
+                name: 'promedio ultimas 12hs',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data04)
+                            [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'promedio ultimas 24hs',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data05)
+                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'error',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data06)
+                            [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
             }
 
             ]
