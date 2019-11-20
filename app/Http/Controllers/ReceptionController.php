@@ -24,7 +24,7 @@ class ReceptionController extends Controller
         {
             $time = now()->subHour();
 
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'created_at')
+            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'created_at')
                                                         ->where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)
                                                         ->where('data01', '!=', -127)
