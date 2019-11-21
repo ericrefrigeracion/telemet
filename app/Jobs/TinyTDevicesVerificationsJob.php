@@ -177,7 +177,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function integral($device, $last_reception, $before_reception, $field)
     {
-        $integral = $before_reception->data06 + $last_reception->data07;
+        $integral = $before_reception->data07 + $last_reception->data06;
         if($integral > 1000) $integral = 1000;
         if($integral < -1000) $integral = -1000;
         $last_reception->update([$field => $integral]);
