@@ -48,6 +48,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         {
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
+            $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
 
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
@@ -59,7 +60,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->avgForTime($device, $last_reception, $last_twelve_hours, 'data04');
             $this->avgForTime($device, $last_reception, $last_day, 'data05');
             $this->proportional($device, $last_reception, 'data06');
-            //$this->integral($device, $last_reception);
+            $this->integral($device, $last_reception, $before_reception, 'data07');
             //$this->derivate($device, $last_reception);
         }
     }
@@ -167,8 +168,20 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function proportional($device, $last_reception, $field)
     {
-        $proportional = $device->tiny_t_device->t_set_point - $last_reception->data01;
+        $proportional = $last_reception->data01 - $device->tiny_t_device->t_set_point;
         $last_reception->update([$field => $proportional]);
+    }
+
+    public function integral($device, $last_reception, $before_reception, $field)
+    {
+        $integral = $before_reception->data06 + $last_reception->data06;
+        $last_reception->update([$field => $integral]);
+    }
+
+    public function derivate($device, $last_reception, $before_reception, $field)
+    {
+        $derivate = $before_reception->data01 - $last_reception->data01;
+        $last_reception->update([$field => $derivate]);
     }
 
 }
