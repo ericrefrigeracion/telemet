@@ -18,6 +18,7 @@
                 <div class="card-body">
                     @if(isset($datas))
                     <div id="plot" style="height: 400px; width: auto"></div>
+                    <div id="analysis" style="height: 400px; width: auto"></div>
                     @else
                         <div class="alert alert-success" role="alert">
                             No hay datos de este dispositivo en el ultimo dia, revisa su conexion a internet.

@@ -2,7 +2,7 @@ $.getJSON(
     'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
     function (data) {
 
-        Highcharts.chart('plot2', {
+        Highcharts.chart('analysis', {
             chart: {
                 type: 'spline',
                 zoomType: 'x'
