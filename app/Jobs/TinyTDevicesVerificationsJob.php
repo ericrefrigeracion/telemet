@@ -49,6 +49,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
+            if($before_reception->data01->isEmpty()) $before_reception->data01 = $device->tiny_t_device->t_set_point;
 
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
@@ -61,7 +62,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->avgForTime($device, $last_reception, $last_day, 'data05');
             $this->proportional($device, $last_reception, 'data06');
             $this->integral($device, $last_reception, $before_reception, 'data07');
-            //$this->derivate($device, $last_reception);
+            $this->derivate($device, $last_reception, $before_reception, 'data08');
         }
     }
 
