@@ -114,11 +114,43 @@ $.getJSON(
                     enabled: false
                 },
             },{
-                name: 'error',
+                name: 'Error',
                 data: [
                         @foreach($datas as $data)
                             @if($data->data06)
                             [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'Integral',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data07)
+                            [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'Derivada',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data08)
+                            [ {{ $data->created_at_unix }}, {{ $data->data08 }} ],
                             @endif
                         @endforeach
                 ],
