@@ -161,6 +161,22 @@ $.getJSON(
                 marker: {
                     enabled: false
                 },
+            },{
+                name: 'Estado',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data09)
+                            [ {{ $data->created_at_unix }}, {{ $data->data09 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
             }
 
             ]
