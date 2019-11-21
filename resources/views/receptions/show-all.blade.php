@@ -38,5 +38,10 @@
     <script type="text/javascript">
         @include('receptions.partials.plot')
     </script>
+    @can('devices.analysis')
+    <script type="text/javascript">
+        @include('receptions.partials.analisis')
+    </script>
+    @endcan
 @endif
 @endsection
