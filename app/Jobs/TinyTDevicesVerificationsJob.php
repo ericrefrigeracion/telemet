@@ -185,7 +185,12 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     public function derivate($device, $last_reception, $before_reception, $field)
     {
         $derivate = $before_reception->data01 - $last_reception->data01;
-        $last_reception->update([$field => $derivate]);
+        if($derivate > 0) $state = 1;
+        if($derivate < 0) $state = -1;
+        $last_reception->update([
+            $field => $derivate,
+            'data09' => $state
+        ]);
     }
 
 }
