@@ -78,7 +78,21 @@
             },
 
             series: [{
-                name: 'promedio ultima hora',
+                name: 'Temperatura deseada',
+                data: [
+                        @foreach($datas as $data)
+                            [ {{ $data->created_at_unix }}, {{ $device->tiny_t_device->t_set_point }} ],
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'Promedio ultima hora',
                 data: [
                         @foreach($datas as $data)
                             @if($data->data02)
