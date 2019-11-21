@@ -49,7 +49,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
-            if($before_reception->data01->isEmpty()) $before_reception->data01 = $device->tiny_t_device->t_set_point;
+            if(!$before_reception->data01) $before_reception->data01 = $device->tiny_t_device->t_set_point;
 
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
