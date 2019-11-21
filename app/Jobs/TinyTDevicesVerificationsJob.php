@@ -116,7 +116,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                     't_is' => 'higher',
                     't_change_at' => $last_reception->created_at
                 ]);
-                $last_reception->update(['data07' => 0]);
             }
             if($last_reception->data01 < $device->tiny_t_device->t_set_point && $device->tiny_t_device->t_is === 'higher')
             {
@@ -124,14 +123,12 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                     't_is' => 'lower',
                     't_change_at' => $last_reception->created_at
                 ]);
-                $last_reception->update(['data07' => 0]);
             }
             if($last_reception->data01 == $device->tiny_t_device->t_set_point)
             {
                 $device->tiny_t_device->update([
                     't_change_at' => $last_reception->created_at
                 ]);
-                $last_reception->update(['data07' => 0]);
             }
     }
 
@@ -173,12 +170,16 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     public function proportional($device, $last_reception, $field)
     {
         $proportional = $last_reception->data01 - $device->tiny_t_device->t_set_point;
+        if($proportional > 50) $proportional = 50;
+        if($proportional < -50) $proportional = -50;
         $last_reception->update([$field => $proportional]);
     }
 
     public function integral($device, $last_reception, $before_reception, $field)
     {
-        $integral = $before_reception->data06 + $last_reception->data06;
+        $integral = $before_reception->data06 + $last_reception->data07;
+        if($integral > 1000) $integral = 1000;
+        if($integral < -1000) $integral = -1000;
         $last_reception->update([$field => $integral]);
     }
 
@@ -188,6 +189,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         $state = 0;
         if($derivate > 0) $state = 1;
         if($derivate < 0) $state = -1;
+        if($derivate > 5) $derivate = 5;
+        if($derivate < -5) $derivate = -5;
         $last_reception->update([
             $field => $derivate,
             'data09' => $state
