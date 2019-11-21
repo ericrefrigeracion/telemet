@@ -116,6 +116,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                     't_is' => 'higher',
                     't_change_at' => $last_reception->created_at
                 ]);
+                $last_reception->update(['data07' => 0])
             }
             if($last_reception->data01 < $device->tiny_t_device->t_set_point && $device->tiny_t_device->t_is === 'higher')
             {
@@ -123,12 +124,14 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                     't_is' => 'lower',
                     't_change_at' => $last_reception->created_at
                 ]);
+                $last_reception->update(['data07' => 0])
             }
             if($last_reception->data01 == $device->tiny_t_device->t_set_point)
             {
                 $device->tiny_t_device->update([
                     't_change_at' => $last_reception->created_at
                 ]);
+                $last_reception->update(['data07' => 0])
             }
     }
 
