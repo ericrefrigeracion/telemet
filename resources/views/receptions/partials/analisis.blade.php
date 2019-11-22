@@ -36,20 +36,6 @@ $.getJSON(
             },
 
             series: [{
-                name: 'Temperatura deseada',
-                data: [
-                        @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $device->tiny_t_device->t_set_point }} ],
-                        @endforeach
-                ],
-                tooltip: {
-                    valueDecimals: 2,
-                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
-                },
-                marker: {
-                    enabled: false
-                },
-            },{
                 name: 'Promedio ultima hora',
                 data: [
                         @foreach($datas as $data)
@@ -98,43 +84,11 @@ $.getJSON(
                     enabled: false
                 },
             },{
-                name: 'promedio ultimas 24hs',
-                data: [
-                        @foreach($datas as $data)
-                            @if($data->data05)
-                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
-                            @endif
-                        @endforeach
-                ],
-                tooltip: {
-                    valueDecimals: 2,
-                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
-                },
-                marker: {
-                    enabled: false
-                },
-            },{
                 name: 'Error',
                 data: [
                         @foreach($datas as $data)
                             @if($data->data06)
                             [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
-                            @endif
-                        @endforeach
-                ],
-                tooltip: {
-                    valueDecimals: 2,
-                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
-                },
-                marker: {
-                    enabled: false
-                },
-            },{
-                name: 'Integral',
-                data: [
-                        @foreach($datas as $data)
-                            @if($data->data07)
-                            [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
                             @endif
                         @endforeach
                 ],

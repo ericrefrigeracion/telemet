@@ -48,24 +48,25 @@ $.getJSON(
                 },
                 marker: {
                     enabled: false
-                },
-            },
-            @if($device->type_device_id == 3)
-            {
-                name: '{{ $device->type_device->data02_name }}',
+                }
+            },{
+                name: 'Temperatura estimada del producto',
                 data: [
                         @foreach($datas as $data)
-                            [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->hcal }} ],
+                            @if($data->data05)
+                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
-                    valueDecimals: 1
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
                 },
                 marker: {
                     enabled: false
-                },
-            },
-            @endif
+                }
+            }
+
             ]
         });
     }
