@@ -18,7 +18,9 @@
                 <div class="card-body">
                     @if(isset($datas))
                     <div id="plot" style="height: 400px; width: auto"></div>
+                    @can('devices.analysis')
                     <div id="analysis" style="height: 400px; width: auto"></div>
+                    @endcan
                     @else
                         <div class="alert alert-success" role="alert">
                             No hay datos de este dispositivo en la ultima hora, revisa datos anteriores.
