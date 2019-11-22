@@ -36,14 +36,36 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allVerifications($devices);
+
+        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('type_device_id', 2)->get();
+        if($devices->isNotEmpty()) $this->allCalcs($devices);
+
     }
 
     public function allVerifications($devices)
+    {
+
+        foreach ($devices as $device)
+        {
+            $last_reception = $device->receptions()->latest()->first();
+            $last_reception->data01 += $device->tiny_t_device->tcal;
+
+            $this->maxTempVerification($device, $last_reception);
+            $this->minTempVerification($device, $last_reception);
+            $this->temperatureTimeVerification($device);
+            $this->setPointChangeVerification($device, $last_reception);
+            $this->setPointTimeVerification($device);
+
+        }
+    }
+
+    public function allCalcs($devices)
     {
         $last_hour = now()->subHour();
         $last_six_hours = now()->subHours(6);
         $last_twelve_hours = now()->subHours(12);
         $last_day = now()->subDay();
+
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
@@ -51,11 +73,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
             if(!$before_reception->data01) $before_reception->data01 = $device->tiny_t_device->t_set_point;
 
-            $this->maxTempVerification($device, $last_reception);
-            $this->minTempVerification($device, $last_reception);
-            $this->temperatureTimeVerification($device);
-            $this->setPointChangeVerification($device, $last_reception);
-            $this->setPointTimeVerification($device);
             $this->avgForTime($device, $last_reception, $last_hour, 'data02');
             $this->avgForTime($device, $last_reception, $last_six_hours, 'data03');
             $this->avgForTime($device, $last_reception, $last_twelve_hours, 'data04');
@@ -63,6 +80,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->proportional($device, $last_reception, 'data06');
             //$this->integral($device, $last_reception, $before_reception, 'data07');
             $this->derivate($device, $last_reception, $before_reception, 'data08');
+
         }
     }
 
