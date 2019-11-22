@@ -39,7 +39,9 @@ $.getJSON(
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
+                            @if($data->data04)
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -53,8 +55,8 @@ $.getJSON(
                 name: 'Temperatura estimada del producto',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data05)
-                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            @if($data->data04)
+                            [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
                             @endif
                         @endforeach
                 ],
