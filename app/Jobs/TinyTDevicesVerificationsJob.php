@@ -39,12 +39,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allCalcs($devices);
-
     }
 
     public function allVerifications($devices)
     {
-
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
@@ -55,7 +53,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->temperatureTimeVerification($device);
             $this->setPointChangeVerification($device, $last_reception);
             $this->setPointTimeVerification($device);
-
         }
     }
 
@@ -74,12 +71,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $before_reception->data01 += $device->tiny_t_device->tcal;
             if(!$before_reception->data01) $before_reception->data01 = $last_reception->data01;
 
-            $this->avgForTime($device, $last_reception, $last_hour, 'data02');
-            $this->avgForTime($device, $last_reception, $last_six_hours, 'data03');
-            $this->avgForTime($device, $last_reception, $last_twelve_hours, 'data04');
-            $this->avgForTime($device, $last_reception, $last_day, 'data05');
+            $this->avgS($device, $last_reception, $last_hour, $last_six_hours, $last_twelve_hours, $last_day);
             $this->pID($device, $last_reception, $before_reception);
-
         }
     }
 
@@ -178,10 +171,19 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function avgForTime($device, $last_reception, $time, $field)
+    public function avgS($device, $last_reception, $last_hour, $last_six_hours, $last_twelve_hours, $last_day)
     {
-        $avg = $device->receptions()->where('created_at', '>', $time)->avg('data01');
-        $last_reception->update([$field => $avg]);
+        $avg_last_hour = $device->receptions()->where('created_at', '>', $last_hour)->avg('data01');
+        $avg_last_six = $device->receptions()->where('created_at', '>', $last_six_hours)->avg('data01');
+        $avg_last_twelve = $device->receptions()->where('created_at', '>', $last_twelve_hours)->avg('data01');
+        $avg_last_day = $device->receptions()->where('created_at', '>', $last_day)->avg('data01');
+
+        $last_reception->update([
+            'data02' => $avg_last_hour,
+            'data03' => $avg_last_six,
+            'data04' => $avg_last_twelve,
+            'data05' => $avg_last_day,
+        ]);
     }
 
     public function pID($device, $last_reception, $before_reception)
