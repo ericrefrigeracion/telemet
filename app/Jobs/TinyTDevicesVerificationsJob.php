@@ -59,7 +59,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     public function allCalcs($devices)
     {
 
-        $time = now()->subHours(6);
+        $product_time = now()->subHours(6);
         $status_time = now()->subMinutes(10);
 
         foreach ($devices as $device)
@@ -70,8 +70,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $before_reception->data01 += $device->tiny_t_device->tcal;
             if(!$before_reception->data01) $before_reception->data01 = $last_reception->data01;
 
-            $this->productTemperature($device, $last_reception, $time);
-            $this->pID($device, $last_reception, $before_reception, $status_time);
+            $this->productTemperature($device, $last_reception, $before_reception, $product_time, $status_time);
         }
     }
 
@@ -170,33 +169,23 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function productTemperature($device, $last_reception, $time)
+    public function productTemperature($device, $last_reception, $before_reception, $product_time, $status_time)
     {
-
-        $avg = $device->receptions()->where('created_at', '>', $time)->avg('data01');
-
-        $last_reception->update(['data03' => $avg]);
-    }
-
-    public function pID($device, $last_reception, $before_reception, $status_time)
-    {
-        $proportional = $last_reception->data01 - $device->tiny_t_device->t_set_point;
-        if($proportional > 50) $proportional = 50;
-        if($proportional < -50) $proportional = -50;
+        $product_temperature = $device->receptions()->where('created_at', '>', $product_time)->avg('data01');
 
         $derivate = $before_reception->data01 - $last_reception->data01;
         if($derivate > 10) $derivate = 10;
         if($derivate < -10) $derivate = -10;
 
         $status = 0;
-        $derivate_avg = $device->receptions()->where('created_at', '>', $status_time)->avg('data08');
+        $derivate_avg = $device->receptions()->where('created_at', '>', $status_time)->avg('data03');
         if($derivate_avg >= 0) $status = 1;
         if($derivate_avg < 0) $status = 0;
 
         $last_reception->update([
-            'data06' => $proportional,
-            'data08' => $derivate,
-            'data09' => $status,
+            'data02' => $product_temperature,
+            'data03' => $derivate,
+            'data04' => $status,
         ]);
     }
 
