@@ -70,7 +70,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         {
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
-            $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
+            $before_reception = $device->receptions()->where('id', '<', $last_reception->id)->latest()->first();
             if(!$before_reception->data01) $before_reception->data01 = $device->tiny_t_device->t_set_point;
 
             $this->avgForTime($device, $last_reception, $last_hour, 'data02');
