@@ -39,7 +39,9 @@ $.getJSON(
                 name: 'Promedio ultima hora',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data02))
                             [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -53,7 +55,9 @@ $.getJSON(
                 name: 'promedio ultimas 12hs',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data04))
                             [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -67,7 +71,9 @@ $.getJSON(
                 name: 'promedio ultimas 24hs',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data05))
                             [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -81,7 +87,9 @@ $.getJSON(
                 name: 'Error',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data06))
                             [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -95,7 +103,9 @@ $.getJSON(
                 name: 'Before',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data07))
                             [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -109,7 +119,9 @@ $.getJSON(
                 name: 'Derivada',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data08))
                             [ {{ $data->created_at_unix }}, {{ $data->data08 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
@@ -123,7 +135,9 @@ $.getJSON(
                 name: 'Estado',
                 data: [
                         @foreach($datas as $data)
+                            @if(isset($data->data09))
                             [ {{ $data->created_at_unix }}, {{ $data->data09 }} ],
+                            @endif
                         @endforeach
                 ],
                 tooltip: {
