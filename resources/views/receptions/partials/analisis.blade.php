@@ -52,11 +52,11 @@ $.getJSON(
                     enabled: false
                 },
             },{
-                name: 'promedio ultimas 6hs',
+                name: 'promedio ultimas 12hs',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data03)
-                            [ {{ $data->created_at_unix }}, {{ $data->data03 }} ],
+                            @if($data->data04)
+                            [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
                             @endif
                         @endforeach
                 ],

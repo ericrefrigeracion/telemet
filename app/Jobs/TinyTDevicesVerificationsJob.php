@@ -205,8 +205,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         $derivate = $before_reception->data01 - $last_reception->data01;
         $state = 0;
-        if($derivate >= 0) $state = 1;
-        if($derivate < 0) $state = 0;
+        if($derivate >= 0.00) $state = 1;
+        if($derivate < 0.00) $state = 0;
         if($derivate > 5) $derivate = 5;
         if($derivate < -5) $derivate = -5;
         $last_reception->update([
