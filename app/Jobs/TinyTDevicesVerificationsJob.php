@@ -192,21 +192,33 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($proportional > 50) $proportional = 50;
         if($proportional < -50) $proportional = -50;
 
-        $integral = $before_reception->data01;
+        $integral = null;
 
         $derivate = $before_reception->data01 - $last_reception->data01;
         if($derivate > 10) $derivate = 10;
         if($derivate < -10) $derivate = -10;
 
-        $state = 0;
-        if($derivate > 0) $state = 1;
-        if($derivate < 0) $state = 0;
+        if($derivate < 0) $status = 1;
+        if($derivate > 0) $status = 0;
+
+        $status_count = 0;
+        if(isset($last_reception->data10)) $status_count = $last_reception->data10;
+
+        $before_status = 0;
+        if(isset($before_reception->data09)) $before_status = $before_reception->data09;
+
+        if($before_status != $status && $status_count < 2) $status_count ++;
+        if($before_status == $status && $status_count > 0) $status_count --;
+
+        if($status_count > 2 && $before_status) $before_status = 0;
+        if($status_count > 2 && !$before_status) $before_status = 1;
 
         $last_reception->update([
             'data06' => $proportional,
-            'data07' => $integral, //before reception
+            'data07' => $integral,
             'data08' => $derivate,
-            'data09' => $state
+            'data09' => $before_status,
+            'data10' => $status_count
         ]);
     }
 

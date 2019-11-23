@@ -142,7 +142,7 @@ $.getJSON(
                 ],
                 tooltip: {
                     valueDecimals: 2,
-                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                    valueSuffix: ''
                 },
                 marker: {
                     enabled: false
