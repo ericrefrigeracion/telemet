@@ -70,7 +70,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         {
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
-            $before_reception = $device->receptions()->where('id', '<', $last_reception->id)->latest()->first();
+            $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
+            $before_reception->data01 += $device->tiny_t_device->tcal;
             if(!$before_reception->data01) $before_reception->data01 = $last_reception->data01;
 
             $this->avgForTime($device, $last_reception, $last_hour, 'data02');
@@ -79,7 +80,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->avgForTime($device, $last_reception, $last_day, 'data05');
             $this->proportional($device, $last_reception, 'data06');
             //$this->integral($device, $last_reception, $before_reception, 'data07');
-            $this->derivate($device, $last_reception, $before_reception, 'data08');
+            $this->pID($device, $last_reception, $before_reception);
 
         }
     }
@@ -185,33 +186,26 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         $last_reception->update([$field => $avg]);
     }
 
-    public function proportional($device, $last_reception, $field)
+    public function pID($device, $last_reception, $before_reception)
     {
         $proportional = $last_reception->data01 - $device->tiny_t_device->t_set_point;
         if($proportional > 50) $proportional = 50;
         if($proportional < -50) $proportional = -50;
-        $last_reception->update([$field => $proportional]);
-    }
 
-    public function integral($device, $last_reception, $before_reception, $field)
-    {
-        $integral = $before_reception->data07 + $last_reception->data06;
-        if($integral > 1000) $integral = 1000;
-        if($integral < -1000) $integral = -1000;
-        $last_reception->update([$field => $integral]);
-    }
+        $integral = $before_reception->data01;
 
-    public function derivate($device, $last_reception, $before_reception, $field)
-    {
-        $before_reception->data01 += $device->tiny_t_device->tcal;
         $derivate = $before_reception->data01 - $last_reception->data01;
+        if($derivate > 10) $derivate = 10;
+        if($derivate < -10) $derivate = -10;
+
         $state = 0;
-        if($derivate >= 0.00) $state = 1;
-        if($derivate < 0.00) $state = 0;
-        if($derivate > 5) $derivate = 5;
-        if($derivate < -5) $derivate = -5;
+        if($derivate > 0) $state = 1;
+        if($derivate < 0) $state = 0;
+
         $last_reception->update([
-            $field => $derivate,
+            'data06' => $proportional,
+            'data07' => $integral,
+            'data08' => $derivate,
             'data09' => $state
         ]);
     }
