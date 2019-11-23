@@ -39,7 +39,7 @@ $.getJSON(
                 name: 'Promedio ultima hora',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data02)
+                            @if($data->data02 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
                             @endif
                         @endforeach
@@ -55,7 +55,7 @@ $.getJSON(
                 name: 'promedio ultimas 12hs',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data04)
+                            @if($data->data04 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
                             @endif
                         @endforeach
@@ -71,7 +71,7 @@ $.getJSON(
                 name: 'promedio ultimas 24hs',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data05)
+                            @if($data->data05 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
                             @endif
                         @endforeach
@@ -87,7 +87,7 @@ $.getJSON(
                 name: 'Error',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data06)
+                            @if($data->data06 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
                             @endif
                         @endforeach
@@ -103,7 +103,7 @@ $.getJSON(
                 name: 'Before',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data07)
+                            @if($data->data07 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
                             @endif
                         @endforeach
@@ -119,7 +119,7 @@ $.getJSON(
                 name: 'Derivada',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data08)
+                            @if($data->data08 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data08 }} ],
                             @endif
                         @endforeach
@@ -135,7 +135,7 @@ $.getJSON(
                 name: 'Estado',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data09)
+                            @if($data->data09 != null)
                             [ {{ $data->created_at_unix }}, {{ $data->data09 }} ],
                             @endif
                         @endforeach
