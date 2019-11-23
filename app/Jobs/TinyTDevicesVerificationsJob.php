@@ -208,7 +208,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         $before_status = 0;
         if(isset($before_reception->data09)) $before_status = $before_reception->data09;
 
-        if($before_status != $status && $status_count < 2) $status_count ++;
+        if($before_status != $status && $status_count <= 2) $status_count ++;
         if($before_status == $status && $status_count > 0) $status_count --;
 
         if($status_count > 2 && $before_status) $before_status = 0;
