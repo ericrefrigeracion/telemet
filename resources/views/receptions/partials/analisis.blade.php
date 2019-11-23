@@ -100,6 +100,22 @@ $.getJSON(
                     enabled: false
                 },
             },{
+                name: 'Before',
+                data: [
+                        @foreach($datas as $data)
+                            @if($data->data07)
+                            [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
                 name: 'Derivada',
                 data: [
                         @foreach($datas as $data)

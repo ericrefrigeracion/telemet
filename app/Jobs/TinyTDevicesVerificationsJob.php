@@ -204,7 +204,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
         $last_reception->update([
             'data06' => $proportional,
-            'data07' => $integral,
+            'data07' => $integral, //before reception
             'data08' => $derivate,
             'data09' => $state
         ]);
