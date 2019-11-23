@@ -71,7 +71,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception = $device->receptions()->where('id', '<', $last_reception->id)->latest()->first();
-            if(!$before_reception->data01) $before_reception->data01 = $device->tiny_t_device->t_set_point;
+            if(!$before_reception->data01) $before_reception->data01 = $last_reception->data01;
 
             $this->avgForTime($device, $last_reception, $last_hour, 'data02');
             $this->avgForTime($device, $last_reception, $last_six_hours, 'data03');
@@ -203,6 +203,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function derivate($device, $last_reception, $before_reception, $field)
     {
+        $before_reception->data01 += $device->tiny_t_device->tcal;
         $derivate = $before_reception->data01 - $last_reception->data01;
         $state = 0;
         if($derivate >= 0.00) $state = 1;
