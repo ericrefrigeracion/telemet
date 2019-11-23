@@ -186,6 +186,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             'data02' => $product_temperature,
             'data03' => $derivate,
             'data04' => $status,
+            'data05' => $derivate_avg
         ]);
     }
 

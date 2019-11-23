@@ -67,6 +67,22 @@ $.getJSON(
                 marker: {
                     enabled: false
                 },
+            },{
+                name: 'Promedio pendiente',
+                data: [
+                        @foreach($datas as $data)
+                            @if(isset($data->data05))
+                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
             }
 
             ]
