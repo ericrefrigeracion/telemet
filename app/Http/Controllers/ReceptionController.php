@@ -24,8 +24,7 @@ class ReceptionController extends Controller
         {
             $time = now()->subHour();
 
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'created_at')
-                                                        ->where('device_id', $device->id)
+            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
@@ -67,8 +66,7 @@ class ReceptionController extends Controller
         {
             $time = now()->subDay();
 
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'created_at')
-                                                        ->where('device_id', $device->id)
+            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
@@ -111,8 +109,7 @@ class ReceptionController extends Controller
 
             $time = now()->subWeek();
 
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'created_at')
-                                                        ->where('device_id', $device->id)
+            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
@@ -151,8 +148,7 @@ class ReceptionController extends Controller
         {
             $time = now()->subMonth();
 
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'created_at')
-                                                        ->where('device_id', $device->id)
+            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
                                                         ->where('created_at', '>=', $time)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                         ->where('device_id', $device->id)
@@ -191,8 +187,7 @@ class ReceptionController extends Controller
 
         if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
         {
-            if ($device->type_device_id == 2) $datas = Reception::select('data01', 'data02', 'data03', 'data04', 'data05', 'data06', 'data07', 'data08', 'data09', 'created_at')
-                                                            ->where('device_id', $device->id)->get();
+            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)->get();
             if ($device->type_device_id == 3) $datas = Reception::select('data01', 'data02', 'created_at')
                                                             ->where('device_id', $device->id)->get();
             if ($device->type_device_id == 4) $datas = Reception::select('data01', 'data02', 'data03', 'created_at')
