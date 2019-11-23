@@ -199,7 +199,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($derivate < -10) $derivate = -10;
 
         $status = 0;
-        if($derivate < 0) $status = 1;
+        if($derivate <= 0) $status = 1;
         if($derivate > 0) $status = 0;
 
         $status_count = 0;
