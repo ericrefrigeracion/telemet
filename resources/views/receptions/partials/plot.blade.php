@@ -39,7 +39,7 @@ $.getJSON(
                 name: '{{ $device->type_device->data01_name }}',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data04)
+                            @if($data->data01)
                             [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tcal }} ],
                             @endif
                         @endforeach
@@ -55,8 +55,8 @@ $.getJSON(
                 name: 'Temperatura estimada del producto',
                 data: [
                         @foreach($datas as $data)
-                            @if($data->data04)
-                            [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
+                            @if($data->data03)
+                            [ {{ $data->created_at_unix }}, {{ $data->data03 }} ],
                             @endif
                         @endforeach
                 ],
