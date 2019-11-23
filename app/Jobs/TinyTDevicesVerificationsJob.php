@@ -60,6 +60,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
 
         $time = now()->subHours(6);
+        $status_time = now()->subMinutes(10);
 
         foreach ($devices as $device)
         {
@@ -70,7 +71,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if(!$before_reception->data01) $before_reception->data01 = $last_reception->data01;
 
             $this->productTemperature($device, $last_reception, $time);
-            $this->pID($device, $last_reception, $before_reception);
+            $this->pID($device, $last_reception, $before_reception, $status_time);
         }
     }
 
@@ -177,40 +178,25 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         $last_reception->update(['data03' => $avg]);
     }
 
-    public function pID($device, $last_reception, $before_reception)
+    public function pID($device, $last_reception, $before_reception, $status_time)
     {
         $proportional = $last_reception->data01 - $device->tiny_t_device->t_set_point;
         if($proportional > 50) $proportional = 50;
         if($proportional < -50) $proportional = -50;
-
-        $integral = null;
 
         $derivate = $before_reception->data01 - $last_reception->data01;
         if($derivate > 10) $derivate = 10;
         if($derivate < -10) $derivate = -10;
 
         $status = 0;
-        if($derivate <= 0) $status = 1;
-        if($derivate > 0) $status = 0;
-
-        $status_count = 0;
-        if(isset($last_reception->data10)) $status_count = $last_reception->data10;
-
-        $before_status = 0;
-        if(isset($before_reception->data09)) $before_status = $before_reception->data09;
-
-        if($before_status != $status && $status_count <= 2) $status_count ++;
-        if($before_status == $status && $status_count > 0) $status_count --;
-
-        if($status_count > 2 && $before_status) $before_status = 0;
-        if($status_count > 2 && !$before_status) $before_status = 1;
+        $derivate_avg = $device->receptions()->where('created_at', '>', $time)->avg('data08');
+        if($derivate_avg >= 0) $status = 1;
+        if($derivate_avg < 0) $status = 0;
 
         $last_reception->update([
             'data06' => $proportional,
-            'data07' => $integral,
             'data08' => $derivate,
-            'data09' => $before_status,
-            'data10' => $status_count
+            'data09' => $status,
         ]);
     }
 
