@@ -78,8 +78,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->avgForTime($device, $last_reception, $last_six_hours, 'data03');
             $this->avgForTime($device, $last_reception, $last_twelve_hours, 'data04');
             $this->avgForTime($device, $last_reception, $last_day, 'data05');
-            $this->proportional($device, $last_reception, 'data06');
-            //$this->integral($device, $last_reception, $before_reception, 'data07');
             $this->pID($device, $last_reception, $before_reception);
 
         }
