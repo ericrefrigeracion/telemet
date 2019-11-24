@@ -68,7 +68,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
             $before_reception->data01 += $device->tiny_t_device->tcal;
-            if(!$before_reception->data01) $before_reception->data01 = $last_reception->data01;
+            if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
 
             $this->productTemperature($device, $last_reception, $before_reception, $product_time, $status_time);
         }
@@ -177,9 +177,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($derivate > 10) $derivate = 10;
         if($derivate < -10) $derivate = -10;
 
-        $status = $before_reception->data04;
+        if(!isset($before_reception->data04)) $before_reception->data04 = 0;
         $derivate_avg = $device->receptions()->where('created_at', '>', $status_time)->avg('data03');
         if($derivate_avg > 0) $status = 1;
+        if($derivate_avg == 0) $status = $before_reception->data04;
         if($derivate_avg < 0) $status = 0;
 
         $last_reception->update([
