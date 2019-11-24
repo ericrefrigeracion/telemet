@@ -39,6 +39,7 @@
                                             Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
                                        </small>
                                     @endif
+                                    <i class="card-title {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
                                     </div>
                                 </div>
                             <div class="row">
@@ -56,7 +57,6 @@
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
-                                    <i class="card-title {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
                                     <div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
                                 </div>
                             </div>
