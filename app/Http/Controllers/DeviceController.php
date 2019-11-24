@@ -53,7 +53,7 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
 
-            if($last_reception = Reception::where('device_id', $device->id)->latest()->first())
+            if($last_reception = Reception::where('device_id', $device->id)->where('data04', '!=', NULL)->latest()->first())
             {
                 if($device->on_line)
                 {
@@ -62,7 +62,7 @@ class DeviceController extends Controller
                     if($last_reception->data04)
                     {
                         $device->status = 'fas fa-arrow-circle-down';
-                        $device->status_class = 'text-success';
+                        $device->status_class = 'text-info';
                         $device->status_title = 'Enfriando';
                     }
                     else
