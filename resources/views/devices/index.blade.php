@@ -56,8 +56,10 @@
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
-                                        <i class="card-title h1 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
-                                    <div class="card-title h1 m-2" title="Temperatura medida">{{ $device->last_data01 }}</div>
+                                    <div class="row">
+                                        <i class="card-title {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
+                                        <div class="card-title h1 m-2" title="Temperatura medida">{{ $device->last_data01 }}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
