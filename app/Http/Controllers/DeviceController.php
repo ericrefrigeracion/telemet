@@ -59,6 +59,18 @@ class DeviceController extends Controller
                 {
                     $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
+                    if($device->data04)
+                    {
+                        $device->status = '<i class="fas fa-arrow-circle-down"></i>';
+                        $device->status_color = 'text-success';
+                        $device->status_title = 'Enfriando';
+                    }
+                    else
+                    {
+                        $device->status = '<i class="fas fa-arrow-circle-up"></i>';
+                        $device->status_color = 'text-warning';
+                        $device->status_title = 'Reposo';
+                    }
                     if ($last_reception->rssi >= -60)
                     {
                          $device->wifi_color = 'text-success';
