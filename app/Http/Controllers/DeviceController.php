@@ -59,7 +59,7 @@ class DeviceController extends Controller
                 {
                     $device->last_data01 = $last_reception->data01 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    if($device->data04)
+                    if($last_reception->data04)
                     {
                         $device->status = 'fas fa-arrow-circle-down';
                         $device->status_class = 'text-success';
