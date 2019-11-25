@@ -63,17 +63,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col h4 text-center m-0 mt-3">
-                                    <span class="text-default m-2 border border-dark" title="Temperatura estimada del producto">{{ $device->last_avg }}</span>
+                                <div class="col text-center m-0 mt-3">
+                                    <span class="text-default m-2 border border-dark h5" title="Temperatura estimada del producto">{{ $device->last_avg }}</span>
                                     @can('receptions.show-hour')
-                                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
+                                        <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2 h4" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
                                     @endcan
                                     @can('devices.show')
-                                        <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
+                                        <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2 h4" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
                                     @endcan
                                     @can('alerts.show')
                                         @if($device->alerts_count > 0)
-                                            <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2" title="Nuevas Alertas">{{ $device->alerts_count }} <i class="fas fa-bell"></i></a>
+                                            <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2 h4" title="Nuevas Alertas">{{ $device->alerts_count }} <i class="fas fa-bell"></i></a>
                                         @endif
                                     @endcan
                                 </div>
