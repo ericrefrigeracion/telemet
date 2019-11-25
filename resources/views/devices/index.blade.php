@@ -58,7 +58,7 @@
                                 <div class="col-10">
                                     <div class="row mt-3">
                                         <i class="col-3 h2 mt-1 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
-                                        <div class="col-8 h1">{{ $device->last_data01 }}</div>
+                                        <div class="col-9 h1">{{ $device->last_data01 }}</div>
                                     </div>
                                 </div>
                             </div>
