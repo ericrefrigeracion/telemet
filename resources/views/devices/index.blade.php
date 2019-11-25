@@ -57,8 +57,8 @@
                                 @endif
                                 <div class="col-10">
                                     <div class="row text-center">
-                                        <i class="card-title h2 m-2 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
-                                        <div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
+                                        <i class="col-4 card-title h2 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
+                                        <div class="col-8 card-title h1">{{ $device->last_data01 }}</div>
                                     </div>
                                 </div>
                             </div>
