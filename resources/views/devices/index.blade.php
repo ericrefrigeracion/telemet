@@ -9,7 +9,7 @@
                 @foreach($devices as $device)
                     <div class="card text-center{{ $device->on_line ? '':' border-danger'}}">
                         <div class="card-header{{ $device->on_line ? '':' bg-danger text-white'}}">
-                            {{ $device->name }}
+                            {{ $device->name }} <i class="card-title {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -39,7 +39,6 @@
                                             Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a>
                                        </small>
                                     @endif
-                                    <i class="card-title {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
                                     </div>
                                 </div>
                             <div class="row">
