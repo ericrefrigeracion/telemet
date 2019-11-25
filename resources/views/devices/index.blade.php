@@ -64,9 +64,6 @@
                             </div>
                             <div class="row">
                                 <div class="col text-center m-0 mt-3">
-                                    @if(isset($device->last_avg))
-                                        <span class="text-default m-2 border border-dark h5" title="Temperatura estimada del producto">{{ $device->last_avg }}</span>
-                                    @endif
                                     @can('receptions.show-hour')
                                         <a href="{{ route('receptions.show-hour', $device->id) }}" class="text-primary m-2 h4" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
                                     @endcan
