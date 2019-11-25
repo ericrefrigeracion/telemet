@@ -56,9 +56,9 @@
                                     </div>
                                 @endif
                                 <div class="col-10">
-                                    <div class="row text-center">
-                                        <i class="col-4 card-title h2 mt-4 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
-                                        <div class="col-8 card-title h1 mt-4">{{ $device->last_data01 }}</div>
+                                    <div class="row mt-3">
+                                        <i class="col-4 text-center h2{{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
+                                        <div class="col-8 text-center h1>{{ $device->last_data01 }}</div>
                                     </div>
                                 </div>
                             </div>
