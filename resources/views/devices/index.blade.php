@@ -9,7 +9,7 @@
                 @foreach($devices as $device)
                     <div class="card text-center{{ $device->on_line ? '':' border-danger'}}">
                         <div class="card-header{{ $device->on_line ? '':' bg-danger text-white'}}">
-                            {{ $device->name }} <i class="card-title {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
+                            {{ $device->name }}
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -56,7 +56,7 @@
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
-                                    <div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
+                                    <i class="h2 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i><div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
                                 </div>
                             </div>
                             <div class="row">
