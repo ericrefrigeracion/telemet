@@ -56,7 +56,9 @@
                                     </div>
                                 @endif
                                 <div class="col-10 text-center">
-                                    <i class="{{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i><div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
+                                    <div class="row">
+                                        <i class="{{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i><div class="card-title h1 m-2">{{ $device->last_data01 }}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
