@@ -58,7 +58,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function allCalcs($devices)
     {
-
         $product_time = now()->subHours(6);
         $status_time = now()->subMinutes(10);
 
@@ -67,8 +66,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $last_reception = $device->receptions()->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
-            $before_reception->data01 += $device->tiny_t_device->tcal;
             if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
+            $before_reception->data01 += $device->tiny_t_device->tcal;
 
             $this->productTemperature($device, $last_reception, $before_reception, $product_time, $status_time);
         }

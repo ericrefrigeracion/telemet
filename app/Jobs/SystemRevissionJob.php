@@ -42,6 +42,7 @@ class SystemRevissionJob implements ShouldQueue
         if($pays->isNotEmpty()) $this->paysVerification($pays);
 
         $this->deleteOldDatas();
+        $this->deleteUnverifiedUsers();
 
         $devices = Device::where('admin_mon', false)->get();
         if($devices->isNotEmpty()) $this->deleteUnmonitorDeviceDatas($devices);
@@ -102,6 +103,11 @@ class SystemRevissionJob implements ShouldQueue
             $device->receptions()->where('created_at', '<', $last_day)->delete();
             $device->alerts()->where('created_at', '<', $last_day)->delete();
         }
+    }
+
+    public function deleteUnverifiedUsers()
+    {
+        User::where('email_verified_at', null)->where('created_at', '<', now()->subDay())->delete();
     }
 
 
