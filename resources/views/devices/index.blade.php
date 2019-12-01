@@ -27,12 +27,6 @@
                                         @if(!$device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
                                             Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
                                         @endif
-                                        @if($device->protected)
-                                            <i class="far fa-eye text-success m-2" title="Protegido"></i>
-                                        @endif
-                                        @if(!$device->protected && $device->protection_id != 4)
-                                            <i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i>
-                                        @endif
                                     @endif
                                     @if(!$device->admin_mon)
                                         <small>
@@ -44,6 +38,12 @@
                             <div class="row">
                                 @if($device->admin_mon)
                                     <div class="col-2">
+                                        @if($device->protected)
+                                            <i class="far fa-eye text-success m-2" title="Protegido"></i>
+                                        @endif
+                                        @if(!$device->protected && $device->protection_id != 4)
+                                            <i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i>
+                                        @endif
                                         <i class="fas fa-user-shield text-success m-2" title="Monitoreo Vigente"></i>
                                         <i class="{{ $device->protection->class }} m-2" title="{{ $device->protection->description }}"></i>
                                         <i class="fas fa-wifi {{ $device->wifi_color }} m-2" title="{{ $device->wifi_description }}"></i>
