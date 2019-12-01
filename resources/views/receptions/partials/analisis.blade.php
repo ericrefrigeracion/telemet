@@ -88,7 +88,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data06))
-                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
                             @endif
                         @endforeach
                 ],
