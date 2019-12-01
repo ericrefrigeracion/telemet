@@ -53,7 +53,7 @@ class HomeController extends Controller
      */
     public function all()
     {
-        $devices = Device::where('admin_mon', true)->orderBy('monitor_expires_at', 'ASC')->get();
+        $devices = Device::where('admin_mon', '!=', null)->orderBy('monitor_expires_at', 'ASC')->get();
 
         foreach ($devices as $device)
         {
