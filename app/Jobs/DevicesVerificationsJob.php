@@ -37,7 +37,7 @@ class DevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->deleteDirtyReceptions();
+       // $this->deleteDirtyReceptions();
         $devices = Device::all();
         $this->payVigentVerification($devices);
 
