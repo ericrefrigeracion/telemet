@@ -53,12 +53,14 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->temperatureTimeVerification($device);
             $this->setPointChangeVerification($device, $last_reception);
             $this->setPointTimeVerification($device);
+            $this->deiveIsCooling($device);
         }
     }
 
     public function allCalcs($devices)
     {
         $product_time = now()->subHours(6);
+        $cooling_time= now()->subHours(2);
         $status_time = now()->subMinutes(10);
 
         foreach ($devices as $device)
@@ -69,7 +71,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
             $before_reception->data01 += $device->tiny_t_device->tcal;
 
-            $this->productTemperature($device, $last_reception, $before_reception, $product_time, $status_time);
+            $this->productTemperature($device, $last_reception, $before_reception, $product_time, $cooling_time, $status_time);
         }
     }
 
@@ -168,7 +170,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function productTemperature($device, $last_reception, $before_reception, $product_time, $status_time)
+    public function productTemperature($device, $last_reception, $before_reception, $product_time, $cooling_time, $status_time)
     {
         $product_temperature = $device->receptions()->where('created_at', '>', $product_time)->avg('data01');
 
@@ -182,12 +184,20 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($derivate_avg == 0) $status = $before_reception->data04;
         if($derivate_avg < 0) $status = 0;
 
+        $pending_sum = $device->receptions()->where('created_at', '>', $cooling_time)->where('data03', '>', 0)->sum('data03');
+
         $last_reception->update([
             'data02' => $product_temperature,
             'data03' => $derivate,
             'data04' => $status,
-            'data05' => $derivate_avg
+            'data05' => $derivate_avg,
+            'data06' => $pending_sum
         ]);
+    }
+
+    public function deiveIsCooling($device)
+    {
+
     }
 
 }
