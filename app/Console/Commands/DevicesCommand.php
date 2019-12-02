@@ -34,6 +34,6 @@ class DevicesCommand extends Command
         sleep(10);
         TinyTDevicesVerificationsJob::dispatch();
         sleep(10);
-        //SendAdminMails::dispatch();
+        SendAdminMails::dispatch();
     }
 }
