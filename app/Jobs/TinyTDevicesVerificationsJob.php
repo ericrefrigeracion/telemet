@@ -61,7 +61,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         $product_time = now()->subHours(6);
         $cooling_time= now()->subHours(2);
-        $status_time = now()->subMinutes(10);
+        $status_time = now()->subMinutes(8);
 
         foreach ($devices as $device)
         {
@@ -184,7 +184,11 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($derivate_avg == 0) $status = $before_reception->data04;
         if($derivate_avg < 0) $status = 0;
 
-        $derivate_sum = $device->receptions()->where('created_at', '>', $cooling_time)->where('data03', '>', 0)->sum('data03');
+        $derivate_positive_sum = $device->receptions()->where('created_at', '>', $cooling_time)->where('data03', '>', 0)->sum('data03');
+        if($derivate_positive_sum > 30) $derivate_positive_sum = 30;
+        if($derivate_positive_sum < 0) $derivate_positive_sum = 0;
+
+        $derivate_sum = $device->receptions()->where('created_at', '>', $cooling_time)->sum('data03');
         if($derivate_sum > 30) $derivate_sum = 30;
         if($derivate_sum < -30) $derivate_sum = -30;
 
@@ -193,7 +197,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             'data03' => $derivate,
             'data04' => $status,
             'data05' => $derivate_avg,
-            'data06' => $derivate_sum
+            'data06' => $derivate_positive_sum
+            'data07' => $derivate_sum
         ]);
     }
 

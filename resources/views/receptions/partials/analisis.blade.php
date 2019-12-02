@@ -84,11 +84,27 @@ $.getJSON(
                     enabled: false
                 },
             },{
-                name: 'Suma Pendiente',
+                name: 'Suma Positiva Pendiente',
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data06))
                             [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
+                            @endif
+                        @endforeach
+                ],
+                tooltip: {
+                    valueDecimals: 2,
+                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
+                },
+                marker: {
+                    enabled: false
+                },
+            },{
+                name: 'Suma Pendiente',
+                data: [
+                        @foreach($datas as $data)
+                            @if(isset($data->data07))
+                            [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
                             @endif
                         @endforeach
                 ],
