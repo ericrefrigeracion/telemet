@@ -45,17 +45,15 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         foreach ($devices as $device)
         {
-            $last_reception = $device->receptions()->latest()->first();
-            if(isset($last_reception->data01))
-            {
-                $last_reception->data01 += $device->tiny_t_device->tcal;
-                $this->maxTempVerification($device, $last_reception);
-                $this->minTempVerification($device, $last_reception);
-                $this->temperatureTimeVerification($device);
-                $this->setPointChangeVerification($device, $last_reception);
-                $this->setPointTimeVerification($device);
-                $this->deviceIsCooling($device);
-            }
+            $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
+            $last_reception->data01 += $device->tiny_t_device->tcal;
+
+            $this->maxTempVerification($device, $last_reception);
+            $this->minTempVerification($device, $last_reception);
+            $this->temperatureTimeVerification($device);
+            $this->setPointChangeVerification($device, $last_reception);
+            $this->setPointTimeVerification($device);
+            $this->deviceIsCooling($device);
         }
     }
 
@@ -67,7 +65,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
         foreach ($devices as $device)
         {
-            $last_reception = $device->receptions()->latest()->first();
+            $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
             if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
