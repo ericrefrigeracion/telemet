@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Device;
 use App\MailAlert;
+use App\Reception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
