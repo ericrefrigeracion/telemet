@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="main">
             	<div id="app">
-            		<h1>@{{titulo}}</h1>
+            		<input type="tex" v-model="info">
             	</div>
             </div>
         </div>
@@ -20,8 +20,9 @@
 const app = new Vue({
 	el:'#app',
 	data:{
-		titulo:'hola mundo'
+		info:'texto inicial'
 	}
+
 })
 </script>
 @endsection

@@ -46,14 +46,16 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->latest()->first();
-            $last_reception->data01 += $device->tiny_t_device->tcal;
-
-            $this->maxTempVerification($device, $last_reception);
-            $this->minTempVerification($device, $last_reception);
-            $this->temperatureTimeVerification($device);
-            $this->setPointChangeVerification($device, $last_reception);
-            $this->setPointTimeVerification($device);
-            $this->deiveIsCooling($device);
+            if(isset($last_reception->data01))
+            {
+                $last_reception->data01 += $device->tiny_t_device->tcal;
+                $this->maxTempVerification($device, $last_reception);
+                $this->minTempVerification($device, $last_reception);
+                $this->temperatureTimeVerification($device);
+                $this->setPointChangeVerification($device, $last_reception);
+                $this->setPointTimeVerification($device);
+                $this->deviceIsCooling($device);
+            }
         }
     }
 
@@ -202,7 +204,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function deiveIsCooling($device)
+    public function deviceIsCooling($device)
     {
 
     }
