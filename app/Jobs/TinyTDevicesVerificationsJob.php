@@ -34,11 +34,18 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
+        $this->toNullDirtyReceptions();
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allVerifications($devices);
 
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allCalcs($devices);
+    }
+
+    public function toNullDirtyReceptions()
+    {
+        Reception::where('data01', '=', -127)->update(['data01' => null]);
+        Reception::where('data01', '=', 85)->update(['data01' => null]);
     }
 
     public function allVerifications($devices)
@@ -66,9 +73,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
-            $last_reception->data01 += $device->tiny_t_device->tcal;
-            $before_reception = $device->receptions()->where('created_at', '<', $last_reception->created_at)->latest()->first();
+            $before_reception = $device->receptions()->where('data01', '!=', null)
+                                                    ->where('created_at', '<', $last_reception->created_at)->latest()->first();
             if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
+            $last_reception->data01 += $device->tiny_t_device->tcal;
             $before_reception->data01 += $device->tiny_t_device->tcal;
 
             $this->productTemperature($device, $last_reception, $before_reception, $product_time, $cooling_time, $status_time);

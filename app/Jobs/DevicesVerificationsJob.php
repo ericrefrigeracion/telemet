@@ -37,7 +37,6 @@ class DevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->deleteDirtyReceptions();
         $devices = Device::all();
         $this->payVigentVerification($devices);
 
@@ -46,12 +45,6 @@ class DevicesVerificationsJob implements ShouldQueue
 
         $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 1)->where('protection_id', '!=', 4)->get();
         $this->protectedVerification($devices);
-    }
-
-    public function deleteDirtyReceptions()
-    {
-        Reception::where('data01', '=', -127)->update(['data01' => null]);
-        Reception::where('data01', '=', 85)->update(['data01' => null]);
     }
 
     public function payVigentVerification($devices)
