@@ -35,11 +35,9 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function real_time_all()
+    public function real_time(Device $device)
     {
-        $devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
-
-        return $devices;
+        return $device->tiny_t_device()->get();
     }
 
     /**
