@@ -37,7 +37,11 @@ class DeviceController extends Controller
      */
     public function real_time(Device $device)
     {
-        return $device->tiny_t_device()->get();
+        $data[0] = $device;
+        $data[1] = $device->tiny_t_device()->get();
+        $data[2] = $device->receptions()->latest()->first();
+
+        return $data;
     }
 
     /**
