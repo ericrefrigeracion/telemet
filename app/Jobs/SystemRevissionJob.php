@@ -92,7 +92,6 @@ class SystemRevissionJob implements ShouldQueue
     {
 
         Reception::where('created_at', '<', now()->subDays(60))->delete();
-
         Alert::where('created_at', '<', now()->subDays(60))->delete();
     }
 

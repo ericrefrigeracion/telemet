@@ -35,18 +35,11 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->toNullDirtyReceptions();
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allVerifications($devices);
 
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allCalcs($devices);
-    }
-
-    public function toNullDirtyReceptions()
-    {
-        Reception::where('data01', '=', -127)->update(['data01' => null]);
-        Reception::where('data01', '=', 85)->update(['data01' => null]);
     }
 
     public function allVerifications($devices)
@@ -61,7 +54,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->temperatureTimeVerification($device);
             $this->setPointChangeVerification($device, $last_reception);
             $this->setPointTimeVerification($device);
-            $this->deviceIsCooling($device);
         }
     }
 
@@ -210,10 +202,4 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             'data07' => $derivate_sum
         ]);
     }
-
-    public function deviceIsCooling($device)
-    {
-
-    }
-
 }
