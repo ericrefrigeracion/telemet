@@ -186,7 +186,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($derivate_avg < 0) $status = 0;
 
         $derivate_positive_sum = $device->receptions()->where('created_at', '>', $cooling_time)->where('data03', '>', 0)->sum('data03');
-        if($derivate_positive_sum > 30) $derivate_positive_sum = 30;
+        if($derivate_positive_sum > 40) $derivate_positive_sum = 40;
         if($derivate_positive_sum < 0) $derivate_positive_sum = 0;
 
         $derivate_sum = $device->receptions()->where('created_at', '>', $cooling_time)->sum('data03');

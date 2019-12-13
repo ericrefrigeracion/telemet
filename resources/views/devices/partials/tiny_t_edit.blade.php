@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
         {{ Form::label('tmin', 'Minima Temperatura Permitida (°C)') }}
-        {{ Form::number('tmin', null, ['class' => 'form-control', 'required', 'min' => -30, 'max' => 80, 'step' => 0.01]) }}
+        {{ Form::number('tmin', null, ['class' => 'form-control', 'required', 'min' => -40, 'max' => 80, 'step' => 0.01]) }}
     </div>
     <div class="form-group">
         {{ Form::label('tmax', 'Maxima Temperatura Permitida (°C)') }}

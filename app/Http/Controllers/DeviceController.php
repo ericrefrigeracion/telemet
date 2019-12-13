@@ -37,9 +37,10 @@ class DeviceController extends Controller
      */
     public function real_time(Device $device)
     {
-        $data[0] = $device;
-        $data[1] = $device->tiny_t_device()->get();
-        $data[2] = $device->receptions()->latest()->first();
+        $data = ['device' => $device,
+                   'tiny' => $device->tiny_t_device()->first(),
+              'reception' => $device->receptions()->latest()->first(),
+            ];
 
         return $data;
     }
@@ -309,7 +310,7 @@ class DeviceController extends Controller
             $rules = [
                 'tcal' => 'required|numeric|min:-5|max:5',
                 't_set_point' => 'required|numeric|lt:tmax|gt:tmin',
-                'tmin' => 'required|numeric|min:-30|lt:tmax',
+                'tmin' => 'required|numeric|min:-40|lt:tmax',
                 'tmax' => 'required|numeric|max:80|gt:tmin',
                 'tdly' => 'required|integer|min:0|max:360',
             ];
