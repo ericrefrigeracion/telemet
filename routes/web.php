@@ -124,11 +124,10 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/devices/{device}/edit', 'DeviceController@edit')->name('devices.edit')->middleware('can:devices.edit');
 
 		//Receptions
-		Route::get('/receptions-last-hour/{device}', 'ReceptionController@show_hour')->name('receptions.show-hour')->middleware('can:receptions.show-hour');
-		Route::get('/receptions-last-day/{device}', 'ReceptionController@show_day')->name('receptions.show-day')->middleware('can:receptions.show-day');
-		Route::get('/receptions-last-week/{device}', 'ReceptionController@show_week')->name('receptions.show-week')->middleware('can:receptions.show-week');
-		Route::get('/receptions-last-month/{device}', 'ReceptionController@show_month')->name('receptions.show-month')->middleware('can:receptions.show-month');
-		Route::get('/receptions-all/{device}', 'ReceptionController@show_all')->name('receptions.show-all')->middleware('can:receptions.show-all');
+		Route::get('/receptions-now/{device}', 'ReceptionController@now')->name('receptions.now')->middleware('can:receptions.now');
+		Route::get('/receptions-today/{device}', 'ReceptionController@today')->name('receptions.today')->middleware('can:receptions.today');
+		Route::get('/receptions-yesterday/{device}', 'ReceptionController@yesterday')->name('receptions.yesterday')->middleware('can:receptions.yesterday');
+		Route::get('/receptions-week/{device}', 'ReceptionController@week')->name('receptions.week')->middleware('can:receptions.week');
 
 		//Rules
 		Route::get('/rules', 'RuleController@index')->name('rules.index')->middleware('can:rules.index');

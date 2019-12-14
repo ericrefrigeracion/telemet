@@ -23,7 +23,7 @@
                     @endcan
                     @else
                         <div class="alert alert-success" role="alert">
-                            No hay datos de este dispositivo en el ultimo dia, revisa su conexion a internet.
+                            No hay datos de este dispositivo en dia de hoy, revisa su conexion a internet.
                         </div>
                     @endif
                 </div>

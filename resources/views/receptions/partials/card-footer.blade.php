@@ -1,17 +1,14 @@
 @if($device->admin_mon)
-    @can('receptions.show-hour')
-        <a href="{{ route('receptions.show-hour', $device->id) }}" class="btn btn-sm btn-primary m-1">Ver ultima hora</a>
+    @can('receptions.now')
+        <a href="{{ route('receptions.now', $device->id) }}" class="btn btn-sm btn-primary m-1">Ultima hora</a>
     @endcan
-    @can('receptions.show-day')
-        <a href="{{ route('receptions.show-day', $device->id) }}" class="btn btn-sm btn-primary m-1">Ver ultimo dia</a>
+    @can('receptions.today')
+        <a href="{{ route('receptions.today', $device->id) }}" class="btn btn-sm btn-primary m-1">Hoy</a>
     @endcan
-    @can('receptions.show-week')
-        <a href="{{ route('receptions.show-week', $device->id) }}" class="btn btn-sm btn-primary m-1">Ver ultima semana</a>
+    @can('receptions.yesterday')
+        <a href="{{ route('receptions.yesterday', $device->id) }}" class="btn btn-sm btn-primary m-1">Ayer</a>
     @endcan
-    @can('receptions.show-month')
-        <a href="{{ route('receptions.show-month', $device->id) }}" class="btn btn-sm btn-primary m-1">Ver ultimo mes</a>
-    @endcan
-    @can('receptions.show-all')
-        <a href="{{ route('receptions.show-all', $device->id) }}" class="btn btn-sm btn-primary m-1 active">Ver todos los datos</a>
+    @can('receptions.week')
+        <a href="{{ route('receptions.week', $device->id) }}" class="btn btn-sm btn-primary m-1">Ultima Semana</a>
     @endcan
 @endif
