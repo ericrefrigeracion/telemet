@@ -52,8 +52,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
             $this->temperatureTimeVerification($device);
-            $this->setPointChangeVerification($device, $last_reception);
-            $this->setPointTimeVerification($device);
+            //$this->setPointChangeVerification($device, $last_reception);
+            //$this->setPointTimeVerification($device);
         }
     }
 
@@ -150,7 +150,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             {
                 $device->tiny_t_device->update(['on_t_set_point' => false]);
                 alertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
-                //mailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
+                mailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
             }
             if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
     }
