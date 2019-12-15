@@ -53,9 +53,9 @@
                                             <td><i class="far fa-check-circle text-muted m-2" title="Control de ciclo deshabilitado momentaneamente"></i></td>
                                         @endif
                                     @endif
-                                    @can('devices.show')
+                                    @can('devices.edit')
                                         <td>
-                                            <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs m-2"></i></a>
+                                            <a href="{{ route('devices.edit', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs m-2"></i></a>
                                         </td>
                                     @endcan
                                     @can('receptions.now')
