@@ -40,7 +40,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data01))
-                            [ {{ $data->created_at_unix }}, {{ $data->data01 }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data01 + $device->tiny_t_device->tcal }} ],
                             @endif
                         @endforeach
                 ],
@@ -56,7 +56,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data02))
-                            [ {{ $data->created_at_unix }}, {{ $data->data02 }} ],
+                            [ {{ $data->created_at_unix }}, {{ $data->data02 + $device->tiny_t_device->tcal }} ],
                             @endif
                         @endforeach
                 ],

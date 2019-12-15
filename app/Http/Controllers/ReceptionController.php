@@ -30,12 +30,7 @@ class ReceptionController extends Controller
             if ($datas->isNotEmpty())
             {
 
-                foreach ($datas as $data)
-                {
-                    $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
-                    $data->data01 = $data->data01 + $device->tiny_t_device->tcal;
-                    $data->data02 = $data->data02 + $device->tiny_t_device->tcal;
-                }
+                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
 
                 return view('receptions.now')->with(['device' => $device, 'datas' => $datas]);
 
