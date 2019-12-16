@@ -52,8 +52,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
             $this->temperatureTimeVerification($device);
-            //$this->setPointChangeVerification($device, $last_reception);
-            //$this->setPointTimeVerification($device);
         }
     }
 
@@ -114,43 +112,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                     }
                 }
             }
-    }
-
-    public function setPointChangeVerification($device, $last_reception)
-    {
-            if($last_reception->data01 > $device->tiny_t_device->t_set_point && $device->tiny_t_device->t_is === 'lower')
-            {
-                $device->tiny_t_device->update([
-                    't_is' => 'higher',
-                    't_change_at' => $last_reception->created_at
-                ]);
-            }
-            if($last_reception->data01 < $device->tiny_t_device->t_set_point && $device->tiny_t_device->t_is === 'higher')
-            {
-                $device->tiny_t_device->update([
-                    't_is' => 'lower',
-                    't_change_at' => $last_reception->created_at
-                ]);
-            }
-            if($last_reception->data01 == $device->tiny_t_device->t_set_point)
-            {
-                $device->tiny_t_device->update([
-                    't_change_at' => $last_reception->created_at
-                ]);
-            }
-    }
-
-    public function setPointTimeVerification($device)
-    {
-            $delay = now()->subMinutes($device->tiny_t_device->tdly);
-
-            if ($device->tiny_t_device->t_change_at <= $delay && $device->tiny_t_device->on_t_set_point)
-            {
-                $device->tiny_t_device->update(['on_t_set_point' => false]);
-                alertCreate($device, 'La temperatura no alcanzo el valor deseado en el tiempo previsto.', $device->tiny_t_device->t_change_at);
-                mailAlertCreate($device, 'tSetPoint', $device->tiny_t_device->t_change_at);
-            }
-            if ($device->tiny_t_device->t_change_at > $delay && !$device->tiny_t_device->on_t_set_point) $device->tiny_t_device->update(['on_t_set_point' => true]);
     }
 
     public function isOnTemperature($device)
