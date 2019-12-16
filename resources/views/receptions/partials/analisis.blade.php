@@ -40,7 +40,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data03))
-                            [ {{ $data->created_at_unix }}, {{ $data->data03 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data03 }} ],
                             @endif
                         @endforeach
                 ],
@@ -56,7 +56,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data04))
-                            [ {{ $data->created_at_unix }}, {{ $data->data04 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data04 }} ],
                             @endif
                         @endforeach
                 ],
@@ -72,7 +72,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data05))
-                            [ {{ $data->created_at_unix }}, {{ $data->data05 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data05 }} ],
                             @endif
                         @endforeach
                 ],
@@ -88,7 +88,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data06))
-                            [ {{ $data->created_at_unix }}, {{ $data->data06 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data06 }} ],
                             @endif
                         @endforeach
                 ],
@@ -104,7 +104,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data07))
-                            [ {{ $data->created_at_unix }}, {{ $data->data07 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data07 }} ],
                             @endif
                         @endforeach
                 ],
