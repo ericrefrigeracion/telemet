@@ -37,7 +37,7 @@
                                         @else
                                             <td><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
                                         @endif
-                                        @if($device->tiny_t_device->on_t_set_point)
+                                        @if(1)
                                             <td><i class="far fa-check-circle text-success m-2" title="Ciclo Normal"></i></td>
                                         @else
                                             <td><i class="far fa-times-circle text-danger m-2" title="Ciclo Lento"></i></td>
