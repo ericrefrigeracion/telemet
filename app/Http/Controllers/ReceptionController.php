@@ -29,11 +29,7 @@ class ReceptionController extends Controller
 
             if ($datas->isNotEmpty())
             {
-
-                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
-
                 return view('receptions.now')->with(['device' => $device, 'datas' => $datas]);
-
             }
             else
             {
@@ -65,11 +61,7 @@ class ReceptionController extends Controller
 
             if ($datas->isNotEmpty())
             {
-
-                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
-
                 return view('receptions.today')->with(['device' => $device, 'datas' => $datas]);
-
             }
             else
             {
@@ -104,8 +96,6 @@ class ReceptionController extends Controller
 
             if ($datas->isNotEmpty())
             {
-                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
-
                 return view('receptions.yesterday')->with(['device' => $device, 'datas' => $datas]);
             }
             else
@@ -137,10 +127,7 @@ class ReceptionController extends Controller
 
             if ($datas->isNotEmpty())
             {
-                foreach ($datas as $data) $data->created_at_unix = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
-
                 return view('receptions.week')->with(['device' => $device, 'datas' => $datas]);
-
             }
             else
             {
