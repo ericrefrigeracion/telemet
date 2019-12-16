@@ -8,7 +8,7 @@ El equipo {{ $device->name }} ({{ $device->description }}) se encuentra enviando
 
 Desde el siguiente boton puede revisar las ultimas mediciones realizadas por su dispositivo.
 
-@component('mail::button', ['url' => route('receptions.show-hour', $device->id) ])
+@component('mail::button', ['url' => route('receptions.now', $device->id) ])
 Metricas {{ $device->name }}
 @endcomponent
 

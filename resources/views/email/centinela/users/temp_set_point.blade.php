@@ -22,7 +22,7 @@ Los valores que tiene programados para su equipo son:
 
 Desde el siguiente boton puede revisar las mediciones realizadas por su dispositivo en la ultima hora.
 
-@component('mail::button', ['url' => route('receptions.show-hour', $device->id) ])
+@component('mail::button', ['url' => route('receptions.now', $device->id) ])
 Metricas {{ $device->name }}
 @endcomponent
 
