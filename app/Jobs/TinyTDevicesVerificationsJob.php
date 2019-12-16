@@ -69,8 +69,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $before_reception = $device->receptions()->where('data01', '!=', null)
                                                     ->where('created_at', '<', $last_reception->created_at)->latest()->first();
             if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
-            $last_reception->data01 += $device->tiny_t_device->tcal;
-            $before_reception->data01 += $device->tiny_t_device->tcal;
 
             $this->productTemperature($device, $last_reception, $before_reception, $product_time, $cooling_time, $status_time);
         }
