@@ -59,7 +59,7 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/home/all', 'HomeController@all')->name('home.all')->middleware('can:home.all');
 
 		//logs
-		Route::get('/device-log/{id}', 'DeviceController@log')->name('devices.log')->middleware('can:devices.log');
+		Route::get('/device-log/{device}', 'DeviceController@log')->name('devices.log')->middleware('can:devices.log');
 
 		//Devices-all
 		Route::get('/devices/all', 'DeviceController@all')->name('devices.all')->middleware('can:devices.all');

@@ -15,13 +15,16 @@ class TinyTDevice extends Model
         'on_temp',
 		'on_t_set_point',
 		'tdly',
+        'pdly',
 		'tcal',
 		't_set_point',
 		't_is',
 		't_change_at',
 		'tmin',
+        'pmin',
 		't_out_at',
 		'tmax',
+        'pmax',
     ];
 
     protected $dates = [
