@@ -14,6 +14,7 @@ class TinyTDevice extends Model
         'device_id',
         'on_temp',
 		'on_t_set_point',
+        'on_performance',
 		'tdly',
         'pdly',
 		'tcal',
