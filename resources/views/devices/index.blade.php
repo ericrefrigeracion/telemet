@@ -15,17 +15,17 @@
                             <div class="row">
                                  <div class="col text-center">
                                     @if($device->admin_mon && $device->on_line && $device->protected)
-                                        @if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_t_set_point)
+                                        @if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
                                             Todo en orden<i class="far fa-check-circle text-success m-2"></i>
                                         @endif
-                                        @if(!$device->tiny_t_device->on_temp && $device->tiny_t_device->on_t_set_point)
+                                        @if(!$device->tiny_t_device->on_temp && $device->tiny_t_device->on_performance)
                                             Fuera de Rango<i class="fas fa-exclamation text-warning m-2"></i>
                                         @endif
-                                        @if($device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
-                                            Ciclo Lento<i class="fas fa-exclamation text-warning m-2"></i>
+                                        @if($device->tiny_t_device->on_temp && !$device->tiny_t_device->on_performance)
+                                            Bajo Rendimiento<i class="fas fa-exclamation text-warning m-2"></i>
                                         @endif
-                                        @if(!$device->tiny_t_device->on_temp && !$device->tiny_t_device->on_t_set_point)
-                                            Alerta de Funcionamiento<i class="fas fa-exclamation text-danger m-2"></i>
+                                        @if(!$device->tiny_t_device->on_temp && !$device->tiny_t_device->on_performance)
+                                            ALERTA<i class="fas fa-exclamation text-danger m-2"></i>
                                         @endif
                                     @endif
                                     @if(!$device->admin_mon)

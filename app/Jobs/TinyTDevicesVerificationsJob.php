@@ -51,7 +51,12 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
+            $this->isOnTemperatureVerification($device, $last_reception);
             $this->temperatureTimeVerification($device);
+            $this->maxPerformanceVerification($device, $last_reception);
+            $this->minPerformanceVerification($device, $last_reception);
+            $this->isOnPerformanceVerification($device, $last_reception);
+            $this->performanceTimeVerification($device);
         }
     }
 
@@ -74,25 +79,25 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function maxTempVerification($device, $last_reception)
     {
-            if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
-            {
-                $this->isOutTemperature($device, $last_reception->created_at);
-                alertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
-            }
-            if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
-            {
-                $this->isOnTemperature($device);
-            }
+        if($last_reception->data01 > $device->tiny_t_device->tmax && $device->tiny_t_device->on_temp)
+        {
+            $this->isOutTemperature($device, $last_reception->created_at);
+            alertCreate($device, 'La temperatura se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+        }
     }
 
     public function minTempVerification($device, $last_reception)
     {
-            if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
-            {
-                $this->isOutTemperature($device, $last_reception->created_at);
-                alertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
-            }
-            if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
+        if($last_reception->data01 < $device->tiny_t_device->tmin && $device->tiny_t_device->on_temp)
+        {
+            $this->isOutTemperature($device, $last_reception->created_at);
+            alertCreate($device, 'La temperatura se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+        }
+    }
+
+    public function isOnTemperatureVerification($device, $last_reception)
+    {
+        if($last_reception->data01 < $device->tiny_t_device->tmax && $last_reception->data01 > $device->tiny_t_device->tmin && !$device->tiny_t_device->on_temp)
             {
                 $this->isOnTemperature($device);
             }
@@ -100,15 +105,56 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function temperatureTimeVerification($device)
     {
-            if(!$device->tiny_t_device->on_temp)
+        if(!$device->tiny_t_device->on_temp)
+        {
+            $delay = now()->subMinutes($device->tiny_t_device->tdly);
+            if ($device->tiny_t_device->t_out_at <= $delay)
             {
-                $delay = now()->subMinutes($device->tiny_t_device->tdly);
-
-                if ($device->tiny_t_device->t_out_at <= $delay)
+                if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
                 {
-                    if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
+                    mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
+                }
+            }
+        }
+    }
+
+    public function maxPerformanceVerification($device, $last_reception)
+    {
+        if($last_reception->data06 > $device->tiny_t_device->pmax && $device->tiny_t_device->on_performance)
+        {
+            $this->isOutPerformance($device, $last_reception->created_at);
+            alertCreate($device, 'La performance se encuentra alta.', $last_reception->created_at);
+        }
+    }
+
+    public function minPerformanceVerification($device, $last_reception)
+    {
+        if($last_reception->data06 < $device->tiny_t_device->pmin && $device->tiny_t_device->on_performance)
+        {
+            $this->isOutPerformance($device, $last_reception->created_at);
+            alertCreate($device, 'La performance se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+        }
+    }
+
+    public function isOnPerformanceVerification($device, $last_reception)
+    {
+        if($last_reception->data06 < $device->tiny_t_device->pmax && $last_reception->data06 > $device->tiny_t_device->pmin && !$device->tiny_t_device->on_performance)
+            {
+                $this->isOnPerformance($device);
+            }
+    }
+
+    public function performanceTimeVerification($device)
+    {
+            if(!$device->tiny_t_device->on_performance)
+            {
+                $delay = now()->subMinutes($device->tiny_t_device->pdly);
+
+                if ($device->tiny_t_device->p_out_at <= $delay)
+                {
+                    if(!MailAlert::where('device_id', $device->id)->where('type', 'perf')->where('last_created_at', $device->tiny_t_device->p_out_at)->count())
                     {
-                        mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
+                        mailAlertCreate($device, 'perf', $device->tiny_t_device->p_out_at);
                     }
                 }
             }
@@ -127,6 +173,22 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         $device->tiny_t_device->update([
             'on_temp' => false,
             't_out_at' => $moment
+        ]);
+    }
+
+    public function isOnPerformance($device)
+    {
+        $device->tiny_t_device->update([
+            'on_performance' => true,
+            'p_out_at' => null
+        ]);
+    }
+
+    public function isOutPerformance($device, $moment)
+    {
+        $device->tiny_t_device->update([
+            'on_performance' => false,
+            'p_out_at' => $moment
         ]);
     }
 
