@@ -316,9 +316,9 @@ class DeviceController extends Controller
             if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, "cambio la temperatura minima a $request->tmin °C", now());
             if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, "cambio la temperatura maxima a $request->tmax °C", now());
             if($request->has('tdly') && $request->tdly != $tiny_t_device->tdly) alertCreate($tiny_t_device, "cambio el retardo para el aviso a $request->tdly minutos", now());
-            if($request->has('pmin') && $request->pmin != $tiny_t_device->pmin) alertCreate($tiny_t_device, "cambio el retardo para el aviso a $request->pmin minutos", now());
-            if($request->has('pmax') && $request->pmax != $tiny_t_device->pmax) alertCreate($tiny_t_device, "cambio el retardo para el aviso a $request->pmax minutos", now());
-            if($request->has('pdly') && $request->pdly != $tiny_t_device->pdly) alertCreate($tiny_t_device, "cambio el retardo para el aviso a $request->pdly minutos", now());
+            if($request->has('pmin') && $request->pmin != $tiny_t_device->pmin) alertCreate($tiny_t_device, "cambio la minima performance a $request->pmin °C/h", now());
+            if($request->has('pmax') && $request->pmax != $tiny_t_device->pmax) alertCreate($tiny_t_device, "cambio maxima performance a $request->pmax °C/h", now());
+            if($request->has('pdly') && $request->pdly != $tiny_t_device->pdly) alertCreate($tiny_t_device, "cambio el retardo de performance a $request->pdly minutos", now());
 
             $tiny_t_device->update($request->all());
 

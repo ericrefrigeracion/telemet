@@ -37,10 +37,10 @@
                                         @else
                                             <td><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
                                         @endif
-                                        @if(1)
-                                            <td><i class="far fa-check-circle text-success m-2" title="Ciclo Normal"></i></td>
+                                        @if($device->tiny_t_device->on_performance)
+                                            <td><i class="far fa-check-circle text-success m-2" title="Rendimiento Normal"></i></td>
                                         @else
-                                            <td><i class="far fa-times-circle text-danger m-2" title="Ciclo Lento"></i></td>
+                                            <td><i class="far fa-times-circle text-danger m-2" title="Rendimiento Bajo"></i></td>
                                         @endif
                                     @else
                                         @if($device->protection_id == 4)
