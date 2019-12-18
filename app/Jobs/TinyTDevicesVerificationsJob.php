@@ -35,11 +35,11 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
-        if($devices->isNotEmpty()) $this->allVerifications($devices);
-
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allCalcs($devices);
+
+        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
+        if($devices->isNotEmpty()) $this->allVerifications($devices);
     }
 
     public function allVerifications($devices)
