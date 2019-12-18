@@ -18,8 +18,8 @@ $.getJSON(
                     text: null
                 },
                 plotBands: [ {
-                    from: {{ $device->tiny_t_device->tmin }},
-                    to: {{ $device->tiny_t_device->tmax }},
+                    from: {{ $device->tiny_t_device->pmin }},
+                    to: {{ $device->tiny_t_device->pmax }},
                     color: 'rgba(68, 170, 213, 0.1)',
                     label: {
                         text: null,
