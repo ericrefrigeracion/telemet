@@ -46,7 +46,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         foreach ($devices as $device)
         {
-            $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
+            $last_reception = $device->receptions()->where('data01', '!=', null)->where('data06', '!=', null)->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
 
             $this->maxTempVerification($device, $last_reception);
