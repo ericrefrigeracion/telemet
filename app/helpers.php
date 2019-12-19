@@ -13,7 +13,7 @@ function alertCreate($device, $log, $moment)
 {
     Alert::create([
         'device_id' => $device->id,
-        'log' => Auth::user()->name . " " . $log . ".",
+        'log' => $log,
         'alert_created_at' => $moment,
     ]);
 }

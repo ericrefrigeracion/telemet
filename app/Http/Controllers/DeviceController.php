@@ -180,7 +180,7 @@ class DeviceController extends Controller
             ]);
         }
 
-        alertCreate($request, 'Dispositivo creado con exito.', now());
+        alertCreate($request, Auth::user()->name . ' agrego dispositivo con exito.', now());
 
         return redirect()->route('devices.show', $request->id)->with('success', ['Dispositivo creado con exito']);
     }
@@ -270,11 +270,11 @@ class DeviceController extends Controller
 
             if($device->protection_id != 4 && $request->protection_id == 4) $request['protected'] = false;
 
-            if($request->has('protection_id') && $request->protection_id != $device->protection_id) alertCreate($device, "cambio el tipo de proteccion a $request->protection_id", now());
-            if($request->has('name') && $request->name != $device->name) alertCreate($device, "cambio el nombre de dispositivo a $request->name", now());
-            if($request->has('description') && $request->description != $device->description) alertCreate($device, "cambio la descripcion de dispositivo a $request->description", now());
-            if($request->has('notification_email') && $request->notification_email != $device->notification_email) alertCreate($device, "cambio el E-mail de notificacion a $request->notification_email", now());
-            if($request->has('notification_phone_number') && $request->notification_phone_number != $device->notification_phone_number) alertCreate($device, "cambio numero de notificacion a $request->notification_phone_number", now());
+            if($request->has('protection_id') && $request->protection_id != $device->protection_id) alertCreate($device, Auth::user()->name . " cambio el tipo de proteccion a $request->protection_id .", now());
+            if($request->has('name') && $request->name != $device->name) alertCreate($device, Auth::user()->name . " cambio el nombre de dispositivo a $request->name .", now());
+            if($request->has('description') && $request->description != $device->description) alertCreate($device, Auth::user()->name . " cambio la descripcion de dispositivo a $request->description .", now());
+            if($request->has('notification_email') && $request->notification_email != $device->notification_email) alertCreate($device, Auth::user()->name . " cambio el E-mail de notificacion a $request->notification_email .", now());
+            if($request->has('notification_phone_number') && $request->notification_phone_number != $device->notification_phone_number) alertCreate($device, Auth::user()->name . " cambio numero de notificacion a $request->notification_phone_number", now());
 
             $device->update($request->all());
 
@@ -311,14 +311,14 @@ class DeviceController extends Controller
             ];
             $request->validate($rules);
 
-            if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, "cambio la calibracion a $request->tcal °C", now());
-            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, "cambio la temperatura deseada a $request->t_set_point °C", now());
-            if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, "cambio la temperatura minima a $request->tmin °C", now());
-            if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, "cambio la temperatura maxima a $request->tmax °C", now());
-            if($request->has('tdly') && $request->tdly != $tiny_t_device->tdly) alertCreate($tiny_t_device, "cambio el retardo para el aviso a $request->tdly minutos", now());
-            if($request->has('pmin') && $request->pmin != $tiny_t_device->pmin) alertCreate($tiny_t_device, "cambio la minima performance a $request->pmin °C/h", now());
-            if($request->has('pmax') && $request->pmax != $tiny_t_device->pmax) alertCreate($tiny_t_device, "cambio maxima performance a $request->pmax °C/h", now());
-            if($request->has('pdly') && $request->pdly != $tiny_t_device->pdly) alertCreate($tiny_t_device, "cambio el retardo de performance a $request->pdly minutos", now());
+            if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, Auth::user()->name . " cambio la calibracion a $request->tcal °C.", now());
+            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, Auth::user()->name . " cambio la temperatura deseada a $request->t_set_point °C.", now());
+            if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, Auth::user()->name . " cambio la temperatura minima a $request->tmin °C.", now());
+            if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, Auth::user()->name . " cambio la temperatura maxima a $request->tmax °C.", now());
+            if($request->has('tdly') && $request->tdly != $tiny_t_device->tdly) alertCreate($tiny_t_device, Auth::user()->name . " cambio el retardo para el aviso a $request->tdly minutos.", now());
+            if($request->has('pmin') && $request->pmin != $tiny_t_device->pmin) alertCreate($tiny_t_device, Auth::user()->name . " cambio la minima performance a $request->pmin °C/h.", now());
+            if($request->has('pmax') && $request->pmax != $tiny_t_device->pmax) alertCreate($tiny_t_device, Auth::user()->name . " cambio maxima performance a $request->pmax °C/h.", now());
+            if($request->has('pdly') && $request->pdly != $tiny_t_device->pdly) alertCreate($tiny_t_device, Auth::user()->name . " cambio el retardo de performance a $request->pdly minutos.", now());
 
             $tiny_t_device->update($request->all());
 
