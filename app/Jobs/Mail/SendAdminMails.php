@@ -8,6 +8,7 @@ use App\MailAlert;
 use App\Mail\AdminHumidityMail;
 use App\Mail\AdminConnectMail;
 use App\Mail\AdminDisconnectMail;
+use App\Mail\AdminPerformanceMail;
 use App\Mail\AdminTemperatureMail;
 use App\Mail\AdminHumSetPointMail;
 use App\Mail\AdminTempSetPointMail;
