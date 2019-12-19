@@ -81,6 +81,12 @@ class SendAdminMails implements ShouldQueue
                 Mail::to($carlos->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
                 $mail_information->update(['send_to_admin_at' => now()]);
             }
+            if ($mail_information->type == 'perf')
+            {
+                Mail::to($eric->email)->queue(new AdminPerformanceMail($mail_information, $device, $user));
+                Mail::to($carlos->email)->queue(new AdminPerformanceMail($mail_information, $device, $user));
+                $mail_information->update(['send_to_admin_at' => now()]);
+            }
         }
     }
 

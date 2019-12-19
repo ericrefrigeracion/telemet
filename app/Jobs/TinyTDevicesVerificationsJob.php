@@ -64,7 +64,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
         $product_time = now()->subHours(7);
         $cooling_time= now()->subHours(3);
-        $status_time = now()->subMinutes(5);
+        $status_time = now()->subMinutes(6);
 
         foreach ($devices as $device)
         {
@@ -123,7 +123,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($last_reception->data06 > $device->tiny_t_device->pmax && $device->tiny_t_device->on_performance)
         {
             $this->isOutPerformance($device, $last_reception->created_at);
-            alertCreate($device, 'La performance se encuentra alta.', $last_reception->created_at);
+            alertCreate($device, 'El rendimiento esta por encima del esperado.', $last_reception->created_at);
         }
     }
 
@@ -132,7 +132,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($last_reception->data06 < $device->tiny_t_device->pmin && $device->tiny_t_device->on_performance)
         {
             $this->isOutPerformance($device, $last_reception->created_at);
-            alertCreate($device, 'La performance se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+            alertCreate($device, 'El equipo tiene un rendimiento por debajo de lo esperado.', $last_reception->created_at);
         }
     }
 
