@@ -306,7 +306,7 @@ class DeviceController extends Controller
                 'tmax' => 'required|numeric|max:80|gt:tmin',
                 'tdly' => 'required|integer|min:0|max:360',
                 'pmin' => 'filled|numeric|min:0|lt:pmax',
-                'pmax' => 'filled|numeric|max:40|gt:pmin',
+                'pmax' => 'filled|numeric|max:50|gt:pmin',
                 'pdly' => 'filled|integer|min:0|max:60',
             ];
             $request->validate($rules);

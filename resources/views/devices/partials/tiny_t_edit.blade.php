@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('pmax', 'Maxima Performance Permitida (°C/h)') }}
-            {{ Form::number('pmax', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 40, 'step' => 0.01]) }}
+            {{ Form::number('pmax', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 50, 'step' => 0.01]) }}
         </div>
         <div class="form-group">
             {{ Form::label('pdly', 'Retardo Performance (minutos)') }}
