@@ -123,7 +123,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($last_reception->data06 > $device->tiny_t_device->pmax && $device->tiny_t_device->on_performance)
         {
             $this->isOutPerformance($device, $last_reception->created_at);
-            alertCreate($device, 'El rendimiento esta por encima del esperado.', $last_reception->created_at);
+            alertCreate($device, 'El rendimiento del equipo esta por encima de lo esperado.', $last_reception->created_at);
         }
     }
 
@@ -132,7 +132,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($last_reception->data06 < $device->tiny_t_device->pmin && $device->tiny_t_device->on_performance)
         {
             $this->isOutPerformance($device, $last_reception->created_at);
-            alertCreate($device, 'El equipo tiene un rendimiento por debajo de lo esperado.', $last_reception->created_at);
+            alertCreate($device, 'El rendimiento del equipo esta por debajo de lo esperado.', $last_reception->created_at);
         }
     }
 

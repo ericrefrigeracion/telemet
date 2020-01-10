@@ -31,7 +31,7 @@ class DevicesCommand extends Command
     public function handle()
     {
         DevicesVerificationsJob::dispatch();
-        TinyTDevicesVerificationsJob::dispatch();
+        //TinyTDevicesVerificationsJob::dispatch();
         sleep(10);
         SendAdminMails::dispatch();
     }
