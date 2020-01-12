@@ -62,7 +62,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function allCalcs($devices)
     {
-        $product_time = now()->subHours(7);
+        $product_time = now()->subHours(1);
         $cooling_time= now()->subHours(3);
         $status_time = now()->subMinutes(8);
 
