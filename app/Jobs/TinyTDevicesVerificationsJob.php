@@ -62,7 +62,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function allCalcs($devices)
     {
-        $product_time = now()->subHours(1);
         $cooling_time= now()->subHours(3);
         $status_time = now()->subMinutes(8);
 
@@ -73,7 +72,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
                                                     ->where('created_at', '<', $last_reception->created_at)->latest()->first();
             if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
 
-            $this->productTemperature($device, $last_reception, $before_reception, $product_time, $cooling_time, $status_time);
+            $this->productTemperature($device, $last_reception, $before_reception, $cooling_time, $status_time);
         }
     }
 
@@ -192,10 +191,8 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         ]);
     }
 
-    public function productTemperature($device, $last_reception, $before_reception, $product_time, $cooling_time, $status_time)
+    public function productTemperature($device, $last_reception, $before_reception, $cooling_time, $status_time)
     {
-        $product_temperature = $device->receptions()->where('created_at', '>', $product_time)->avg('data01');
-
         $derivate = $before_reception->data01 - $last_reception->data01;
         if($derivate > 10) $derivate = 10;
         if($derivate < -10) $derivate = -10;
@@ -210,17 +207,11 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($derivate_positive_sum > 40) $derivate_positive_sum = 40;
         if($derivate_positive_sum < 0) $derivate_positive_sum = 0;
 
-        $derivate_sum = $device->receptions()->where('created_at', '>', $cooling_time)->sum('data03');
-        if($derivate_sum > 30) $derivate_sum = 30;
-        if($derivate_sum < -30) $derivate_sum = -30;
-
         $last_reception->update([
-            'data02' => $product_temperature,
             'data03' => $derivate,
             'data04' => $status,
             'data05' => $derivate_avg,
             'data06' => $derivate_positive_sum,
-            'data07' => $derivate_sum
         ]);
     }
 }
