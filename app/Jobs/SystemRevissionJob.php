@@ -91,8 +91,8 @@ class SystemRevissionJob implements ShouldQueue
     public function deleteOldDatas()
     {
 
-        Reception::where('created_at', '<', now()->subDays(60))->delete();
-        Alert::where('created_at', '<', now()->subDays(60))->delete();
+        Reception::where('created_at', '<', now()->subDays(30))->delete();
+        Alert::where('created_at', '<', now()->subDays(30))->delete();
     }
 
     public function deleteUnmonitorDeviceDatas($devices)
