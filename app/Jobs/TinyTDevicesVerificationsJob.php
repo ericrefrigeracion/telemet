@@ -35,20 +35,25 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('admin_mon', true)->where('on_line', true)->where('type_device_id', 2)->get();
-        if($devices->isNotEmpty()) $this->allCalcs($devices);
-
         $devices = Device::where('admin_mon', true)->where('on_line', true)->where('protected', true)->where('type_device_id', 2)->get();
         if($devices->isNotEmpty()) $this->allVerifications($devices);
     }
 
     public function allVerifications($devices)
     {
+
+        $cooling_time= now()->subHours(3);
+        $status_time = now()->subMinutes(8);
+
         foreach ($devices as $device)
         {
             $last_reception = $device->receptions()->where('data01', '!=', null)->where('data06', '!=', null)->latest()->first();
             $last_reception->data01 += $device->tiny_t_device->tcal;
+            $before_reception = $device->receptions()->where('data01', '!=', null)
+                                                    ->where('created_at', '<', $last_reception->created_at)->latest()->first();
+            if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
 
+            $this->productTemperature($device, $last_reception, $before_reception, $cooling_time, $status_time);
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
             $this->isOnTemperatureVerification($device, $last_reception);
@@ -57,22 +62,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->minPerformanceVerification($device, $last_reception);
             $this->isOnPerformanceVerification($device, $last_reception);
             $this->performanceTimeVerification($device);
-        }
-    }
-
-    public function allCalcs($devices)
-    {
-        $cooling_time= now()->subHours(3);
-        $status_time = now()->subMinutes(8);
-
-        foreach ($devices as $device)
-        {
-            $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
-            $before_reception = $device->receptions()->where('data01', '!=', null)
-                                                    ->where('created_at', '<', $last_reception->created_at)->latest()->first();
-            if(!isset($before_reception->data01)) $before_reception->data01 = $last_reception->data01;
-
-            $this->productTemperature($device, $last_reception, $before_reception, $cooling_time, $status_time);
         }
     }
 
