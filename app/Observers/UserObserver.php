@@ -23,8 +23,8 @@ class UserObserver
     public function created(User $user)
     {
         if ($user->id > 3) $user->roles()->attach(3);
-        Mail::to('ericlopezrefrigeracion@hotmail.com')->queue(new NewUserCreatedMail($user));
-        Mail::to('cgavernet@gmail.com')->queue(new NewUserCreatedMail($user));
+        Mail::to('ericlopezrefrigeracion@gmail.com')->queue(new NewUserCreatedMail($user));
+        Mail::to('cgavernettelemet@gmail.com')->queue(new NewUserCreatedMail($user));
     }
 
     /**
