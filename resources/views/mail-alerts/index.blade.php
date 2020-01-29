@@ -12,7 +12,8 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Momento</th>
+                                <th>Creado</th>
+                                <th>Ocurrido</th>
                                 <th>Dispositivo</th>
                                 <th>Falla</th>
                                 <th>Usuario</th>
@@ -21,6 +22,9 @@
                         <tbody>
                             @foreach($mail_alerts as $mail_alert)
                                 <tr>
+                                    <td>
+                                        {{ $mail_alert->created_at }}
+                                    </td>
                                     <td>
                                         {{ $mail_alert->last_created_at }}
                                     </td>
