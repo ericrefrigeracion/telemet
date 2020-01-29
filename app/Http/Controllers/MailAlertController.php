@@ -15,7 +15,8 @@ class MailAlertController extends Controller
      */
     public function index()
     {
-        $mail_alerts = MailAlert::paginate(50);
+        $mail_alerts = MailAlert::where('created_at', '!=', null)->latest()->paginate(50);
+
 
         return view('mail-alerts.index')->with(['mail_alerts' => $mail_alerts]);
 
