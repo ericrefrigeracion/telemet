@@ -47,13 +47,14 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
         foreach ($devices as $device)
         {
-            $last_reception = $device->receptions()->where('data01', '!=', null)->where('data06', '!=', null)->latest()->first();
+            $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
             $before_reception = $device->receptions()->where('data01', '!=', null)
                                                     ->where('created_at', '<', $last_reception->created_at)->latest()->first();
 
             $this->productTemperature($device, $last_reception, $before_reception, $cooling_time, $status_time);
 
             $last_reception->data01 += $device->tiny_t_device->tcal;
+
             $this->maxTempVerification($device, $last_reception);
             $this->minTempVerification($device, $last_reception);
             $this->isOnTemperatureVerification($device, $last_reception);
@@ -202,6 +203,5 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             'data05' => $derivate_avg,
             'data06' => $derivate_positive_sum,
         ]);
-        dd($before_reception);
     }
 }
