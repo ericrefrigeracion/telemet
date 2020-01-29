@@ -182,7 +182,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
     public function productTemperature($device, $last_reception, $before_reception, $cooling_time, $status_time)
     {
-        dd($last_reception);
         $derivate = $before_reception->data01 - $last_reception->data01;
         if($derivate > 10) $derivate = 10;
         if($derivate < -10) $derivate = -10;
@@ -203,5 +202,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             'data05' => $derivate_avg,
             'data06' => $derivate_positive_sum,
         ]);
+        dd($last_reception);
     }
 }
