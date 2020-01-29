@@ -202,6 +202,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             'data05' => $derivate_avg,
             'data06' => $derivate_positive_sum,
         ]);
-        dd($last_reception);
+        dd($before_reception);
     }
 }
