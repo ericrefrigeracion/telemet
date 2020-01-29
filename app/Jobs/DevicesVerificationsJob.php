@@ -157,8 +157,10 @@ class DevicesVerificationsJob implements ShouldQueue
             $device->tiny_t_device->update([
                 'on_t_set_point' => true,
                 'on_temp' => true,
+                'on_performance' => true,
                 't_change_at' => now(),
                 't_out_at' => null,
+                'p_out_at' => null,
             ]);
         }
     }
