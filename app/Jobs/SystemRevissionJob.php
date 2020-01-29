@@ -92,7 +92,7 @@ class SystemRevissionJob implements ShouldQueue
     {
 
         Reception::where('created_at', '<', now()->subDays(30))->delete();
-        Alert::where('created_at', '<', now()->subDays(30))->delete();
+        Alert::where('created_at', '<', now()->subDays(90))->delete();
     }
 
     public function deleteUnmonitorDeviceDatas($devices)
