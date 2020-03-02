@@ -151,18 +151,8 @@ class DevicesVerificationsJob implements ShouldQueue
                 break;
         }
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
-        if(!$device->protected && $device_protected_flag)
-        {
-            $device->update(['protected' => true]);
-            $device->tiny_t_device->update([
-                'on_t_set_point' => true,
-                'on_temp' => true,
-                'on_performance' => true,
-                't_change_at' => now(),
-                't_out_at' => null,
-                'p_out_at' => null,
-            ]);
-        }
+        if(!$device->protected && $device_protected_flag) $this->changeDeviceToProtected($device);
+
     }
 
     public function ruleProtectedDeviceRevission(Device $device)
@@ -201,16 +191,22 @@ class DevicesVerificationsJob implements ShouldQueue
         if(isset($every_day)) foreach ($every_day as $every) if($every->start_time < $time && $every->stop_time > $time) $device_protected_flag = false;
 
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
-        if(!$device->protected && $device_protected_flag)
-        {
-            $device->update(['protected' => true]);
-            $device->tiny_t_device->update([
-                'on_t_set_point' => true,
-                'on_temp' => true,
-                't_change_at' => now(),
-                't_out_at' => null,
-            ]);
-        }
+        if(!$device->protected && $device_protected_flag) $this->changeDeviceToProtected($device);
+    }
+
+    changeDeviceToProtected($device)
+    {
+        $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
+        $last_reception->update(['data06' => $device->tiny_t_device->pmin]);
+        $device->update(['protected' => true]);
+        $device->tiny_t_device->update([
+            'on_t_set_point' => true,
+            'on_temp' => true,
+            'on_performance' => true,
+            't_change_at' => now(),
+            't_out_at' => null,
+            'p_out_at' => null,
+        ]);
     }
 
 }
