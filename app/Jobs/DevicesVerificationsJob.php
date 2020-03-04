@@ -194,7 +194,7 @@ class DevicesVerificationsJob implements ShouldQueue
         if(!$device->protected && $device_protected_flag) $this->changeDeviceToProtected($device);
     }
 
-    changeDeviceToProtected($device)
+    public function changeDeviceToProtected($device)
     {
         $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
         $last_reception->update(['data06' => $device->tiny_t_device->pmin]);
