@@ -62,7 +62,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->maxPerformanceVerification($device, $last_reception);
             $this->minPerformanceVerification($device, $last_reception);
             $this->isOnPerformanceVerification($device, $last_reception);
-            $this->eperformanceTimeVerification($device);
+            $this->performanceTimeVerification($device);
         }
     }
 
