@@ -99,7 +99,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $delay = now()->subMinutes($device->tiny_t_device->tdly);
             if ($device->tiny_t_device->t_out_at <= $delay)
             {
-                if(!MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count())
+                if(MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count() == 0)
                 {
                     mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
                 }
@@ -141,7 +141,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
 
                 if ($device->tiny_t_device->p_out_at <= $delay)
                 {
-                    if(!MailAlert::where('device_id', $device->id)->where('type', 'perf')->where('last_created_at', $device->tiny_t_device->p_out_at)->count())
+                    if(MailAlert::where('device_id', $device->id)->where('type', 'perf')->where('last_created_at', $device->tiny_t_device->p_out_at)->count() == 0)
                     {
                         mailAlertCreate($device, 'perf', $device->tiny_t_device->p_out_at);
                     }
