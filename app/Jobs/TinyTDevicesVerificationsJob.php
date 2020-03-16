@@ -137,6 +137,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
             if(!$device->tiny_t_device->on_performance)
             {
+                dd($device);
                 $delay = now()->subMinutes($device->tiny_t_device->pdly);
 
                 if ($device->tiny_t_device->p_out_at <= $delay)
