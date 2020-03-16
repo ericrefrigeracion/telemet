@@ -99,8 +99,10 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $delay = now()->subMinutes($device->tiny_t_device->tdly);
             if ($device->tiny_t_device->t_out_at <= $delay)
             {
+                echo "no";
                 if(MailAlert::where('device_id', $device->id)->where('type', 'temp')->where('last_created_at', $device->tiny_t_device->t_out_at)->count() == 0)
                 {
+                    echo "si";
                     mailAlertCreate($device, 'temp', $device->tiny_t_device->t_out_at);
                 }
             }
