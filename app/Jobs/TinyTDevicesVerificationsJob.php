@@ -62,7 +62,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->maxPerformanceVerification($device, $last_reception);
             $this->minPerformanceVerification($device, $last_reception);
             $this->isOnPerformanceVerification($device, $last_reception);
-            $this->performanceTimeVerification($device);
+            //$this->performanceTimeVerification($device);
         }
     }
 
@@ -113,6 +113,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         {
             $this->isOutPerformance($device, $last_reception->created_at);
             alertCreate($device, 'El rendimiento del equipo esta por encima de lo esperado.', $last_reception->created_at);
+            mailAlertCreate($device, 'perf', $device->tiny_t_device->p_out_at);
         }
     }
 
@@ -122,6 +123,7 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         {
             $this->isOutPerformance($device, $last_reception->created_at);
             alertCreate($device, 'El rendimiento del equipo esta por debajo de lo esperado.', $last_reception->created_at);
+            mailAlertCreate($device, 'perf', $device->tiny_t_device->p_out_at);
         }
     }
 
@@ -137,7 +139,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
     {
             if(!$device->tiny_t_device->on_performance)
             {
-                dd($device);
                 $delay = now()->subMinutes($device->tiny_t_device->pdly);
 
                 if ($device->tiny_t_device->p_out_at <= $delay)
