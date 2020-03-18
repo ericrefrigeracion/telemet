@@ -62,7 +62,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
             $this->maxPerformanceVerification($device, $last_reception);
             $this->minPerformanceVerification($device, $last_reception);
             $this->isOnPerformanceVerification($device, $last_reception);
-            //$this->performanceTimeVerification($device);
         }
     }
 
@@ -132,22 +131,6 @@ class TinyTDevicesVerificationsJob implements ShouldQueue
         if($last_reception->data06 < $device->tiny_t_device->pmax && $last_reception->data06 > $device->tiny_t_device->pmin && !$device->tiny_t_device->on_performance)
             {
                 $this->isOnPerformance($device);
-            }
-    }
-
-    public function performanceTimeVerification($device)
-    {
-            if(!$device->tiny_t_device->on_performance)
-            {
-                $delay = now()->subMinutes($device->tiny_t_device->pdly);
-
-                if ($device->tiny_t_device->p_out_at <= $delay)
-                {
-                    if(MailAlert::where('device_id', $device->id)->where('type', 'perf')->where('last_created_at', $device->tiny_t_device->p_out_at)->count() == 0)
-                    {
-                        mailAlertCreate($device, 'perf', $device->tiny_t_device->p_out_at);
-                    }
-                }
             }
     }
 

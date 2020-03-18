@@ -56,7 +56,7 @@ class DeviceController extends Controller
 
         foreach ($devices as $device) {
 
-            if($last_reception = Reception::where('device_id', $device->id)->where('data04', '!=', NULL)->latest()->first())
+            if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first())
             {
                 if($device->on_line)
                 {
