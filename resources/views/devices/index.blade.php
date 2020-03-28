@@ -56,12 +56,12 @@
                                     </div>
                                 @endif
                                 <div class="col-10">
-                                    @if($device->protected)
-                                        <div class="row mt-3">
+                                    <div class="row mt-3">
+                                        @if($device->protected)
                                             <i class="col-2 h2 mt-3 {{ $device->status_class }} {{ $device->status }}"title="{{ $device->status_title }}"></i>
-                                            <div class="col-10 display-4">{{ $device->last_data01 }}</div>
-                                        </div>
-                                    @endif
+                                        @endif
+                                        <div class="col-10 display-4">{{ $device->last_data01 }}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
