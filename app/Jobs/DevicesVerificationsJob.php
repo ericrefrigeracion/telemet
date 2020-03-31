@@ -37,55 +37,11 @@ class DevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::all();
-        $this->payVigentVerification($devices);
-
         $devices = Device::where('admin_mon', true)->get();
         $this->disconnectVerification($devices);
 
         $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 1)->where('protection_id', '!=', 4)->get();
         $this->protectedVerification($devices);
-    }
-
-    public function payVigentVerification($devices)
-    {
-        $current_time = now();
-        $next_day = now()->addDay();
-        $next_week = now()->addWeek();
-
-        foreach ($devices as $device)
-        {
-            if($device->monitor_expires_at < $current_time && $device->admin_mon)
-            {
-                $device->update(['admin_mon' => false]);
-
-                alertCreate($device, 'Monitoreo deshabilitado por falta de pago.', $device->monitor_expires_at);
-                mailAlertCreate($device, 'MonitorOff',$device->monitor_expires_at);
-            }
-            if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
-            {
-                $device->update(['admin_mon' => true]);
-
-                alertCreate($device, 'Monitoreo habilitado nuevamente.', now());
-                mailAlertCreate($device, 'MonitorOn',$device->monitor_expires_at);
-            }
-            if($device->monitor_expires_at < $next_day)
-            {
-                if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextDay')->where('last_created_at', $device->monitor_expires_at)->count())
-                {
-                    alertCreate($device, 'Mañana se deshabilita monitoreo por falta de pago.', now());
-                    mailAlertCreate($device, 'MonitorOffNextDay',$device->monitor_expires_at);
-                }
-            }
-            if($device->monitor_expires_at < $next_week)
-            {
-                if(!MailAlert::where('device_id', $device->id)->where('type', 'MonitorOffNextWeek')->where('last_created_at', $device->monitor_expires_at)->count())
-                {
-                    alertCreate($device, 'La semana proxima se deshabilita monitoreo por falta de pago.', now());
-                    mailAlertCreate($device, 'MonitorOffNextWeek',$device->monitor_expires_at);
-                }
-            }
-        }
     }
 
     public function disconnectVerification($devices)

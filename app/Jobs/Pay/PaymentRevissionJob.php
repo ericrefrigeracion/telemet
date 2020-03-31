@@ -63,8 +63,9 @@ class PaymentRevissionJob implements ShouldQueue
                 $device = Device::find($device_id);
                 $price = Price::find($price_id);
                 if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
-                $period_start = $device->monitor_expires_at;
+                if(!device->admin_mon) $device->admin_mon = true;
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $period_start = $device->monitor_expires_at;
                 $period_finish = $device->monitor_expires_at;
                 $device->update();
                 Pay::create([
@@ -107,8 +108,9 @@ class PaymentRevissionJob implements ShouldQueue
                 $device = Device::find($device_id);
                 $price = Price::find($price_id);
                 if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
-                $period_start = $device->monitor_expires_at;
+                if(!device->admin_mon) $device->admin_mon = true;
                 $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
+                $period_start = $device->monitor_expires_at;
                 $period_finish = $device->monitor_expires_at;
                 $device->update();
 
