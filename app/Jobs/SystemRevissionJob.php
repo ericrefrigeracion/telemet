@@ -7,6 +7,7 @@ use App\User;
 use App\Alert;
 use App\Price;
 use App\Device;
+use App\MailAlert;
 use App\Reception;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
