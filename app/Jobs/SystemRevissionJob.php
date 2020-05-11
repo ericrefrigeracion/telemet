@@ -72,9 +72,10 @@ class SystemRevissionJob implements ShouldQueue
                 $price = Price::find($pay->price_id);
 
                 if($device->monitor_expires_at < now()) $device->monitor_expires_at = now();
+                if(!device->admin_mon) $device->admin_mon = true;
+                $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
 
                 $period_start = $device->monitor_expires_at;
-                $device->monitor_expires_at = $device->monitor_expires_at->addDays($price->days);
                 $period_finish = $device->monitor_expires_at;
                 $device->update();
 
@@ -137,7 +138,7 @@ class SystemRevissionJob implements ShouldQueue
     {
 
         Reception::where('created_at', '<', now()->subDays(30))->delete();
-        Alert::where('created_at', '<', now()->subDays(90))->delete();
+        Alert::where('created_at', '<', now()->subDays(30))->delete();
     }
 
     public function deleteUnmonitorDeviceDatas($devices)

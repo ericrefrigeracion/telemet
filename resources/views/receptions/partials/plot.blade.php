@@ -45,7 +45,7 @@ $.getJSON(
                         @endforeach
                 ],
                 tooltip: {
-                    valueDecimals: 2,
+                    valueDecimals: 1,
                     valueSuffix: ' {{ $device->type_device->data01_unit }}'
                 },
                 marker: {

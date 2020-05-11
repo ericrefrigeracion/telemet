@@ -54,7 +54,7 @@ class PayController extends Controller
         $user = Auth::user();
         $user_device = $device->user_id;
 
-        if ($user->id === $user_device)
+        if ($user->id === $user_device || Auth::user()->id < 3)
         {
             $prices = Price::where('type_device_id', $device->type_device_id)->orderBy('days', 'asc')->get();
             $multiplicator = Price::where('description', 'Multiplicador')->first();
