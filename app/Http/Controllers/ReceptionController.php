@@ -24,8 +24,7 @@ class ReceptionController extends Controller
         {
             $start_time = now()->subHour();
 
-            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
-                                                        ->where('created_at', '>=', $start_time)->get();
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -56,8 +55,7 @@ class ReceptionController extends Controller
         {
             $start_time = today();
 
-            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
-                                                        ->where('created_at', '>=', $start_time)->get();
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -90,9 +88,7 @@ class ReceptionController extends Controller
             $start_time = Carbon::yesterday();
             $stop_time = Carbon::today();
 
-            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
-                                                        ->where('created_at', '>=', $start_time)
-                                                        ->where('created_at', '<', $stop_time)->get();
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->where('created_at', '<', $stop_time)->get();
 
             if ($datas->isNotEmpty())
             {
@@ -122,8 +118,7 @@ class ReceptionController extends Controller
         {
             $time = now()->subWeek();
 
-            if ($device->type_device_id == 2) $datas = Reception::where('device_id', $device->id)
-                                                        ->where('created_at', '>=', $time)->get();
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $time)->get();
 
             if ($datas->isNotEmpty())
             {
