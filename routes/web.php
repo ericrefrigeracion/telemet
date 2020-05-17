@@ -18,8 +18,6 @@ Route::get('/pays/success', 'PayController@success')->name('pays.success');
 Route::get('/pays/pending', 'PayController@pending')->name('pays.pending');
 Route::get('/pays/failure', 'PayController@failure')->name('pays.failure');
 
-Route::get('/receptions/incoming', 'ReceptionController@store');
-
 Route::middleware(['verified'])->group(function () {
 
 	Route::get('/home', 'HomeController@index')->name('home');
@@ -145,10 +143,10 @@ Route::middleware(['verified'])->group(function () {
 	});
 
 
-		Route::get('/pays/create/{device}', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
 	Route::prefix('users')->group(function () {
 
 		//Pays
+		Route::get('/pays/create/{device}', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
 		Route::get('/pays', 'PayController@index')->name('pays.index')->middleware('can:pays.index');
 		Route::get('/pays/{pay}', 'PayController@show')->name('pays.show')->middleware('can:pays.show');
 		Route::post('/pays/{device}-{price}', 'PayController@store')->name('pays.store')->middleware('can:pays.create');
