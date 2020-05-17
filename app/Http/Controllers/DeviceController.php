@@ -7,6 +7,7 @@ use App\Alert;
 use App\Price;
 use App\Device;
 use App\TinyTDevice;
+use App\TinyPumpDevice;
 use App\NoFrostDevice;
 use App\Protection;
 use App\TypeDevice;
@@ -25,9 +26,13 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
+        $tiny_t_devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
+        $tiny_pump_devices = Device::where('admin_mon', true)->where('type_device_id', 7)->orderBy('user_id', 'asc')->get();
 
-        return view('devices.all')->with(['devices' => $devices]);
+        return view('devices.all')->with([
+                                    'tiny_t_devices' => $tiny_t_devices,
+                                    'tiny_pump_devices' => $tiny_pump_devices
+                                    ]);
     }
 
     /**
@@ -52,16 +57,16 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->where('type_device_id', 2)->get();
+        $tiny_t_devices = Auth::user()->devices()->where('type_device_id', 2)->get();
 
-        foreach ($devices as $device) {
+        foreach ($tiny_t_devices as $device)
+        {
 
             if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first())
             {
                 if($device->on_line)
                 {
                     $device->last_data01 = $last_reception->data01 + $device->tiny_t_device->tcal . '°C';
-                    $device->last_avg = $last_reception->data02 . '°C';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
                     if($last_reception->data04)
                     {
@@ -110,7 +115,56 @@ class DeviceController extends Controller
 
         }
 
-        return view('devices.index')->with(['devices' => $devices]);
+        $tiny_pump_devices = Auth::user()->devices()->where('type_device_id', 7)->get();
+
+        foreach ($tiny_pump_devices as $device)
+        {
+
+            if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first())
+            {
+                if($device->on_line)
+                {
+                    $device->last_data01 = $last_reception->data01 + $device->tiny_t_device->tcal . 'cms';
+                    $device->last_created_at = $last_reception->created_at->diffForHumans();
+                    if ($last_reception->rssi >= -60)
+                    {
+                         $device->wifi_color = 'text-success';
+                         $device->wifi_description = 'Señal Celular Buena';
+                    }
+                    if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
+                    {
+                         $device->wifi_color = 'text-warning';
+                         $device->wifi_description = 'Señal Celular Aceptable';
+                    }
+                    if ($last_reception->rssi < -75)
+                    {
+                         $device->wifi_color = 'text-danger';
+                         $device->wifi_description = 'Señal Celular Mala';
+                    }
+                }
+                else
+                {
+                    $device->last_data01 = '----';
+                    $device->last_created_at = $last_reception->created_at->diffForHumans();
+                    $device->wifi_color = 'text-muted';
+                    $device->wifi_description = 'Sin Conexion';
+                }
+            }
+            else
+            {
+                $device->last_data01 = 'Sin datos';
+                $device->last_created_at = 'Sin datos';
+                $device->wifi_color = 'text-muted';
+                $device->wifi_description = 'Sin Conexion';
+            }
+            $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
+
+        }
+
+        return view('devices.index')->with([
+                                        'tiny_t_devices' => $tiny_t_devices,
+                                        'tiny_pump_devices' => $tiny_pump_devices
+                                    ]);
 
     }
 
@@ -182,11 +236,12 @@ class DeviceController extends Controller
 
         if($type_device->id == 7)
         {
-            TinyTDevice::create([
+            TinyPumpDevice::create([
                 'id' => $request->id,
                 'device_id' => $request->id,
                 'on_level' => false,
                 'on_mode' => false,
+                'tdly' => 0,
             ]);
         }
 

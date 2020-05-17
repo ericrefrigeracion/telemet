@@ -1,10 +1,8 @@
 <?php
 
-use App\Device;
-use Illuminate\Database\Eloquent\Model;
-
 namespace App;
 
+use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
 class TinyTDevice extends Model
