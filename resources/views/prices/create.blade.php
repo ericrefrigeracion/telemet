@@ -16,9 +16,9 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('type_device_id', 'Modelo de dispositivo') }}<br>
-                            <label>{{ Form::radio('type_device_id', 1) }} Centinela T</label><br>
-                            <label>{{ Form::radio('type_device_id', 2) }} Centinela TH</label><br>
-                            <label>{{ Form::radio('type_device_id', 3) }} Centinela TTA</label><br>
+                            @foreach($type_devices as $type_device)
+                                <label>{{ Form::radio('type_device_id', $type_device->id) }} {{ $type_device->model }} </label><br>
+                            @endforeach
                         </div>
                         <div class="form-group">
                             {{ Form::label('price', 'Valor del Item') }}

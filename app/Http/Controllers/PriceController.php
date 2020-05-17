@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Price;
+use App\TypeDevice;
 use Illuminate\Http\Request;
 
 class PriceController extends Controller
@@ -28,7 +29,9 @@ class PriceController extends Controller
      */
     public function create()
     {
-        return view('prices.create');
+        $type_devices = TypeDevice::All();
+
+        return view('prices.create', compact('type_devices'));
     }
 
     /**
