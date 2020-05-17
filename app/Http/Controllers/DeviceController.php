@@ -133,7 +133,7 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'starts_with:10,20,30,90|required|integer|min:10000|unique:devices,id',
+            'id' => 'starts_with:10,20,30,40,90|required|integer|min:10000|unique:devices,id',
             'name' => 'required|max:25',
             'description' => 'max:50',
         ];
@@ -177,6 +177,16 @@ class DeviceController extends Controller
                 'pdly' => 30,
                 'pmin' => 0,
                 'pmax' => 30,
+            ]);
+        }
+
+        if($type_device->id == 7)
+        {
+            TinyTDevice::create([
+                'id' => $request->id,
+                'device_id' => $request->id,
+                'on_level' => false,
+                'on_mode' => false,
             ]);
         }
 
