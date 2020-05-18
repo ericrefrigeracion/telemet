@@ -13,7 +13,7 @@
         <div class="col-md-10 mb-3">
             <div class="card">
                 <div class="card-header">
-                    Evolucion de Temperaturas {{ $device->name }} ({{ $device->description }})
+                    Datos de la ultima semana de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
                     @if(isset($datas))
@@ -39,7 +39,12 @@
 @section('footer_scripts')
 @if(isset($datas))
     <script type="text/javascript">
-        @include('receptions.partials.plot')
+        @if($device->type_device == 2)
+            @include('receptions.partials.plot_tiny_t')
+        @endif
+        @if($device->type_device == 7)
+            @include('receptions.partials.plot_tiny_pump')
+        @endif
     </script>
     @can('devices.analysis')
     <script type="text/javascript">
