@@ -51,22 +51,6 @@ $.getJSON(
                 marker: {
                     enabled: false
                 }
-            },{
-                name: 'Temperatura estimada del producto',
-                data: [
-                        @foreach($datas as $data)
-                            @if(isset($data->data02))
-                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data02 + $device->tiny_t_device->tcal }} ],
-                            @endif
-                        @endforeach
-                ],
-                tooltip: {
-                    valueDecimals: 2,
-                    valueSuffix: ' {{ $device->type_device->data01_unit }}'
-                },
-                marker: {
-                    enabled: false
-                }
             }
 
             ]
