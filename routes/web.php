@@ -118,6 +118,7 @@ Route::middleware(['verified'])->group(function () {
 		Route::delete('/devices/{device}', 'DeviceController@destroy')->name('devices.destroy')->middleware('can:devices.destroy');
 		Route::put('/devices/{device}', 'DeviceController@update_device')->name('devices.update_device')->middleware('can:devices.edit');
 		Route::put('/devices/tiny-t/{tiny_t_device}', 'DeviceController@update_tiny_t')->name('devices.update_tiny_t')->middleware('can:devices.edit');
+		Route::put('/devices/tiny-pump/{tiny_pump_device}', 'DeviceController@update_tiny_pump')->name('devices.update_tiny_pump')->middleware('can:devices.edit');
 		Route::get('/devices/{device}', 'DeviceController@show')->name('devices.show')->middleware('can:devices.show');
 		Route::get('/devices/{device}/edit', 'DeviceController@edit')->name('devices.edit')->middleware('can:devices.edit');
 

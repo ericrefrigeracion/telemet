@@ -397,6 +397,42 @@ class DeviceController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Devices  $devices
+     * @return \Illuminate\Http\Response
+     */
+    public function update_tiny_pump(Request $request, TinyPumpDevice $tiny_pump_device)
+    {
+        if (Auth::user()->id === $tiny_pump_device->device->user_id || Auth::user()->id < 3)
+        {
+
+            $rules = [
+                'l_cal' => 'required|numeric|min:-5|max:5',
+                'l_min' => 'required|numeric|min:0|lt:l_max',
+                'l_max' => 'required|numeric|max:480|gt:l_min',
+                'tdly' => 'required|integer|min:0|max:360',
+            ];
+            $request->validate($rules);
+
+            if($request->has('l_cal') && $request->l_cal != $tiny_pump_device->l_cal) alertCreate($tiny_pump_device, Auth::user()->name . " cambio la calibracion a $request->l_cal cms.", now());
+            if($request->has('l_min') && $request->l_min != $tiny_pump_device->l_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el nivel minimo a $request->l_min cms.", now());
+            if($request->has('l_max') && $request->l_max != $tiny_pump_device->l_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio la temperatura maxima a $request->l_max cms.", now());
+            if($request->has('tdly') && $request->tdly != $tiny_pump_device->tdly) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el retardo para el aviso a $request->tdly minutos.", now());
+
+            $tiny_pump_device->update($request->all());
+
+            return redirect()->route('devices.show', $tiny_pump_device->device->id)->with('success', ['Dispositivo actualizado con exito']);
+
+        }
+        else
+        {
+            abort(403, 'Accion no Autorizada');
+        }
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Devices  $devices
