@@ -39,10 +39,10 @@
 @section('footer_scripts')
 @if(isset($datas))
     <script type="text/javascript">
-        @if($device->type_device == 2)
+        @if($device->type_device_id == 2)
             @include('receptions.partials.plot_tiny_t')
         @endif
-        @if($device->type_device == 7)
+        @if($device->type_device_id == 7)
             @include('receptions.partials.plot_tiny_pump')
         @endif
     </script>
