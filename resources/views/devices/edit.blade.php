@@ -58,6 +58,9 @@
                         @if($device->type_device_id == 2)
                             @include('devices.partials.tiny_t_edit')
                         @endif
+                        @if($device->type_device_id == 7)
+                            @include('devices.partials.tiny_pump_edit')
+                        @endif
                     </div>
                 </div>
             </div>

@@ -62,6 +62,9 @@
                                 @if($device->type_device_id == 2)
                                     @include('devices.partials.tiny_t_show')
                                 @endif
+                                @if($device->type_device_id == 7)
+                                    @include('devices.partials.tiny_pump_show')
+                                @endif
                         </tbody>
                     </table>
                     @can('devices.destroy')
