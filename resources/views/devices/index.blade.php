@@ -129,14 +129,14 @@
                                         <i class="{{ $device->protection->class }} text-danger m-2" title="{{ $device->protection->description }} (Deshabilitado por falta de Pago)"></i>
                                         <i class="fas fa-wifi {{ $device->wifi_color }} m-2" title="{{ $device->wifi_description }}"></i>
                                         @can('receptions.now')
-                                            <a href="{{ route('receptions.now', $device->id) }}" class="text-primary m-2" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
+                                            <a href="{{ route('receptions.now', $device->id) }}" class="text-primary m-2" title="Evolucion de Nivel"><i class="fas fa-chart-line"></i></a>
                                         @endcan
                                         @can('devices.show')
                                             <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
                                         @endcan
                                         @can('alerts.show')
                                             @if($device->alerts_count > 0)
-                                                <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell"></i></a>
+                                                <a href="{{ route('alerts.show', $device->id) }}" class="text-danger m-2" title="Nuevas Alertas"><i class="fas fa-bell"></i></a>
                                             @endif
                                         @endcan
                                     </div>
