@@ -7,11 +7,6 @@
             <div class="card">
                 <div class="card-header">
                     Centinela - <strong>{{ $device->name }} ({{ $device->description }})</strong>
-                    @if($device->tiny_pump_device->device_update)
-                             - Este dispositivo recibio la configuracion actual el {{ $device->tiny_pump_device->device_update }}.
-                        @else
-                             - Este dispositivo no ha recibido la configuracion actual aun.
-                    @endif
                     @can('devices.edit')
                         <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
                     @endcan

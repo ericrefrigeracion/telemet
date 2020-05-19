@@ -245,15 +245,15 @@ class DeviceController extends Controller
                 'status_channel3' => 'init',
                 'l_cal' => 0,
                 'l_min' => 0,
-                'l_max' => 0,
+                'l_max' => 480,
                 'l_dly' => 0,
                 'l_offset' => 0,
                 'channel1_min' => 0,
-                'channel1_max' => 0,
+                'channel1_max' => 1,
                 'channel2_min' => 0,
-                'channel2_max' => 0,
+                'channel2_max' => 1,
                 'channel3_min' => 0,
-                'channel3_max' => 0,
+                'channel3_max' => 1,
             ]);
         }
 
@@ -378,24 +378,20 @@ class DeviceController extends Controller
 
             $rules = [
                 'tcal' => 'required|numeric|min:-5|max:5',
-                't_set_point' => 'required|numeric|lt:tmax|gt:tmin',
                 'tmin' => 'required|numeric|min:-40|lt:tmax',
                 'tmax' => 'required|numeric|max:80|gt:tmin',
                 'tdly' => 'required|integer|min:0|max:360',
                 'pmin' => 'filled|numeric|min:0|lt:pmax',
                 'pmax' => 'filled|numeric|max:50|gt:pmin',
-                'pdly' => 'filled|integer|min:0|max:60',
             ];
             $request->validate($rules);
 
             if($request->has('tcal') && $request->tcal != $tiny_t_device->tcal) alertCreate($tiny_t_device, Auth::user()->name . " cambio la calibracion a $request->tcal °C.", now());
-            if($request->has('t_set_point') && $request->t_set_point != $tiny_t_device->t_set_point) alertCreate($tiny_t_device, Auth::user()->name . " cambio la temperatura deseada a $request->t_set_point °C.", now());
             if($request->has('tmin') && $request->tmin != $tiny_t_device->tmin) alertCreate($tiny_t_device, Auth::user()->name . " cambio la temperatura minima a $request->tmin °C.", now());
             if($request->has('tmax') && $request->tmax != $tiny_t_device->tmax) alertCreate($tiny_t_device, Auth::user()->name . " cambio la temperatura maxima a $request->tmax °C.", now());
             if($request->has('tdly') && $request->tdly != $tiny_t_device->tdly) alertCreate($tiny_t_device, Auth::user()->name . " cambio el retardo para el aviso a $request->tdly minutos.", now());
             if($request->has('pmin') && $request->pmin != $tiny_t_device->pmin) alertCreate($tiny_t_device, Auth::user()->name . " cambio la minima performance a $request->pmin °C/h.", now());
             if($request->has('pmax') && $request->pmax != $tiny_t_device->pmax) alertCreate($tiny_t_device, Auth::user()->name . " cambio maxima performance a $request->pmax °C/h.", now());
-            if($request->has('pdly') && $request->pdly != $tiny_t_device->pdly) alertCreate($tiny_t_device, Auth::user()->name . " cambio el retardo de performance a $request->pdly minutos.", now());
 
             $tiny_t_device->update($request->all());
 

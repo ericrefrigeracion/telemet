@@ -1,29 +1,29 @@
 <tr>
-    <th colspan="2">CONFIGURACION</th>
-    <th>VALOR</th>
+    <th>CONFIGURACION DE MEDICION</th>
+    <th colspan="2"></th>
 </tr>
 <tr>
-    <td colspan="2">Calibracion de la Medicion (cms)</td>
-    <td>{{ $device->tiny_pump_device->l_cal > 0 ? "+" . $device->tiny_pump_device->l_cal : $device->tiny_pump_device->l_cal }}</td>
+    <td>Calibracion de la Medicion (cms):</td>
+    <td colspan="2">{{ $device->tiny_pump_device->l_cal > 0 ? "+" . $device->tiny_pump_device->l_cal : $device->tiny_pump_device->l_cal }}</td>
 </tr>
 <tr>
-    <td colspan="2">Minimo Nivel Establecido (cms)</td>
-    <td>{{ $device->tiny_pump_device->l_min }}</td>
+    <td>Minimo nivel Permitido (cms):</td>
+    <td colspan="2">{{ $device->tiny_pump_device->l_min }}</td>
 </tr>
 <tr>
-    <td colspan="2">Maximo Nivel Establecido (cms)</td>
-    <td>{{ $device->tiny_pump_device->l_max }}</td>
+    <td>Maximo nivel Permitido (cms):</td>
+    <td colspan="2">{{ $device->tiny_pump_device->l_max }}</td>
 </tr>
 <tr>
-    <td colspan="2">Offset (cms)</td>
-    <td>{{ $device->tiny_pump_device->l_offset }}</td>
+    <td>Offset (cms):</td>
+    <td colspan="2">{{ $device->tiny_pump_device->l_offset }}</td>
 </tr>
 <tr>
-    <td colspan="2">Retardo al Aviso (minutos)</td>
-    <td>{{ $device->tiny_pump_device->l_dly }}</td>
+    <td>Retardo al Aviso (minutos):</td>
+    <td colspan="2">{{ $device->tiny_pump_device->l_dly }}</td>
 </tr>
 <tr>
-    <th>CONFIGURACION</th>
+    <th>CONFIGURACION DE SALIDAS</th>
     <th>MINIMA</th>
     <th>MAXIMA</th>
 </tr>
@@ -41,4 +41,13 @@
     <td>Canal 3</td>
     <td>{{ $device->tiny_pump_device->channel3_min }}</td>
     <td>{{ $device->tiny_pump_device->channel3_max }}</td>
+</tr>
+<tr>
+    <th colspan="3">
+        @if($device->tiny_pump_device->device_update)
+            Este dispositivo recibio la configuracion actual el {{ $device->tiny_pump_device->device_update }}.
+        @else
+            Este dispositivo no recibio la configuracion actual aun, apenas establezca conexion sera enviada.
+        @endif
+    </th>
 </tr>
