@@ -240,8 +240,20 @@ class DeviceController extends Controller
                 'id' => $request->id,
                 'device_id' => $request->id,
                 'on_level' => false,
-                'on_mode' => false,
-                'tdly' => 0,
+                'status_channel1' => 'init',
+                'status_channel2' => 'init',
+                'status_channel3' => 'init',
+                'l_cal' => 0,
+                'l_min' => 0,
+                'l_max' => 0,
+                'l_dly' => 0,
+                'l_offset' => 0,
+                'channel1_min' => 0,
+                'channel1_max' => 0,
+                'channel2_min' => 0,
+                'channel2_max' => 0,
+                'channel3_min' => 0,
+                'channel3_max' => 0,
             ]);
         }
 
@@ -409,18 +421,33 @@ class DeviceController extends Controller
         {
 
             $rules = [
-                'l_cal' => 'required|numeric|min:-5|max:5',
+                'l_cal' => 'required|numeric|min:-100|max:100',
                 'l_min' => 'required|numeric|min:0|lt:l_max',
                 'l_max' => 'required|numeric|max:480|gt:l_min',
-                'tdly' => 'required|integer|min:0|max:360',
+                'l_offset' => 'required|numeric|min:0|max:480',
+                'l_dly' => 'required|integer|min:0|max:360',
+                'channel1_min' => 'required|numeric|min:0|lt:channel1_max',
+                'channel1_max' => 'required|numeric|max:480|gt:channel1_min',
+                'channel2_min' => 'required|numeric|min:0|lt:channel2_max',
+                'channel2_max' => 'required|numeric|max:480|gt:channel2_min',
+                'channel3_min' => 'required|numeric|min:0|lt:channel3_max',
+                'channel3_max' => 'required|numeric|max:480|gt:channel3_min',
             ];
             $request->validate($rules);
 
             if($request->has('l_cal') && $request->l_cal != $tiny_pump_device->l_cal) alertCreate($tiny_pump_device, Auth::user()->name . " cambio la calibracion a $request->l_cal cms.", now());
             if($request->has('l_min') && $request->l_min != $tiny_pump_device->l_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el nivel minimo a $request->l_min cms.", now());
             if($request->has('l_max') && $request->l_max != $tiny_pump_device->l_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio la temperatura maxima a $request->l_max cms.", now());
-            if($request->has('tdly') && $request->tdly != $tiny_pump_device->tdly) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el retardo para el aviso a $request->tdly minutos.", now());
+            if($request->has('l_dly') && $request->l_dly != $tiny_pump_device->l_dly) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el retardo para el aviso a $request->l_dly minutos.", now());
+            if($request->has('l_offset') && $request->l_offset != $tiny_pump_device->l_offset) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el offset a $request->l_offset cms.", now());
+            if($request->has('channel1_min') && $request->channel1_min != $tiny_pump_device->channel1_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el minimo del canal 1 a $request->channel1_min cms.", now());
+            if($request->has('channel1_max') && $request->channel1_max != $tiny_pump_device->channel1_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el maximo del canal 1 a $request->channel1_max cms.", now());
+            if($request->has('channel2_min') && $request->channel2_min != $tiny_pump_device->channel2_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el minimo del canal 2 a $request->channel2_min cms.", now());
+            if($request->has('channel2_max') && $request->channel2_max != $tiny_pump_device->channel2_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el maximo del canal 2 a $request->channel2_max cms.", now());
+            if($request->has('channel3_min') && $request->channel3_min != $tiny_pump_device->channel3_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el minimo del canal 3 a $request->channel3_min cms.", now());
+            if($request->has('channel3_max') && $request->channel3_max != $tiny_pump_device->channel3_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el maximo del canal 3 a $request->channel3_max cms.", now());
 
+            $tiny_pump_device->device_update = null;
             $tiny_pump_device->update($request->all());
 
             return redirect()->route('devices.show', $tiny_pump_device->device->id)->with('success', ['Dispositivo actualizado con exito']);

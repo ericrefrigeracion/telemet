@@ -11,23 +11,29 @@ class TinyPumpDevice extends Model
         'id',
 		'device_id',
 		'on_level',
-		'on_mode',
+        'status_channel1',
+        'status_channel2',
+        'status_channel3',
 		'l_cal',
 		'l_min',
 		'l_max',
-		'tdly',
 		'l_offset',
-		'l_is',
-		'channel1',
-		'channel2',
-		'channel3',
+		'l_dly',
+		'channel1_min',
+        'channel1_max',
+		'channel2_min',
+        'channel2_max',
+		'channel3_min',
+        'channel3_max',
 		'l_change_at',
-		'l_out_at'
+		'l_out_at',
+        'device_update'
     ];
 
     protected $dates = [
     	'l_change_at',
-    	'l_out_at'
+    	'l_out_at',
+        'device_update'
     ];
 
     /**

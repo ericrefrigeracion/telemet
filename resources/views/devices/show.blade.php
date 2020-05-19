@@ -7,6 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     Centinela - <strong>{{ $device->name }} ({{ $device->description }})</strong>
+                    @if($device->tiny_pump_device->device_update)
+                             - Este dispositivo recibio la configuracion actual el {{ $device->tiny_pump_device->device_update }}.
+                        @else
+                             - Este dispositivo no ha recibido la configuracion actual aun.
+                    @endif
                     @can('devices.edit')
                         <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
                     @endcan
@@ -19,45 +24,45 @@
                         <thead>
                             <tr>
                                 <th>NOMBRE</th>
-                                <th>VALOR</th>
+                                <th colspan="2">VALOR</th>
                             </tr>
                         </thead>
                         <tbody>
                                 <tr>
                                     <td>ID</td>
-                                    <td>{{ $device->id }}</td>
+                                    <td colspan="2">{{ $device->id }}</td>
                                 </tr>
                                 <tr>
                                     <td>DISPOSITIVO MODELO</td>
-                                    <td>{{ $device->type_device->model }}</td>
+                                    <td colspan="2">{{ $device->type_device->model }}</td>
                                 </tr>
                                 <tr>
                                     <td>NOMBRE</td>
-                                    <td>{{ $device->name }}</td>
+                                    <td colspan="2">{{ $device->name }}</td>
                                 </tr>
                                 <tr>
                                     <td>DESCRIPCION</td>
-                                    <td>{{ $device->description }}</td>
+                                    <td colspan="2">{{ $device->description }}</td>
                                 </tr>
                                 <tr>
                                     <td>CREADO</td>
-                                    <td>{{ $device->created_at }}</td>
+                                    <td colspan="2">{{ $device->created_at }}</td>
                                 </tr>
                                 <tr>
                                     <td>MONITOREO VALIDO HASTA</td>
-                                    <td>{{ $device->monitor_expires_at->toFormattedDateString() }}</td>
+                                    <td colspan="2">{{ $device->monitor_expires_at->toFormattedDateString() }}</td>
                                 </tr>
                                 <tr>
                                     <td>NOTIFICACIONES AL E-MAIL</td>
-                                    <td>{{ $device->notification_email }}</td>
+                                    <td colspan="2">{{ $device->notification_email }}</td>
                                 </tr>
                                 <tr>
                                     <td>LLAMADAS AL TELEFONO</td>
-                                    <td>{{ $device->notification_phone_number }}</td>
+                                    <td colspan="2">{{ $device->notification_phone_number }}</td>
                                 </tr>
                                 <tr>
                                     <td>TIPO DE PROTECCION</td>
-                                    <td>{{ $device->protection->description }}</td>
+                                    <td colspan="2">{{ $device->protection->description }}</td>
                                 </tr>
                                 @if($device->type_device_id == 2)
                                     @include('devices.partials.tiny_t_show')

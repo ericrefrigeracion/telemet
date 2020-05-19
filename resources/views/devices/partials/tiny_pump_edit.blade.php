@@ -3,7 +3,7 @@
     {!! Form::model($device->tiny_pump_device, ['route' => ['devices.update_tiny_pump', $device->id], 'method' => 'PUT']) !!}
     <div class="form-group">
         {{ Form::label('l_cal', 'Calibracion de la Medicion (cms)') }}
-        {{ Form::number('l_cal', null, ['class' => 'form-control', 'default' => 0, 'min' => -5, 'max' => 5, 'step' => 1]) }}
+        {{ Form::number('l_cal', null, ['class' => 'form-control', 'default' => 0, 'min' => -100, 'max' => 100, 'step' => 1]) }}
     </div>
     <div class="form-group">
         {{ Form::label('l_offset', 'Offset (cms)') }}
