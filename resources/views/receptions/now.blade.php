@@ -46,12 +46,13 @@
             @include('receptions.partials.plot_tiny_pump')
         @endif
     </script>
-    @if($device->type_device_id == 2)
     @can('devices.analysis')
-    <script type="text/javascript">
-        @include('receptions.partials.analisis')
-    </script>
+        @if($device->type_device_id == 2)
+            <script type="text/javascript"> @include('receptions.partials.analisis_tiny_t') </script>
+        @endif
+        @if($device->type_device_id == 7)
+            <script type="text/javascript"> @include('receptions.partials.analisis_tiny_pump') </script>
+        @endif
     @endcan
-    @endif
 @endif
 @endsection

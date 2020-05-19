@@ -39,7 +39,7 @@
 @section('footer_scripts')
 @if(isset($datas))
     <script type="text/javascript">
-       @if($device->type_device_id == 2)
+        @if($device->type_device_id == 2)
             @include('receptions.partials.plot_tiny_t')
         @endif
         @if($device->type_device_id == 7)
@@ -47,9 +47,12 @@
         @endif
     </script>
     @can('devices.analysis')
-    <script type="text/javascript">
-        @include('receptions.partials.analisis')
-    </script>
+        @if($device->type_device_id == 2)
+            <script type="text/javascript"> @include('receptions.partials.analisis_tiny_t') </script>
+        @endif
+        @if($device->type_device_id == 7)
+            <script type="text/javascript"> @include('receptions.partials.analisis_tiny_pump') </script>
+        @endif
     @endcan
 @endif
 @endsection
