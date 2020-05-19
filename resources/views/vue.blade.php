@@ -22,7 +22,6 @@ const app = new Vue({
 	data:{
 		info:'texto inicial'
 	}
-
 })
 </script>
 @endsection

@@ -44,6 +44,7 @@ class SystemRevissionJob implements ShouldQueue
         if($pays->isNotEmpty()) $this->paysVerification($pays);
 
         $devices = Device::all();
+
         if($devices->isNotEmpty()) $this->payVigentVerification($devices);
 
         $this->deleteOldDatas();

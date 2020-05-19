@@ -44,6 +44,7 @@ class DeviceController extends Controller
     {
         $data = ['device' => $device,
                    'tiny' => $device->tiny_t_device()->first(),
+                   'pump' => $device->tiny_pump_device()->first(),
               'reception' => $device->receptions()->latest()->first(),
             ];
 
@@ -164,7 +165,7 @@ class DeviceController extends Controller
         return view('devices.index')->with([
                                         'tiny_t_devices' => $tiny_t_devices,
                                         'tiny_pump_devices' => $tiny_pump_devices
-                                    ]);
+                                        ]);
 
     }
 
@@ -432,8 +433,8 @@ class DeviceController extends Controller
             $request->validate($rules);
 
             if($request->has('l_cal') && $request->l_cal != $tiny_pump_device->l_cal) alertCreate($tiny_pump_device, Auth::user()->name . " cambio la calibracion a $request->l_cal cms.", now());
-            if($request->has('l_min') && $request->l_min != $tiny_pump_device->l_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el nivel minimo a $request->l_min cms.", now());
-            if($request->has('l_max') && $request->l_max != $tiny_pump_device->l_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio la temperatura maxima a $request->l_max cms.", now());
+            if($request->has('l_min') && $request->l_min != $tiny_pump_device->l_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el nivel minimo permitido a $request->l_min cms.", now());
+            if($request->has('l_max') && $request->l_max != $tiny_pump_device->l_max) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el nivel maximo permitido a $request->l_max cms.", now());
             if($request->has('l_dly') && $request->l_dly != $tiny_pump_device->l_dly) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el retardo para el aviso a $request->l_dly minutos.", now());
             if($request->has('l_offset') && $request->l_offset != $tiny_pump_device->l_offset) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el offset a $request->l_offset cms.", now());
             if($request->has('channel1_min') && $request->channel1_min != $tiny_pump_device->channel1_min) alertCreate($tiny_pump_device, Auth::user()->name . " cambio el minimo del canal 1 a $request->channel1_min cms.", now());
