@@ -151,6 +151,7 @@
                                 </div>
                             </div>
 
+                        </div>
                         <div class="card-footer{{ $device->on_line ? '':' bg-danger'}}">
                             <small class="{{ $device->on_line ? '':' text-white'}}">
                                 @if($device->admin_mon)
