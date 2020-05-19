@@ -95,7 +95,7 @@
                                         @else
                                             <td><i class="fas fa-water text-danger m-2" title="Nivel anormal"></i></td>
                                         @endif
-                                        @if($device->tiny_pump_device->on_mode)
+                                        @if($device->tiny_pump_device->on_level)
                                             <td><i class="far fa-check-circle text-success m-2" title="Todo Ok"></i></td>
                                         @else
                                             <td><i class="far fa-times-circle text-danger m-2" title="Algo anda mal"></i></td>
