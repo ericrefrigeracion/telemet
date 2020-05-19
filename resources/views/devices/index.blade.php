@@ -111,12 +111,34 @@
                                     <div class="col-2">
                                         <i class="{{ $device->protection->class }} m-2" title="{{ $device->protection->description }}"></i>
                                         <i class="fas fa-wifi {{ $device->wifi_color }} m-2" title="{{ $device->wifi_description }}"></i>
+                                        @can('receptions.now')
+                                            <a href="{{ route('receptions.now', $device->id) }}" class="text-primary m-2" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
+                                        @endcan
+                                        @can('devices.show')
+                                            <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
+                                        @endcan
+                                        @can('alerts.show')
+                                            @if($device->alerts_count > 0)
+                                                <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell"></i></a>
+                                            @endif
+                                        @endcan
                                     </div>
                                 @else
                                     <div class="col-2">
                                         <i class="fas fa-user-shield text-danger m-2" title="Monitoreo Vencido"></i>
                                         <i class="{{ $device->protection->class }} text-danger m-2" title="{{ $device->protection->description }} (Deshabilitado por falta de Pago)"></i>
                                         <i class="fas fa-wifi {{ $device->wifi_color }} m-2" title="{{ $device->wifi_description }}"></i>
+                                        @can('receptions.now')
+                                            <a href="{{ route('receptions.now', $device->id) }}" class="text-primary m-2" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line"></i></a>
+                                        @endcan
+                                        @can('devices.show')
+                                            <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
+                                        @endcan
+                                        @can('alerts.show')
+                                            @if($device->alerts_count > 0)
+                                                <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell"></i></a>
+                                            @endif
+                                        @endcan
                                     </div>
                                 @endif
                                 <div class="col-10">
@@ -128,22 +150,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col text-center m-0 mt-3">
-                                    @can('receptions.now')
-                                        <a href="{{ route('receptions.now', $device->id) }}" class="text-primary m-2 h4" title="Evolucion del Nivel"><i class="fas fa-chart-line"></i></a>
-                                    @endcan
-                                    @can('devices.show')
-                                        <a href="{{ route('devices.show', $device->id) }}" class="text-primary m-2 h4" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
-                                    @endcan
-                                    @can('alerts.show')
-                                        @if($device->alerts_count > 0)
-                                            <a href="{{ route('alerts.show', $device->id) }}" class="text-primary m-2 h4" title="Nuevas Alertas">{{ $device->alerts_count }} <i class="fas fa-bell"></i></a>
-                                        @endif
-                                    @endcan
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="card-footer{{ $device->on_line ? '':' bg-danger'}}">
                             <small class="{{ $device->on_line ? '':' text-white'}}">
                                 @if($device->admin_mon)
