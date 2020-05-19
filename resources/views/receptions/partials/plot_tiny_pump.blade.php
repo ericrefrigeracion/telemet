@@ -56,7 +56,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data02))
-                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data02 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data02 + 4}} ],
                             @endif
                         @endforeach
                 ],
@@ -88,7 +88,7 @@ $.getJSON(
                 data: [
                         @foreach($datas as $data)
                             @if(isset($data->data04))
-                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data04 + 4 }} ],
+                            [ {{ ($data->created_at->timestamp - (3 * 60 * 60)) * 1000 }}, {{ $data->data04 }} ],
                             @endif
                         @endforeach
                 ],

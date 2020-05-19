@@ -18,8 +18,8 @@ $.getJSON(
                     text: null
                 },
                 plotBands: [ {
-                    from: ,
-                    to: ,
+                    from: 0,
+                    to: 1,
                     color: 'rgba(68, 170, 213, 0.1)',
                     label: {
                         text: null,
