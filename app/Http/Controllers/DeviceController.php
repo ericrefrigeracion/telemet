@@ -124,7 +124,7 @@ class DeviceController extends Controller
             {
                 if($device->on_line)
                 {
-                    $device->last_data01 = $last_reception->data01 + $device->tiny_t_device->l_cal . 'cms';
+                    $device->last_data01 = $last_reception->data01 + $device->tiny_pump_device->l_cal . 'cms';
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
                     if ($last_reception->rssi >= -60)
                     {
