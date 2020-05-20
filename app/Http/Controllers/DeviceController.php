@@ -142,7 +142,7 @@ class DeviceController extends Controller
                          $device->wifi_color = 'text-danger';
                          $device->wifi_description = 'Señal Celular Mala';
                     }
-                    if($device->tiny_pump_device->status_channel1 == 'init')
+                    if($device->tiny_pump_device->status_channel1 == 'disabled')
                     {
                         $device->channel1_color = 'text-muted';
                         $device->channel1_title = 'Canal Deshabilitado';
@@ -162,7 +162,7 @@ class DeviceController extends Controller
                         $device->channel1_color = 'text-danger';
                         $device->channel1_title = 'Falla';
                     }
-                    if($device->tiny_pump_device->status_channel2 == 'init')
+                    if($device->tiny_pump_device->status_channel2 == 'disabled')
                     {
                         $device->channel2_color = 'text-muted';
                         $device->channel2_title = 'Canal Deshabilitado';
@@ -182,7 +182,7 @@ class DeviceController extends Controller
                         $device->channel2_color = 'text-danger';
                         $device->channel2_title = 'Falla';
                     }
-                    if($device->tiny_pump_device->status_channel3 == 'init')
+                    if($device->tiny_pump_device->status_channel3 == 'disabled')
                     {
                         $device->channel3_color = 'text-muted';
                         $device->channel3_title = 'Canal Deshabilitado';
@@ -315,9 +315,9 @@ class DeviceController extends Controller
                 'on_level' => false,
                 'signal_mode' => 'local',
                 'control_mode' => 'emptied',
-                'status_channel1' => 'init',
-                'status_channel2' => 'init',
-                'status_channel3' => 'init',
+                'status_channel1' => 'disabled',
+                'status_channel2' => 'disabled',
+                'status_channel3' => 'disabled',
                 'l_cal' => 0,
                 'l_min' => 0,
                 'l_max' => 480,
