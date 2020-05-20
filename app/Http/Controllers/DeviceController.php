@@ -313,6 +313,8 @@ class DeviceController extends Controller
                 'id' => $request->id,
                 'device_id' => $request->id,
                 'on_level' => false,
+                'signal_mode' => 'local',
+                'control_mode' => 'emptied',
                 'status_channel1' => 'init',
                 'status_channel2' => 'init',
                 'status_channel3' => 'init',

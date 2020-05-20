@@ -23,6 +23,8 @@ class CreateTinyPumpDevicesTable extends Migration
             $table->string('status_channel2');
             $table->string('status_channel3');
 
+            $table->string('signal_mode');
+            $table->string('control_mode');
             $table->float('l_cal');
             $table->float('l_min');
             $table->float('l_max');

@@ -11,6 +11,8 @@ class TinyPumpDevice extends Model
         'id',
 		'device_id',
 		'on_level',
+        'signal_mode',
+        'control_mode',
         'status_channel1',
         'status_channel2',
         'status_channel3',
