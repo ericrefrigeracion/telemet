@@ -114,7 +114,7 @@
                                         @endcan
                                         @can('alerts.show')
                                             @if($device->alerts_count > 0)
-                                                <a href="{{ route('alerts.show', $device->id) }}" class="text-danger m-2" title="Nuevas Alertas"><i class="fas fa-bell"></i></a>
+                                                <a href="{{ route('alerts.show', $device->id) }}" class="text-danger m-2" title="Nuevas Alertas"> {{ $device->alerts_count }} <i class="fas fa-bell"></i></a>
                                             @endif
                                         @endcan
                                 </div>
