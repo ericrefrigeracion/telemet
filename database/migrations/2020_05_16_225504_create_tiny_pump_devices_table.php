@@ -38,6 +38,7 @@ class CreateTinyPumpDevicesTable extends Migration
             $table->float('channel3_min');
             $table->float('channel3_max');
 
+            $table->unsignedBigInteger('signal_number')->nullable();
             $table->dateTime('l_change_at')->nullable();
             $table->dateTime('l_out_at')->nullable();
             $table->dateTime('device_update')->nullable();
