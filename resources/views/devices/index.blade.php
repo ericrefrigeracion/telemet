@@ -88,9 +88,9 @@
                                     @if(!$device->admin_mon)
                                         <small>Monitoreo Vencido - <a href="{{ route('pays.create', $device->id) }}">Pagar por el monitoreo</a></small>
                                     @else
-                                        <i class="far fa-check-circle text-success m-2 mr-3" title="Canal 1 OK"></i>
-                                        <i class="far fa-check-circle text-danger m-2" title="Canal 2 Fallo"></i>
-                                        <i class="far fa-check-circle text-muted m-2 ml-3" title="Canal 3 Deshabilitado"></i>
+                                        <i class="far fa-check-circle {{ $device->channel1_color }} m-2 mr-3" title=" {{ $device->channel1_title }} "></i>
+                                        <i class="far fa-check-circle {{ $device->channel2_color }} m-2" title=" {{ $device->channel2_title }} "></i>
+                                        <i class="far fa-check-circle {{ $device->channel3_color }} m-2 ml-3" title=" {{ $device->channel3_title }} "></i>
                                     @endif
                                 </div>
                             </div>

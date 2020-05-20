@@ -142,6 +142,66 @@ class DeviceController extends Controller
                          $device->wifi_color = 'text-danger';
                          $device->wifi_description = 'Señal Celular Mala';
                     }
+                    if($device->tiny_pump_device->status_channel1 == 'init')
+                    {
+                        $device->channel1_color = 'text-muted';
+                        $device->channel1_title = 'Canal Deshabilitado';
+                    }
+                    if($device->tiny_pump_device->status_channel1 == 'success')
+                    {
+                        $device->channel1_color = 'text-success';
+                        $device->channel1_title = 'Todo en Orden';
+                    }
+                    if($device->tiny_pump_device->status_channel1 == 'warning')
+                    {
+                        $device->channel1_color = 'text-warning';
+                        $device->channel1_title = 'Atencion';
+                    }
+                    if($device->tiny_pump_device->status_channel1 == 'danger')
+                    {
+                        $device->channel1_color = 'text-danger';
+                        $device->channel1_title = 'Falla';
+                    }
+                    if($device->tiny_pump_device->status_channel2 == 'init')
+                    {
+                        $device->channel2_color = 'text-muted';
+                        $device->channel2_title = 'Canal Deshabilitado';
+                    }
+                    if($device->tiny_pump_device->status_channel2 == 'success')
+                    {
+                        $device->channel2_color = 'text-success';
+                        $device->channel2_title = 'Todo en Orden';
+                    }
+                    if($device->tiny_pump_device->status_channel2 == 'warning')
+                    {
+                        $device->channel2_color = 'text-warning';
+                        $device->channel2_title = 'Atencion';
+                    }
+                    if($device->tiny_pump_device->status_channel2 == 'danger')
+                    {
+                        $device->channel2_color = 'text-danger';
+                        $device->channel2_title = 'Falla';
+                    }
+                    if($device->tiny_pump_device->status_channel3 == 'init')
+                    {
+                        $device->channel3_color = 'text-muted';
+                        $device->channel3_title = 'Canal Deshabilitado';
+                    }
+                    if($device->tiny_pump_device->status_channel3 == 'success')
+                    {
+                        $device->channel3_color = 'text-success';
+                        $device->channel3_title = 'Todo en Orden';
+                    }
+                    if($device->tiny_pump_device->status_channel3 == 'warning')
+                    {
+                        $device->channel3_color = 'text-warning';
+                        $device->channel3_title = 'Atencion';
+                    }
+                    if($device->tiny_pump_device->status_channel3 == 'danger')
+                    {
+                        $device->channel3_color = 'text-danger';
+                        $device->channel3_title = 'Falla';
+                    }
                 }
                 else
                 {
@@ -149,6 +209,12 @@ class DeviceController extends Controller
                     $device->last_created_at = $last_reception->created_at->diffForHumans();
                     $device->wifi_color = 'text-muted';
                     $device->wifi_description = 'Sin Conexion';
+                    $device->channel1_color = 'text-muted';
+                    $device->channel1_title = 'Sin datos';
+                    $device->channel2_color = 'text-muted';
+                    $device->channel2_title = 'Sin datos';
+                    $device->channel3_color = 'text-muted';
+                    $device->channel3_title = 'Sin datos';
                 }
             }
             else
@@ -157,6 +223,12 @@ class DeviceController extends Controller
                 $device->last_created_at = 'Sin datos';
                 $device->wifi_color = 'text-muted';
                 $device->wifi_description = 'Sin Conexion';
+                $device->channel1_color = 'text-muted';
+                $device->channel1_title = 'Sin datos';
+                $device->channel2_color = 'text-muted';
+                $device->channel2_title = 'Sin datos';
+                $device->channel3_color = 'text-muted';
+                $device->channel3_title = 'Sin datos';
             }
             $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
 
