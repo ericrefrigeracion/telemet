@@ -7,16 +7,16 @@
     <td colspan="2">{{ $device->tiny_pump_device->l_cal > 0 ? "+" . $device->tiny_pump_device->l_cal : $device->tiny_pump_device->l_cal }}</td>
 </tr>
 <tr>
+    <td>Offset (cms):</td>
+    <td colspan="2">{{ $device->tiny_pump_device->l_offset }}</td>
+</tr>
+<tr>
     <td>Minimo nivel Permitido (cms):</td>
     <td colspan="2">{{ $device->tiny_pump_device->l_min }}</td>
 </tr>
 <tr>
     <td>Maximo nivel Permitido (cms):</td>
     <td colspan="2">{{ $device->tiny_pump_device->l_max }}</td>
-</tr>
-<tr>
-    <td>Offset (cms):</td>
-    <td colspan="2">{{ $device->tiny_pump_device->l_offset }}</td>
 </tr>
 <tr>
     <td>Retardo al Aviso (minutos):</td>

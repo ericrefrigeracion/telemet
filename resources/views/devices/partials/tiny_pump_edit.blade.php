@@ -22,6 +22,14 @@
         {{ Form::number('l_dly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 360, 'step' => 1]) }}
     </div>
     <div class="form-group">
+        {{ Form::label('channel1_config', 'Tipo de Funcionamiento') }}
+        {{ Form::select('channel1_config', [
+                                        'enabled' => 'Funcionamiento Permanente',
+                                        'auto' => 'Funcionamiento Automatico',
+                                        'disabled' => 'Canal Deshabilitado',
+                                    ], null, ['class' => 'form-control']) }}
+    </div>
+    <div class="form-group">
         {{ Form::label('channel1_min', 'Minimo nivel para el Canal 1 (cms)') }}
         {{ Form::number('channel1_min', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 480, 'step' => 1]) }}
     </div>
