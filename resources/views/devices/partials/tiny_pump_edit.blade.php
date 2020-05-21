@@ -22,7 +22,17 @@
         {{ Form::number('l_dly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 360, 'step' => 1]) }}
     </div>
     <div class="form-group">
-        {{ Form::label('channel1_config', 'Tipo de Funcionamiento') }}
+        {{ Form::label('signal_mode', 'Tipo de Señal de Control') }} <br>
+        {{ Form::radio('signal_mode', 'local') }} Señal local <br>
+        {{ Form::radio('signal_mode', 'remote') }} Señal remota <br>
+    </div>
+    <div class="form-group">
+        {{ Form::label('control_mode', 'Tipo de Funcionamiento del Sistema') }} <br>
+        {{ Form::radio('control_mode', 'emptied') }} Para vaciado <br>
+        {{ Form::radio('control_mode', 'filled') }} Para llenado <br>
+    </div>
+    <div class="form-group">
+        {{ Form::label('channel1_config', 'Tipo de funcionamiento del Canal 1') }}
         {{ Form::select('channel1_config', [
                                         'enabled' => 'Funcionamiento Permanente',
                                         'auto' => 'Funcionamiento Automatico',
@@ -38,7 +48,7 @@
         {{ Form::number('channel1_max', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 480, 'step' => 1]) }}
     </div>
     <div class="form-group">
-        {{ Form::label('channel2_config', 'Tipo de Funcionamiento') }}
+        {{ Form::label('channel2_config', 'Tipo de funcionamiento del Canal 2') }}
         {{ Form::select('channel2_config', [
                                         'enabled' => 'Funcionamiento Permanente',
                                         'auto' => 'Funcionamiento Automatico',
@@ -54,7 +64,7 @@
         {{ Form::number('channel2_max', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 480, 'step' => 1]) }}
     </div>
     <div class="form-group">
-        {{ Form::label('channel3_config', 'Tipo de Funcionamiento') }}
+        {{ Form::label('channel3_config', 'Tipo de funcionamiento del Canal 3') }}
         {{ Form::select('channel3_config', [
                                         'enabled' => 'Funcionamiento Permanente',
                                         'auto' => 'Funcionamiento Automatico',

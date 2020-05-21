@@ -20,9 +20,10 @@ class CreateTinyPumpDevicesTable extends Migration
 
             $table->boolean('on_level');
 
-            $table->unsignedBigInteger('signal_number')->nullable();
             $table->string('signal_mode');
+            $table->unsignedBigInteger('signal_number')->nullable();
             $table->string('control_mode');
+
             $table->float('l_cal');
             $table->float('l_offset');
             $table->float('l_min');
