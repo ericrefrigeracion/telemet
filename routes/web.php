@@ -25,9 +25,6 @@ Route::middleware(['verified'])->group(function () {
 
 	Route::prefix('admin')->group(function () {
 
-		//Vue
-		Route::get('/vue', function () { return view('vue'); });
-
 		//Users
 		Route::get('/users', 'UserController@index')->name('users.index')->middleware('can:users.index');
 		Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy')->middleware('can:users.destroy');
