@@ -61,7 +61,7 @@
     <td>{{ $device->tiny_pump_device->channel3_max }}</td>
 </tr>
 <tr>
-    <th colspan="4">
+    <th colspan="5">
         @if($device->tiny_pump_device->device_update)
             Este dispositivo recibio la configuracion actual el {{ $device->tiny_pump_device->device_update }}.
         @else
