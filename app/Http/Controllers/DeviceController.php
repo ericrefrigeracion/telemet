@@ -492,10 +492,9 @@ class DeviceController extends Controller
     {
         if (Auth::user()->id === $tiny_pump_device->device->user_id || Auth::user()->id < 3)
         {
-
             $rules = [
                 'signal_mode' => 'required|string|in:local,remote',
-                'signal_number' => 'filled|exists:devices,id',
+                'signal_number' => 'nullable|exists:devices,id',
                 'control_mode' => 'required|string|in:filled,emptied',
                 'l_cal' => 'required|numeric|min:-100|max:100',
                 'l_offset' => 'required|numeric|min:0|max:480',

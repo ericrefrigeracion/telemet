@@ -9,7 +9,7 @@
 @if($device->tiny_pump_device->signal_mode == 'remote')
     <tr>
         <td colspan="2">Dispositivo de control</td>
-        <td colspan="3">{{ $device->tiny_pump_device->control_number }}</td>
+        <td colspan="3">{{ $device->tiny_pump_device->signal_number }}</td>
     </tr>
 @endif
 <tr>

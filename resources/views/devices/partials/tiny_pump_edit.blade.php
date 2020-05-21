@@ -29,6 +29,10 @@
         {{ Form::radio('signal_mode', 'remote') }} Señal remota <br>
     </div>
     <div class="form-group">
+        {{ Form::label('signal_number', 'Numero de dispositivo que emite Nivel') }}
+        {{ Form::number('signal_number', null, ['class' => 'form-control', 'min' => 0, 'max' => 999999999, 'step' => 1]) }}
+    </div>
+    <div class="form-group">
         {{ Form::label('control_mode', 'Tipo de Funcionamiento del Sistema') }} <br>
         {{ Form::radio('control_mode', 'emptied') }} Para vaciado <br>
         {{ Form::radio('control_mode', 'filled') }} Para llenado <br>
