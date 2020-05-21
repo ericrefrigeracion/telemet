@@ -38,12 +38,28 @@
         {{ Form::number('channel1_max', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 480, 'step' => 1]) }}
     </div>
     <div class="form-group">
+        {{ Form::label('channel2_config', 'Tipo de Funcionamiento') }}
+        {{ Form::select('channel2_config', [
+                                        'enabled' => 'Funcionamiento Permanente',
+                                        'auto' => 'Funcionamiento Automatico',
+                                        'disabled' => 'Canal Deshabilitado',
+                                    ], null, ['class' => 'form-control']) }}
+    </div>
+    <div class="form-group">
         {{ Form::label('channel2_min', 'Minimo nivel para el Canal 2 (cms)') }}
         {{ Form::number('channel2_min', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 480, 'step' => 1]) }}
     </div>
     <div class="form-group">
         {{ Form::label('channel2_max', 'Maximo nivel para el Canal 2 (cms)') }}
         {{ Form::number('channel2_max', null, ['class' => 'form-control', 'required', 'min' => 0, 'max' => 480, 'step' => 1]) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('channel3_config', 'Tipo de Funcionamiento') }}
+        {{ Form::select('channel3_config', [
+                                        'enabled' => 'Funcionamiento Permanente',
+                                        'auto' => 'Funcionamiento Automatico',
+                                        'disabled' => 'Canal Deshabilitado',
+                                    ], null, ['class' => 'form-control']) }}
     </div>
     <div class="form-group">
         {{ Form::label('channel3_min', 'Minimo nivel para el Canal 3 (cms)') }}

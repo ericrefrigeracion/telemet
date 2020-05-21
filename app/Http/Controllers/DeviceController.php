@@ -142,62 +142,62 @@ class DeviceController extends Controller
                          $device->wifi_color = 'text-danger';
                          $device->wifi_description = 'Señal Celular Mala';
                     }
-                    if($device->tiny_pump_device->status_channel1 == 'disabled')
+                    if($device->tiny_pump_device->channel1_status == 'disabled')
                     {
                         $device->channel1_color = 'text-muted';
                         $device->channel1_title = 'Canal Deshabilitado';
                     }
-                    if($device->tiny_pump_device->status_channel1 == 'success')
+                    if($device->tiny_pump_device->channel1_status == 'success')
                     {
                         $device->channel1_color = 'text-success';
                         $device->channel1_title = 'Todo en Orden';
                     }
-                    if($device->tiny_pump_device->status_channel1 == 'warning')
+                    if($device->tiny_pump_device->channel1_status == 'warning')
                     {
                         $device->channel1_color = 'text-warning';
                         $device->channel1_title = 'Atencion';
                     }
-                    if($device->tiny_pump_device->status_channel1 == 'danger')
+                    if($device->tiny_pump_device->channel1_status == 'danger')
                     {
                         $device->channel1_color = 'text-danger';
                         $device->channel1_title = 'Falla';
                     }
-                    if($device->tiny_pump_device->status_channel2 == 'disabled')
+                    if($device->tiny_pump_device->channel2_status == 'disabled')
                     {
                         $device->channel2_color = 'text-muted';
                         $device->channel2_title = 'Canal Deshabilitado';
                     }
-                    if($device->tiny_pump_device->status_channel2 == 'success')
+                    if($device->tiny_pump_device->channel2_status == 'success')
                     {
                         $device->channel2_color = 'text-success';
                         $device->channel2_title = 'Todo en Orden';
                     }
-                    if($device->tiny_pump_device->status_channel2 == 'warning')
+                    if($device->tiny_pump_device->channel2_status == 'warning')
                     {
                         $device->channel2_color = 'text-warning';
                         $device->channel2_title = 'Atencion';
                     }
-                    if($device->tiny_pump_device->status_channel2 == 'danger')
+                    if($device->tiny_pump_device->channel2_status == 'danger')
                     {
                         $device->channel2_color = 'text-danger';
                         $device->channel2_title = 'Falla';
                     }
-                    if($device->tiny_pump_device->status_channel3 == 'disabled')
+                    if($device->tiny_pump_device->channel3_status == 'disabled')
                     {
                         $device->channel3_color = 'text-muted';
                         $device->channel3_title = 'Canal Deshabilitado';
                     }
-                    if($device->tiny_pump_device->status_channel3 == 'success')
+                    if($device->tiny_pump_device->channel3_status == 'success')
                     {
                         $device->channel3_color = 'text-success';
                         $device->channel3_title = 'Todo en Orden';
                     }
-                    if($device->tiny_pump_device->status_channel3 == 'warning')
+                    if($device->tiny_pump_device->channel3_status == 'warning')
                     {
                         $device->channel3_color = 'text-warning';
                         $device->channel3_title = 'Atencion';
                     }
-                    if($device->tiny_pump_device->status_channel3 == 'danger')
+                    if($device->tiny_pump_device->channel3_status == 'danger')
                     {
                         $device->channel3_color = 'text-danger';
                         $device->channel3_title = 'Falla';
@@ -231,7 +231,6 @@ class DeviceController extends Controller
                 $device->channel3_title = 'Sin datos';
             }
             $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
-
         }
 
         return view('devices.index')->with([
