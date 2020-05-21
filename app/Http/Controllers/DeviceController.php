@@ -40,15 +40,23 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function real_time(Device $device)
+    public function real_time(Request $request, Device $device)
     {
-        $data = ['device' => $device,
-                   'tiny' => $device->tiny_t_device()->first(),
-                   'pump' => $device->tiny_pump_device()->first(),
-              'reception' => $device->receptions()->latest()->first(),
-            ];
+        if($request->ajax())
+        {
+            $data = ['device' => $device,
+                       'tiny' => $device->tiny_t_device()->first(),
+                       'pump' => $device->tiny_pump_device()->first(),
+                  'reception' => $device->receptions()->latest()->first(),
+                ];
 
-        return $data;
+            return $data;
+        }
+        else
+        {
+            return redirect()->route('home');
+            //abort(403, 'Accion no Autorizada');
+        }
     }
 
     /**
