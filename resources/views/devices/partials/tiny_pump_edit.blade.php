@@ -21,8 +21,10 @@
         {{ Form::label('l_dly', 'Retardo al Aviso (minutos)') }}
         {{ Form::number('l_dly', null, ['class' => 'form-control', 'required', 'default' => 60, 'min' => 0, 'max' => 360, 'step' => 1]) }}
     </div>
+    <br>
+    <h3>Valores de Funcionamiento</h3><br>
     <div class="form-group">
-        {{ Form::label('signal_mode', 'Tipo de Señal de Control') }} <br>
+        {{ Form::label('signal_mode', 'Fuente de la Señal de Control') }} <br>
         {{ Form::radio('signal_mode', 'local') }} Señal local <br>
         {{ Form::radio('signal_mode', 'remote') }} Señal remota <br>
     </div>
