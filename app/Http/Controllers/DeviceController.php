@@ -40,22 +40,16 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function real_time(Request $request, Device $device)
+    public function real_time(Request $request)
     {
         if($request->ajax())
         {
-            $data = ['device' => $device,
-                       'tiny' => $device->tiny_t_device()->first(),
-                       'pump' => $device->tiny_pump_device()->first(),
-                  'reception' => $device->receptions()->latest()->first(),
-                ];
-
+            $data = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
             return $data;
         }
         else
         {
             return redirect()->route('home');
-            //abort(403, 'Accion no Autorizada');
         }
     }
 

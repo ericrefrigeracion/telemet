@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    @yield('head_scripts')
-
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <title>{{ config('app.name', 'TelemeT') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    @yield('head_scripts')
+
+
     <script src="https://kit.fontawesome.com/a2f903f9d9.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -27,5 +23,6 @@
     </div>
     @include('partials.footer')
     @yield('footer_scripts')
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

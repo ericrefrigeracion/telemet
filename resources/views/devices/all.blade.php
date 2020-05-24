@@ -4,6 +4,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-10">
+
             <div class="card">
                 <div class="card-header">
                     Dispositivos - Todos
@@ -19,7 +20,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach($tiny_t_devices as $device)
                                 <tr class="text-center">
                                     @can('users.show')
@@ -133,16 +133,19 @@
                                     @endcan
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <device-status/>
+
         </div>
     </div>
 </div>
 @endsection
 @section('script')
     <script>
+
     </script>
 @endsection
