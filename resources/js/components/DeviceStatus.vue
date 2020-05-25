@@ -21,10 +21,21 @@
                         <td v-else="device.on_line"><i class="fas fa-unlink text-danger m-2" title="Desconectado"></i></td>
                         <td v-if="device.protected" ><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
                         <td v-else="device.protected" ><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
-                        <td v-if="device.on_temp" ><i class="fas fa-temperature-high text-success m-2" title="Temperatura dentro de los Limites"></i></td>
-                        <td v-else="device.on_temp" ><i class="fas fa-temperature-high text-danger m-2" title="Temperatura fuera de Rango"></i></td>
-                        <td v-if="device.on_performance" ><i class="far fa-check-circle text-success m-2" title="Rendimiento Normal"></i></td>
-                        <td v-else="device.on_performance" ><i class="far fa-times-circle text-danger m-2" title="Rendimiento Bajo"></i></td>
+                        <td><i v-bind:class="device.class_1" v-bind:title="device.title_1"></i></td>
+                        <td><i v-bind:class="device.class_2" v-bind:title="device.title_2"></i></td>
+                        <td>
+                            <a v-bind:href="device.configuration_route" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs m-2"></i></a>
+                        </td>
+                        <td>
+                            <a v-bind:href="device.receptions_route" class="text-primary m-2" title="Evolucion de las Temperaturas"><i class="fas fa-chart-line m-2"></i></a>
+                        </td>
+                        <td>
+                            <a v-bind:href="device.logs_route" class="text-primary m-2" title="Logs Dispositivo"><i class="fas fa-clipboard-list m-2"></i></a>
+                        </td>
+                        <td>
+                            <a v-bind:href="device.alerts_route" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell m-2"></i></a>
+                        </td>
+
                     </tr>
                 </tbody>
             </table>

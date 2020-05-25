@@ -26,13 +26,7 @@ class DeviceController extends Controller
      */
     public function all()
     {
-        $tiny_t_devices = Device::where('admin_mon', true)->where('type_device_id', 2)->orderBy('user_id', 'asc')->get();
-        $tiny_pump_devices = Device::where('admin_mon', true)->where('type_device_id', 7)->orderBy('user_id', 'asc')->get();
-
-        return view('devices.all')->with([
-                                    'tiny_t_devices' => $tiny_t_devices,
-                                    'tiny_pump_devices' => $tiny_pump_devices
-                                    ]);
+        return view('devices.all');
     }
 
     /**
@@ -44,8 +38,61 @@ class DeviceController extends Controller
     {
         if($request->ajax())
         {
-            $data = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
-            return $data;
+            $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
+            foreach ($devices as $device)
+            {
+                if($device->type_device_id == 2)
+                {
+                    if($device->tiny_t_device()->firstOrFail()->on_temp)
+                    {
+                        $device->title_1 = 'Temperatura dentro de los Limites';
+                        $device->class_1 = 'fas fa-temperature-high text-success m-2';
+                    }
+                    else
+                    {
+                        $device->title_1 = 'Temperatura fuera de los Limites';
+                        $device->class_1 = 'fas fa-temperature-high text-danger m-2';
+                    }
+                    if($device->tiny_t_device()->firstOrFail()->on_t_set_point)
+                    {
+                        $device->title_2 = 'Rendimiento Normal';
+                        $device->class_2 = 'far fa-check-circle text-success m-2';
+                    }
+                    else
+                    {
+                        $device->title_2 = 'Rendimiento Bajo';
+                        $device->class_2 = 'far fa-times-circle text-danger m-2';
+                    }
+                }
+                if($device->type_device_id == 7)
+                {
+                    if($device->tiny_pump_device()->firstOrFail()->on_level)
+                    {
+                        $device->title_1 = 'Nivel dentro de los Limites';
+                        $device->class_1 = 'fas fa-water text-success m-2';
+                    }
+                    else
+                    {
+                        $device->title_1 = 'Nivel fuera de los Limites';
+                        $device->class_1 = 'fas fa-water text-danger m-2';
+                    }
+                    if($device->tiny_pump_device()->firstOrFail()->on_level)
+                    {
+                        $device->title_2 = 'Funcionamiento Normal';
+                        $device->class_2 = 'far fa-check-circle text-success m-2';
+                    }
+                    else
+                    {
+                        $device->title_2 = 'Funcionamiento Anormal';
+                        $device->class_2 = 'far fa-times-circle text-danger m-2';
+                    }
+                }
+                $device->receptions_route = route('receptions.now', $device->id);
+                $device->configuration_route = route('devices.edit', $device->id);
+                $device->logs_route = route('devices.log', $device->id);
+                $device->alerts_route = route('alerts.show', $device->id);
+            }
+            return $devices;
         }
         else
         {
