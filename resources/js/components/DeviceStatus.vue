@@ -15,8 +15,8 @@
                 </thead>
                 <tbody>
                     <tr class="text-center" v-for="device in devices">
-                        <td>{{ device.user_id }}</td>
-                        <td>{{ device.id }}</td>
+                        <td><a v-bind:href="device.user_route">{{ device.user_id }}</a></td>
+                        <td><a v-bind:href="device.route">{{ device.id }}</a></td>
                         <td v-if="device.on_line"><i class="fas fa-link text-success m-2"  title="En Linea"></i></td>
                         <td v-else="device.on_line"><i class="fas fa-unlink text-danger m-2" title="Desconectado"></i></td>
                         <td v-if="device.protected" ><i class="far fa-eye text-success m-2" title="Protegido"></i></td>

@@ -87,6 +87,8 @@ class DeviceController extends Controller
                         $device->class_2 = 'far fa-times-circle text-danger m-2';
                     }
                 }
+                $device->route = route('devices.show', $device->id);
+                $device->user_route = route('users.show', $device->user_id);
                 $device->receptions_route = route('receptions.now', $device->id);
                 $device->configuration_route = route('devices.edit', $device->id);
                 $device->logs_route = route('devices.log', $device->id);
