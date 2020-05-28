@@ -15,8 +15,8 @@
     <td colspan="3">{{ $device->tiny_t_device->tmax }}</td>
 </tr>
 <tr>
-    <td>Retardo al Aviso (minutos)</td>
-    <td>{{ $device->tiny_t_device->tdly }}</td>
+    <td colspan="2">Retardo al Aviso (minutos)</td>
+    <td colspan="3">{{ $device->tiny_t_device->tdly }}</td>
 </tr>
 @can('devices.analysis')
     <tr>

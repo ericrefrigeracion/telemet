@@ -50,7 +50,6 @@
         data(){
             return{
                 devices:[],
-                device:{}
             }
         },
         created: function(){
@@ -59,14 +58,11 @@
         },
         methods:{
             getDevices: function(){
-                axios.get('/api/devices')
+                axios.get('/api/devices/all')
                 .then(response => {
                     this.devices = response.data;
-                    console.log(this.devices);
                 });
             }
-
-
         }
     }
 </script>

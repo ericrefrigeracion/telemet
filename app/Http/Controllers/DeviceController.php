@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pay;
+use App\User;
 use App\Alert;
 use App\Price;
 use App\Device;
@@ -34,7 +35,7 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function real_time(Request $request)
+    public function api_all(Request $request)
     {
         if($request->ajax())
         {
@@ -107,188 +108,221 @@ class DeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function api_tiny_t_index(Request $request, User $user)
+    {
+        if($request->ajax())
+        {
+            $tiny_t_devices = $user->devices()->where('type_device_id', 2)->get();
+
+            foreach ($tiny_t_devices as $device)
+            {
+
+                $device->last_data01 = 'Sin datos';
+                $device->last_created_at = 'Sin datos';
+                $device->signal_class = 'fas fa-wifi text-muted m-2';
+                $device->signal_title = 'Sin Conexion';
+                $device->status_class = 'far fa-times-circle text-muted m-2 ml-3';
+                $device->status_title = 'Sin datos';
+
+                $device->receptions_route = route('receptions.now', $device->id);
+                $device->configuration_route = route('devices.edit', $device->id);
+                $device->pay_route = route('pays.create', $device->id);
+                $device->alerts_route = route('alerts.show', $device->id);
+
+                $device->protection_class = $device->protection->class;
+                $device->protection_title = $device->protection->description;
+                if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first())
+                {
+                    if($device->on_line)
+                    {
+                        $device->last_data01 = $last_reception->data01 + $device->tiny_t_device->tcal . '°C';
+                        $device->last_created_at = $last_reception->created_at;
+                        if($last_reception->data04)
+                        {
+                            $device->statuss_class = 'fas fa-arrow-circle-down text-info';
+                            $device->statuss_title = 'Enfriando';
+                        }
+                        else
+                        {
+                            $device->statuss_class = 'fas fa-arrow-circle-up text-warning';
+                            $device->statuss_title = 'Reposo';
+                        }
+                        if ($last_reception->rssi >= -60)
+                        {
+                             $device->wifi_class = 'text-success';
+                             $device->wifi_description = 'Señal WiFi Buena';
+                        }
+                        if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
+                        {
+                             $device->wifi_color = 'text-warning';
+                             $device->wifi_description = 'Señal WiFi Aceptable';
+                        }
+                        if ($last_reception->rssi < -75)
+                        {
+                             $device->wifi_color = 'text-danger';
+                             $device->wifi_description = 'Señal WiFi Mala';
+                        }
+                        if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
+                        {
+                            $device->status_text = 'Todo en Orden';
+                            $device->status_class = 'far fa-check-circle text-success m-2';
+                        }
+                        if(!$device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
+                        {
+                            $device->status_text = 'Fuera de Rango';
+                            $device->status_class = 'fas fa-exclamation text-warning m-2';
+                        }
+                        if($device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
+                        {
+                            $device->status_text = 'Bajo Rendimiento';
+                            $device->status_class = 'fas fa-exclamation text-warning m-2';
+                        }
+                        if(!$device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
+                        {
+                            $device->status_text = 'ALERTA';
+                            $device->status_class = 'fas fa-exclamation text-danger m-2';
+                        }
+                    }
+                }
+                $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
+            }
+            return $tiny_t_devices;
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function api_tiny_pump_index(Request $request, User $user)
+    {
+        if($request->ajax())
+        {
+
+            $tiny_pump_devices = $user->devices()->where('type_device_id', 7)->get();
+
+            foreach ($tiny_pump_devices as $device)
+            {
+                $device->last_data01 = 'Sin datos';
+                $device->last_created_at = 'Sin datos';
+                $device->signal_class = 'fas fa-wifi text-muted m-2';
+                $device->signal_title = 'Sin Conexion';
+                $device->channel1_class = 'far fa-times-circle text-muted m-2 mr-3';
+                $device->channel1_title = 'Sin datos';
+                $device->channel2_class = 'far fa-times-circle text-muted m-2';
+                $device->channel2_title = 'Sin datos';
+                $device->channel3_class = 'far fa-times-circle text-muted m-2 ml-3';
+                $device->channel3_title = 'Sin datos';
+                $device->receptions_route = route('receptions.now', $device->id);
+                $device->configuration_route = route('devices.edit', $device->id);
+                $device->logs_route = route('devices.log', $device->id);
+                $device->alerts_route = route('alerts.show', $device->id);
+
+                $device->protection_class = $device->protection->class;
+                $device->protection_title = $device->protection->description;
+
+                if($last_reception = $device->receptions()->where('data01', '!=', NULL)->latest()->first())
+                {
+                    if($device->on_line)
+                    {
+                        $device->last_data01 = $last_reception->data01 + $device->tiny_pump_device->l_cal . 'cms';
+                        if ($last_reception->rssi >= -60)
+                        {
+                             $device->signal_class = 'fas fa-wifi text-success m-2';
+                             $device->signal_title = 'Señal Celular Buena';
+                        }
+                        if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
+                        {
+                             $device->signal_class = 'fas fa-wifi text-warning m-2';
+                             $device->signal_title = 'Señal Celular Aceptable';
+                        }
+                        if ($last_reception->rssi < -75)
+                        {
+                             $device->signal_class = 'fas fa-wifi text-danger m-2';
+                             $device->signal_title = 'Señal Celular Mala';
+                        }
+                        if($device->tiny_pump_device->channel1_status == 'disabled')
+                        {
+                            $device->channel1_class = 'far fa-check-circle text-muted m-2 mr-3';
+                            $device->channel1_title = 'Canal Deshabilitado';
+                        }
+                        if($device->tiny_pump_device->channel1_status == 'success m-2 mr-3')
+                        {
+                            $device->channel1_class = 'far fa-check-circle text-success m-2 mr-3';
+                            $device->channel1_title = 'Todo en Orden';
+                        }
+                        if($device->tiny_pump_device->channel1_status == 'warning')
+                        {
+                            $device->channel1_class = 'tfar fa-check-circle text-warning m-2 mr-3';
+                            $device->channel1_title = 'Atencion';
+                        }
+                        if($device->tiny_pump_device->channel1_status == 'danger')
+                        {
+                            $device->channel1_class = 'far fa-check-circle text-danger m-2 mr-3';
+                            $device->channel1_title = 'Falla';
+                        }
+                        if($device->tiny_pump_device->channel2_status == 'disabled')
+                        {
+                            $device->channel2_class = 'far fa-check-circle text-muted m-2';
+                            $device->channel2_title = 'Canal Deshabilitado';
+                        }
+                        if($device->tiny_pump_device->channel2_status == 'success')
+                        {
+                            $device->channel2_class = 'far fa-check-circle text-success';
+                            $device->channel2_title = 'Todo en Orden';
+                        }
+                        if($device->tiny_pump_device->channel2_status == 'warning')
+                        {
+                            $device->channel2_class = 'far fa-check-circle text-warning';
+                            $device->channel2_title = 'Atencion';
+                        }
+                        if($device->tiny_pump_device->channel2_status == 'danger')
+                        {
+                            $device->channel2_class = 'far fa-check-circle text-danger';
+                            $device->channel2_title = 'Falla';
+                        }
+                        if($device->tiny_pump_device->channel3_status == 'disabled')
+                        {
+                            $device->channel3_class = 'far fa-check-circle text-muted';
+                            $device->channel3_title = 'Canal Deshabilitado';
+                        }
+                        if($device->tiny_pump_device->channel3_status == 'success')
+                        {
+                            $device->channel3_class = 'far fa-check-circle text-success';
+                            $device->channel3_title = 'Todo en Orden';
+                        }
+                        if($device->tiny_pump_device->channel3_status == 'warning')
+                        {
+                            $device->channel3_class = 'far fa-check-circle text-warning';
+                            $device->channel3_title = 'Atencion';
+                        }
+                        if($device->tiny_pump_device->channel3_status == 'danger')
+                        {
+                            $device->channel3_class = 'far fa-check-circle text-danger';
+                            $device->channel3_title = 'Falla';
+                        }
+                    }
+                    $device->last_created_at = $last_reception->created_at;
+                }
+                $device->alerts_count = $device->alerts()->where('created_at', '>', $device->view_alerts_at)->count();
+            }
+            return $tiny_pump_devices;
+        }
+        else
+        {
+            return redirect()->route('home');
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $tiny_t_devices = Auth::user()->devices()->where('type_device_id', 2)->get();
-
-        foreach ($tiny_t_devices as $device)
-        {
-
-            if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first())
-            {
-                if($device->on_line)
-                {
-                    $device->last_data01 = $last_reception->data01 + $device->tiny_t_device->tcal . '°C';
-                    $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    if($last_reception->data04)
-                    {
-                        $device->status = 'fas fa-arrow-circle-down';
-                        $device->status_class = 'text-info';
-                        $device->status_title = 'Enfriando';
-                    }
-                    else
-                    {
-                        $device->status = 'fas fa-arrow-circle-up';
-                        $device->status_class = 'text-warning';
-                        $device->status_title = 'Reposo';
-                    }
-                    if ($last_reception->rssi >= -60)
-                    {
-                         $device->wifi_color = 'text-success';
-                         $device->wifi_description = 'Señal WiFi Buena';
-                    }
-                    if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
-                    {
-                         $device->wifi_color = 'text-warning';
-                         $device->wifi_description = 'Señal WiFi Aceptable';
-                    }
-                    if ($last_reception->rssi < -75)
-                    {
-                         $device->wifi_color = 'text-danger';
-                         $device->wifi_description = 'Señal WiFi Mala';
-                    }
-                }
-                else
-                {
-                    $device->last_data01 = '--.--';
-                    $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    $device->wifi_color = 'text-muted';
-                    $device->wifi_description = 'Sin Señal WiFi';
-                }
-            }
-            else
-            {
-                $device->last_data01 = 'Sin datos';
-                $device->last_created_at = 'Sin datos';
-                $device->wifi_color = 'text-muted';
-                $device->wifi_description = 'Sin Señal WiFi';
-            }
-            $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
-
-        }
-
-        $tiny_pump_devices = Auth::user()->devices()->where('type_device_id', 7)->get();
-
-        foreach ($tiny_pump_devices as $device)
-        {
-
-            if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first())
-            {
-                if($device->on_line)
-                {
-                    $device->last_data01 = $last_reception->data01 + $device->tiny_pump_device->l_cal . 'cms';
-                    $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    if ($last_reception->rssi >= -60)
-                    {
-                         $device->wifi_color = 'text-success';
-                         $device->wifi_description = 'Señal Celular Buena';
-                    }
-                    if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
-                    {
-                         $device->wifi_color = 'text-warning';
-                         $device->wifi_description = 'Señal Celular Aceptable';
-                    }
-                    if ($last_reception->rssi < -75)
-                    {
-                         $device->wifi_color = 'text-danger';
-                         $device->wifi_description = 'Señal Celular Mala';
-                    }
-                    if($device->tiny_pump_device->channel1_status == 'disabled')
-                    {
-                        $device->channel1_color = 'text-muted';
-                        $device->channel1_title = 'Canal Deshabilitado';
-                    }
-                    if($device->tiny_pump_device->channel1_status == 'success')
-                    {
-                        $device->channel1_color = 'text-success';
-                        $device->channel1_title = 'Todo en Orden';
-                    }
-                    if($device->tiny_pump_device->channel1_status == 'warning')
-                    {
-                        $device->channel1_color = 'text-warning';
-                        $device->channel1_title = 'Atencion';
-                    }
-                    if($device->tiny_pump_device->channel1_status == 'danger')
-                    {
-                        $device->channel1_color = 'text-danger';
-                        $device->channel1_title = 'Falla';
-                    }
-                    if($device->tiny_pump_device->channel2_status == 'disabled')
-                    {
-                        $device->channel2_color = 'text-muted';
-                        $device->channel2_title = 'Canal Deshabilitado';
-                    }
-                    if($device->tiny_pump_device->channel2_status == 'success')
-                    {
-                        $device->channel2_color = 'text-success';
-                        $device->channel2_title = 'Todo en Orden';
-                    }
-                    if($device->tiny_pump_device->channel2_status == 'warning')
-                    {
-                        $device->channel2_color = 'text-warning';
-                        $device->channel2_title = 'Atencion';
-                    }
-                    if($device->tiny_pump_device->channel2_status == 'danger')
-                    {
-                        $device->channel2_color = 'text-danger';
-                        $device->channel2_title = 'Falla';
-                    }
-                    if($device->tiny_pump_device->channel3_status == 'disabled')
-                    {
-                        $device->channel3_color = 'text-muted';
-                        $device->channel3_title = 'Canal Deshabilitado';
-                    }
-                    if($device->tiny_pump_device->channel3_status == 'success')
-                    {
-                        $device->channel3_color = 'text-success';
-                        $device->channel3_title = 'Todo en Orden';
-                    }
-                    if($device->tiny_pump_device->channel3_status == 'warning')
-                    {
-                        $device->channel3_color = 'text-warning';
-                        $device->channel3_title = 'Atencion';
-                    }
-                    if($device->tiny_pump_device->channel3_status == 'danger')
-                    {
-                        $device->channel3_color = 'text-danger';
-                        $device->channel3_title = 'Falla';
-                    }
-                }
-                else
-                {
-                    $device->last_data01 = '----';
-                    $device->last_created_at = $last_reception->created_at->diffForHumans();
-                    $device->wifi_color = 'text-muted';
-                    $device->wifi_description = 'Sin Conexion';
-                    $device->channel1_color = 'text-muted';
-                    $device->channel1_title = 'Sin datos';
-                    $device->channel2_color = 'text-muted';
-                    $device->channel2_title = 'Sin datos';
-                    $device->channel3_color = 'text-muted';
-                    $device->channel3_title = 'Sin datos';
-                }
-            }
-            else
-            {
-                $device->last_data01 = 'Sin datos';
-                $device->last_created_at = 'Sin datos';
-                $device->wifi_color = 'text-muted';
-                $device->wifi_description = 'Sin Conexion';
-                $device->channel1_color = 'text-muted';
-                $device->channel1_title = 'Sin datos';
-                $device->channel2_color = 'text-muted';
-                $device->channel2_title = 'Sin datos';
-                $device->channel3_color = 'text-muted';
-                $device->channel3_title = 'Sin datos';
-            }
-            $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>', $device->view_alerts_at)->count();
-        }
-
-        return view('devices.index')->with([
-                                        'tiny_t_devices' => $tiny_t_devices,
-                                        'tiny_pump_devices' => $tiny_pump_devices
-                                        ]);
-
+        return view('devices.index')->with(['user_id' => Auth::user()->id]);
     }
 
     /**
