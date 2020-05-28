@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row">
                     <div v-if="device.admin_mon" class="col text-center">
-                        {{ device.status_text }} <i v-bind:class"device.status_class"></i>
+                        {{ device.status_text }} <i v-bind:class="device.status_class"></i>
                     </div>
                     <div v-else="device.admin_mon" class="col text-center">
                         <small>Monitoreo Vencido - <a v-bind:href="device.pay_route">Pagar por el monitoreo</a></small>
