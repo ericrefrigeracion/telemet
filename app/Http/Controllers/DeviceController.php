@@ -151,17 +151,17 @@ class DeviceController extends Controller
                         }
                         if ($last_reception->rssi >= -60)
                         {
-                             $device->signal_class = 'text-success';
+                             $device->signal_class = 'fas fa-wifi text-success m-2';
                              $device->signal_description = 'Señal WiFi Buena';
                         }
                         if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
                         {
-                             $device->signal_class = 'text-warning';
+                             $device->signal_class = 'fas fa-wifi text-warning m-2';
                              $device->signal_description = 'Señal WiFi Aceptable';
                         }
                         if ($last_reception->rssi < -75)
                         {
-                             $device->signal_class = 'text-danger';
+                             $device->signal_class = 'fas fa-wifi text-danger m-2';
                              $device->signal_description = 'Señal WiFi Mala';
                         }
                         if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
