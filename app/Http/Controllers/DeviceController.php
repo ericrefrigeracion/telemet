@@ -37,7 +37,8 @@ class DeviceController extends Controller
      */
     public function api_all(Request $request)
     {
-
+        if($request->ajax())
+        {
             $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
             foreach ($devices as $device)
             {
@@ -95,6 +96,11 @@ class DeviceController extends Controller
                 $device->alerts_route = route('alerts.show', $device->id);
             }
             return $devices;
+        }
+        else
+        {
+            return redirect()->route('home');
+        }
     }
 
     /**
