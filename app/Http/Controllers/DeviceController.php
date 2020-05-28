@@ -284,22 +284,22 @@ class DeviceController extends Controller
                         }
                         if($device->tiny_pump_device->channel3_status == 'disabled')
                         {
-                            $device->channel3_class = 'far fa-check-circle text-muted m-2 ml3';
+                            $device->channel3_class = 'far fa-check-circle text-muted m-2 ml-3';
                             $device->channel3_title = 'Canal Deshabilitado';
                         }
                         if($device->tiny_pump_device->channel3_status == 'success')
                         {
-                            $device->channel3_class = 'far fa-check-circle text-success m-2 ml3';
+                            $device->channel3_class = 'far fa-check-circle text-success m-2 ml-3';
                             $device->channel3_title = 'Todo en Orden';
                         }
                         if($device->tiny_pump_device->channel3_status == 'warning')
                         {
-                            $device->channel3_class = 'far fa-check-circle text-warning m-2 ml3';
+                            $device->channel3_class = 'far fa-check-circle text-warning m-2 ml-3';
                             $device->channel3_title = 'Atencion';
                         }
                         if($device->tiny_pump_device->channel3_status == 'danger')
                         {
-                            $device->channel3_class = 'far fa-check-circle text-danger m-2 ml3';
+                            $device->channel3_class = 'far fa-check-circle text-danger m-2 ml-3';
                             $device->channel3_title = 'Falla';
                         }
                     }
