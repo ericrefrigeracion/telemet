@@ -123,6 +123,8 @@ class DeviceController extends Controller
                 $device->signal_title = 'Sin Conexion';
                 $device->status_class = 'far fa-times-circle text-muted m-2 ml-3';
                 $device->status_title = 'Sin datos';
+                $device->statuss_class = 'far fa-times-circle text-muted m-2 ml-3 col-2';
+                $device->statuss_title = 'Sin datos';
 
                 $device->receptions_route = route('receptions.now', $device->id);
                 $device->configuration_route = route('devices.edit', $device->id);
@@ -139,12 +141,12 @@ class DeviceController extends Controller
                         $device->last_created_at = $last_reception->created_at;
                         if($last_reception->data04)
                         {
-                            $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2';
+                            $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2 display-4';
                             $device->statuss_title = 'Enfriando';
                         }
                         else
                         {
-                            $device->statuss_class = 'fas fa-arrow-circle-up text-warning';
+                            $device->statuss_class = 'fas fa-arrow-circle-up text-warning col-2 display-4';
                             $device->statuss_title = 'Reposo';
                         }
                         if ($last_reception->rssi >= -60)
