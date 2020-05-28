@@ -156,12 +156,12 @@ class DeviceController extends Controller
                         }
                         if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
                         {
-                             $device->signal_color = 'text-warning';
+                             $device->signal_class = 'text-warning';
                              $device->signal_description = 'Señal WiFi Aceptable';
                         }
                         if ($last_reception->rssi < -75)
                         {
-                             $device->signal_color = 'text-danger';
+                             $device->signal_class = 'text-danger';
                              $device->signal_description = 'Señal WiFi Mala';
                         }
                         if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
