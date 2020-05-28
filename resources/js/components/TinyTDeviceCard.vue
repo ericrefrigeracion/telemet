@@ -27,7 +27,7 @@
                         <i v-bind:class="device.signal_class" v-bind:title="device.signal_title"></i>
                         <a v-bind:href="device.receptions_route" class="text-primary m-2" title="Evolucion de Nivel"><i class="fas fa-chart-line"></i></a>
                         <a v-bind:href="device.configuration_route" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
-                        <a v-bind:href="device.alerts_route" class="text-danger m-2" title="Nuevas Alertas">{{ device.alerts_count }}<i class="fas fa-bell"></i></a>
+                        <a v-bind:href="device.alerts_route" class="text-danger m-2" title="Nuevas Alertas">{{ device.alerts_count }} <i class="fas fa-bell"></i></a>
                     </div>
                 </div>
             </div>
