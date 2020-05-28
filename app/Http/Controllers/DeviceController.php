@@ -141,12 +141,12 @@ class DeviceController extends Controller
                         $device->last_created_at = $last_reception->created_at;
                         if($last_reception->data04)
                         {
-                            $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2 display-4';
+                            $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2 h2';
                             $device->statuss_title = 'Enfriando';
                         }
                         else
                         {
-                            $device->statuss_class = 'fas fa-arrow-circle-up text-warning col-2 display-4';
+                            $device->statuss_class = 'fas fa-arrow-circle-up text-warning col-2 h2';
                             $device->statuss_title = 'Reposo';
                         }
                         if ($last_reception->rssi >= -60)
