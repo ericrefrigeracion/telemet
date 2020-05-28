@@ -151,18 +151,18 @@ class DeviceController extends Controller
                         }
                         if ($last_reception->rssi >= -60)
                         {
-                             $device->wifi_class = 'text-success';
-                             $device->wifi_description = 'Señal WiFi Buena';
+                             $device->signal_class = 'text-success';
+                             $device->signal_description = 'Señal WiFi Buena';
                         }
                         if ($last_reception->rssi > -75 && $last_reception->rssi < -60)
                         {
-                             $device->wifi_color = 'text-warning';
-                             $device->wifi_description = 'Señal WiFi Aceptable';
+                             $device->signal_color = 'text-warning';
+                             $device->signal_description = 'Señal WiFi Aceptable';
                         }
                         if ($last_reception->rssi < -75)
                         {
-                             $device->wifi_color = 'text-danger';
-                             $device->wifi_description = 'Señal WiFi Mala';
+                             $device->signal_color = 'text-danger';
+                             $device->signal_description = 'Señal WiFi Mala';
                         }
                         if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
                         {
