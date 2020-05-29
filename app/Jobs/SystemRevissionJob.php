@@ -106,7 +106,7 @@ class SystemRevissionJob implements ShouldQueue
             {
                 $device->update(['admin_mon' => false]);
 
-                alertCreate($device, 'Monitoreo deshabilitado por falta de pago.', $device->monitor_expires_at);
+                alertCreate($device, 'Monitoreo deshabilitado por falta de pago.', now());
                 mailAlertCreate($device, 'MonitorOff',$device->monitor_expires_at);
             }
             if($device->monitor_expires_at >= $current_time && !$device->admin_mon)
