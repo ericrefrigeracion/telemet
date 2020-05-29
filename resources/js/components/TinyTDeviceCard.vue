@@ -18,7 +18,7 @@
                         <div class="col-10 display-4">{{ device.last_data01 }}</div>
                 </div>
                 <div v-else="device.protected" class="row">
-                    <div class="col display-4 m-2">{{ device.last_data01 }}</div>
+                    <div class="col display-3 m-2">{{ device.last_data01 }}</div>
                 </div>
 
                 <div class="row">
