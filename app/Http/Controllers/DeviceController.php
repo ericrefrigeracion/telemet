@@ -39,6 +39,7 @@ class DeviceController extends Controller
     {
         if($request->ajax())
         {
+            $last_day = now()->subDay();
             $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
             foreach ($devices as $device)
             {
@@ -94,6 +95,7 @@ class DeviceController extends Controller
                 $device->configuration_route = route('devices.edit', $device->id);
                 $device->logs_route = route('devices.log', $device->id);
                 $device->alerts_route = route('alerts.show', $device->id);
+                $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>=', $last_day)->count();
             }
             return $devices;
         }

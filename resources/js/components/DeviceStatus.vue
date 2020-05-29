@@ -33,9 +33,8 @@
                             <a v-bind:href="device.logs_route" class="text-primary m-2" title="Logs Dispositivo"><i class="fas fa-clipboard-list m-2"></i></a>
                         </td>
                         <td>
-                            <a v-bind:href="device.alerts_route" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell m-2"></i></a>
+                            {{ device.alerts_count }}<a v-bind:href="device.alerts_route" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell m-2"></i></a>
                         </td>
-
                     </tr>
                 </tbody>
             </table>
@@ -46,6 +45,7 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert';
+    var audio = new Audio('../../audio/Nextel.mp3');
 
     export default {
         data(){
@@ -70,7 +70,13 @@
                 .then(response => {
                     this.devices = response.data;
                 });
+                //this.alertSound();
+            },
+            alertSound: function(){
+
+                audio.play();
             }
+
         }
     }
 </script>
