@@ -45,6 +45,7 @@
 
 <script>
     import axios from 'axios'
+    import swal from 'sweetalert';
 
     export default {
         data(){
@@ -54,7 +55,14 @@
         },
         created: function(){
             this.getDevices();
-            setInterval(this.getDevices, 10000);
+            setInterval(this.getDevices, 20000);
+            swal({
+              title: 'Telemet',
+              text: 'You clicked the button!',
+              icon: 'error',
+              buttons: true,
+              timer:'3000',
+            });
         },
         methods:{
             getDevices: function(){

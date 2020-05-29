@@ -54,7 +54,7 @@
         },
         created: function(){
             this.getTinyTDevices();
-            setInterval(this.getTinyTDevices, 5000);
+            setInterval(this.getTinyTDevices, 15000);
         },
         methods:{
             forHumans: function(d){

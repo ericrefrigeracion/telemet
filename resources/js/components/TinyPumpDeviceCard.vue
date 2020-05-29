@@ -49,7 +49,7 @@
         },
         created: function(){
             this.getTinyPumpDevices();
-            setInterval(this.getTinyPumpDevices, 5000);
+            setInterval(this.getTinyPumpDevices, 15000);
         },
         methods:{
             forHumans: function(d){
