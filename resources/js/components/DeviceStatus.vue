@@ -57,11 +57,11 @@
             this.getDevices();
             setInterval(this.getDevices, 20000);
             swal({
-              title: 'Telemet',
-              text: 'You clicked the button!',
+              title: 'Usted no puede acceder',
+              text: 'Hasta que no haga una reunion con ERIC LOPEZ',
               icon: 'error',
               buttons: true,
-              timer:'3000',
+              timer:'5000',
             });
         },
         methods:{
