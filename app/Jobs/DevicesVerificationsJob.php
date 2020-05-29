@@ -66,7 +66,6 @@ class DevicesVerificationsJob implements ShouldQueue
                 if( $last_reception->created_at > $delay && !$device->on_line )
                 {
                     $device->update(['on_line'=> true]);
-
                     alertCreate($device, 'El dispositivo esta conectado.', $last_reception->created_at);
                     mailAlertCreate($device, 'onLine',$last_reception->created_at);
                 }

@@ -122,8 +122,8 @@ class DeviceController extends Controller
                 $device->signal_class = 'fas fa-wifi text-muted m-2';
                 $device->signal_title = 'Sin Conexion';
                 $device->status_class = 'far fa-times-circle text-muted m-2 ml-3';
-                $device->status_title = 'Sin datos';
-                $device->statuss_class = 'far fa-times-circle text-muted m-2 ml-3 col-2';
+                $device->status_text = 'Sin datos';
+                $device->statuss_class = 'far fa-times-circle text-muted col-2 h1 mt-3';
                 $device->statuss_title = 'Sin datos';
 
                 $device->receptions_route = route('receptions.now', $device->id);
