@@ -18,9 +18,9 @@
                         <td><a v-bind:href="device.user_route">{{ device.user_id }}</a></td>
                         <td><a v-bind:href="device.route">{{ device.id }}</a></td>
                         <td v-if="device.on_line"><i class="fas fa-link text-success m-2"  title="En Linea"></i></td>
-                        <td v-else="device.on_line"><i class="fas fa-unlink text-danger m-2" title="Desconectado"></i></td>
-                        <td v-if="device.protected" ><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
-                        <td v-else="device.protected" ><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
+                        <td v-else><i class="fas fa-unlink text-danger m-2" title="Desconectado"></i></td>
+                        <td v-if="device.protected"><i class="far fa-eye text-success m-2" title="Protegido"></i></td>
+                        <td v-else><i class="far fa-eye-slash text-success m-2" title="Horario Permitido"></i></td>
                         <td><i v-bind:class="device.class_1" v-bind:title="device.title_1"></i></td>
                         <td><i v-bind:class="device.class_2" v-bind:title="device.title_2"></i></td>
                         <td>
