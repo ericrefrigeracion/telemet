@@ -55,7 +55,7 @@ class DeviceController extends Controller
                         $device->title_1 = 'Temperatura fuera de los Limites';
                         $device->class_1 = 'fas fa-temperature-high text-danger m-2';
                     }
-                    if($device->tiny_t_device()->firstOrFail()->on_t_set_point)
+                    if($device->tiny_t_device()->firstOrFail()->on_performance)
                     {
                         $device->title_2 = 'Rendimiento Normal';
                         $device->class_2 = 'far fa-check-circle text-success m-2';
