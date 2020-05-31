@@ -22,8 +22,10 @@ Route::post('/webhooks/sms', 'WebhookController@sms');
 Route::post('/webhooks/{user_id}-{device_id}-{price_id}', 'WebhookController@pay');
 Route::post('/receptions/incoming', 'ReceptionController@store');
 Route::get('/receptions/incoming', 'ReceptionController@store');
+Route::get('/receptions/{device}', 'ReceptionController@live');
 Route::get('/devices/all', 'DeviceController@api_all');
 Route::get('/devices/tiny-pump/{user}', 'DeviceController@api_tiny_pump_index');
 Route::get('/devices/tiny-t/{user}', 'DeviceController@api_tiny_t_index');
+
 
 

@@ -17,6 +17,29 @@ class ReceptionController extends Controller
      * @param  \App\Reception  $reception
      * @return \Illuminate\Http\Response
      */
+    public function live(Device $device)
+    {
+
+        if($request->ajax())
+        {
+            $start_time = now()->subHour();
+
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->get();
+
+            return $datas;
+        }
+        else
+        {
+            return redirect()->route('home');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Reception  $reception
+     * @return \Illuminate\Http\Response
+     */
     public function now(Device $device)
     {
 

@@ -55,14 +55,10 @@
         },
         created: function(){
             this.getDevices();
+        },
+        mounted: function(){
+            //swal({ title: 'Usted no puede acceder', text: 'Hasta que no haga una reunion con ERIC LOPEZ', icon: 'error', buttons: true, timer:'5000' });
             setInterval(this.getDevices, 20000);
-            swal({
-              title: 'Usted no puede acceder',
-              text: 'Hasta que no haga una reunion con ERIC LOPEZ',
-              icon: 'error',
-              buttons: true,
-              timer:'5000',
-            });
         },
         methods:{
             getDevices: function(){

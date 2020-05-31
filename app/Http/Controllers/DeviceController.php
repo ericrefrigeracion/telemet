@@ -135,7 +135,9 @@ class DeviceController extends Controller
 
                 $device->protection_class = $device->protection->class;
                 $device->protection_title = $device->protection->description;
-                if($last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->where('data04', '!=', NULL)->latest()->first())
+                if($device->admin_mon) $last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->where('data04', '!=', NULL)->latest()->first();
+                if(!$device->admin_mon) $last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->latest()->first();
+                if($last_reception)
                 {
                     if($device->on_line)
                     {
