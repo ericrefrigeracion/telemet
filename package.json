@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "chart.js": "^2.9.3",
         "moment": "^2.26.0",
         "sweetalert": "^2.1.2"
     }
