@@ -15,7 +15,7 @@
                 </div>
                 <div v-if="device.admin_mon" class="row">
                         <i v-bind:class="device.statuss_class" v-bind:title="device.statuss_title"></i>
-                        <div class="col-10 display-3">{{ device.last_data01 }}</div>
+                        <div class="col-10 display-4">{{ device.last_data01 }}</div>
                 </div>
                 <div v-else class="row">
                     <div class="col display-3 m-2">{{ device.last_data01 }}</div>

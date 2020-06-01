@@ -147,7 +147,7 @@ class DeviceController extends Controller
                 {
                     if($device->on_line)
                     {
-                        $device->last_data01 = $last_reception->data01 + $device->tiny_t_device->tcal . '°C';
+                        $device->last_data01 = round($last_reception->data01, 1) + $device->tiny_t_device->tcal . '°C';
                         $device->last_created_at = $last_reception->created_at;
                         if($last_reception->data04)
                         {
