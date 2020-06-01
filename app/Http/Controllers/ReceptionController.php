@@ -24,7 +24,13 @@ class ReceptionController extends Controller
         {
             $start_time = now()->subHour();
 
-            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->select('data01 as y', 'created_at as x')->get();
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->select('data01', 'created_at')->get();
+
+            foreach ($datas as $data)
+            {
+                $data->x = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
+                $data->y = $data->data01;
+            }
 
             return $datas;
         }

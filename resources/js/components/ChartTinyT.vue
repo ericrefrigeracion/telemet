@@ -23,8 +23,9 @@
 
         },
         mounted: function(){
-            this.chart();
+            //this.chart();
             setInterval(this.getData, 15000);
+            setInterval(this.chart, 15000);
         },
         methods:{
             getData: function(){
@@ -51,8 +52,9 @@
                     },
                     options: {
                         scales: {
-                            yAxes: [{
+                            xAxes: [{
                                 type: 'time',
+                                distribution: 'series'
                             }]
                         }
                     }
