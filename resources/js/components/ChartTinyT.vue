@@ -12,7 +12,7 @@
 
 
     export default {
-        props:['device'],
+        props:['device_id'],
         data(){
             return{
                 datas:[]
@@ -28,14 +28,13 @@
         },
         methods:{
             getData: function(){
-                var url = 'api/receptions/' + this.device;
+                var url = '../../api/receptions/' + this.device_id;
                 axios.get(url)
                 .then(response => {
                     this.datas = response.data;
                 });
             },
             chart: function(){
-                console.log('hi');
                 var ctx = document.getElementById('myChart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'line',
@@ -43,7 +42,7 @@
                         labels: ['Red'],
                         datasets: [{
                             label: '# of Votes',
-                            data: [{ x: 10, y: 20 }, { x: 15, y: 10 }],
+                            data: [this.datas],
                             backgroundColor: ['rgba(255, 159, 64, 0.2)'],
                             borderColor: ['rgba(255, 159, 64, 1)'],
                             borderWidth: 1

@@ -17,14 +17,14 @@ class ReceptionController extends Controller
      * @param  \App\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function live(Device $device)
+    public function live(Request $request, Device $device)
     {
 
         if($request->ajax())
         {
             $start_time = now()->subHour();
 
-            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->get();
+            $datas = Reception::where('device_id', $device->id)->where('created_at', '>=', $start_time)->select('data01 as y', 'created_at as x')->get();
 
             return $datas;
         }

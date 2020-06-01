@@ -11,7 +11,6 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-10 mb-3">
-            <chart-tiny-t v-bind:datas="{{ $datas }}"></chart-tiny-t>
             <div class="card">
                 <div class="card-header">
                    Datos de la ultima hora de {{ $device->name }} ({{ $device->description }})
@@ -32,6 +31,7 @@
                     @include('receptions.partials.card-footer')
                 </div>
             </div>
+            <chart-tiny-t v-bind:device_id="{{ $device->id }}"></chart-tiny-t>
         </div>
     </div>
 </div>
