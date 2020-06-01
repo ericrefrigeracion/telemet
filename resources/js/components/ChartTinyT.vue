@@ -33,6 +33,7 @@
                 .then(response => {
                     this.datas = response.data;
                 });
+                console.log(this.datas);
             },
             chart: function(){
                 var ctx = document.getElementById('myChart').getContext('2d');
@@ -42,7 +43,7 @@
                         labels: ['Red'],
                         datasets: [{
                             label: '# of Votes',
-                            data: [this.datas],
+                            data: this.datas,
                             backgroundColor: ['rgba(255, 159, 64, 0.2)'],
                             borderColor: ['rgba(255, 159, 64, 1)'],
                             borderWidth: 1
@@ -51,9 +52,7 @@
                     options: {
                         scales: {
                             yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
+                                type: 'time',
                             }]
                         }
                     }
