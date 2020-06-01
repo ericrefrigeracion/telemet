@@ -1,6 +1,6 @@
 <template>
         <div class="card text-center">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <canvas id="myChart"></canvas>
         </div>
 </template>
 
@@ -19,12 +19,12 @@
             }
         },
         created: function(){
-            this.chart();
+            this.getData();
+            setInterval(this.getData, 15000);
 
         },
         mounted: function(){
             //this.chart();
-            setInterval(this.getData, 15000);
             setInterval(this.chart, 15000);
         },
         methods:{
