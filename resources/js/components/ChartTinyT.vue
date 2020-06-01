@@ -43,10 +43,8 @@
                     data: {
                         labels: ['Red'],
                         datasets: [{
-                            label: '# of Votes',
+                            label: 'Temperatura',
                             data: this.datas,
-                            backgroundColor: ['rgba(255, 159, 64, 0.2)'],
-                            borderColor: ['rgba(255, 159, 64, 1)'],
                             borderWidth: 1
                         }]
                     },
@@ -54,7 +52,7 @@
                         scales: {
                             xAxes: [{
                                 type: 'time',
-                                distribution: 'series'
+                                distribution: 'linear'
                             }]
                         }
                     }
