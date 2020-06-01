@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="row">
                     <div v-if="device.admin_mon" class="col text-center">
-                        {{ device.status_text }} <i v-bind:class="device.status_class"></i>
+                        <span v-if="device.protected" >{{ device.status_text }} <i v-bind:class="device.status_class"></i></span>
                     </div>
                     <div v-else class="col text-center">
                         <small>Monitoreo Vencido - <a v-bind:href="device.pay_route">Pagar por el monitoreo</a></small>
@@ -23,7 +23,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <i v-bind:class="device.protection_class" v-bind:title="device.protection_title"></i>
+                        <i v-if="device.admin_mon" v-bind:class="device.protection_class" v-bind:title="device.protection_title"></i>
                         <i v-bind:class="device.signal_class" v-bind:title="device.signal_title"></i>
                         <a v-bind:href="device.receptions_route" class="text-primary m-2" title="Evolucion de Temperaturas"><i class="fas fa-chart-line"></i></a>
                         <a v-bind:href="device.configuration_route" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
