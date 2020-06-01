@@ -17,9 +17,10 @@
                 </div>
                 <div class="card-body">
                     @if(isset($datas))
-                    <div id="plot" style="height: 400px; width: auto"></div>
+                        <div id="plot" style="height: 400px; width: auto"></div>
                     @can('devices.analysis')
-                    <div id="analysis" style="height: 400px; width: auto"></div>
+                        <div id="analysis" style="height: 400px; width: auto"></div>
+                        <chart-tiny-t v-bind:device_id="{{ $device->id }}"></chart-tiny-t>
                     @endcan
                     @else
                         <div class="alert alert-success" role="alert">
@@ -31,7 +32,6 @@
                     @include('receptions.partials.card-footer')
                 </div>
             </div>
-            <chart-tiny-t v-bind:device_id="{{ $device->id }}"></chart-tiny-t>
         </div>
     </div>
 </div>

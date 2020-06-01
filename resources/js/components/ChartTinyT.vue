@@ -24,7 +24,7 @@
         },
         mounted: function(){
             this.chart();
-            setInterval(this.getData(), 15000);
+            setInterval(this.getData, 15000);
         },
         methods:{
             getData: function(){
