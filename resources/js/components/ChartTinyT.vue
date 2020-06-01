@@ -52,7 +52,10 @@
                         scales: {
                             xAxes: [{
                                 type: 'time',
-                                distribution: 'linear'
+                                distribution: 'series',
+                                time: {
+                                    unit: 'minute'
+                                }
                             }]
                         }
                     }
