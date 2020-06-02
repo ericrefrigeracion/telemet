@@ -28,7 +28,7 @@ class ReceptionController extends Controller
 
             foreach ($datas as $data)
             {
-                $data->x = ($data->created_at->timestamp - (3 * 60 * 60)) * 1000;
+                $data->x = $data->created_at->timestamp * 1000;
                 $data->y = $data->data01;
             }
 
