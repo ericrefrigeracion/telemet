@@ -40,7 +40,7 @@ class DeviceController extends Controller
         if($request->ajax())
         {
             $last_day = now()->subDay();
-            $devices = Device::where('admin_mon', true)->orderBy('user_id', 'asc')->get();
+            $devices = Device::where('admin_mon', true)->where('protected', true)->orderBy('user_id', 'asc')->get();
             foreach ($devices as $device)
             {
                 if($device->type_device_id == 2)
