@@ -169,7 +169,7 @@ class DeviceController extends Controller
                              $device->signal_title = 'Señal WiFi Mala';
                         }
 
-                        if($device->protected)
+                        if($device->admin_mon && $device->protected)
                         {
                             if($last_reception->data04)
                             {
