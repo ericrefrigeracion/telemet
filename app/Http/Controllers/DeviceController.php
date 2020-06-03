@@ -136,6 +136,7 @@ class DeviceController extends Controller
 
                 $device->protection_class = $device->protection->class;
                 $device->protection_title = $device->protection->description;
+
                 if($device->admin_mon && $device->protected)
                 {
                     $last_reception = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->where('data04', '!=', NULL)->latest()->first();
@@ -152,16 +153,6 @@ class DeviceController extends Controller
                         $device->last_created_at = $last_reception->created_at;
                         $device->bg_class = '';
 
-                        if($last_reception->data04)
-                        {
-                            $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2 h1 mt-3';
-                            $device->statuss_title = 'Enfriando';
-                        }
-                        else
-                        {
-                            $device->statuss_class = 'fas fa-arrow-circle-up text-warning col-2 h1 mt-3';
-                            $device->statuss_title = 'Reposo';
-                        }
                         if ($last_reception->rssi >= -60)
                         {
                              $device->signal_class = 'fas fa-wifi text-success m-2';
@@ -177,29 +168,43 @@ class DeviceController extends Controller
                              $device->signal_class = 'fas fa-wifi text-danger m-2';
                              $device->signal_title = 'Señal WiFi Mala';
                         }
-                        if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
+
+                        if($device->protected)
                         {
-                            $device->status_text = 'Todo en Orden';
-                            $device->status_class = 'far fa-check-circle text-success m-2';
-                            $device->bg_class = 'bg-success';
-                        }
-                        if(!$device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
-                        {
-                            $device->status_text = 'Fuera de Rango';
-                            $device->status_class = 'fas fa-exclamation text-warning m-2';
-                            $device->bg_class = 'bg-warning';
-                        }
-                        if($device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
-                        {
-                            $device->status_text = 'Bajo Rendimiento';
-                            $device->status_class = 'fas fa-exclamation text-warning m-2';
-                            $device->bg_class = 'bg-warning';
-                        }
-                        if(!$device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
-                        {
-                            $device->status_text = 'ALERTA';
-                            $device->status_class = 'fas fa-exclamation text-danger m-2';
-                            $device->bg_class = 'bg-danger';
+                            if($last_reception->data04)
+                            {
+                                $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2 h1 mt-3';
+                                $device->statuss_title = 'Enfriando';
+                            }
+                            else
+                            {
+                                $device->statuss_class = 'fas fa-arrow-circle-up text-warning col-2 h1 mt-3';
+                                $device->statuss_title = 'Reposo';
+                            }
+                            if($device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
+                            {
+                                $device->status_text = 'Todo en Orden';
+                                $device->status_class = 'far fa-check-circle text-success m-2';
+                                $device->bg_class = 'bg-success';
+                            }
+                            if(!$device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
+                            {
+                                $device->status_text = 'Fuera de Rango';
+                                $device->status_class = 'fas fa-exclamation text-warning m-2';
+                                $device->bg_class = 'bg-warning';
+                            }
+                            if($device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
+                            {
+                                $device->status_text = 'Bajo Rendimiento';
+                                $device->status_class = 'fas fa-exclamation text-warning m-2';
+                                $device->bg_class = 'bg-warning';
+                            }
+                            if(!$device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
+                            {
+                                $device->status_text = 'ALERTA';
+                                $device->status_class = 'fas fa-exclamation text-danger m-2';
+                                $device->bg_class = 'bg-danger';
+                            }
                         }
                     }
                 }
