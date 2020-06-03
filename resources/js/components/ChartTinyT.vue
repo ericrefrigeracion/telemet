@@ -20,16 +20,24 @@
         },
         created: function(){
             this.getData();
-            setInterval(this.getData, 15000);
+            //setInterval(this.getData, 15000);
 
         },
         mounted: function(){
             //this.chart();
+            setInterval(this.getLive, 15000);
             setInterval(this.chart, 15000);
         },
         methods:{
+            getLive: function(){
+                var url = '../../api/receptions/last-hour/' + this.device_id;
+                axios.get(url)
+                .then(response => {
+                    this.datas.push(response.data);
+                });
+            },
             getData: function(){
-                var url = '../../api/receptions/' + this.device_id;
+                var url = '../../api/receptions/last-hour/' + this.device_id;
                 axios.get(url)
                 .then(response => {
                     this.datas = response.data;

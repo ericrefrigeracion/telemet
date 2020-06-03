@@ -17,7 +17,31 @@ class ReceptionController extends Controller
      * @param  \App\Reception  $reception
      * @return \Illuminate\Http\Response
      */
-    public function live(Request $request, Device $device)
+    public function api_live(Request $request, Device $device)
+    {
+
+        if($request->ajax())
+        {
+            $data = Reception::where('device_id', $device->id)->where('data01', '!=', NULL)->where('data04', '!=', NULL)->latest()->first();
+
+            $data->x = $data->created_at->timestamp * 1000;
+            $data->y = $data->data01;
+
+            return $data;
+        }
+        else
+        {
+            return redirect()->route('home');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Reception  $reception
+     * @return \Illuminate\Http\Response
+     */
+    public function api_last_hour(Request $request, Device $device)
     {
 
         if($request->ajax())
