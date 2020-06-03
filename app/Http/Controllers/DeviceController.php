@@ -127,6 +127,7 @@ class DeviceController extends Controller
                 $device->status_text = 'Sin datos';
                 $device->statuss_class = ''; //far fa-times-circle text-muted col-2 h1 mt-3
                 $device->statuss_title = 'Sin datos';
+                $device->bg_class = 'bg-danger';
 
                 $device->receptions_route = route('receptions.now', $device->id);
                 $device->configuration_route = route('devices.edit', $device->id);
@@ -149,6 +150,8 @@ class DeviceController extends Controller
                     {
                         $device->last_data01 = round($last_reception->data01, 1) + $device->tiny_t_device->tcal . '°C';
                         $device->last_created_at = $last_reception->created_at;
+                        $device->bg_class = '';
+
                         if($last_reception->data04)
                         {
                             $device->statuss_class = 'fas fa-arrow-circle-down text-info col-2 h1 mt-3';
@@ -178,21 +181,25 @@ class DeviceController extends Controller
                         {
                             $device->status_text = 'Todo en Orden';
                             $device->status_class = 'far fa-check-circle text-success m-2';
+                            $device->bg_class = 'bg-success';
                         }
                         if(!$device->tiny_t_device->on_temp  && $device->tiny_t_device->on_performance)
                         {
                             $device->status_text = 'Fuera de Rango';
                             $device->status_class = 'fas fa-exclamation text-warning m-2';
+                            $device->bg_class = 'bg-warning';
                         }
                         if($device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
                         {
                             $device->status_text = 'Bajo Rendimiento';
                             $device->status_class = 'fas fa-exclamation text-warning m-2';
+                            $device->bg_class = 'bg-warning';
                         }
                         if(!$device->tiny_t_device->on_temp  && !$device->tiny_t_device->on_performance)
                         {
                             $device->status_text = 'ALERTA';
                             $device->status_class = 'fas fa-exclamation text-danger m-2';
+                            $device->bg_class = 'bg-danger';
                         }
                     }
                 }
@@ -226,6 +233,7 @@ class DeviceController extends Controller
                 $device->channel2_title = 'Sin datos';
                 $device->channel3_class = 'far fa-times-circle text-muted m-2 ml-3';
                 $device->channel3_title = 'Sin datos';
+                $device->bg_class = 'bg-danger';
                 $device->receptions_route = route('receptions.now', $device->id);
                 $device->configuration_route = route('devices.edit', $device->id);
                 $device->logs_route = route('devices.log', $device->id);
@@ -239,6 +247,8 @@ class DeviceController extends Controller
                     if($device->on_line)
                     {
                         $device->last_data01 = $last_reception->data01 + $device->tiny_pump_device->l_cal . 'cms';
+                        $device->bg_class = '';
+
                         if ($last_reception->rssi >= -60)
                         {
                              $device->signal_class = 'fas fa-wifi text-success m-2';

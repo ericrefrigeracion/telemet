@@ -1,7 +1,7 @@
 <template>
     <div class="card-columns col-md-10">
         <div v-for="device in tinyTDevices" class="card text-center">
-            <div v-bind:class="device.on_line ? 'card-header' : 'card-header bg-danger'">
+            <div class="card-header" v-bind:class="device.bg_class">
                 {{ device.name }}
             </div>
             <div class="card-body">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div v-bind:class="device.on_line ? 'card-footer' : 'card-footer bg-danger'">
+            <div class="card-footer" v-bind:class="device.bg_class">
                 <small class="">
                         {{ device.on_line ? 'En Linea':'Sin Conexion'}} - {{ forHumans(device.last_created_at) }}
                 </small>
