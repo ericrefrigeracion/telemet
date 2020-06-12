@@ -64,12 +64,13 @@
             getDevices: function(){
                 axios.get('/api/devices/all')
                 .then(response => {
-                    this.devices = response.data;
+                    if(this.devices != response.data){
+                        this.alertSound();
+                        this.devices = response.data;
+                    }
                 });
-                //this.alertSound();
             },
             alertSound: function(){
-
                 audio.play();
             }
 

@@ -1,40 +1,55 @@
 <template>
-        <div class="card text-center">
-            <canvas id="myChart"></canvas>
-        </div>
+  <div class="container">
+    <line-chart
+      v-if="loaded"
+      :chartdata="chartdata"
+      :options="options"/>
+  </div>
 </template>
 
 <script>
-   import axios from 'axios'
-   import moment from 'moment'
-   import Chart from 'chart.js';
-   moment.locale('es');
+    import axios from 'axios'
+    import moment from 'moment'
+    import { Line } from 'vue-chartjs'
+    moment.locale('es');
 
 
     export default {
         props:['device_id'],
+        extends: Line,
         data(){
             return{
-                datas:[]
+                chartdata: {
+                    labels: ['January', 'February'],
+                    datasets: [{
+                        label: 'Data One',
+                        backgroundColor: '#f87979',
+                        data: [40, 20]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
             }
         },
         created: function(){
             this.getData();
-            //setInterval(this.getData, 15000);
 
         },
         mounted: function(){
-            //this.chart();
-            setInterval(this.getLive, 15000);
-            setInterval(this.chart, 15000);
+            setInterval(this.getLive, 5000);
+            this.renderChart(this.chartdata, this.options)
         },
         methods:{
             getLive: function(){
                 var url = '../../api/receptions/last-hour/' + this.device_id;
                 axios.get(url)
                 .then(response => {
-                    this.datas.push(response.data);
+                    this.datas = response.data;
                 });
+                console.log('live');
+                console.log(this.datas);
             },
             getData: function(){
                 var url = '../../api/receptions/last-hour/' + this.device_id;
@@ -42,33 +57,9 @@
                 .then(response => {
                     this.datas = response.data;
                 });
+                console.log('get');
                 console.log(this.datas);
             },
-            chart: function(){
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Red'],
-                        datasets: [{
-                            label: 'Temperatura',
-                            data: this.datas,
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            xAxes: [{
-                                type: 'time',
-                                distribution: 'series',
-                                time: {
-                                    unit: 'minute'
-                                }
-                            }]
-                        }
-                    }
-                });
-            }
 
         }
 
