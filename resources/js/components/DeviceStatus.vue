@@ -51,6 +51,7 @@
         data(){
             return{
                 devices:[],
+                oldDevices:[],
             }
         },
         created: function(){
@@ -64,8 +65,9 @@
             getDevices: function(){
                 axios.get('/api/devices/all')
                 .then(response => {
-                    //this.compare();
+                    this.oldDevices = this.devices;
                     this.devices = response.data;
+                    this.compare();
                 });
             },
             alertSound: function(){
@@ -75,8 +77,8 @@
                 for (var i = 0, l=this.devices.length; i < l; i++)
                 {
                     console.log(this.devices[i]);
-                    console.log(this.response.data[i]);
-                    if (!this.devices[i].equals(this.response.data[i])) this.alertSound();
+                    console.log(this.oldDevices[i]);
+                    if (!this.devices[i].equals(this.oldDevices[i])) this.alertSound();
                 }
             }
 
