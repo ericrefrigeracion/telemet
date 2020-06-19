@@ -74,10 +74,7 @@
                 audio.play();
             },
             compare: function(){
-                foreach (device in devices)
-                {
-                    console.log(device);
-                }
+
             }
 
         }
