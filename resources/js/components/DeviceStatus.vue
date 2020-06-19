@@ -74,11 +74,9 @@
                 audio.play();
             },
             compare: function(){
-                for (var i = 0, l=this.devices.length; i < l; i++)
+                foreach (device in devices)
                 {
-                    console.log(this.devices[i]);
-                    console.log(this.oldDevices[i]);
-                    if (!this.devices[i].equals(this.oldDevices[i])) this.alertSound();
+                    console.log(device);
                 }
             }
 
