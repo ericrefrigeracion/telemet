@@ -64,7 +64,6 @@
             getDevices: function(){
                 axios.get('/api/devices/all')
                 .then(response => {
-                    this.compare();
                     this.devices = response.data;
                 });
             },
