@@ -74,7 +74,7 @@
                 audio.play();
             },
             compare: function(){
-                devices.forEach(function(element){
+                this.devices.forEach(function(element){
                     console.log(element);
                 });
             }
