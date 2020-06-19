@@ -50,7 +50,6 @@
     export default {
         data(){
             return{
-                change:false,
                 devices:[],
             }
         },
@@ -66,13 +65,7 @@
                 axios.get('/api/devices/all')
                 .then(response => {
                     this.compare();
-                    if(this.change){
-                        console.log(this.devices);
-                        console.log(response.data);
-                        this.devices = response.data;
-                        this.change = false;
-                        this.alertSound();
-                    }
+                    this.devices = response.data;
                 });
             },
             alertSound: function(){
@@ -81,9 +74,8 @@
             compare: function(){
                 for (var i = 0, l=this.devices.length; i < l; i++)
                 {
-                    if (!this.devices[i].equals(this.response.data[i])) this.change = true;
+                    if (!this.devices[i].equals(this.response.data[i])) this.alertSound();
                 }
-
             }
 
         }
