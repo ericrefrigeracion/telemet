@@ -52,6 +52,8 @@
             return{
                 devices:[],
                 oldDevices:[],
+                deviceCount:'',
+                oldDeviceCount:'',
             }
         },
         created: function(){
@@ -74,9 +76,20 @@
                 audio.play();
             },
             compare: function(){
-                this.devices.forEach(function(element){
-                    console.log(element);
+                this.devices.forEach(function(device){
+                    device.forEach(function(item){
+                        this.deviceCount += item;
+                    });
                 });
+                this.oldDevices.forEach(function(device){
+                    device.forEach(function(item){
+                        this.oldDeviceCount += item;
+                    });
+                });
+                if(this.deviceCount != this.oldDeviceCount) alertSound();
+                this.deviceCount = '';
+                this.oldDeviceCount = '';
+
             }
 
         }
