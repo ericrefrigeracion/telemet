@@ -52,8 +52,8 @@
             return{
                 devices:[],
                 oldDevices:[],
-                deviceCount:'',
-                oldDeviceCount:'',
+                count:0,
+                oldCount:0,
             }
         },
         created: function(){
@@ -76,22 +76,14 @@
                 audio.play();
             },
             compare: function(){
-                this.devices.forEach(function(device){
-                    device.forEach(function(item){
-                        this.deviceCount += item;
-                    });
-                });
-                this.oldDevices.forEach(function(device){
-                    device.forEach(function(item){
-                        this.oldDeviceCount += item;
-                    });
-                });
-                if(this.deviceCount != this.oldDeviceCount) alertSound();
-                console.log(deviceCount);
-                console.log(oldDeviceCount);
-                this.deviceCount = '';
-                this.oldDeviceCount = '';
 
+                for (var i = 0; i < this.devices.length; i++) this.count += this.devices[i].alerts_count;
+                for (var i = 0; i < this.oldDevices.length; i++) this.oldCount += this.oldDevices[i].alerts_count;
+
+                if(this.count > this.oldCount) this.alertSound();
+
+                this.count = 0;
+                this.oldCount = 0;
             }
 
         }
