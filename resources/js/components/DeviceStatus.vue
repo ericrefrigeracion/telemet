@@ -87,6 +87,8 @@
                     });
                 });
                 if(this.deviceCount != this.oldDeviceCount) alertSound();
+                console.log(deviceCount);
+                console.log(oldDeviceCount);
                 this.deviceCount = '';
                 this.oldDeviceCount = '';
 
