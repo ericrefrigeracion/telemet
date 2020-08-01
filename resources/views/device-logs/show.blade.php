@@ -14,24 +14,25 @@
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
+                                    <th colspan="1">Fecha</th>
                                     <th colspan="6">Descripcion</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($device_logs as $device_log)
                                     <tr>
-                                        <td>{{ $device_log->created_at->toFormattedDateString() }}</td>
+                                        <td colspan="1">{{ $device_log->created_at->toFormattedDateString() }}</td>
                                         <td colspan="6">{{ $device_log->content }}</td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="6">
+                                    <td></td>
+                                    <td colspan="5">
                                         <div class="form-group">
                                             {{ Form::text('content', null, ['class' => 'form-control', 'required']) }}
                                         </div>
                                     </td>
-                                    <td>
+                                    <td colspan="1">
                                         <div>
                                             {{ Form::submit('Guardar', ['class' => 'btn btn-sm btn-success mt-1']) }}
                                         </div>
