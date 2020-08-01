@@ -16,7 +16,7 @@
                                 <tr>
                                     <th>Fecha</th>
                                     <th colspan="3">Descripcion</th>
-                                    <th>Creado por</th>
+                                    <th>Usr</th>
                                 </tr>
                             </thead>
                             <tbody>
