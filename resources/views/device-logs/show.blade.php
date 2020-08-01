@@ -6,7 +6,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    Informacion de dispositivo {{ $device->id }} - {{ $device->name }}
+                    Informacion de {{ $device->name }}.
                 </div>
                 <div class="card-body">
                     {!! Form::open(['route' => ['device-logs.store']]) !!}
