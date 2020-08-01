@@ -15,27 +15,25 @@
                             <thead>
                                 <tr>
                                     <th>Fecha</th>
-                                    <th colspan="3">Descripcion</th>
-                                    <th>Usr</th>
+                                    <th colspan="6">Descripcion</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($device_logs as $device_log)
                                     <tr>
                                         <td>{{ $device_log->created_at->toFormattedDateString() }}</td>
-                                        <td colspan="3">{{ $device_log->content }}</td>
-                                        <td>{{ $device_log->user_name }}</td>
+                                        <td colspan="6">{{ $device_log->content }}</td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="6">
                                         <div class="form-group">
                                             {{ Form::text('content', null, ['class' => 'form-control', 'required']) }}
                                         </div>
                                     </td>
                                     <td>
                                         <div>
-                                            {{ Form::submit('Guardar', ['class' => 'btn btn-sm btn-block btn-success mt-1']) }}
+                                            {{ Form::submit('Guardar', ['class' => 'btn btn-sm btn-success mt-1']) }}
                                         </div>
                                     </td>
                                 </tr>
