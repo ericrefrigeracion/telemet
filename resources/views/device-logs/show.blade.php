@@ -22,7 +22,7 @@
                             <tbody>
                                 @foreach($device_logs as $device_log)
                                     <tr>
-                                        <td>{{ $device_log->created_at }}</td>
+                                        <td>{{ $device_log->created_at->toFormattedDateString() }}</td>
                                         <td colspan="3">{{ $device_log->content }}</td>
                                         <td>{{ $device_log->user_name }}</td>
                                     </tr>
