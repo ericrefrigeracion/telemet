@@ -6,6 +6,7 @@ use App\Pay;
 use App\Rule;
 use App\User;
 use App\Alert;
+use App\DeviceLog;
 use App\Protection;
 use App\Receptions;
 use App\TypeDevice;
@@ -97,5 +98,9 @@ class Device extends Model
     public function rules()
     {
         return $this->hasMany(Rule::class);
+    }
+    public function device_logs()
+    {
+        return $this->hasMany(DeviceLog::class);
     }
 }

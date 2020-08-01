@@ -138,6 +138,12 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/alerts', 'AlertController@index')->name('alerts.index')->middleware('can:alerts.index');
 		Route::get('/alerts/{device}', 'AlertController@show')->name('alerts.show')->middleware('can:alerts.show');
 
+		//Device-Logs
+		Route::get('/device-logs', 'DeviceLogController@index')->name('device-logs.index')->middleware('can:device-logs.index');
+		Route::post('/device-logs', 'DeviceLogController@store')->name('device-logs.store')->middleware('can:device-logs.create');
+		Route::get('/device-logs/{device}', 'DeviceLogController@show')->name('device-logs.show')->middleware('can:device-logs.show');
+
+
 	});
 
 

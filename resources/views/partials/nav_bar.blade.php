@@ -33,9 +33,10 @@
                                         @endcan
                                         @can('devices.create')
                                             <a class="dropdown-item" href="{{ route('devices.create')}}">Agregar Dispositivo</a>
-                                            <div class="dropdown-divider"></div>
                                         @endcan
-                                        <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
+                                        @can('device-logs.index')
+                                            <a class="dropdown-item" href="{{ route('device-logs.index')}}">Informacion de mis dispositivos</a>
+                                        @endcan
                                     </div>
                                 </li>
                             @endcan
