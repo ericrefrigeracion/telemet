@@ -35,7 +35,7 @@
                                     </td>
                                     <td>
                                         <div>
-                                            {{ Form::submit('Guardar Informacion', ['class' => 'btn btn-sm btn-block btn-success mt-1']) }}
+                                            {{ Form::submit('Guardar', ['class' => 'btn btn-sm btn-block btn-success mt-1']) }}
                                         </div>
                                     </td>
                                 </tr>
