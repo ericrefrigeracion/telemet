@@ -12,7 +12,6 @@ use App\Receptions;
 use App\TypeDevice;
 use App\TinyTDevice;
 use App\TinyPumpDevice;
-use App\NoFrostDevice;
 use App\AllowedSchedule;
 use Illuminate\Database\Eloquent\Model;
 
@@ -69,11 +68,6 @@ class Device extends Model
     public function tiny_pump_device()
     {
         return $this->hasOne(TinyPumpDevice::class);
-    }
-
-    public function no_frost_device()
-    {
-        return $this->hasOne(NoFrostDevice::class);
     }
 
     public function protection()
