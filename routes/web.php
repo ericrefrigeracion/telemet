@@ -14,6 +14,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
 
+Route::post('api/receptions/incoming', 'ReceptionController@store');
+Route::get('api/receptions/incoming', 'ReceptionController@store');
+
 Route::get('/pays/success', 'PayController@success')->name('pays.success');
 Route::get('/pays/pending', 'PayController@pending')->name('pays.pending');
 Route::get('/pays/failure', 'PayController@failure')->name('pays.failure');

@@ -200,6 +200,17 @@ class ReceptionController extends Controller
         $rules = [
             'device_id' => 'exists:devices,id',
             'data01' => 'required|numeric',
+            'data02' => 'filled|numeric',
+            'data03' => 'filled|numeric',
+            'data04' => 'filled|numeric',
+            'data05' => 'filled|numeric',
+            'data06' => 'filled|numeric',
+            'data07' => 'filled|numeric',
+            'data08' => 'filled|numeric',
+            'data09' => 'filled|numeric',
+            'data10' => 'filled|numeric',
+            'data11' => 'filled|numeric',
+            'data12' => 'filled|numeric',
         ];
 
         $request->validate($rules);
