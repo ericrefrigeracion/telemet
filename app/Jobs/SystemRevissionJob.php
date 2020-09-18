@@ -7,6 +7,7 @@ use App\User;
 use App\Alert;
 use App\Price;
 use App\Device;
+use App\DeviceLog;
 use App\MailAlert;
 use App\Reception;
 use GuzzleHttp\Client;
@@ -140,6 +141,9 @@ class SystemRevissionJob implements ShouldQueue
 
         Reception::where('created_at', '<', now()->subDays(30))->delete();
         Alert::where('created_at', '<', now()->subDays(30))->delete();
+        DeviceLog::where('created_at', '<', now()->subDays(30))->delete();
+        MailAlert::where('created_at', '<', now()->subDays(30))->delete();
+
     }
 
     public function deleteUnmonitorDeviceDatas($devices)

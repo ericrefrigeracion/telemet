@@ -38,10 +38,10 @@ class DevicesVerificationsJob implements ShouldQueue
     public function handle()
     {
         $devices = Device::where('admin_mon', true)->get();
-        $this->disconnectVerification($devices);
+        if($devices->isNotEmpty()) $this->disconnectVerification($devices);
 
         $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 1)->where('protection_id', '!=', 4)->get();
-        $this->protectedVerification($devices);
+        if($devices->isNotEmpty()) $this->protectedVerification($devices);
     }
 
     public function disconnectVerification($devices)

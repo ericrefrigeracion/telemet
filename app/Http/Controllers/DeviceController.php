@@ -147,10 +147,10 @@ class DeviceController extends Controller
                 }
                 if($last_reception)
                 {
+                    $device->last_created_at = $last_reception->created_at;
                     if($device->on_line)
                     {
                         $device->last_data01 = round($last_reception->data01, 1) + $device->tiny_t_device->tcal . '°C';
-                        $device->last_created_at = $last_reception->created_at;
                         $device->bg_class = '';
 
                         if ($last_reception->rssi >= -60)
