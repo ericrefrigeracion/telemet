@@ -48,6 +48,8 @@
 <script>
     import axios from 'axios'
     import swal from 'sweetalert';
+    import moment from 'moment'
+    moment.locale('es');
     var audio = new Audio('../../audio/Nextel.mp3');
 
     export default {
