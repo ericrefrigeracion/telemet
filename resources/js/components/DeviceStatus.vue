@@ -75,6 +75,9 @@
                     this.compare();
                 });
             },
+            forHumans: function(d){
+                return moment(d).fromNow();
+            },
             alertSound: function(){
                 audio.play();
             },
