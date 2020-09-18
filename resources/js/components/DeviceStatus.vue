@@ -11,7 +11,7 @@
                         <th>Dispositivo</th>
                         <th colspan="4">Estado</th>
                         <th colspan="4">Acciones</th>
-                        <th>Conectado</th>
+                        <th>Recibido</th>
                     </tr>
                 </thead>
                 <tbody>
