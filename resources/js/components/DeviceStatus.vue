@@ -11,6 +11,7 @@
                         <th>Dispositivo</th>
                         <th colspan="4">Estado</th>
                         <th colspan="4">Acciones</th>
+                        <th>Conectado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,10 +34,10 @@
                             <a v-bind:href="device.logs_route" class="text-primary m-2" title="Logs Dispositivo"><i class="fas fa-clipboard-list m-2"></i></a>
                         </td>
                         <td>
-                            {{ forHumans(device.last_reception_created_at) }}
+                            {{ device.alerts_count }}<a v-bind:href="device.alerts_route" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell m-2"></i></a>
                         </td>
                         <td>
-                            {{ device.alerts_count }}<a v-bind:href="device.alerts_route" class="text-primary m-2" title="Nuevas Alertas"><i class="fas fa-bell m-2"></i></a>
+                            {{ forHumans(device.last_reception_created_at) }}
                         </td>
                     </tr>
                 </tbody>
