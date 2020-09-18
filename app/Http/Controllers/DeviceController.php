@@ -96,6 +96,7 @@ class DeviceController extends Controller
                 $device->logs_route = route('devices.log', $device->id);
                 $device->alerts_route = route('alerts.show', $device->id);
                 $device->alerts_count = Alert::where('device_id', $device->id)->where('created_at', '>=', $last_day)->count();
+                $device->last_reception_created_at = Reception::where('device_id', $device->id)->latest()->first()->created_at;
             }
             return $devices;
         }
