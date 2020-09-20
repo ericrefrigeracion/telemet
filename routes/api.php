@@ -21,11 +21,11 @@ Route::post('/webhooks', 'WebhookController@ipn');
 Route::post('/webhooks/sms', 'WebhookController@sms');
 Route::post('/webhooks/{user_id}-{device_id}-{price_id}', 'WebhookController@pay');
 
-Route::get('/receptions/last-hour/{device}', 'Api/ReceptionController@last_hour');
-Route::get('/receptions/live/{device}', 'Api/ReceptionController@live');
+Route::get('/receptions/last-hour/{device}', 'Api\ReceptionController@last_hour');
+Route::get('/receptions/live/{device}', 'Api\ReceptionController@live');
 Route::get('/devices/all', 'Api/DeviceController@all');
-Route::get('/devices/tiny-pump/{user}', 'Api/DeviceController@tiny_pump_index');
-Route::get('/devices/tiny-t/{user}', 'Api/DeviceController@tiny_t_index');
+Route::get('/devices/tiny-pump/{user}', 'Api\DeviceController@tiny_pump_index');
+Route::get('/devices/tiny-t/{user}', 'Api\DeviceController@tiny_t_index');
 
 
 
