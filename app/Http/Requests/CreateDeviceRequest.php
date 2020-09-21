@@ -44,8 +44,8 @@ class CreateDeviceRequest extends FormRequest
             'id.min' => 'El ID del dispositivo es invalido.',
             'id.max' => 'El ID del dispositivo es invalido.',
             'id.unique' => 'El ID del dispositivo es invalido.',
-            'name.required' => 'Un nombre para el dispositivo es requerido.'.
-            'name.max' => 'El nombre es demasiado largo.'.
+            'name.required' => 'Un nombre para el dispositivo es requerido.',
+            'name.max' => 'El nombre es demasiado largo.'
         ];
     }
 }
