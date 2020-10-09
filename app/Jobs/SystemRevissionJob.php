@@ -141,7 +141,6 @@ class SystemRevissionJob implements ShouldQueue
 
         Reception::where('created_at', '<', now()->subDays(30))->delete();
         Alert::where('created_at', '<', now()->subDays(30))->delete();
-        DeviceLog::where('created_at', '<', now()->subDays(30))->delete();
         MailAlert::where('created_at', '<', now()->subDays(30))->delete();
 
     }

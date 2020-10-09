@@ -26,7 +26,7 @@ class Alert extends Model
     protected $hidden = [
     ];
 
-    public function devices()
+    public function device()
     {
     	return $this->belongsTo(Device::class);
     }

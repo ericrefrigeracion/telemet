@@ -10,18 +10,15 @@
                     @can('devices.edit')
                         <a href="{{ route('devices.edit', $device->id) }}" class="btn btn-sm btn-default float-right">Editar Informacion</a>
                     @endcan
+                    @can('devices.configuration')
+                        <a href="{{ route('devices.configuration', $device->id) }}" class="btn btn-sm btn-default float-right">Configurar</a>
+                    @endcan
                     @can('pays.create')
                         <a href="{{ route('pays.create', $device->id) }}" class="btn btn-sm btn-default float-right">Pagar por el Monitoreo</a>
                     @endcan
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th colspan="2">NOMBRE</th>
-                                <th colspan="3">VALOR</th>
-                            </tr>
-                        </thead>
                         <tbody>
                                 <tr>
                                     <td colspan="2">ID</td>
@@ -29,7 +26,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">DISPOSITIVO MODELO</td>
-                                    <td colspan="3">{{ $device->type_device->model }}</td>
+                                    <td colspan="3">Centinela - {{ $device->type_device->model }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">DESCRIPCION MODELO</td>
+                                    <td colspan="3">{{ $device->type_device->description }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">NOMBRE</td>
@@ -59,12 +60,15 @@
                                     <td colspan="2">TIPO DE PROTECCION</td>
                                     <td colspan="3">{{ $device->protection->description }}</td>
                                 </tr>
-                                @if($device->type_device_id == 2)
-                                    @include('devices.partials.tiny_t_show')
-                                @endif
-                                @if($device->type_device_id == 7)
-                                    @include('devices.partials.tiny_pump_show')
-                                @endif
+                                <tr>
+                                    <th colspan="5">VALORES DE CONFIGURACION</th>
+                                </tr>
+                                @foreach($device->device_configurations as $device_configurations)
+                                    <tr>
+                                        <td colspan="2">{{ $device_configurations->topic_control_type->name }}</td>
+                                        <td colspan="3">{{ $device_configurations->value }}</td>
+                                    </tr>
+                                @endforeach
                         </tbody>
                     </table>
                     @can('devices.destroy')

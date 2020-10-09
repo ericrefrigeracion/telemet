@@ -14,62 +14,19 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', function () { return view('welcome'); });
 
-Route::post('api/receptions/incoming', 'ReceptionController@store');
-Route::get('api/receptions/incoming', 'ReceptionController@store');
-
-Route::get('/pays/success', 'PayController@success')->name('pays.success');
-Route::get('/pays/pending', 'PayController@pending')->name('pays.pending');
-Route::get('/pays/failure', 'PayController@failure')->name('pays.failure');
+Route::prefix('pays')->namespace('User')->name('pays.')->group(function () {
+	Route::get('success', 'PayController@success')->name('success');
+	Route::get('pending', 'PayController@pending')->name('pending');
+	Route::get('failure', 'PayController@failure')->name('failure');
+});
 
 Route::middleware(['verified'])->group(function () {
 
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/info', 'HomeController@info')->name('info');
+	Route::get('/home/all', 'HomeController@all')->name('home.all')->middleware('can:home.all');
 
-	Route::prefix('admin')->group(function () {
-
-		//Users
-		Route::get('/users', 'UserController@index')->name('users.index')->middleware('can:users.index');
-		Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy')->middleware('can:users.destroy');
-		Route::put('/users/{user}', 'UserController@update')->name('users.update')->middleware('can:users.edit');
-		Route::get('/users/{user}', 'UserController@show')->name('users.show')->middleware('can:users.show');
-		Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit')->middleware('can:users.edit');
-
-		//Roles
-		Route::get('/roles', 'RoleController@index')->name('roles.index')->middleware('can:roles.index');
-		Route::post('/roles', 'RoleController@store')->name('roles.store')->middleware('can:roles.create');
-		Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('can:roles.create');
-		Route::delete('/roles/{role}', 'RoleController@destroy')->name('roles.destroy')->middleware('can:roles.destroy');
-		Route::put('/roles/{role}', 'RoleController@update')->name('roles.update')->middleware('can:roles.edit');
-		Route::get('/roles/{role}', 'RoleController@show')->name('roles.show')->middleware('can:roles.show');
-		Route::get('/roles/{role}/edit', 'RoleController@edit')->name('roles.edit')->middleware('can:roles.edit');
-
-		//Permissions
-		Route::get('/permissions', 'PermissionController@index')->name('permissions.index')->middleware('can:permissions.index');
-		Route::post('/permissions', 'PermissionController@store')->name('permissions.store')->middleware('can:permissions.create');
-		Route::get('/permissions/create', 'PermissionController@create')->name('permissions.create')->middleware('can:permissions.create');
-		Route::delete('/permissions/{permission}', 'PermissionController@destroy')->name('permissions.destroy')->middleware('can:permissions.destroy');
-		Route::put('/permissions/{permission}', 'PermissionController@update')->name('permissions.update')->middleware('can:permissions.edit');
-		Route::get('/permissions/{permission}', 'PermissionController@show')->name('permissions.show')->middleware('can:permissions.show');
-		Route::get('/permissions/{permission}/edit', 'PermissionController@edit')->name('permissions.edit')->middleware('can:permissions.edit');
-
-		//Home-all
-		Route::get('/home/all', 'HomeController@all')->name('home.all')->middleware('can:home.all');
-
-		//logs
-		Route::get('/device-log/{device}', 'DeviceController@log')->name('devices.log')->middleware('can:devices.log');
-
-		//Devices-all
-		Route::get('/devices/all', 'DeviceController@all')->name('devices.all')->middleware('can:devices.all');
-
-		//Rules-all
-		Route::get('/rules/all', 'RuleController@all')->name('rules.all')->middleware('can:rules.all');
-
-		//Alerts-all
-		Route::get('/alerts/all', 'AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
-
-		//Pays-all
-		Route::get('/pays/all', 'PayController@all')->name('pays.all')->middleware('can:pays.all');
+	Route::prefix('admins')->namespace('Admin')->group(function () {
 
 		//Webhooks
 		Route::get('/webhooks', 'WebhookController@index')->name('webhooks.index')->middleware('can:webhooks.index');
@@ -79,92 +36,231 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/mail-alerts', 'MailAlertController@index')->name('mail-alerts.index')->middleware('can:mail-alerts.index');
 		Route::get('/mail-alerts/{mail_alert}', 'MailAlertController@show')->name('mail-alerts.show')->middleware('can:mail-alerts.show');
 
-		//Prices
-		Route::get('/prices', 'PriceController@index')->name('prices.index')->middleware('can:prices.index');
-		Route::post('/prices', 'PriceController@store')->name('prices.store')->middleware('can:prices.create');
-		Route::get('/prices/create', 'PriceController@create')->name('prices.create')->middleware('can:prices.create');
-		Route::delete('/prices/{price}', 'PriceController@destroy')->name('prices.destroy')->middleware('can:prices.destroy');
-		Route::put('/prices/{price}', 'PriceController@update')->name('prices.update')->middleware('can:prices.edit');
-		Route::get('/prices/{price}', 'PriceController@show')->name('prices.show')->middleware('can:prices.show');
-		Route::get('/prices/{price}/edit', 'PriceController@edit')->name('prices.edit')->middleware('can:prices.edit');
+		//Users
+		Route::prefix('users')->name('users.')->group(function () {
+			Route::get('/', 'UserController@index')->name('index')->middleware('can:users.index');
+			Route::post('/', 'UserController@store')->name('store')->middleware('can:users.create');
+			Route::get('create', 'UserController@create')->name('create')->middleware('can:users.create');
+			Route::delete('{user}', 'UserController@destroy')->name('destroy')->middleware('can:users.destroy');
+			Route::put('{user}', 'UserController@update')->name('update')->middleware('can:users.edit');
+			Route::get('{user}', 'UserController@show')->name('show')->middleware('can:users.show');
+			Route::get('{user}/edit', 'UserController@edit')->name('edit')->middleware('can:users.edit');
+		});
 
-		//TypeDevices
-		Route::get('/type-devices', 'TypeDeviceController@index')->name('type-devices.index')->middleware('can:type-devices.index');
-		Route::post('/type-devices', 'TypeDeviceController@store')->name('type-devices.store')->middleware('can:type-devices.create');
-		Route::get('/type-devices/create', 'TypeDeviceController@create')->name('type-devices.create')->middleware('can:type-devices.create');
-		Route::delete('/type-devices/{type_device}', 'TypeDeviceController@destroy')->name('type-devices.destroy')->middleware('can:type-devices.destroy');
-		Route::put('/type-devices/{type_device}', 'TypeDeviceController@update')->name('type-devices.update')->middleware('can:type-devices.edit');
-		Route::get('/type-devices/{type_device}', 'TypeDeviceController@show')->name('type-devices.show')->middleware('can:type-devices.show');
-		Route::get('/type-devices/{type_device}/edit', 'TypeDeviceController@edit')->name('type-devices.edit')->middleware('can:type-devices.edit');
+		//Roles
+		Route::prefix('roles')->name('roles.')->group(function () {
+			Route::get('/', 'RoleController@index')->name('index')->middleware('can:roles.index');
+			Route::post('/', 'RoleController@store')->name('store')->middleware('can:roles.create');
+			Route::get('create', 'RoleController@create')->name('create')->middleware('can:roles.create');
+			Route::delete('{role}', 'RoleController@destroy')->name('destroy')->middleware('can:roles.destroy');
+			Route::put('{role}', 'RoleController@update')->name('update')->middleware('can:roles.edit');
+			Route::get('{role}', 'RoleController@show')->name('show')->middleware('can:roles.show');
+			Route::get('{role}/edit', 'RoleController@edit')->name('edit')->middleware('can:roles.edit');
+		});
+
+		//Permissions
+		Route::prefix('permissions')->name('permissions.')->group(function () {
+			Route::get('', 'PermissionController@index')->name('index')->middleware('can:permissions.index');
+			Route::post('', 'PermissionController@store')->name('store')->middleware('can:permissions.create');
+			Route::get('create', 'PermissionController@create')->name('create')->middleware('can:permissions.create');
+			Route::delete('{permission}', 'PermissionController@destroy')->name('destroy')->middleware('can:permissions.destroy');
+			Route::put('{permission}', 'PermissionController@update')->name('update')->middleware('can:permissions.edit');
+			Route::get('{permission}', 'PermissionController@show')->name('show')->middleware('can:permissions.show');
+			Route::get('{permission}/edit', 'PermissionController@edit')->name('edit')->middleware('can:permissions.edit');
+		});
+
+		//Prices
+		Route::prefix('prices')->name('prices.')->group(function () {
+			Route::get('/', 'PriceController@index')->name('index')->middleware('can:prices.index');
+			Route::post('/', 'PriceController@store')->name('store')->middleware('can:prices.create');
+			Route::get('create', 'PriceController@create')->name('create')->middleware('can:prices.create');
+			Route::delete('{price}', 'PriceController@destroy')->name('destroy')->middleware('can:prices.destroy');
+			Route::put('{price}', 'PriceController@update')->name('update')->middleware('can:prices.edit');
+			Route::get('{price}', 'PriceController@show')->name('show')->middleware('can:prices.show');
+			Route::get('{price}/edit', 'PriceController@edit')->name('edit')->middleware('can:prices.edit');
+		});
+
+		//Topics
+		Route::prefix('topics')->name('topics.')->group(function () {
+			Route::get('/', 'TopicController@index')->name('index')->middleware('can:topics.index');
+			Route::post('/', 'TopicController@store')->name('store')->middleware('can:topics.create');
+			Route::get('create', 'TopicController@create')->name('create')->middleware('can:topics.create');
+			Route::delete('{topic}', 'TopicController@destroy')->name('destroy')->middleware('can:topics.destroy');
+			Route::put('{topic}', 'TopicController@update')->name('update')->middleware('can:topics.edit');
+			Route::get('{topic}', 'TopicController@show')->name('show')->middleware('can:topics.show');
+			Route::get('{topic}/edit', 'TopicController@edit')->name('edit')->middleware('can:topics.edit');
+		});
+
+		//Topic Control
+		Route::prefix('topic-control-types')->name('topic-control-types.')->group(function () {
+			Route::get('/', 'TopicControlTypeController@index')->name('index')->middleware('can:topic-control-types.index');
+			Route::post('/', 'TopicControlTypeController@store')->name('store')->middleware('can:topic-control-types.create');
+			Route::get('create', 'TopicControlTypeController@create')->name('create')->middleware('can:topic-control-types.create');
+			Route::delete('{topic_control_type}', 'TopicControlTypeController@destroy')->name('destroy')->middleware('can:topic-control-types.destroy');
+			Route::put('{topic_control_type}', 'TopicControlTypeController@update')->name('update')->middleware('can:topic-control-types.edit');
+			Route::get('{topic_control_type}', 'TopicControlTypeController@show')->name('show')->middleware('can:topic-control-types.show');
+			Route::get('{topic_control_type}/edit', 'TopicControlTypeController@edit')->name('edit')->middleware('can:topic-control-types.edit');
+		});
 
 		//Protections
-		Route::get('/protections', 'ProtectionController@index')->name('protections.index')->middleware('can:protections.index');
-		Route::post('/protections', 'ProtectionController@store')->name('protections.store')->middleware('can:protections.create');
-		Route::get('/protections/create', 'ProtectionController@create')->name('protections.create')->middleware('can:protections.create');
-		Route::delete('/protections/{protection}', 'ProtectionController@destroy')->name('protections.destroy')->middleware('can:protections.destroy');
-		Route::put('/protections/{protection}', 'ProtectionController@update')->name('protections.update')->middleware('can:protections.edit');
-		Route::get('/protections/{protection}', 'ProtectionController@show')->name('protections.show')->middleware('can:protections.show');
-		Route::get('/protections/{protection}/edit', 'ProtectionController@edit')->name('protections.edit')->middleware('can:protections.edit');
+		Route::prefix('protections')->name('protections.')->group(function () {
+			Route::get('/', 'ProtectionController@index')->name('index')->middleware('can:protections.index');
+			Route::post('/', 'ProtectionController@store')->name('store')->middleware('can:protections.create');
+			Route::get('create', 'ProtectionController@create')->name('create')->middleware('can:protections.create');
+			Route::delete('{protection}', 'ProtectionController@destroy')->name('destroy')->middleware('can:protections.destroy');
+			Route::put('{protection}', 'ProtectionController@update')->name('update')->middleware('can:protections.edit');
+			Route::get('{protection}', 'ProtectionController@show')->name('show')->middleware('can:protections.show');
+			Route::get('{protection}/edit', 'ProtectionController@edit')->name('edit')->middleware('can:protections.edit');
+		});
 
+		//Topics
+		Route::prefix('topics')->name('topics.')->group(function () {
+			Route::get('/', 'TopicController@index')->name('index')->middleware('can:topics.index');
+			Route::post('/', 'TopicController@store')->name('store')->middleware('can:topics.create');
+			Route::get('create', 'TopicController@create')->name('create')->middleware('can:topics.create');
+			Route::delete('{topic}', 'TopicController@destroy')->name('destroy')->middleware('can:topics.destroy');
+			Route::put('{topic}', 'TopicController@update')->name('update')->middleware('can:topics.edit');
+			Route::get('{topic}', 'TopicController@show')->name('show')->middleware('can:topics.show');
+			Route::get('{topic}/edit', 'TopicController@edit')->name('edit')->middleware('can:topics.edit');
+		});
+
+		//Displays
+		Route::prefix('displays')->name('displays.')->group(function () {
+			Route::get('/', 'DisplayController@index')->name('index')->middleware('can:displays.index');
+			Route::post('/', 'DisplayController@store')->name('store')->middleware('can:displays.create');
+			Route::get('create', 'DisplayController@create')->name('create')->middleware('can:displays.create');
+			Route::delete('{display}', 'DisplayController@destroy')->name('destroy')->middleware('can:displays.destroy');
+			Route::put('{display}', 'DisplayController@update')->name('update')->middleware('can:displays.edit');
+			Route::get('{display}', 'DisplayController@show')->name('show')->middleware('can:displays.show');
+			Route::get('{display}/edit', 'DisplayController@edit')->name('edit')->middleware('can:displays.edit');
+		});
+
+		//View configurations
+		Route::prefix('view-configurations')->name('view-configurations.')->group(function () {
+			Route::get('/', 'ViewConfigurationController@index')->name('index')->middleware('can:view-configurations.index');
+			Route::post('/', 'ViewConfigurationController@store')->name('store')->middleware('can:view-configurations.create');
+			Route::get('create', 'ViewConfigurationController@create')->name('create')->middleware('can:view-configurations.create');
+			Route::delete('{view_configuration}', 'ViewConfigurationController@destroy')->name('destroy')->middleware('can:view-configurations.destroy');
+			Route::put('{view_configuration}', 'ViewConfigurationController@update')->name('update')->middleware('can:view-configurations.edit');
+			Route::get('{view_configuration}', 'ViewConfigurationController@show')->name('show')->middleware('can:view-configurations.show');
+			Route::get('{view_configuration}/edit', 'ViewConfigurationController@edit')->name('edit')->middleware('can:view-configurations.edit');
+		});
+
+		//Icons
+		Route::prefix('icons')->name('icons.')->group(function () {
+			Route::get('/', 'IconController@index')->name('index')->middleware('can:icons.index');
+			Route::post('/', 'IconController@store')->name('store')->middleware('can:icons.create');
+			Route::get('create', 'IconController@create')->name('create')->middleware('can:icons.create');
+			Route::delete('{icon}', 'IconController@destroy')->name('destroy')->middleware('can:icons.destroy');
+			Route::put('{icon}', 'IconController@update')->name('update')->middleware('can:icons.edit');
+			Route::get('{icon}', 'IconController@show')->name('show')->middleware('can:icons.show');
+			Route::get('{icon}/edit', 'IconController@edit')->name('edit')->middleware('can:icons.edit');
+		});
+
+		//Statuses
+		Route::prefix('statuses')->name('statuses.')->group(function () {
+			Route::get('/', 'StatusController@index')->name('index')->middleware('can:statuses.index');
+			Route::post('/', 'StatusController@store')->name('store')->middleware('can:statuses.create');
+			Route::get('create', 'StatusController@create')->name('create')->middleware('can:statuses.create');
+			Route::delete('{status}', 'StatusController@destroy')->name('destroy')->middleware('can:statuses.destroy');
+			Route::put('{status}', 'StatusController@update')->name('update')->middleware('can:statuses.edit');
+			Route::get('{status}', 'StatusController@show')->name('show')->middleware('can:statuses.show');
+			Route::get('{status}/edit', 'StatusController@edit')->name('edit')->middleware('can:statuses.edit');
+		});
 	});
 
-	Route::prefix('centinela')->group(function () {
+	Route::prefix('centinela')->namespace('Device')->group(function () {
 
 		//Devices
-		Route::get('/devices/info', 'DeviceController@info')->name('devices.info')->middleware('can:devices.info');
-		Route::get('/devices', 'DeviceController@index')->name('devices.index')->middleware('can:devices.index');
-		Route::post('/devices', 'DeviceController@store')->name('devices.store')->middleware('can:devices.create');
-		Route::get('/devices/create', 'DeviceController@create')->name('devices.create')->middleware('can:devices.create');
-		Route::delete('/devices/{device}', 'DeviceController@destroy')->name('devices.destroy')->middleware('can:devices.destroy');
-		Route::put('/devices/{device}', 'DeviceController@update_device')->name('devices.update_device')->middleware('can:devices.edit');
-		Route::put('/devices/tiny-t/{tiny_t_device}', 'DeviceController@update_tiny_t')->name('devices.update_tiny_t')->middleware('can:devices.edit');
-		Route::put('/devices/tiny-pump/{tiny_pump_device}', 'DeviceController@update_tiny_pump')->name('devices.update_tiny_pump')->middleware('can:devices.edit');
-		Route::get('/devices/{device}', 'DeviceController@show')->name('devices.show')->middleware('can:devices.show');
-		Route::get('/devices/{device}/edit', 'DeviceController@edit')->name('devices.edit')->middleware('can:devices.edit');
+		Route::prefix('devices')->name('devices.')->group(function () {
+			Route::get('/', 'DeviceController@index')->name('index')->middleware('can:devices.index');
+			Route::post('/', 'DeviceController@store')->name('store')->middleware('can:devices.create');
+			Route::get('/create', 'DeviceController@create')->name('create')->middleware('can:devices.create');
+			Route::delete('/{device}', 'DeviceController@destroy')->name('destroy')->middleware('can:devices.destroy');
+			Route::put('/{device}', 'DeviceController@update')->name('update')->middleware('can:devices.edit');
+			Route::get('/{device}', 'DeviceController@show')->name('show')->middleware('can:devices.show');
+			Route::get('/{device}/edit', 'DeviceController@edit')->name('edit')->middleware('can:devices.edit');
+			Route::get('/{device}/configuration', 'DeviceController@configuration')->name('configuration')->middleware('can:devices.configuration');
+			Route::get('/all', 'DeviceController@all')->name('all')->middleware('can:devices.all');
+		});
 
-		//Receptions
-		Route::get('/receptions-now/{device}', 'ReceptionController@now')->name('receptions.now')->middleware('can:receptions.now');
-		Route::get('/receptions-today/{device}', 'ReceptionController@today')->name('receptions.today')->middleware('can:receptions.today');
-		Route::get('/receptions-yesterday/{device}', 'ReceptionController@yesterday')->name('receptions.yesterday')->middleware('can:receptions.yesterday');
-		Route::get('/receptions-week/{device}', 'ReceptionController@week')->name('receptions.week')->middleware('can:receptions.week');
-
-		//Rules
-		Route::get('/rules', 'RuleController@index')->name('rules.index')->middleware('can:rules.index');
-		Route::post('/rules', 'RuleController@store')->name('rules.store')->middleware('can:rules.create');
-		Route::get('/rules/create', 'RuleController@create')->name('rules.create')->middleware('can:rules.create');
-		Route::delete('/rules/{rule}', 'RuleController@destroy')->name('rules.destroy')->middleware('can:rules.destroy');
-		Route::put('/rules/{rule}', 'RuleController@update')->name('rules.update')->middleware('can:rules.edit');
-		Route::get('/rules/{rule}', 'RuleController@show')->name('rules.show')->middleware('can:rules.show');
-		Route::get('/rules/{rule}/edit', 'RuleController@edit')->name('rules.edit')->middleware('can:rules.edit');
-
-		//Alerts
-		Route::get('/alerts', 'AlertController@index')->name('alerts.index')->middleware('can:alerts.index');
-		Route::get('/alerts/{device}', 'AlertController@show')->name('alerts.show')->middleware('can:alerts.show');
+		//Device-configurations
+		Route::put('/device-configurations/{device_configuration}', 'DeviceConfigurationController@update')->name('device-configurations.update')->middleware('can:devices.configuration');
 
 		//Device-Logs
-		Route::get('/device-logs', 'DeviceLogController@index')->name('device-logs.index')->middleware('can:device-logs.index');
-		Route::post('/device-logs', 'DeviceLogController@store')->name('device-logs.store')->middleware('can:device-logs.create');
-		Route::get('/device-logs/{device}', 'DeviceLogController@show')->name('device-logs.show')->middleware('can:device-logs.show');
+		Route::prefix('device-logs')->name('device-logs.')->group(function () {
+			Route::get('/', 'DeviceLogController@index')->name('index')->middleware('can:device-logs.index');
+			Route::post('/', 'DeviceLogController@store')->name('store')->middleware('can:device-logs.create');
+			Route::get('/{device}', 'DeviceLogController@show')->name('show')->middleware('can:device-logs.show');
+			Route::delete('/{device_log}', 'DeviceLogController@destroy')->name('destroy')->middleware('can:device-logs.destroy');
+		});
 
+		// MQTT Logs
+		Route::get('/mqtt-logs', 'MqttLogController@index')->name('mqtt-logs.index')->middleware('can:mqtt-logs.index');
+		Route::get('/mqtt-logs/{device}', 'MqttLogController@show')->name('mqtt-logs.show')->middleware('can:mqtt-logs.show');
 
+		//TypeDevices
+		Route::prefix('type-devices')->name('type-devices.')->group(function () {
+			Route::get('/', 'TypeDeviceController@index')->name('index')->middleware('can:type-devices.index');
+			Route::post('/', 'TypeDeviceController@store')->name('store')->middleware('can:type-devices.create');
+			Route::get('create', 'TypeDeviceController@create')->name('create')->middleware('can:type-devices.create');
+			Route::delete('{type_device}', 'TypeDeviceController@destroy')->name('destroy')->middleware('can:type-devices.destroy');
+			Route::put('{type_device}', 'TypeDeviceController@update')->name('update')->middleware('can:type-devices.edit');
+			Route::get('{type_device}', 'TypeDeviceController@show')->name('show')->middleware('can:type-devices.show');
+			Route::get('{type_device}/edit', 'TypeDeviceController@edit')->name('edit')->middleware('can:type-devices.edit');
+			Route::get('{type_device}/configuration', 'TypeDeviceController@configuration')->name('configuration')->middleware('can:type-devices.configuration');
+		});
+
+		//Type Devices Configurations
+		Route::post('/type-device-configurations', 'TypeDeviceConfigurationController@store')->name('type-device-configurations.store')->middleware('can:type-device-configurations.create');
+		Route::delete('/type-device-configurations/{type_device_configuration}', 'TypeDeviceConfigurationController@destroy')->name('type-device-configurations.destroy')->middleware('can:type-device-configurations.destroy');
 	});
 
+	Route::prefix('centinela')->namespace('User')->group(function () {
 
-	Route::prefix('users')->group(function () {
+		//Receptions
+		Route::prefix('data-receptions')->name('data-receptions.')->group(function () {
+			Route::get('{device}', 'DataReceptionController@show')->name('show')->middleware('can:data-receptions.show');
+		});
+
+		//Rules
+		Route::prefix('rules')->name('rules.')->group(function () {
+			Route::get('/', 'RuleController@index')->name('index')->middleware('can:rules.index');
+			Route::post('/', 'RuleController@store')->name('store')->middleware('can:rules.create');
+			Route::get('create', 'RuleController@create')->name('create')->middleware('can:rules.create');
+			Route::delete('{rule}', 'RuleController@destroy')->name('destroy')->middleware('can:rules.destroy');
+			Route::put('{rule}', 'RuleController@update')->name('update')->middleware('can:rules.edit');
+			Route::get('{rule}', 'RuleController@show')->name('show')->middleware('can:rules.show');
+			Route::get('{rule}/edit', 'RuleController@edit')->name('edit')->middleware('can:rules.edit');
+			Route::get('all', 'RuleController@all')->name('all')->middleware('can:rules.all');
+		});
+
+		//Alerts
+		Route::prefix('alerts')->name('alerts.')->group(function () {
+			Route::get('/', 'AlertController@index')->name('index')->middleware('can:alerts.index');
+			Route::get('{device}', 'AlertController@show')->name('show')->middleware('can:alerts.show');
+			Route::get('all', 'AlertController@all')->name('all')->middleware('can:alerts.all');
+		});
 
 		//Pays
-		Route::get('/pays/create/{device}', 'PayController@create')->name('pays.create')->middleware('can:pays.create');
-		Route::get('/pays', 'PayController@index')->name('pays.index')->middleware('can:pays.index');
-		Route::get('/pays/{pay}', 'PayController@show')->name('pays.show')->middleware('can:pays.show');
-		Route::post('/pays/{device}-{price}', 'PayController@store')->name('pays.store')->middleware('can:pays.create');
-
-		//profile
-		Route::get('/profile', 'UserController@show_me')->name('users.show-me')->middleware('can:users.show-me');
-		Route::get('/update', 'UserController@edit_me')->name('users.edit-me')->middleware('can:users.edit-me');
-		Route::put('/update', 'UserController@update_me')->name('users.update-me')->middleware('can:users.edit-me');
-
+		Route::prefix('pays')->name('pays.')->group(function () {
+			Route::get('create/{device}', 'PayController@create')->name('create')->middleware('can:pays.create');
+			Route::get('/', 'PayController@index')->name('index')->middleware('can:pays.index');
+			Route::get('/{pay}', 'PayController@show')->name('show')->middleware('can:pays.show');
+			Route::post('/{device}-{price}', 'PayController@store')->name('store')->middleware('can:pays.create');
+			Route::get('all', 'PayController@all')->name('all')->middleware('can:pays.all');
+		});
 	});
 
+	Route::prefix('users')->namespace('User')->group(function () {
+		//profile
+		Route::prefix('profile')->name('profile.')->group(function () {
+			Route::get('/', 'ProfileController@show')->name('show')->middleware('can:profile.show');
+			Route::get('update', 'ProfileController@edit')->name('edit')->middleware('can:profile.edit');
+			Route::put('update', 'ProfileController@update')->name('update')->middleware('can:profile.edit');
+			Route::put('update', 'ProfileController@destroy')->name('destroy')->middleware('can:profile.destroy');
+		});
+	});
 });
 
 

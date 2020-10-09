@@ -15,10 +15,12 @@ class CreateProtectionsTable extends Migration
     {
         Schema::create('protections', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('icon_id')->nullable();
             $table->string('type');
             $table->string('description')->nullable();
-            $table->string('class')->nullable();
             $table->timestamps();
+
+            $table->foreign('icon_id')->references('id')->on('icons')->onDelete('set null');
         });
     }
 

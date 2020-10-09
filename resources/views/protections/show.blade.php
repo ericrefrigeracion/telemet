@@ -31,7 +31,7 @@
                                 </tr>
                                 <tr>
                                     <td>Icono</td>
-                                    <td><i class="{{ $protection->class }}"></i></td>
+                                    <td>{!! $protection->icon->scripts !!}</td>
                                 </tr>
                                 <tr>
                                     <td>Creado</td>

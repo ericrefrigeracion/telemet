@@ -17,8 +17,10 @@ class CreateDevicesTable extends Migration
             $table->unsignedBigInteger('id')->unique();
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('type_device_id');
-            $table->unsignedBigInteger('protection_id');
+            $table->unsignedBigInteger('type_device_id')->nullable();
+            $table->unsignedBigInteger('protection_id')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
+            $table->unsignedBigInteger('icon_id')->nullable();
 
             $table->string('name');
             $table->string('description')->nullable();
@@ -34,11 +36,14 @@ class CreateDevicesTable extends Migration
             $table->string('notification_email')->nullable();
             $table->string('notification_phone_number')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('type_device_id')->references('id')->on('type_devices')->onDelete('cascade');
-            $table->foreign('protection_id')->references('id')->on('protections')->onDelete('cascade');
+            $table->foreign('type_device_id')->references('id')->on('type_devices')->onDelete('set null');
+            $table->foreign('protection_id')->references('id')->on('protections')->onDelete('set null');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null');
+            $table->foreign('icon_id')->references('id')->on('icons')->onDelete('set null');
         });
     }
 

@@ -16,16 +16,17 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
+Route::prefix('centinela/receptions')->namespace('Api')->name('receptions.')->group(function () {
+	Route::get('now/{device}/{topic}', 'DataController@now')->name('now');
+	Route::get('data/{device}/{topic}/{month}/{day}', 'DataController@data')->name('data');
+});
 
-Route::post('/webhooks', 'WebhookController@ipn');
-Route::post('/webhooks/sms', 'WebhookController@sms');
-Route::post('/webhooks/{user_id}-{device_id}-{price_id}', 'WebhookController@pay');
+Route::post('/webhooks', 'Admin\WebhookController@ipn');
+Route::post('/webhooks/{user_id}-{device_id}-{price_id}', 'Admin\WebhookController@pay');
 
-Route::get('/receptions/last-hour/{device}', 'Api\ReceptionController@last_hour');
-Route::get('/receptions/live/{device}', 'Api\ReceptionController@live');
-Route::get('/devices/all', 'Api\DeviceController@all');
-Route::get('/devices/tiny-pump/{user}', 'Api\DeviceController@tiny_pump_index');
-Route::get('/devices/tiny-t/{user}', 'Api\DeviceController@tiny_t_index');
+//Route::get('/receptions/last-hour/{device}', 'Api\ReceptionController@last_hour');
+//Route::get('/receptions/live/{device}', 'Api\ReceptionController@live');
+//Route::get('/devices/all', 'Api\DeviceController@all');
 
 
 

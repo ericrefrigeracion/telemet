@@ -6,17 +6,20 @@ use App\Pay;
 use App\Rule;
 use App\User;
 use App\Alert;
+use App\Status;
 use App\DeviceLog;
 use App\Protection;
 use App\Receptions;
 use App\TypeDevice;
-use App\TinyTDevice;
-use App\TinyPumpDevice;
+use App\MqttLog;
 use App\AllowedSchedule;
+use App\DeviceConfiguration;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Device extends Model
 {
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +30,7 @@ class Device extends Model
         'user_id',
         'type_device_id',
         'protection_id',
+        'status_id',
         'name',
         'description',
         'lat',
@@ -60,25 +64,16 @@ class Device extends Model
         return $this->belongsTo(TypeDevice::class);
     }
 
-    public function tiny_t_device()
-    {
-        return $this->hasOne(TinyTDevice::class);
-    }
-
-    public function tiny_pump_device()
-    {
-        return $this->hasOne(TinyPumpDevice::class);
-    }
-
     public function protection()
     {
         return $this->belongsTo(Protection::class);
     }
 
-	public function receptions()
+    public function status()
     {
-    	return $this->hasMany(Reception::class);
+        return $this->belongsTo(Status::class);
     }
+
     public function alerts()
     {
         return $this->hasMany(Alert::class);
@@ -96,5 +91,13 @@ class Device extends Model
     public function device_logs()
     {
         return $this->hasMany(DeviceLog::class);
+    }
+    public function device_configurations()
+    {
+        return $this->hasMany(DeviceConfiguration::class);
+    }
+    public function mqtt_logs()
+    {
+        return $this->hasMany(MqttLog::class);
     }
 }

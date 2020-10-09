@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-2">
                              <h3>Valores del Dispositivo</h3><br>
-                            {!! Form::model($device, ['route' => ['devices.update_device', $device->id], 'method' => 'PUT']) !!}
+                            {!! Form::model($device, ['route' => ['devices.update', $device->id], 'method' => 'PUT']) !!}
                                 <div class="form-group">
                                     {{ Form::label('name', 'Nombre del Dispositivo') }}
                                     {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
@@ -20,6 +20,10 @@
                                 <div class="form-group">
                                     {{ Form::label('description', 'Descripcion del Dispositivo') }}
                                     {{ Form::text('description', null, ['class' => 'form-control', 'maxlength' => '50']) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ Form::label('icon_id', 'Icono') }}
+                                    {{ Form::select('icon_id', $icons, null, ['class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('notification_email', 'Enviar Notificaciones A:') }}
@@ -43,24 +47,16 @@
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('protection_id', 'Protegido:') }}
-                                    {{ Form::select('protection_id', [
-                                        $protections[0]->id => $protections[0]->description,
-                                        $protections[1]->id => $protections[1]->description,
-                                        $protections[2]->id => $protections[2]->description,
-                                        $protections[3]->id => $protections[3]->description,
-                                    ], null, ['class' => 'form-control']) }}
+                                    {{ Form::select('protection_id', $protections, null, ['class' => 'form-control']) }}
                                 </div>
                                 <div>
-                                    {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
+                                    {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary float-left mb-2']) }}
                                 </div>
                             {!! Form::close() !!}
+                            @can('devices.show')
+                                <a href="{{ route('devices.show', $device->id) }}" class="btn btn-sm btn-success float-right">Volver</a>
+                            @endcan
                         </div>
-                        @if($device->type_device_id == 2)
-                            @include('devices.partials.tiny_t_edit')
-                        @endif
-                        @if($device->type_device_id == 7)
-                            @include('devices.partials.tiny_pump_edit')
-                        @endif
                     </div>
                 </div>
             </div>

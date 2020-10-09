@@ -12,6 +12,23 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        //Profile
+        Permission::create([
+            'name' => 'Ver sus datos',
+            'slug' => 'profile.show',
+            'description' => 'Ver sus datos personales de usuario',
+        ]);
+        Permission::create([
+            'name' => 'Editar sus datos',
+            'slug' => 'profile.edit',
+            'description' => 'Editar sus datos personales de usuario',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar usuario',
+            'slug' => 'profile.destroy',
+            'description' => 'Elimina un usuario y toda su informacion',
+        ]);
+
     	//Devices
         Permission::create([
         	'name' => 'Listar dispositivos de un usuario',
@@ -19,19 +36,9 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Listar y navegar todos sus dispositivos',
         ]);
         Permission::create([
-            'name' => 'Todos los dispositivos de todos los usuarios',
-            'slug' => 'devices.all',
-            'description' => 'Listar y navegar todos los dispositivos existentes',
-        ]);
-        Permission::create([
         	'name' => 'Ver dispositivo',
         	'slug' => 'devices.show',
         	'description' => 'Ver informacion de un dispositivo especifico',
-        ]);
-        Permission::create([
-            'name' => 'Ver log',
-            'slug' => 'devices.log',
-            'description' => 'Ver informacion log de un dispositivo especifico',
         ]);
         Permission::create([
         	'name' => 'Crear dispositivo',
@@ -48,6 +55,11 @@ class PermissionsTableSeeder extends Seeder
         	'slug' => 'devices.edit',
         	'description' => 'Editar la informacion de un dispositivo',
         ]);
+        Permission::create([
+            'name' => 'Configurar dispositivo',
+            'slug' => 'devices.configuration',
+            'description' => 'Ver y editar la configuracion de un dispositivos.',
+        ]);
 
         //Alerts
         Permission::create([
@@ -60,38 +72,39 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'alerts.show',
             'description' => 'Ver todas las alertas de un dispositivo',
         ]);
-        Permission::create([
-            'name' => 'Todas las alertas de todos los usuarios',
-            'slug' => 'alerts.all',
-            'description' => 'Listar y navegar todas las alertas ocurridas organizadas por dispositivo',
-        ]);
-
 
         //Receptions
         Permission::create([
-        	'name' => 'Ver ultima hora',
-        	'slug' => 'receptions.show-hour',
-        	'description' => 'Ver el grafico de la ultima hora de un dispositivo',
+        	'name' => 'Ver datos del dispositivo',
+        	'slug' => 'data-receptions.show',
+        	'description' => 'Ver el grafico de datos de un dispositivo',
+        ]);
+
+        //Device-logs
+        Permission::create([
+            'name' => 'Listar bitacoras',
+            'slug' => 'device-logs.index',
+            'description' => 'Listar y navegar todas las bitacoras',
         ]);
         Permission::create([
-            'name' => 'Ver ultimo dia',
-            'slug' => 'receptions.show-day',
-            'description' => 'Ver el grafico del ultimo dia de un dispositivo',
+            'name' => 'Ver bitacora',
+            'slug' => 'device-logs.show',
+            'description' => 'Ver informacion de una bitacora especifica',
         ]);
         Permission::create([
-            'name' => 'Ver ultima semana',
-            'slug' => 'receptions.show-week',
-            'description' => 'Ver el grafico de la ultima semana de un dispositivo',
+            'name' => 'Crear item',
+            'slug' => 'device-logs.create',
+            'description' => 'Crear una nuevo item de la bitacora de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Ver ultimo mes',
-            'slug' => 'receptions.show-month',
-            'description' => 'Ver el grafico delultimo mes de un dispositivo',
+            'name' => 'Eliminar item',
+            'slug' => 'device-logs.destroy',
+            'description' => 'Elimina un item de la bitacora de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Todos los datos',
-            'slug' => 'receptions.show-all',
-            'description' => 'Ver el grafico de todos los datos de un dispositivo',
+            'name' => 'Editar item',
+            'slug' => 'device-logs.edit',
+            'description' => 'Editar un item de la bitacora de un dispositivo',
         ]);
 
         //Pays
@@ -109,11 +122,6 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Pagar',
             'slug' => 'pays.create',
             'description' => 'Crear un pago para un dispositivo',
-        ]);
-        Permission::create([
-            'name' => 'Todos los pagos',
-            'slug' => 'pays.all',
-            'description' => 'Ver todos los pagos de todos los usuarios',
         ]);
 
         //Rules
@@ -142,10 +150,59 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'rules.edit',
             'description' => 'Editar la informacion de una regla',
         ]);
+
+        //Acceso A Menues
+        Permission::create([
+            'name' => 'Menu Alertas',
+            'slug' => 'alerts.menu',
+            'description' => 'Acceso al menu de alertas',
+        ]);
+        Permission::create([
+            'name' => 'Menu Dispositivos',
+            'slug' => 'devices.menu',
+            'description' => 'Acceso al menu de dispositivos',
+        ]);
+        Permission::create([
+            'name' => 'Menu Pagos',
+            'slug' => 'pays.menu',
+            'description' => 'Acceso al menu de pagos',
+        ]);
+        Permission::create([
+            'name' => 'Panel Principal',
+            'slug' => 'principal.menu',
+            'description' => 'Acceso al panel principal',
+        ]);
+        Permission::create([
+            'name' => 'Menu Configuracion',
+            'slug' => 'config.menu',
+            'description' => 'Acceso al menu de configuracion',
+        ]);
+
+        //Admin ALL FUNCTIONS
+        Permission::create([
+            'name' => 'Todos los vencimientos',
+            'slug' => 'home.all',
+            'description' => 'Ver el vencimiento de todos los dispositivos.',
+        ]);
         Permission::create([
             'name' => 'Todas las Reglas',
             'slug' => 'rules.all',
             'description' => 'Ver todas las Reglas de todos los Dispositivos',
+        ]);
+        Permission::create([
+            'name' => 'Todos los pagos',
+            'slug' => 'pays.all',
+            'description' => 'Ver todos los pagos de todos los usuarios',
+        ]);
+        Permission::create([
+            'name' => 'Todas las alertas de todos los usuarios',
+            'slug' => 'alerts.all',
+            'description' => 'Listar y navegar todas las alertas ocurridas organizadas por dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Todos los dispositivos de todos los usuarios',
+            'slug' => 'devices.all',
+            'description' => 'Listar y navegar todos los dispositivos existentes',
         ]);
 
         //Webhooks
@@ -238,24 +295,19 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Ver informacion de un usuario especifico',
         ]);
         Permission::create([
+            'name' => 'Crear usuario',
+            'slug' => 'users.create',
+            'description' => 'Crear un usuario y asignarle un rol',
+        ]);
+        Permission::create([
             'name' => 'Eliminar usuario',
             'slug' => 'users.destroy',
-            'description' => 'Elimina un usuario y toda su informacion',
+            'description' => 'Eliminar el perfil de un usuario',
         ]);
         Permission::create([
             'name' => 'Editar usuario',
             'slug' => 'users.edit',
             'description' => 'Editar la informacion de un usuario',
-        ]);
-        Permission::create([
-            'name' => 'Ver sus datos',
-            'slug' => 'users.show-me',
-            'description' => 'Ver sus datos personales de usuario',
-        ]);
-        Permission::create([
-            'name' => 'Editar sus datos',
-            'slug' => 'users.edit-me',
-            'description' => 'Editar sus datos personales de usuario',
         ]);
 
         //Permissions
@@ -285,33 +337,6 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Editar la informacion de un permiso',
         ]);
 
-        //Acceso A Menues
-        Permission::create([
-            'name' => 'Menu Configuracion',
-            'slug' => 'config.menu',
-            'description' => 'Acceso al menu de configuracion',
-        ]);
-        Permission::create([
-            'name' => 'Menu Alertas',
-            'slug' => 'alerts.menu',
-            'description' => 'Acceso al menu de alertas',
-        ]);
-        Permission::create([
-            'name' => 'Menu Dispositivos',
-            'slug' => 'devices.menu',
-            'description' => 'Acceso al menu de dispositivos',
-        ]);
-        Permission::create([
-            'name' => 'Menu Pagos',
-            'slug' => 'pays.menu',
-            'description' => 'Acceso al menu de pagos',
-        ]);
-        Permission::create([
-            'name' => 'Panel Principal',
-            'slug' => 'principal.menu',
-            'description' => 'Acceso al panel principal',
-        ]);
-
         //Protections
         Permission::create([
             'name' => 'Listar tipo proteccion',
@@ -334,14 +359,14 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Elimina un tipo de proteccion y toda su informacion',
         ]);
         Permission::create([
-            'name' => 'Editar tipo proeccion',
+            'name' => 'Editar tipo proteccion',
             'slug' => 'protections.edit',
             'description' => 'Editar la informacion de un tipo de proteccion',
         ]);
 
         //Type-devices
         Permission::create([
-            'name' => 'Listar tipo dispositivos',
+            'name' => 'Listar tipos de dispositivos',
             'slug' => 'type-devices.index',
             'description' => 'Listar y navegar todos los tipos de dispositivos',
         ]);
@@ -358,12 +383,191 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name' => 'Eliminar tipo dispositivo',
             'slug' => 'type-devices.destroy',
-            'description' => 'Elimina un tipo de dispositivo y toda su informacion',
+            'description' => 'Elimina un tipo de dispositivo y toda su configuracion',
         ]);
         Permission::create([
             'name' => 'Editar tipo dispositivo',
             'slug' => 'type-devices.edit',
             'description' => 'Editar la informacion de un tipo de dispositivo',
+        ]);
+        Permission::create([
+            'name' => 'Configurar tipo dispositivo',
+            'slug' => 'type-devices.configuration',
+            'description' => 'Ver y editar la configuracion de un tipo o modelo de dispositivo.',
+        ]);
+
+        //Type Device Configuration
+        Permission::create([
+            'name' => 'Crear item de tipo de configuracion',
+            'slug' => 'type-device-configurations.create',
+            'description' => 'Crear un item de configuracion de un tipo o modelo de dispositivo.',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar item de tipo configuracion',
+            'slug' => 'type-device-configurations.destroy',
+            'description' => 'Eliminar un item de configuracion de un tipo o modelo de dispositivo.',
+        ]);
+
+        //Topic Control Types
+        Permission::create([
+            'name' => 'Listar topic controls',
+            'slug' => 'topic-control-types.index',
+            'description' => 'Listar y navegar todos los topic controls',
+        ]);
+        Permission::create([
+            'name' => 'Ver topic control',
+            'slug' => 'topic-control-types.show',
+            'description' => 'Ver informacion de un topic control especifico',
+        ]);
+        Permission::create([
+            'name' => 'Crear topic control',
+            'slug' => 'topic-control-types.create',
+            'description' => 'Crear un nuevo topic control',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar topic control',
+            'slug' => 'topic-control-types.destroy',
+            'description' => 'Elimina un topic control y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar topic control',
+            'slug' => 'topic-control-types.edit',
+            'description' => 'Editar la informacion de un topic control',
+        ]);
+
+        //Topics
+        Permission::create([
+            'name' => 'Listar topico',
+            'slug' => 'topics.index',
+            'description' => 'Listar y navegar todos los topicos',
+        ]);
+        Permission::create([
+            'name' => 'Ver topico',
+            'slug' => 'topics.show',
+            'description' => 'Ver informacion de un topico',
+        ]);
+        Permission::create([
+            'name' => 'Crear topico',
+            'slug' => 'topics.create',
+            'description' => 'Crear un nuevo topico',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar topico',
+            'slug' => 'topics.destroy',
+            'description' => 'Elimina un topico y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar topico',
+            'slug' => 'topics.edit',
+            'description' => 'Editar la informacion de un topico',
+        ]);
+
+        //Display
+        Permission::create([
+            'name' => 'Listar visualizador',
+            'slug' => 'displays.index',
+            'description' => 'Listar y navegar todos los visualizador',
+        ]);
+        Permission::create([
+            'name' => 'Ver visualizador',
+            'slug' => 'displays.show',
+            'description' => 'Ver informacion de un visualizador',
+        ]);
+        Permission::create([
+            'name' => 'Crear visualizador',
+            'slug' => 'displays.create',
+            'description' => 'Crear un nuevo visualizador',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar visualizador',
+            'slug' => 'displays.destroy',
+            'description' => 'Elimina un visualizador y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar visualizador',
+            'slug' => 'displays.edit',
+            'description' => 'Editar la informacion de un visualizador',
+        ]);
+
+        //View configurations
+        Permission::create([
+            'name' => 'Listar configuracion de vista',
+            'slug' => 'view-configurations.index',
+            'description' => 'Listar y navegar todas las configuraciones de vistas',
+        ]);
+        Permission::create([
+            'name' => 'Ver configuracion de vista',
+            'slug' => 'view-configurations.show',
+            'description' => 'Ver informacion de una configuracion',
+        ]);
+        Permission::create([
+            'name' => 'Crear configuracion de vista',
+            'slug' => 'view-configurations.create',
+            'description' => 'Crear una nueva configuracion',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar configuracion de vista',
+            'slug' => 'view-configurations.destroy',
+            'description' => 'Elimina una configuracion de vista y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar configuracion de vista',
+            'slug' => 'view-configurations.edit',
+            'description' => 'Editar la configuracion de una vista',
+        ]);
+
+        //Icons
+        Permission::create([
+            'name' => 'Listar iconos',
+            'slug' => 'icons.index',
+            'description' => 'Listar y navegar todos los iconos',
+        ]);
+        Permission::create([
+            'name' => 'Ver icono',
+            'slug' => 'icons.show',
+            'description' => 'Ver informacion de un icono',
+        ]);
+        Permission::create([
+            'name' => 'Crear icono',
+            'slug' => 'icons.create',
+            'description' => 'Crear un nuevo icono',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar icono',
+            'slug' => 'icons.destroy',
+            'description' => 'Elimina un icono y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar icono',
+            'slug' => 'icons.edit',
+            'description' => 'Editar la informacion de un icono',
+        ]);
+
+        //Statuses
+        Permission::create([
+            'name' => 'Listar estados de funcionamiento',
+            'slug' => 'statuses.index',
+            'description' => 'Listar y navegar todos los estados de funcionamiento',
+        ]);
+        Permission::create([
+            'name' => 'Ver estado de funcionamiento',
+            'slug' => 'statuses.show',
+            'description' => 'Ver informacion de un estado de funcionamiento',
+        ]);
+        Permission::create([
+            'name' => 'Crear estado de funcionamiento',
+            'slug' => 'statuses.create',
+            'description' => 'Crear un nuevo estado de funcionamiento',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar estado de funcionamiento',
+            'slug' => 'statuses.destroy',
+            'description' => 'Elimina un estado de funcionamiento y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar estado de funcionamiento',
+            'slug' => 'statuses.edit',
+            'description' => 'Editar la informacion de un estado de funcionamiento',
         ]);
 
     }

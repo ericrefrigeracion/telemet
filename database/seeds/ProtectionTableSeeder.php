@@ -13,24 +13,24 @@ class ProtectionTableSeeder extends Seeder
     public function run()
     {
         Protection::create([
+            'icon_id' => 7,
         	'type' => 'allways',
         	'description' => 'Siempre Protegido',
-            'class' => 'far fa-check-square text-success m-2',
         ]);
         Protection::create([
+            'icon_id' => 8,
         	'type' => 'comercial',
         	'description' => 'Protegido cuando cierro mi Comercio',
-            'class' => 'fas fa-cash-register text-success m-2',
         ]);
         Protection::create([
+            'icon_id' => 9,
         	'type' => 'rules',
         	'description' => 'Con horarios Permitidos (Perzonalizado)',
-            'class' => 'far fa-clock text-success m-2',
         ]);
         Protection::create([
+            'icon_id' => 10,
             'type' => 'never',
             'description' => 'Siempre Desprotegido (Monitoreo Deshabilitado)',
-            'class' => 'fas fa-exclamation-circle text-danger m-2',
         ]);
     }
 }

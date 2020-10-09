@@ -1,9 +1,5 @@
 <?php
 
-use App\User;
-use App\Alert;
-use App\Device;
-use App\Reception;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,15 +12,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class);
+        $this->call(IconsTableSeeder::class);
         $this->call(ProtectionTableSeeder::class);
         $this->call(TypeDevicesTableSeeder::class);
+        $this->call(StatusesTableSeeder::class);
+        $this->call(TopicsTableSeeder::class);
+        $this->call(TopicControlTypesTableSeeder::class);
+        $this->call(TypeDeviceConfigurationsTableSeeder::class);
         $this->call(PricesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(UserPermissionsTableSeeder::class);
-
-        //factory(User::class, 25)->create();
-        //factory(Device::class, 150)->create();
-        //factory(Alert::class, 250)->create();
-        //factory(Reception::class, 15000)->create();
+        $this->call(DisplaysTableSeeder::class);
+        $this->call(ViewConfigurationsTableSeeder::class);
+        $this->call(DevicesTableSeeder::class);
+        $this->call(DataReceptionsTableSeeder::class);
     }
 }

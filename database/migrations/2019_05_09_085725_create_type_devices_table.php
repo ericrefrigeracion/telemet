@@ -15,34 +15,13 @@ class CreateTypeDevicesTable extends Migration
     {
         Schema::create('type_devices', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('icon_id')->nullable();
             $table->integer('prefix');
             $table->string('model');
             $table->string('description');
-            $table->string('data01_unit')->nullable();
-            $table->string('data01_name')->nullable();
-            $table->string('data02_unit')->nullable();
-            $table->string('data02_name')->nullable();
-            $table->string('data03_unit')->nullable();
-            $table->string('data03_name')->nullable();
-            $table->string('data04_unit')->nullable();
-            $table->string('data04_name')->nullable();
-            $table->string('data05_unit')->nullable();
-            $table->string('data05_name')->nullable();
-            $table->string('data06_unit')->nullable();
-            $table->string('data06_name')->nullable();
-            $table->string('data07_unit')->nullable();
-            $table->string('data07_name')->nullable();
-            $table->string('data08_unit')->nullable();
-            $table->string('data08_name')->nullable();
-            $table->string('data09_unit')->nullable();
-            $table->string('data09_name')->nullable();
-            $table->string('data10_unit')->nullable();
-            $table->string('data10_name')->nullable();
-            $table->string('data11_unit')->nullable();
-            $table->string('data11_name')->nullable();
-            $table->string('data12_unit')->nullable();
-            $table->string('data12_name')->nullable();
+
             $table->timestamps();
+            $table->foreign('icon_id')->references('id')->on('icons')->onDelete('set null');
         });
     }
 

@@ -4,9 +4,11 @@ namespace App;
 
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DeviceLog extends Model
 {
+    use SoftDeletes;
         /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +26,7 @@ class DeviceLog extends Model
     protected $hidden = [
     ];
 
-    public function devices()
+    public function device()
     {
     	return $this->belongsTo(Device::class);
     }

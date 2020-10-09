@@ -2,8 +2,9 @@
 
 namespace App;
 
-use App\Device;
 use App\Price;
+use App\Device;
+use App\TypeDeviceConfiguration;
 use Illuminate\Database\Eloquent\Model;
 
 class TypeDevice extends Model
@@ -13,9 +14,9 @@ class TypeDevice extends Model
      *
      * @var array
      */
-    protected $fillable = ['prefix', 'model', 'description', 'data01_unit', 'data01_name', 'data02_unit', 'data02_name', 'data03_unit', 'data03_name', 'data04_unit', 'data04_name', 'data05_unit', 'data05_name', 'data06_unit', 'data06_name', 'data07_unit', 'data07_name', 'data08_unit', 'data08_name', 'data09_unit', 'data09_name', 'data10_unit', 'data10_name', 'data11_unit', 'data11_name', 'data12_unit', 'data12_name'];
+    protected $fillable = ['prefix', 'model', 'description'];
 
-     protected $dates = [];
+    protected $dates = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -33,5 +34,10 @@ class TypeDevice extends Model
     public function prices()
     {
     	return $this->HasMany(Price::class);
+    }
+
+    public function type_device_configurations()
+    {
+        return $this->HasMany(TypeDeviceConfiguration::class);
     }
 }

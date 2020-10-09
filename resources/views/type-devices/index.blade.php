@@ -17,7 +17,7 @@
                             <tr>
                                 <th>Prefijo</th>
                                 <th>Modelo</th>
-                                <th colspan="2">Acciones</th>
+                                <th colspan="3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,7 +29,10 @@
                                         <td><a href="{{ route('type-devices.show', $type_device->id) }}" class="btn btn-sm btn-success">Ver</a></td>
                                     @endcan
                                     @can('type-devices.edit')
-                                        <td><a href="{{ route('type-devices.edit', $type_device->id) }}" class="btn btn-sm btn-default">Editar</a></td>
+                                        <td><a href="{{ route('type-devices.edit', $type_device->id) }}" class="btn btn-sm btn-info">Editar</a></td>
+                                    @endcan
+                                    @can('type-devices.configuration')
+                                        <td><a href="{{ route('type-devices.configuration', $type_device->id) }}" class="btn btn-sm btn-danger">Configurar</a></td>
                                     @endcan
                                 </tr>
                             @endforeach

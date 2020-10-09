@@ -62,18 +62,9 @@
                             {{ Form::label('notification_phone_number_3', 'Telefono para avisos 3') }}
                             {{ Form::text('notification_phone_number_3', null, ['class' => 'form-control', 'maxlength' => '30']) }}
                         </div>
-                        <hr>
-                        <h3>Lista de Roles a Aplicar</h3>
-                        <div class="list-unstyled">
-                            @foreach($roles as $role)
-                            <li>
-                                <label>
-                                    {{ Form::checkbox('roles[]', $role->id, null) }}
-                                    {{ $role->name}}
-                                    <em>({{ $role->description ?: "Sin Descripcion" }})</em>
-                                </label>
-                            </li>
-                            @endforeach
+                        <div class="form-group">
+                            {{ Form::label('role_id', 'Rol a aplicar') }}
+                            {{ Form::select('role_id', $roles, null, ['class' => 'form-control']) }}
                         </div>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Icon;
 use App\Device;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ class Protection extends Model
      *
      * @var array
      */
-    protected $fillable = [ 'type', 'description', 'class' ];
+    protected $fillable = [ 'icon_id', 'type', 'description', ];
 
      protected $dates = [];
 
@@ -27,5 +28,9 @@ class Protection extends Model
     public function devices()
     {
     	return $this->hasMany(Device::class);
+    }
+    public function icon()
+    {
+        return $this->belongsTo(Icon::class);
     }
 }

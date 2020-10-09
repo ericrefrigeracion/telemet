@@ -17,8 +17,8 @@ class CreatePaysTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('device_id');
-            $table->unsignedBigInteger('price_id');
-            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('price_id')->nullable();
+            $table->unsignedBigInteger('payment_id')->nullable();
             $table->string('payment_type');
             $table->string('status');
             $table->string('detail')->nullable();
@@ -30,7 +30,7 @@ class CreatePaysTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
-            $table->foreign('price_id')->references('id')->on('prices');
+            $table->foreign('price_id')->references('id')->on('prices')->onDelete('set null');
         });
     }
 

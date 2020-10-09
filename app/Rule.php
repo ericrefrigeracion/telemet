@@ -13,7 +13,6 @@ class Rule extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'device_id',
         'day',
         'start_time',
@@ -31,7 +30,7 @@ class Rule extends Model
     protected $hidden = [
     ];
 
-    public function devices()
+    public function device()
     {
     	return $this->belongsTo(Device::class);
     }

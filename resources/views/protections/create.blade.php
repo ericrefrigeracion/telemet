@@ -19,8 +19,8 @@
                             {{ Form::text('description', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('class', 'Codigo html del Icono') }}
-                            {{ Form::text('class', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::label('icon_id', 'Icono') }}
+                            {{ Form::select('icon_id', $icons, null, ['class' => 'form-control']) }}
                         </div>
                         <div>
                             {{ Form::submit('Crear Item', ['class' => 'btn btn-sm btn-primary']) }}

@@ -18,6 +18,7 @@ class CreateDeviceLogsTable extends Migration
             $table->unsignedBigInteger('device_id');
             $table->string('content')->nullable();
             $table->string('user_name')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');

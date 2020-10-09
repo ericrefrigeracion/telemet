@@ -9,11 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, HasRolesAndPermissions;
+    use Notifiable, HasRolesAndPermissions, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

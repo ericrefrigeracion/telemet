@@ -14,16 +14,10 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'description' => 'Rol de administracion',
-            'special' => 'all-access'
-        ]);
-        Role::create([
-            'name' => 'Denied',
-            'slug' => 'denied',
-            'description' => 'Rol sin permisos',
-            'special' => 'no-access'
+            'name' => 'User-Admin',
+            'slug' => 'user.admin',
+            'description' => 'Rol de usuario administrador',
+            'special' => null
         ]);
         Role::create([
             'name' => 'User - Basic',
@@ -32,18 +26,31 @@ class UsersTableSeeder extends Seeder
             'special' => null
         ]);
         Role::create([
+            'name' => 'Denied',
+            'slug' => 'user.denied',
+            'description' => 'Rol sin permisos',
+            'special' => 'no-access'
+        ]);
+        Role::create([
             'name' => 'Invitado',
-            'slug' => 'invited',
+            'slug' => 'user.invited',
             'description' => 'Rol de invitado',
             'special' => null
         ]);
+        Role::create([
+            'name' => 'Super-Admin',
+            'slug' => 'super.admin',
+            'description' => 'Rol de administracion',
+            'special' => 'all-access'
+        ]);
+
     	User::create([
     		'name' => 'Eric',
             'surname' => 'Lopez',
             'dni' => 32292512,
             'phone_area_code' => 3385,
             'phone_number' => 470666,
-    		'email' => 'ericlopezrefrigeracion@hotmail.com',
+    		'email' => 'ericlopezrefrigeracion@gmail.com',
     		'email_verified_at' => now(),
     		'password' => Hash::make('2707brlo'),
     		'remember_token' => Str::random(10),
@@ -67,18 +74,6 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('invitado'),
             'remember_token' => Str::random(10),
-        ]);
-        User::create([
-            'name' => 'Eric',
-            'surname' => 'Gavernet',
-            'dni' => 32292512,
-            'phone_area_code' => 3385,
-            'phone_number' => 400879,
-            'email' => 'ericlopezrefrigeracion@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'address' => 'Sarmiento 49'
         ]);
 
     }

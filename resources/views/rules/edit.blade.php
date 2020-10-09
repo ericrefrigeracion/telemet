@@ -28,11 +28,11 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('start_time', 'Momento en que se desactiva el monitoreo') }}
-                            {{ Form::text('start_time', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::time('start_time', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('stop_time', 'Momento en que se vuelve a activar el monitoreo') }}
-                            {{ Form::text('stop_time', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::time('stop_time', null, ['class' => 'form-control', 'required']) }}
                         </div>
 
                         <div>

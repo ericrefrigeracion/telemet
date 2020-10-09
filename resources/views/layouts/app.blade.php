@@ -15,13 +15,13 @@
 </head>
 <body>
     <div id="app">
-        @include('partials.nav_bar')
+        @include('layouts.partials.nav_bar')
         <main class="py-4 mt-5 mb-5">
-            @include('partials.errors')
+            @include('layouts.partials.errors')
             @yield('content')
         </main>
     </div>
-    @include('partials.footer')
+    @include('layouts.partials.footer')
     @yield('footer_scripts')
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>

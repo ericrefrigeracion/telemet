@@ -33,6 +33,8 @@ class CreateUsersTable extends Migration
             $table->string('notification_phone_number_1')->nullable();
             $table->string('notification_phone_number_2')->nullable();
             $table->string('notification_phone_number_3')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
