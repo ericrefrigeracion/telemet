@@ -71,7 +71,7 @@
         },
         methods:{
             getDevices: function(){
-                axios.get('/api/devices/all')
+                axios.get('/api/centinela/receptions/all')
                 .then(response => {
                     this.oldDevices = this.devices;
                     this.devices = response.data;

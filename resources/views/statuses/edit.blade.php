@@ -12,11 +12,11 @@
                     {!! Form::model($status, ['route' => ['statuses.update', $status->id], 'method' => 'PUT']) !!}
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre') }}
-                            {{ Form::text('name', null, ['class' => 'form-control', 'readonly']) }}
+                            {{ Form::text('name', null, ['class' => 'form-control', 'maxlength' => '15']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('description', 'Descripcion') }}
-                            {{ Form::text('description', null, ['class' => 'form-control', 'maxlength' => '10']) }}
+                            {{ Form::text('description', null, ['class' => 'form-control', 'maxlength' => '30']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('icon_id', 'Icono') }}
@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('scripts', 'Scripts') }}
-                            {{ Form::text('scripts', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
+                            {{ Form::text('scripts', null, ['class' => 'form-control', 'required', 'maxlength' => '30']) }}
                         </div>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}

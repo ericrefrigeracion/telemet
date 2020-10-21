@@ -16,9 +16,10 @@ class CreateDisplaysTable extends Migration
         Schema::create('displays', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('slug');
-            $table->string('scripts');
+            $table->string('scripts')->nullable();
+            $table->string('title')->nullable();
 
             $table->timestamps();
         });

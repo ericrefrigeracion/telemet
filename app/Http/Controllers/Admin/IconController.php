@@ -39,7 +39,7 @@ class IconController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|string|max:15|unique:icons,name',
+            'name' => 'required|string|max:15',
             'description' => 'required|string|max:30',
             'scripts' => 'string|max:40',
             'type' => 'required|string|max:15',
@@ -87,7 +87,7 @@ class IconController extends Controller
         $rules = [
             'name' => 'required|string|max:15',
             'description' => 'required|string|max:30',
-            'scripts' => 'string|max:40',
+            'scripts' => 'required|string|max:40',
             'type' => 'required|string|max:15',
         ];
 

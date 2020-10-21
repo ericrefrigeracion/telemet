@@ -89,9 +89,9 @@ class StatusController extends Controller
     {
         $rules = [
             'icon_id' => 'required|exists:icons,id',
-            'name' => 'required|string|max:15|unique:statuses,name',
+            'name' => 'required|string|max:15',
             'description' => 'string|max:30',
-            'scripts' => 'string',
+            'scripts' => 'string|max:30',
         ];
 
         $request->validate($rules);

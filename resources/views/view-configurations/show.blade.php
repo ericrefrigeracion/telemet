@@ -22,10 +22,10 @@
                                     <td>{{ $view_configuration->display->description }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Topico</td>
-                                    <td>{{ $view_configuration->topic->slug }}</td>
-                                    <td>{{ $view_configuration->topic->unit }}</td>
-                                    <td>{{ $view_configuration->topic->name }}</td>
+                                    <td>Orden</td>
+                                    <td>{{ $view_configuration->order }}</td>
+                                    <td>Permiso</td>
+                                    <td>{{ $view_configuration->permission }}</td>
                                 </tr>
                         </tbody>
                     </table>

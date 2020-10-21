@@ -15,26 +15,22 @@ class DisplaysTableSeeder extends Seeder
     	Display::create([
             'name' => 'Linea',
             'description' => 'Grafico de tipo lineas',
-            'slug' => 'line_chart',
-            'scripts' => ''
+            'slug' => 'line',
         ]);
         Display::create([
             'name' => 'Estado',
             'description' => 'Indicador de estado tipo On/Off',
             'slug' => 'status',
-            'scripts' => ''
         ]);
         Display::create([
             'name' => 'Aguja',
             'description' => 'Indicador de aguja',
             'slug' => 'gauge',
-            'scripts' => ''
         ]);
         Display::create([
             'name' => 'Barras',
             'description' => 'Grafico de tipo barras',
             'slug' => 'bars_chart',
-            'scripts' => ''
         ]);
     }
 }

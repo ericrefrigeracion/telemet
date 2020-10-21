@@ -20,6 +20,8 @@ class CreateTopicsTable extends Migration
             $table->string('unit');
             $table->string('name');
             $table->integer('decimals');
+            $table->string('color');
+            $table->string('filled');
             $table->timestamps();
 
             $table->foreign('icon_id')->references('id')->on('icons')->onDelete('set null');

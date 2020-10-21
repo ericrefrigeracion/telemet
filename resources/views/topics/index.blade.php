@@ -18,7 +18,8 @@
                                 <th>Id</th>
                                 <th>Slug</th>
                                 <th>Nombre</th>
-                                <th>Descripcion</th>
+                                <th>Unidad</th>
+                                <th>color</th>
                                 <th colspan="3">Acciones</th>
                             </tr>
                         </thead>
@@ -29,6 +30,7 @@
                                     <td>{{ $topic->slug }}</td>
                                     <td>{{ $topic->name }}</td>
                                     <td>{{ $topic->unit }}</td>
+                                    <td>{{ $topic->color }}</td>
                                     @can('topics.show')
                                         <td><a href="{{ route('topics.show', $topic->id) }}" class="btn btn-sm btn-success">Ver</a></td>
                                     @endcan

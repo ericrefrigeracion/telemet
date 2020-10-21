@@ -18,7 +18,6 @@
                                 <th>Id</th>
                                 <th>Dispositivo</th>
                                 <th>Grafico</th>
-                                <th>Topico</th>
                                 <th>Ubicacion</th>
                                 <th colspan="2">Acciones</th>
                             </tr>
@@ -29,7 +28,6 @@
                                     <td>{{ $view_configuration->id }}</td>
                                     <td>{{ $view_configuration->type_device->model }}</td>
                                     <td>{{ $view_configuration->display->name }}</td>
-                                    <td>{{ $view_configuration->topic->slug }}</td>
                                     <td>{{ $view_configuration->order}}</td>
                                     @can('view-configurations.show')
                                         <td><a href="{{ route('view-configurations.show', $view_configuration->id) }}" class="btn btn-sm btn-success">Ver</a></td>

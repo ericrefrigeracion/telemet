@@ -46,7 +46,7 @@ class TopicControlTypeController extends Controller
             'min' => 'required|numeric|min:-99|max:999',
             'max' => 'required|numeric|min:-99|max:999',
             'step' => 'required|numeric|min:0|max:1',
-            'reference' => 'required|numeric|lte:max|gte:min',
+            'default' => 'required|numeric|lte:max|gte:min',
         ];
 
         $request->validate($rules);
@@ -89,12 +89,14 @@ class TopicControlTypeController extends Controller
     public function update(Request $request, TopicControlType $topic_control_type)
     {
          $rules = [
+            'slug' => 'required|string|max:10',
+            'name' => 'required|string|max:15',
             'description' => 'required|string|max:40',
             'operation' => 'required|string|max:5',
             'min' => 'required|numeric|min:-99|max:999',
             'max' => 'required|numeric|min:-99|max:999',
             'step' => 'required|numeric|min:0|max:1',
-            'reference' => 'required|numeric|lte:max|gte:min',
+            'default' => 'required|numeric|lte:max|gte:min',
         ];
 
             $request->validate($rules);

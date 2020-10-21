@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Icon;
 use App\Price;
 use App\Device;
+use App\ViewConfiguration;
 use App\TypeDeviceConfiguration;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +16,7 @@ class TypeDevice extends Model
      *
      * @var array
      */
-    protected $fillable = ['prefix', 'model', 'description'];
+    protected $fillable = ['icon_id', 'prefix', 'model', 'description'];
 
     protected $dates = [];
 
@@ -26,18 +28,27 @@ class TypeDevice extends Model
     protected $hidden = [
     ];
 
+    public function icon()
+    {
+        return $this->belongsTo(Icon::class);
+    }
+
     public function devices()
     {
-    	return $this->HasMany(Device::class);
+    	return $this->hasMany(Device::class);
     }
 
     public function prices()
     {
-    	return $this->HasMany(Price::class);
+    	return $this->hasMany(Price::class);
     }
 
     public function type_device_configurations()
     {
-        return $this->HasMany(TypeDeviceConfiguration::class);
+        return $this->hasMany(TypeDeviceConfiguration::class);
+    }
+    public function view_configurations()
+    {
+        return $this->hasMany(ViewConfiguration::class);
     }
 }

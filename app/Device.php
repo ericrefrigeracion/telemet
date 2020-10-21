@@ -5,6 +5,7 @@ namespace App;
 use App\Pay;
 use App\Rule;
 use App\User;
+use App\Icon;
 use App\Alert;
 use App\Status;
 use App\DeviceLog;
@@ -72,6 +73,11 @@ class Device extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function icon()
+    {
+        return $this->belongsTo(Icon::class);
     }
 
     public function alerts()

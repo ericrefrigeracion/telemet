@@ -12,6 +12,6 @@ class DataReceptionsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(DataReception::class, 1000)->create();
+        factory(DataReception::class, 1500)->create();
     }
 }

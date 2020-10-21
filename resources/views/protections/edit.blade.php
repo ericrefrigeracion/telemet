@@ -12,11 +12,11 @@
                     {!! Form::model($protection, ['route' => ['protections.update', $protection->id], 'method' => 'PUT']) !!}
                         <div class="form-group">
                             {{ Form::label('type', 'Tipo de proteccion (Slug)') }}
-                            {{ Form::text('type', null, ['class' => 'form-control', 'readonly']) }}
+                            {{ Form::text('type', null, ['class' => 'form-control', 'required', 'maxlength' => '10']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('description', 'Descripcion') }}
-                            {{ Form::text('description', null, ['class' => 'form-control', 'required']) }}
+                            {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '30']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('icon_id', 'Icono') }}

@@ -40,9 +40,9 @@ class ProtectionController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'icon_id' => 'required|exists:icons,id',
             'type' => 'required|string|unique:protections,type',
             'description' => 'required|string',
-            'icon_id' => 'required|exists:icons,id',
         ];
 
         $request->validate($rules);
@@ -84,8 +84,9 @@ class ProtectionController extends Controller
     public function update(Request $request, Protection $protection)
     {
         $rules = [
-            'description' => 'required|string',
             'icon_id' => 'required|exists:icons,id',
+            'type' => 'required|string|max:10',
+            'description' => 'required|string|max:30',
         ];
 
         $request->validate($rules);

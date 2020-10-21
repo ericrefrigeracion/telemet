@@ -12,7 +12,7 @@
                     {!! Form::model($topic, ['route' => ['topics.update', $topic->id], 'method' => 'PUT']) !!}
                         <div class="form-group">
                             {{ Form::label('slug', 'Slug para el sistema') }}
-                            {{ Form::text('slug', null, ['class' => 'form-control', 'readonly']) }}
+                            {{ Form::text('slug', null, ['class' => 'form-control', 'maxlength' => '7']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('unit', 'Unida de media') }}
@@ -29,6 +29,14 @@
                         <div class="form-group">
                             {{ Form::label('icon_id', 'Icono') }}
                             {{ Form::select('icon_id', $icons, null, ['class' => 'form-control']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('color', 'Color (rgba)') }}
+                            {{ Form::text('color', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('filled', 'Area de la curva') }}<br>
+                            {{ Form::checkbox('filled', true) }} Con relleno
                         </div>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}

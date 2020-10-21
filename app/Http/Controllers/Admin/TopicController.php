@@ -41,10 +41,13 @@ class TopicController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'slug' => 'required|string|max:7|unique:topics,slug',
+            'icon_id' => 'required|integer|exists:icons,id',
+            'slug' => 'required|string|max:7',
             'unit' => 'required|string|max:10',
             'name' => 'required|string|max:15',
             'decimals' => 'required|integer|min:0|max:3',
+            'color' => 'required|string',
+            'filled' => 'required|boolean',
         ];
 
         $request->validate($rules);
@@ -88,9 +91,14 @@ class TopicController extends Controller
     public function update(Request $request, Topic $topic)
     {
         $rules = [
+            'icon_id' => 'required|integer|exists:icons,id',
+            'slug' => 'required|string|max:7',
             'unit' => 'required|string|max:10',
             'name' => 'required|string|max:15',
             'decimals' => 'required|integer|min:0|max:3',
+            'color' => 'required|string',
+            'filled' => 'required|boolean',
+
         ];
 
         $request->validate($rules);

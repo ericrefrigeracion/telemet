@@ -15,8 +15,8 @@ class ViewConfigurationsTableSeeder extends Seeder
         ViewConfiguration::create([
             'type_device_id' => 2,
             'display_id' => 1,
-            'topic_id' => 1,
-            'order' => 1
+            'order' => 1,
+            'permission' => 'view.admin'
         ]);
     }
 }

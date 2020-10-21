@@ -13,20 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 Route::prefix('centinela/receptions')->namespace('Api')->name('receptions.')->group(function () {
 	Route::get('now/{device}/{topic}', 'DataController@now')->name('now');
-	Route::get('data/{device}/{topic}/{month}/{day}', 'DataController@data')->name('data');
+	Route::get('data/{device}/{topic}/{start_time}-{end_time}', 'DataController@data')->name('data');
+	Route::get('all', 'DataController@all');
 });
 
 Route::post('/webhooks', 'Admin\WebhookController@ipn');
 Route::post('/webhooks/{user_id}-{device_id}-{price_id}', 'Admin\WebhookController@pay');
 
-//Route::get('/receptions/last-hour/{device}', 'Api\ReceptionController@last_hour');
-//Route::get('/receptions/live/{device}', 'Api\ReceptionController@live');
-//Route::get('/devices/all', 'Api\DeviceController@all');
 
 
 

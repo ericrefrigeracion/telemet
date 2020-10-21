@@ -1,43 +1,40 @@
 <template>
-    <div class="card-columns col-md-10">
-        <div class="card text-center">
-            <div class="card-header">
-                {{ device.name }}
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div v-if="device.admin_mon" class="col text-center">
-                        <span v-if="device.protected" >{{ device.status_id }} <i v-bind:class="device.status_class"></i></span>
-                    </div>
-                    <div v-else class="col text-center">
-                        <small>Monitoreo Vencido - <a v-bind:href="device.pay_route">Pagar por el monitoreo</a></small>
-                    </div>
+    <div class="card text-center">
+        <div class="card-header">
+            {{ tiny.name }}
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div v-if="tiny.admin_mon" class="col text-center">
+                    <span v-if="tiny.protected" ><i v-bind:class="tiny.status.icon.scripts"></i>  Estado {{ tiny.status.name }}</span>
                 </div>
-                <div v-if="device.admin_mon" class="row">
-                        <i v-if="device.protected" v-bind:class="device.statuss_class" v-bind:title="device.statuss_title"></i>
-                        <div class="col-10 display-4">{{ tiny.value }}</div>
-                </div>
-                <div v-else class="row">
-                    <div class="col display-3 m-2">{{ device.id }}</div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <i v-if="device.admin_mon" v-bind:class="device.protection_class" v-bind:title="device.protection_title"></i>
-                        <i v-bind:class="device.signal_class" v-bind:title="device.signal_title"></i>
-                        <a v-bind:href="device.receptions_route" class="text-primary m-2" title="Evolucion de Temperaturas"><i class="fas fa-chart-line"></i></a>
-                        <a v-bind:href="device.configuration_route" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
-                        <a v-bind:href="device.alerts_route" class="text-danger m-2" title="Nuevas Alertas">{{ tiny.id }} <i class="fas fa-bell"></i></a>
-                    </div>
+                <div v-else class="col text-center">
+                    <small>Monitoreo Vencido - <a v-bind:href="tiny.pay_route">Pagar por el monitoreo</a></small>
                 </div>
             </div>
-            <div class="card-footer" v-bind:class="device.bg_class">
-                <small class="">
-                        {{ tiny.on_line ? 'En Linea':'Sin Conexion'}} - {{  }}
-                </small>
+            <div class="row" v-if="tiny.last_data">
+                <div class="col-10 display-4">{{ tiny.last_data.value }}°C</div>
+                <div class="col-10"><small>{{ forHumans(tiny.last_data.created_at) }}</small></div>
+            </div>
+            <div class="row" v-else>
+                <div class="col-10 display-4"> --.- °C </div>
+                <div class="col-10"><small> Sin Datos </small></div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <i v-if="tiny.admin_mon" v-bind:class="tiny.protection.icon.scripts" v-bind:title="tiny.protection.description"></i>
+                    <a v-bind:href="tiny.data_receptions_route" class="text-primary m-2" title="Evolucion de Temperaturas"><i class="fas fa-chart-line"></i></a>
+                    <a v-bind:href="tiny.configuration_route" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
+                    <a v-bind:href="tiny.alerts_route" class="text-danger m-2" title="Nuevas Alertas">{{ tiny.alerts_count }} <i class="fas fa-bell"></i></a>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="card-footer" v-bind:class="">
+            <small class="">
+                    {{ tiny.on_line ? 'En Linea':'Sin Conexion'}}
+            </small>
+        </div>
+        </div>
 </template>
 
 <script>
@@ -61,7 +58,7 @@
                 return moment(d).fromNow();
             },
             getTiny: function(){
-                var url = '/api/centinela/receptions/now/' + this.device.id + '/temp1';
+                var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
                 axios.get(url)
                 .then(response => {
                     this.tiny = response.data;

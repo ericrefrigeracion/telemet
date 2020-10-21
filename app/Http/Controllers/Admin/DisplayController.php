@@ -58,18 +58,20 @@ class DisplayController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Display $display, Request $request)
     {
         $rules = [
-            'description' => 'required|string|max:40',
-            'scripts' => 'string',
+            'name' => 'required|string|max:15',
+            'description' => 'required|string|max:30',
+            'slug' => 'required|string|max:10',
+            'scripts' => 'string|max:40',
         ];
 
         $request->validate($rules);
 
-        Display::create($request->all());
+        $display->update($request->all());
 
-        return redirect()->route('displays.index')->with('success', ['Visualizacion creada con exito']);
+        return redirect()->route('displays.index')->with('success', ['Visualizacion actualizada con exito']);
     }
 
     /**
@@ -81,7 +83,7 @@ class DisplayController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|max:15|unique:displays,name',
+            'name' => 'required|max:15',
             'description' => 'required|string|max:40',
             'slug' => 'required|string|max:10|unique:displays,slug',
             'scripts' => 'string',

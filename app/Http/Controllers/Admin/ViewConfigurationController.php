@@ -32,7 +32,6 @@ class ViewConfigurationController extends Controller
     {
         $type_devices = TYpeDevice::pluck('model', 'id')->all();
         $displays = Display::pluck('name', 'id')->all();
-        $topics = Topic::pluck('slug', 'id')->all();
 
         return view('view-configurations.create', compact('type_devices', 'displays', 'topics'));
     }
@@ -59,7 +58,6 @@ class ViewConfigurationController extends Controller
         $rules = [
             'type_device_id' => 'required|integer|min:2|exists:type_devices,id',
             'display_id' => 'required|integer|min:1|exists:displays,id',
-            'topic_id' => 'required|integer|min:1|exists:topics,id',
             'order' => 'required|integer|min:1|max:20'
         ];
 

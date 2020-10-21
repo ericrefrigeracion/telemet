@@ -32,6 +32,14 @@
                                     <td>{{ $topic->decimals }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Color</td>
+                                    <td>{{ $topic->color }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Relleno</td>
+                                    <td>{{ $topic->filled }}</td>
+                                </tr>
+                                <tr>
                                     <td>Creado</td>
                                     <td>{{ $topic->created_at }}</td>
                                 </tr>

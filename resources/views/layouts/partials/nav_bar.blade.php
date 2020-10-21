@@ -119,6 +119,9 @@
                                     @can('displays.index')
                                         <a class="dropdown-item" href="{{ route('displays.index') }}">Graficos</a>
                                     @endcan
+                                    @can('display-topics.index')
+                                        <a class="dropdown-item" href="{{ route('display-topics.index') }}">Graficos - Topicos</a>
+                                    @endcan
                                     @can('view-configurations.index')
                                         <a class="dropdown-item" href="{{ route('view-configurations.index') }}">Configuracion de Vistas</a>
                                     @endcan

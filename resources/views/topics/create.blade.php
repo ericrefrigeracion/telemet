@@ -30,6 +30,14 @@
                             {{ Form::label('icon_id', 'Icono') }}
                             {{ Form::select('icon_id', $icons, null, ['class' => 'form-control']) }}
                         </div>
+                        <div class="form-group">
+                            {{ Form::label('color', 'Color (rgba)') }}
+                            {{ Form::text('color', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('filled', 'Area de la curva') }}<br>
+                            {{ Form::checkbox('filled', true) }} Con relleno
+                        </div>
                         <div>
                             {{ Form::submit('Crear Item', ['class' => 'btn btn-sm btn-primary']) }}
                         </div>

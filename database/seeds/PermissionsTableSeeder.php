@@ -151,6 +151,18 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Editar la informacion de una regla',
         ]);
 
+        //Acceso a Graficos
+        Permission::create([
+            'name' => 'Vista grafico basico',
+            'slug' => 'view.basic',
+            'description' => 'Vista de graficos de un usuario basico',
+        ]);
+        Permission::create([
+            'name' => 'Vista grafico admin',
+            'slug' => 'view.admin',
+            'description' => 'Vista de usuario administrador',
+        ]);
+
         //Acceso A Menues
         Permission::create([
             'name' => 'Menu Alertas',
@@ -568,6 +580,33 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Editar estado de funcionamiento',
             'slug' => 'statuses.edit',
             'description' => 'Editar la informacion de un estado de funcionamiento',
+        ]);
+
+        //Display-Topics
+        Permission::create([
+            'name' => 'Listar relaciones grafico-topico',
+            'slug' => 'display-topics.index',
+            'description' => 'Listar y navegar todos las relaciones grafico-topico',
+        ]);
+        Permission::create([
+            'name' => 'Ver relacion grafico-topico',
+            'slug' => 'display-topics.show',
+            'description' => 'Ver informacion de una relacion grafico-topico',
+        ]);
+        Permission::create([
+            'name' => 'Crear relacion grafico-topico',
+            'slug' => 'display-topics.create',
+            'description' => 'Crear un nuevo relacion grafico-topico',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar relacion grafico-topico',
+            'slug' => 'display-topics.destroy',
+            'description' => 'Elimina una relacion grafico-topico y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Editar relacion grafico-topico',
+            'slug' => 'display-topics.edit',
+            'description' => 'Editar la relacion grafico-topico',
         ]);
 
     }

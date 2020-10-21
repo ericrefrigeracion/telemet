@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                 <h3>Tipos de visualizacion</h3>
-                    @can('prices.create')
+                    @can('displays.create')
                         <a href="{{ route('displays.create') }}" class="btn btn-sm btn-info float-right">Crear Item Control</a>
                     @endcan
                 </div>
@@ -27,10 +27,10 @@
                                     <td>{{ $display->id }}</td>
                                     <td>{{ $display->name }}</td>
                                     <td>{{ $display->description }}</td>
-                                    @can('topic-control-types.show')
+                                    @can('displays.show')
                                         <td><a href="{{ route('displays.show', $display->id) }}" class="btn btn-sm btn-success">Ver</a></td>
                                     @endcan
-                                    @can('topic-control-types.edit')
+                                    @can('displays.edit')
                                         <td><a href="{{ route('displays.edit', $display->id) }}" class="btn btn-sm btn-info">Editar</a></td>
                                     @endcan
                                 </tr>

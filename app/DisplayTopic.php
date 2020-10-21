@@ -2,11 +2,11 @@
 
 namespace App;
 
+use App\Topic;
 use App\Display;
-use App\TypeDevice;
 use Illuminate\Database\Eloquent\Model;
 
-class ViewConfiguration extends Model
+class DisplayTopic extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -14,7 +14,7 @@ class ViewConfiguration extends Model
      * @var array
      */
     protected $fillable = [
-         'type_device_id', 'display_id', 'order', 'permission'
+         'display_id', 'topic_id'
     ];
 
     /**
@@ -25,13 +25,12 @@ class ViewConfiguration extends Model
     protected $hidden = [
     ];
 
-    public function type_device()
+    public function topic()
     {
-    	return $this->belongsTo(TypeDevice::class);
+    	return $this->belongsTo(Topic::class);
     }
     public function display()
     {
-        return $this->belongsTo(Display::class);
+    	return $this->belongsTo(Display::class);
     }
 }
-

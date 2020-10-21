@@ -22,9 +22,9 @@ Route::prefix('pays')->namespace('User')->name('pays.')->group(function () {
 
 Route::middleware(['verified'])->group(function () {
 
-	Route::get('/home', 'HomeController@index')->name('home');
-	Route::get('/info', 'HomeController@info')->name('info');
-	Route::get('/home/all', 'HomeController@all')->name('home.all')->middleware('can:home.all');
+	Route::get('home', 'HomeController@index')->name('home');
+	Route::get('info', 'HomeController@info')->name('info');
+	Route::get('admins/home/all', 'HomeController@all')->name('home.all')->middleware('can:home.all');
 
 	Route::prefix('admins')->namespace('Admin')->group(function () {
 
@@ -135,6 +135,17 @@ Route::middleware(['verified'])->group(function () {
 			Route::get('{display}/edit', 'DisplayController@edit')->name('edit')->middleware('can:displays.edit');
 		});
 
+		//Display-Topics
+		Route::prefix('display-topics')->name('display-topics.')->group(function () {
+			Route::get('/', 'DisplayTopicController@index')->name('index')->middleware('can:displays.index');
+			Route::post('/', 'DisplayTopicController@store')->name('store')->middleware('can:displays.create');
+			Route::get('create', 'DisplayTopicController@create')->name('create')->middleware('can:displays.create');
+			Route::delete('{display_topic}', 'DisplayTopicController@destroy')->name('destroy')->middleware('can:displays.destroy');
+			Route::put('{display_topic}', 'DisplayTopicController@update')->name('update')->middleware('can:displays.edit');
+			Route::get('{display_topic}', 'DisplayTopicController@show')->name('show')->middleware('can:displays.show');
+			Route::get('{display_topic}/edit', 'DisplayTopicController@edit')->name('edit')->middleware('can:displays.edit');
+		});
+
 		//View configurations
 		Route::prefix('view-configurations')->name('view-configurations.')->group(function () {
 			Route::get('/', 'ViewConfigurationController@index')->name('index')->middleware('can:view-configurations.index');
@@ -169,35 +180,11 @@ Route::middleware(['verified'])->group(function () {
 		});
 	});
 
-	Route::prefix('centinela')->namespace('Device')->group(function () {
-
-		//Devices
-		Route::prefix('devices')->name('devices.')->group(function () {
-			Route::get('/', 'DeviceController@index')->name('index')->middleware('can:devices.index');
-			Route::post('/', 'DeviceController@store')->name('store')->middleware('can:devices.create');
-			Route::get('/create', 'DeviceController@create')->name('create')->middleware('can:devices.create');
-			Route::delete('/{device}', 'DeviceController@destroy')->name('destroy')->middleware('can:devices.destroy');
-			Route::put('/{device}', 'DeviceController@update')->name('update')->middleware('can:devices.edit');
-			Route::get('/{device}', 'DeviceController@show')->name('show')->middleware('can:devices.show');
-			Route::get('/{device}/edit', 'DeviceController@edit')->name('edit')->middleware('can:devices.edit');
-			Route::get('/{device}/configuration', 'DeviceController@configuration')->name('configuration')->middleware('can:devices.configuration');
-			Route::get('/all', 'DeviceController@all')->name('all')->middleware('can:devices.all');
-		});
-
-		//Device-configurations
-		Route::put('/device-configurations/{device_configuration}', 'DeviceConfigurationController@update')->name('device-configurations.update')->middleware('can:devices.configuration');
-
-		//Device-Logs
-		Route::prefix('device-logs')->name('device-logs.')->group(function () {
-			Route::get('/', 'DeviceLogController@index')->name('index')->middleware('can:device-logs.index');
-			Route::post('/', 'DeviceLogController@store')->name('store')->middleware('can:device-logs.create');
-			Route::get('/{device}', 'DeviceLogController@show')->name('show')->middleware('can:device-logs.show');
-			Route::delete('/{device_log}', 'DeviceLogController@destroy')->name('destroy')->middleware('can:device-logs.destroy');
-		});
+	Route::prefix('admins')->namespace('Device')->group(function () {
 
 		// MQTT Logs
-		Route::get('/mqtt-logs', 'MqttLogController@index')->name('mqtt-logs.index')->middleware('can:mqtt-logs.index');
-		Route::get('/mqtt-logs/{device}', 'MqttLogController@show')->name('mqtt-logs.show')->middleware('can:mqtt-logs.show');
+		Route::get('mqtt-logs', 'MqttLogController@index')->name('mqtt-logs.index')->middleware('can:mqtt-logs.index');
+		Route::get('mqtt-logs/{device}', 'MqttLogController@show')->name('mqtt-logs.show')->middleware('can:mqtt-logs.show');
 
 		//TypeDevices
 		Route::prefix('type-devices')->name('type-devices.')->group(function () {
@@ -214,6 +201,44 @@ Route::middleware(['verified'])->group(function () {
 		//Type Devices Configurations
 		Route::post('/type-device-configurations', 'TypeDeviceConfigurationController@store')->name('type-device-configurations.store')->middleware('can:type-device-configurations.create');
 		Route::delete('/type-device-configurations/{type_device_configuration}', 'TypeDeviceConfigurationController@destroy')->name('type-device-configurations.destroy')->middleware('can:type-device-configurations.destroy');
+
+	});
+	Route::prefix('admins')->group(function () {
+		//All views
+		Route::get('devices/all', 'Device\DeviceController@all')->name('devices.all')->middleware('can:devices.all');
+		Route::get('rules/all', 'User\RuleController@all')->name('rules.all')->middleware('can:rules.all');
+		Route::get('alerts/all', 'User\AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
+		Route::get('pays/all', 'User\PayController@all')->name('pays.all')->middleware('can:pays.all');
+	});
+
+
+
+	Route::prefix('centinela')->namespace('Device')->group(function () {
+
+		//Devices
+		Route::prefix('devices')->name('devices.')->group(function () {
+			Route::get('/', 'DeviceController@index')->name('index')->middleware('can:devices.index');
+			Route::post('/', 'DeviceController@store')->name('store')->middleware('can:devices.create');
+			Route::get('create', 'DeviceController@create')->name('create')->middleware('can:devices.create');
+			Route::delete('{device}', 'DeviceController@destroy')->name('destroy')->middleware('can:devices.destroy');
+			Route::put('{device}', 'DeviceController@update')->name('update')->middleware('can:devices.edit');
+			Route::get('{device}', 'DeviceController@show')->name('show')->middleware('can:devices.show');
+			Route::get('{device}/edit', 'DeviceController@edit')->name('edit')->middleware('can:devices.edit');
+			Route::get('{device}/configuration', 'DeviceController@configuration')->name('configuration')->middleware('can:devices.configuration');
+
+		});
+
+		//Device-configurations
+		Route::put('/device-configurations/{device_configuration}', 'DeviceConfigurationController@update')->name('device-configurations.update')->middleware('can:devices.configuration');
+
+		//Device-Logs
+		Route::prefix('device-logs')->name('device-logs.')->group(function () {
+			Route::get('/', 'DeviceLogController@index')->name('index')->middleware('can:device-logs.index');
+			Route::post('/', 'DeviceLogController@store')->name('store')->middleware('can:device-logs.create');
+			Route::get('{device}', 'DeviceLogController@show')->name('show')->middleware('can:device-logs.show');
+			Route::delete('{device_log}', 'DeviceLogController@destroy')->name('destroy')->middleware('can:device-logs.destroy');
+		});
+
 	});
 
 	Route::prefix('centinela')->namespace('User')->group(function () {
@@ -232,14 +257,14 @@ Route::middleware(['verified'])->group(function () {
 			Route::put('{rule}', 'RuleController@update')->name('update')->middleware('can:rules.edit');
 			Route::get('{rule}', 'RuleController@show')->name('show')->middleware('can:rules.show');
 			Route::get('{rule}/edit', 'RuleController@edit')->name('edit')->middleware('can:rules.edit');
-			Route::get('all', 'RuleController@all')->name('all')->middleware('can:rules.all');
+
 		});
 
 		//Alerts
 		Route::prefix('alerts')->name('alerts.')->group(function () {
 			Route::get('/', 'AlertController@index')->name('index')->middleware('can:alerts.index');
 			Route::get('{device}', 'AlertController@show')->name('show')->middleware('can:alerts.show');
-			Route::get('all', 'AlertController@all')->name('all')->middleware('can:alerts.all');
+
 		});
 
 		//Pays
@@ -248,7 +273,7 @@ Route::middleware(['verified'])->group(function () {
 			Route::get('/', 'PayController@index')->name('index')->middleware('can:pays.index');
 			Route::get('/{pay}', 'PayController@show')->name('show')->middleware('can:pays.show');
 			Route::post('/{device}-{price}', 'PayController@store')->name('store')->middleware('can:pays.create');
-			Route::get('all', 'PayController@all')->name('all')->middleware('can:pays.all');
+
 		});
 	});
 

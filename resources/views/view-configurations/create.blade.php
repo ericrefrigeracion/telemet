@@ -19,12 +19,12 @@
                             {{ Form::select('display_id', $displays, null, ['class' => 'form-control']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::label('topic_id', 'Topico') }}
-                            {{ Form::select('topic_id', $topics, null, ['class' => 'form-control']) }}
-                        </div>
-                        <div class="form-group">
                             {{ Form::label('order', 'Orden en la vista') }}
                             {{ Form::number('order', null, ['class' => 'form-control', 'required', 'default' => 1, 'min' => 1, 'max' => 20, 'step' => 1]) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('permission', 'Permiso para la vista') }}
+                            {{ Form::text('permission', null, ['class' => 'form-control', 'required']) }}
                         </div>
                         <div>
                             {{ Form::submit('Crear Item', ['class' => 'btn btn-sm btn-primary']) }}

@@ -13,8 +13,8 @@ class TopicControlTypesTableSeeder extends Seeder
     public function run()
     {
         TopicControlType::create([
-            'slug' => 'tcal',
-            'name' => 'Calibracion de Temperatura (°C)',
+            'slug' => 'cal',
+            'name' => 'Calibracion',
             'description' => 'calibracion de sensor',
             'operation' => '+',
             'min' => -10,
@@ -24,7 +24,7 @@ class TopicControlTypesTableSeeder extends Seeder
         ]);
         TopicControlType::create([
             'slug' => 'min',
-            'name' => 'Minima (°C)',
+            'name' => 'Minima',
             'description' => 'topic menor que el valor de referencia',
             'operation' => '<',
             'min' => -40,
@@ -34,7 +34,7 @@ class TopicControlTypesTableSeeder extends Seeder
         ]);
         TopicControlType::create([
             'slug' => 'max',
-            'name' => 'Maxima (°C)',
+            'name' => 'Maxima',
             'description' => 'topic mayor que el valor de referencia',
             'operation' => '>',
             'min' => -40,
@@ -44,7 +44,7 @@ class TopicControlTypesTableSeeder extends Seeder
         ]);
         TopicControlType::create([
             'slug' => 'perf',
-            'name' => 'Performance (°C/h)',
+            'name' => 'Performance',
             'description' => 'performance del topic',
             'operation' => '<',
             'min' => 0,
@@ -61,26 +61,6 @@ class TopicControlTypesTableSeeder extends Seeder
             'max' => 120,
             'step' => 1,
             'default' => 20,
-        ]);
-        TopicControlType::create([
-            'slug' => 'acal',
-            'name' => 'Calibracion de Amper (A)',
-            'description' => 'calibracion de sensor',
-            'operation' => '+',
-            'min' => -10,
-            'max' => 10,
-            'step' => 0.01,
-            'default' => 0,
-        ]);
-        TopicControlType::create([
-            'slug' => 'vcal',
-            'name' => 'Calibracion de Volts (V)',
-            'description' => 'calibracion de sensor',
-            'operation' => '+',
-            'min' => -10,
-            'max' => 10,
-            'step' => 0.01,
-            'default' => 0,
         ]);
 
     }

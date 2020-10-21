@@ -157,7 +157,7 @@ class DeviceController extends Controller
                 'description' => 'max:50',
                 'notification_email' => 'required|string',
                 'notification_phone_number' => 'required',
-                'icon_id' => 'required|exists:icons,id'
+                'icon_id' => 'filled|exists:icons,id'
             ];
 
             $request->validate($rules);
@@ -165,10 +165,6 @@ class DeviceController extends Controller
             if($device->protection_id != 1 && $request->protection_id == 1)
             {
                 $request['protected'] = true;
-                $device->tiny_t_device->update([
-                    'on_temp' => true,
-                    't_out_at' => null,
-                ]);
             }
 
             if($device->protection_id != 4 && $request->protection_id == 4) $request['protected'] = false;

@@ -16,7 +16,7 @@ class Topic extends Model
      * @var array
      */
     protected $fillable = [
-         'slug', 'unit', 'name', 'decimals'
+         'slug', 'unit', 'name', 'decimals', 'color', 'filled'
     ];
 
      protected $dates = [];
