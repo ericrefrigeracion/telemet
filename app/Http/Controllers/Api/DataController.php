@@ -25,6 +25,7 @@ class DataController extends Controller
         $device->status->icon = $device->status->icon;
         $device->protection = $device->protection;
         $device->protection->icon = $device->protection->icon;
+        $device->logs_route = route('device-logs.show', $device->id);
         $device->pay_route = route('pays.create', $device->id);
         $device->alerts_route = route('alerts.show', $device->id);
         $device->data_receptions_route = route('data-receptions.show', $device->id);
@@ -63,7 +64,26 @@ class DataController extends Controller
 
     public function all()
     {
+        $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 4)->get();
 
+        foreach ($devices as $device)
+        {
+            $device->type_device_icon = $device->type_device->icon->scripts;
+            $device->type_device_title = $device->type_device->model;
+            $device->status_icon = $device->status->icon->scripts;
+            $device->status_title = $device->status->description;
+            $device->user_id = $device->users()->first()->id;
+            $device->user_route = route('users.show', $device->user_id);
+            $device->device_route = route('devices.show', $device->id);
+            $device->alerts_route = route('alerts.show', $device->id);
+            $device->data_receptions_route = route('data-receptions.show', $device->id);
+            $device->configurations_route = route('devices.configuration', $device->id);
+            $device->logs_route = route('device-logs.show', $device->id);
+            $device->alerts_count = $device->alerts()->where('created_at', '>', $device->view_alerts_at)->count();
+            if($device->data_receptions()->first() !== null) $device->last_reception_created_at = $device->data_receptions()->latest()->first()->created_at;
+        }
+
+        return $devices;
     }
 
 

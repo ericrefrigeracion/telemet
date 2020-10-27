@@ -27,23 +27,11 @@
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('notification_email', 'Enviar Notificaciones A:') }}
-                                    {{ Form::select('notification_email', [
-                                        $device->user->email => $device->user->email,
-                                        $device->user->notification_email_1 => $device->user->notification_email_1,
-                                        $device->user->notification_email_2 => $device->user->notification_email_2,
-                                        $device->user->notification_email_3 => $device->user->notification_email_3,
-                                        'No quiero recibir notificaciones' => 'No quiero recibir notificaciones',
-                                    ], null, ['class' => 'form-control']) }}
+                                    {{ Form::select('notification_email', $emails, null, ['class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('notification_phone_number', 'Llamar A:') }}
-                                    {{ Form::select('notification_phone_number', [
-                                        $device->user->phone_area_code . ' - ' . $device->user->phone_number => $device->user->phone_area_code . ' - ' . $device->user->phone_number,
-                                        $device->user->notification_phone_number_1 => $device->user->notification_phone_number_1,
-                                        $device->user->notification_phone_number_2 => $device->user->notification_phone_number_2,
-                                        $device->user->notification_phone_number_3 => $device->user->notification_phone_number_3,
-                                        'No llamar a Nadie' => 'No llamar a Nadie',
-                                    ], null, ['class' => 'form-control']) }}
+                                    {{ Form::select('notification_phone_number', $phones, null, ['class' => 'form-control']) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('protection_id', 'Protegido:') }}

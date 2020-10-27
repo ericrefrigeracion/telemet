@@ -25,6 +25,7 @@
                     <i v-if="tiny.admin_mon" v-bind:class="tiny.protection.icon.scripts" v-bind:title="tiny.protection.description"></i>
                     <a v-bind:href="tiny.data_receptions_route" class="text-primary m-2" title="Evolucion de Temperaturas"><i class="fas fa-chart-line"></i></a>
                     <a v-bind:href="tiny.configuration_route" class="text-primary m-2" title="Configuracion Del Dispositivo"><i class="fas fa-cogs"></i></a>
+                    <a v-bind:href="tiny.logs_route" class="text-primary m-2" title="Bitacora Del Dispositivo"><i class="fas fa-clipboard-list"></i></a>
                     <a v-bind:href="tiny.alerts_route" class="text-danger m-2" title="Nuevas Alertas">{{ tiny.alerts_count }} <i class="fas fa-bell"></i></a>
                 </div>
             </div>

@@ -27,7 +27,7 @@ class ProtectionController extends Controller
      */
     public function create()
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'protection')->pluck('name', 'id')->all();
         return view('protections.create', compact('icons'));
     }
 
@@ -70,7 +70,7 @@ class ProtectionController extends Controller
      */
     public function edit(Protection $protection)
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'protection')->pluck('name', 'id')->all();
         return view('protections.edit', compact('icons', 'protection'));
     }
 

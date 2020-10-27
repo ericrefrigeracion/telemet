@@ -17926,6 +17926,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -17959,7 +17960,11 @@ var audio = new Audio('../../audio/Nextel.mp3');
       });
     },
     forHumans: function forHumans(d) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(d).fromNow();
+      if (d != null) {
+        return moment__WEBPACK_IMPORTED_MODULE_2___default()(d).fromNow();
+      } else {
+        return 'sin datos';
+      }
     },
     alertSound: function alertSound() {
       audio.play();
@@ -18012,7 +18017,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
-    this.getReceptions(); //setInterval(this.getData, 15000);
+    this.getReceptions();
+    setInterval(this.getData, 15000);
   },
   mounted: function mounted() {
     var ctx = document.getElementById(this.view.order).getContext('2d');
@@ -18097,6 +18103,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -74884,9 +74891,17 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("td", [
-                _c("a", { attrs: { href: device.route } }, [
+                _c("a", { attrs: { href: device.device_route } }, [
                   _vm._v(_vm._s(device.id))
                 ])
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c("i", {
+                  staticClass: "m-2",
+                  class: device.type_device_icon,
+                  attrs: { title: device.type_device_title }
+                })
               ]),
               _vm._v(" "),
               device.on_line
@@ -74919,15 +74934,9 @@ var render = function() {
               _vm._v(" "),
               _c("td", [
                 _c("i", {
-                  class: device.class_1,
-                  attrs: { title: device.title_1 }
-                })
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("i", {
-                  class: device.class_2,
-                  attrs: { title: device.title_2 }
+                  staticClass: "m-2",
+                  class: device.status_icon,
+                  attrs: { title: device.status_title }
                 })
               ]),
               _vm._v(" "),
@@ -74935,9 +74944,9 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass: "text-primary m-2",
+                    staticClass: "text-primary",
                     attrs: {
-                      href: device.configuration_route,
+                      href: device.configurations_route,
                       title: "Configuracion Del Dispositivo"
                     }
                   },
@@ -74949,9 +74958,9 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass: "text-primary m-2",
+                    staticClass: "text-primary",
                     attrs: {
-                      href: device.receptions_route,
+                      href: device.data_receptions_route,
                       title: "Evolucion de las Temperaturas"
                     }
                   },
@@ -74963,7 +74972,7 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass: "text-primary m-2",
+                    staticClass: "text-primary",
                     attrs: {
                       href: device.logs_route,
                       title: "Logs Dispositivo"
@@ -74980,7 +74989,7 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass: "text-primary m-2",
+                    staticClass: "text-primary",
                     attrs: {
                       href: device.alerts_route,
                       title: "Nuevas Alertas"
@@ -75016,7 +75025,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Dispositivo")]),
         _vm._v(" "),
-        _c("th", { attrs: { colspan: "4" } }, [_vm._v("Estado")]),
+        _c("th", [_vm._v("Modelo")]),
+        _vm._v(" "),
+        _c("th", { attrs: { colspan: "3" } }, [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", { attrs: { colspan: "4" } }, [_vm._v("Acciones")]),
         _vm._v(" "),
@@ -75147,6 +75158,18 @@ var render = function() {
               }
             },
             [_c("i", { staticClass: "fas fa-cogs" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.tiny.logs_route,
+                title: "Bitacora Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-clipboard-list" })]
           ),
           _vm._v(" "),
           _c(

@@ -16,7 +16,6 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->unique();
 
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('type_device_id')->nullable();
             $table->unsignedBigInteger('protection_id')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
@@ -39,7 +38,6 @@ class CreateDevicesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('type_device_id')->references('id')->on('type_devices')->onDelete('set null');
             $table->foreign('protection_id')->references('id')->on('protections')->onDelete('set null');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null');

@@ -12,12 +12,15 @@ class IconsTableSeeder extends Seeder
      */
     public function run()
     {
+        //Device
         Icon::create([
             'name' => 'Termometro',
             'description' => 'Termometro medio',
             'scripts' => 'fas fa-thermometer-half',
-            'type' => 'all'
+            'type' => 'device'
         ]);
+
+        //Display
         Icon::create([
             'name' => 'Engranaje',
             'description' => 'Configuracion',
@@ -36,6 +39,8 @@ class IconsTableSeeder extends Seeder
             'scripts' => 'fas fa-bell',
             'type' => 'display'
         ]);
+
+        //Protection
         Icon::create([
             'name' => 'Ojo',
             'description' => 'Protegido',
@@ -72,23 +77,96 @@ class IconsTableSeeder extends Seeder
             'scripts' => 'fas fa-exclamation-circle text-danger m-2',
             'type' => 'protection'
         ]);
+
+        //Status
         Icon::create([
             'name' => 'Normal',
             'description' => 'Tilde',
-            'scripts' => 'far fa-check-square',
+            'scripts' => 'far fa-check-square text-success',
             'type' => 'status'
         ]);
         Icon::create([
             'name' => 'Precaucion',
             'description' => 'Signo de exclamacion',
-            'scripts' => 'fas fa-exclamation',
+            'scripts' => 'fas fa-exclamation text-warning',
             'type' => 'status'
         ]);
         Icon::create([
             'name' => 'Critico',
             'description' => 'Signo de exclamacion',
-            'scripts' => 'fas fa-exclamation-circle',
+            'scripts' => 'fas fa-exclamation-circle text-danger',
             'type' => 'status'
         ]);
+
+        //Type-Device
+        Icon::create([
+            'name' => 'Admin',
+            'description' => 'Usuario engranaje',
+            'scripts' => 'fas fa-user-cog',
+            'type' => 'type-device'
+        ]);
+        Icon::create([
+            'name' => 'Tiny',
+            'description' => 'Avion de papel',
+            'scripts' => 'far fa-paper-plane',
+            'type' => 'type-device'
+        ]);
+        Icon::create([
+            'name' => 'Dairy',
+            'description' => 'Mano y gota',
+            'scripts' => 'fas fa-hand-holding-water',
+            'type' => 'type-device'
+        ]);
+
+        //Topics
+        Icon::create([
+            'name' => 'Temperatura',
+            'description' => 'Termometro medio',
+            'scripts' => 'fas fa-thermometer-half',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Termometro min',
+            'description' => 'Termometro bajo',
+            'scripts' => 'fas fa-temperature-low',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Termometro max',
+            'description' => 'Termometro alto',
+            'scripts' => 'fas fa-temperature-high',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Señal',
+            'description' => 'Nivel de señal lleno',
+            'scripts' => 'fas fa-signal',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Bateria',
+            'description' => 'Bateria 3/4',
+            'scripts' => 'fas fa-battery-three-quarters',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Performance',
+            'description' => 'Onda cuadrada',
+            'scripts' => 'fas fa-wave-square',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Calibracion',
+            'description' => 'Doble flecha vertical',
+            'scripts' => 'fas fa-arrows-alt-v',
+            'type' => 'topic'
+        ]);
+        Icon::create([
+            'name' => 'Consumo',
+            'description' => 'Enchufe',
+            'scripts' => 'fas fa-plug',
+            'type' => 'topic'
+        ]);
+
     }
 }

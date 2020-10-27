@@ -37,7 +37,7 @@ class DeviceLogController extends Controller
         $user = Auth::user();
         $device = Device::findOrFail($request->device_id);
 
-        if ($user->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', $user->id) || Auth::user()->id < 3)
         {
             $rules = [
                 'content' => 'required|string'
@@ -68,7 +68,7 @@ class DeviceLogController extends Controller
     public function show(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3) {
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3) {
 
             $device_logs = $device->device_logs()->get();
 
@@ -87,10 +87,9 @@ class DeviceLogController extends Controller
      */
     public function destroy(DeviceLog $device_log)
     {
-        $user = Auth::user();
         $device = $device_log->device();
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $device_log->delete();
             return redirect()->route('devices.index')->with('success', ['Informacion de dispositivo eliminada con exito']);

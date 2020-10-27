@@ -21,7 +21,7 @@ class PricesTableSeeder extends Seeder
             'excluded' => '',
         ]);
         Price::create([
-        	'price' => 7,
+        	'price' => 10,
             'type_device_id' => 2,
         	'description' => 'Monitoreo 30 dias',
         	'days' => 30,
@@ -29,7 +29,7 @@ class PricesTableSeeder extends Seeder
             'excluded' => '',
         ]);
         Price::create([
-        	'price' => 15,
+        	'price' => 22,
             'type_device_id' => 2,
         	'description' => 'Monitoreo 90 dias',
         	'days' => 90,
@@ -37,7 +37,7 @@ class PricesTableSeeder extends Seeder
             'excluded' => '',
         ]);
         Price::create([
-        	'price' => 45,
+        	'price' => 66,
             'type_device_id' => 2,
         	'description' => 'Monitoreo 360 dias',
         	'days' => 360,
@@ -45,7 +45,7 @@ class PricesTableSeeder extends Seeder
             'excluded' => '',
         ]);
         Price::create([
-            'price' => 22,
+            'price' => 33,
             'type_device_id' => 3,
             'description' => 'Monitoreo 30 dias',
             'days' => 30,
@@ -53,15 +53,15 @@ class PricesTableSeeder extends Seeder
             'excluded' => '',
         ]);
         Price::create([
-            'price' => 50,
+            'price' => 56,
             'type_device_id' => 3,
             'description' => 'Monitoreo 60 dias',
-            'days' => 90,
+            'days' => 60,
             'installments' => 1,
             'excluded' => '',
         ]);
         Price::create([
-            'price' => 150,
+            'price' => 225,
             'type_device_id' => 3,
             'description' => 'Monitoreo 360 dias',
             'days' => 360,

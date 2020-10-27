@@ -16,7 +16,7 @@
         },
         created: function(){
             this.getReceptions();
-            //setInterval(this.getData, 15000);
+            setInterval(this.getData, 15000);
         },
         mounted() {
             var ctx = document.getElementById(this.view.order).getContext('2d');

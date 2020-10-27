@@ -8,11 +8,12 @@ use App\User;
 use App\Icon;
 use App\Alert;
 use App\Status;
+use App\MqttLog;
 use App\DeviceLog;
 use App\Protection;
 use App\Receptions;
 use App\TypeDevice;
-use App\MqttLog;
+use App\DataReception;
 use App\AllowedSchedule;
 use App\DeviceConfiguration;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +29,7 @@ class Device extends Model
      */
     protected $fillable = [
         'id',
-        'user_id',
+        'icon_id',
         'type_device_id',
         'protection_id',
         'status_id',
@@ -42,7 +43,6 @@ class Device extends Model
         'monitor_expires_at',
         'view_alerts_at',
         'notification_email',
-        'notification_phone_area_code',
         'notification_phone_number',
     ];
 
@@ -55,9 +55,9 @@ class Device extends Model
      */
     protected $hidden = [];
 
-    public function user()
+    public function users()
     {
-    	return $this->belongsTo(User::class);
+    	return $this->belongsToMany(User::class);
     }
 
     public function type_device()
@@ -78,6 +78,11 @@ class Device extends Model
     public function icon()
     {
         return $this->belongsTo(Icon::class);
+    }
+
+    public function data_receptions()
+    {
+        return $this->hasMany(DataReception::class);
     }
 
     public function alerts()

@@ -36,17 +36,6 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('/mail-alerts', 'MailAlertController@index')->name('mail-alerts.index')->middleware('can:mail-alerts.index');
 		Route::get('/mail-alerts/{mail_alert}', 'MailAlertController@show')->name('mail-alerts.show')->middleware('can:mail-alerts.show');
 
-		//Users
-		Route::prefix('users')->name('users.')->group(function () {
-			Route::get('/', 'UserController@index')->name('index')->middleware('can:users.index');
-			Route::post('/', 'UserController@store')->name('store')->middleware('can:users.create');
-			Route::get('create', 'UserController@create')->name('create')->middleware('can:users.create');
-			Route::delete('{user}', 'UserController@destroy')->name('destroy')->middleware('can:users.destroy');
-			Route::put('{user}', 'UserController@update')->name('update')->middleware('can:users.edit');
-			Route::get('{user}', 'UserController@show')->name('show')->middleware('can:users.show');
-			Route::get('{user}/edit', 'UserController@edit')->name('edit')->middleware('can:users.edit');
-		});
-
 		//Roles
 		Route::prefix('roles')->name('roles.')->group(function () {
 			Route::get('/', 'RoleController@index')->name('index')->middleware('can:roles.index');
@@ -209,6 +198,7 @@ Route::middleware(['verified'])->group(function () {
 		Route::get('rules/all', 'User\RuleController@all')->name('rules.all')->middleware('can:rules.all');
 		Route::get('alerts/all', 'User\AlertController@all')->name('alerts.all')->middleware('can:alerts.all');
 		Route::get('pays/all', 'User\PayController@all')->name('pays.all')->middleware('can:pays.all');
+		Route::get('users/all', 'User\UserController@all')->name('users.all')->middleware('can:users.all');
 	});
 
 
@@ -248,6 +238,17 @@ Route::middleware(['verified'])->group(function () {
 			Route::get('{device}', 'DataReceptionController@show')->name('show')->middleware('can:data-receptions.show');
 		});
 
+		//Users
+		Route::prefix('users')->name('users.')->group(function () {
+			Route::get('/', 'UserController@index')->name('index')->middleware('can:users.index');
+			Route::post('/', 'UserController@store')->name('store')->middleware('can:users.create');
+			Route::get('create', 'UserController@create')->name('create')->middleware('can:users.create');
+			Route::delete('{user}', 'UserController@destroy')->name('destroy')->middleware('can:users.destroy');
+			Route::put('{user}', 'UserController@update')->name('update')->middleware('can:users.edit');
+			Route::get('{user}', 'UserController@show')->name('show')->middleware('can:users.show');
+			Route::get('{user}/edit', 'UserController@edit')->name('edit')->middleware('can:users.edit');
+		});
+
 		//Rules
 		Route::prefix('rules')->name('rules.')->group(function () {
 			Route::get('/', 'RuleController@index')->name('index')->middleware('can:rules.index');
@@ -281,9 +282,9 @@ Route::middleware(['verified'])->group(function () {
 		//profile
 		Route::prefix('profile')->name('profile.')->group(function () {
 			Route::get('/', 'ProfileController@show')->name('show')->middleware('can:profile.show');
-			Route::get('update', 'ProfileController@edit')->name('edit')->middleware('can:profile.edit');
+			Route::get('edit', 'ProfileController@edit')->name('edit')->middleware('can:profile.edit');
 			Route::put('update', 'ProfileController@update')->name('update')->middleware('can:profile.edit');
-			Route::put('update', 'ProfileController@destroy')->name('destroy')->middleware('can:profile.destroy');
+			Route::delete('/', 'ProfileController@destroy')->name('destroy')->middleware('can:profile.destroy');
 		});
 	});
 });

@@ -41,7 +41,7 @@ class RuleController extends Controller
             $device->rules = $device->rules()->get();
         }
 
-        return view('rules.index')->with(['devices' => $devices]);
+        return view('rules.index', compact('devices'));
     }
 
     /**
@@ -52,10 +52,10 @@ class RuleController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
+
         $device = Device::findOrFail($request->device_id);
 
-        if ($user->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $rules = [
                 'day' => 'required',
@@ -85,11 +85,11 @@ class RuleController extends Controller
     public function show(Rule $rule)
     {
         $user = Auth::user();
-        $user_device = Device::findOrFail($rule->device_id)->user_id;
+        $device = Device::findOrFail($rule->device_id);
 
-        if ($user->id === $user_device || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
-            return view('rules.show')->with(['rule' => $rule]);
+            return view('rules.show', compact('rule'));
         }
         else
         {
@@ -106,10 +106,9 @@ class RuleController extends Controller
     public function edit(Rule $rule)
     {
 
-        $user = Auth::user();
         $device = Device::findOrFail($rule->device_id);
 
-        if ($user->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             return view('rules.edit', compact('rule'));
         }
@@ -128,10 +127,9 @@ class RuleController extends Controller
      */
     public function update(Request $request, Rule $rule)
     {
-        $user = Auth::user();
         $device = Device::findOrFail($rule->device_id);
 
-        if ($user->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $rules = [
                 'day' => 'required',
@@ -163,10 +161,9 @@ class RuleController extends Controller
      */
     public function destroy(Rule $rule)
     {
-        $user = Auth::user();
         $device = Device::findOrFail($rule->device_id);
 
-        if ($user->id === $device->id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $rule->delete();
             alertCreate($device, "Se elimino una regla para $rule->day.", now());

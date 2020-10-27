@@ -8,6 +8,7 @@ use App\Alert;
 use App\Icon;
 use App\Price;
 use App\Device;
+use App\DeviceUser;
 use App\Protection;
 use App\TypeDevice;
 use App\DeviceConfiguration;
@@ -39,7 +40,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->get();
+        $devices = Auth::user()->devices;
         return view('devices.index', compact('devices'));
     }
 
@@ -67,9 +68,9 @@ class DeviceController extends Controller
 
         Device::create([
             'id' => $request->id,
-            'user_id' => $user->id,
             'type_device_id' => $type_device->id,
             'protection_id' => 1,
+            'icon_id' => 1,
             'status_id' => 1,
             'name' => $request->name,
             'description' => $request->description,
@@ -94,6 +95,8 @@ class DeviceController extends Controller
 
         }
 
+        $user->devices()->attach($request->id);
+
         alertCreate($request, Auth::user()->name . ' agrego dispositivo con exito.', now());
 
         return redirect()->route('devices.show', $request->id)->with('success', ['Dispositivo creado con exito']);
@@ -108,7 +111,7 @@ class DeviceController extends Controller
     public function show(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
 
             return view('devices.show')->with(['device' => $device]);
@@ -127,11 +130,13 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $protections = Protection::pluck('description', 'id')->all();
-            $icons = Icon::pluck('name', 'id')->all();
-            return view('devices.edit', compact('icons', 'device', 'protections'));
+            $icons = Icon::where('type', 'device')->pluck('name', 'id')->all();
+            $emails = $device->users->pluck('name', 'email')->all();
+            $phones = $device->users->pluck('name', 'phone_number')->all();
+            return view('devices.edit', compact('icons', 'device', 'protections', 'phones', 'emails'));
         }
         else
         {
@@ -149,7 +154,7 @@ class DeviceController extends Controller
     public function update(Request $request, Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $rules = [
                 'protection_id' => 'required|exists:protections,id',
@@ -195,7 +200,7 @@ class DeviceController extends Controller
     public function destroy(Device $device)
     {
 
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $device->delete();
             return redirect()->route('devices.index')->with('success', ['Dispositivo eliminado con exito']);
@@ -208,7 +213,7 @@ class DeviceController extends Controller
 
     public function configuration(Device $device)
     {
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
 
             return view('devices.configuration', compact('device'));

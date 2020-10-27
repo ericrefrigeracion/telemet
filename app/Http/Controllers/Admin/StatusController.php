@@ -28,7 +28,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'status')->pluck('name', 'id')->all();
         return view('statuses.create', compact('icons'));
     }
 
@@ -74,7 +74,7 @@ class StatusController extends Controller
      */
     public function edit(Status $status)
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'status')->pluck('name', 'id')->all();
         return view('statuses.edit', compact('status', 'icons'));
     }
 

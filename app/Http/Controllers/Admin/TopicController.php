@@ -28,7 +28,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'topic')->pluck('name', 'id')->all();
         return view('topics.create', compact('icons'));
     }
 
@@ -77,7 +77,7 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'topic')->pluck('name', 'id')->all();
         return view('topics.edit', compact('topic', 'icons'));
     }
 

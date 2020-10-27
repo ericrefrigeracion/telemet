@@ -35,7 +35,7 @@ class PayController extends Controller
      */
     public function show(Pay $pay)
     {
-        if (Auth::user()->id === $pay->user_id || Auth::user()->id < 3)
+        if ($pay->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             return view('pays.show')->with(['pay' => $pay]);
         }
@@ -55,7 +55,7 @@ class PayController extends Controller
         $user = Auth::user();
         $user_device = $device->user_id;
 
-        if ($user->id === $user_device || Auth::user()->id < 3)
+        if ($device->users->where('id', $user->id) || Auth::user()->id < 3)
         {
             $prices = Price::where('type_device_id', $device->type_device_id)->orderBy('days', 'asc')->get();
             $multiplicator = Price::where('description', 'Multiplicador')->first();
@@ -85,7 +85,7 @@ class PayController extends Controller
         $user = Auth::user();
         $user_device = $device->user_id;
 
-        if ($user->id === $user_device || Auth::user()->id < 3)
+        if ($device->users->where('id', $user->id) || Auth::user()->id < 3)
         {
             $days = $price->days;
             $multiplicator = Price::where('description', 'Multiplicador')->first();

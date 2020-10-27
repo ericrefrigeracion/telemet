@@ -32,7 +32,7 @@ class RoleController extends Controller
     public function create()
     {
 
-        $permissions = Permission::where('id', '>', 0)->orderBy('slug', 'asc')->get();
+        $permissions = Permission::all()->orderBy('slug', 'asc')->get();
 
         return view('roles.create', compact('permissions'));
     }
@@ -100,7 +100,7 @@ class RoleController extends Controller
 
             $role->permissions()->sync($request->get('permissions'));
 
-            return redirect()->route('roles.show', $role->id)->with('success', ['Usuario actualizado con exito']);
+            return redirect()->route('roles.show', $role->id)->with('success', ['Rol actualizado con exito']);
     }
 
     /**

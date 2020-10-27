@@ -21,7 +21,7 @@ class DataReceptionController extends Controller
      */
     public function show(Device $device)
     {
-        if (Auth::user()->id === $device->user_id || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
 
             $view_configurations = ViewConfiguration::where('type_device_id', $device->type_device_id)->orderBy('order')->get();

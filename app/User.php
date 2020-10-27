@@ -22,7 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'phone_area_code', 'phone_number', 'address', 'dni','notification_email_1', 'notification_email_2', 'notification_email_3', 'notification_phone_number_1', 'notification_phone_number_2', 'notification_phone_number_3',
+        'name', 'surname', 'email', 'password', 'phone_area_code', 'phone_number', 'address', 'dni'
     ];
 
      protected $dates = [];
@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function devices()
     {
-        return $this->hasMany(Device::class);
+        return $this->belongsToMany(Device::class);
     }
 
     public function pays()

@@ -25,6 +25,14 @@
                                     <td>{{ $user->dni }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Rol asignado:</td>
+                                    <td>
+                                        @foreach($user->roles as $role)
+                                            {{ $role->name }};
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>E-Mail:</td>
                                     <td>{{ $user->email }}</td>
                                 </tr>
@@ -45,36 +53,8 @@
                                     <td>{{ $user->created_at }}</td>
                                 </tr>
                                 <tr>
-                                    <td>Verificado</td>
-                                    <td>{{ $user->email_verified_at }}</td>
-                                </tr>
-                                <tr>
                                     <td>Modificado</td>
                                     <td>{{ $user->updated_at }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Numero de Telefono para Avisos 1:</td>
-                                    <td>{{ $user->notification_phone_number_1 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Numero de Telefono para Avisos 2:</td>
-                                    <td>{{ $user->notification_phone_number_2 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Numero de Telefono para Avisos 3:</td>
-                                    <td>{{ $user->notification_phone_number_3 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>E-Mail para Avisos 1:</td>
-                                    <td>{{ $user->notification_email_1 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>E-Mail para Avisos 2:</td>
-                                    <td>{{ $user->notification_email_2 }}</td>
-                                </tr>
-                                <tr>
-                                    <td>E-Mail para Avisos 3:</td>
-                                    <td>{{ $user->notification_email_3 }}</td>
                                 </tr>
                         </tbody>
                     </table>

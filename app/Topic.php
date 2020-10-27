@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\DataReception;
 use App\ViewConfiguration;
 use App\DeviceConfiguration;
 use App\TypeDeviceConfiguration;

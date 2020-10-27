@@ -77,12 +77,23 @@
                         </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @can('team.menu')
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Equipo de trabajo</a>
+                                    <div class="dropdown-menu">
+                                        @can('users.index')
+                                            <a class="dropdown-item" href="{{ route('users.index') }}">Mi Equipo</a>
+                                        @endcan
+                                        <a class="dropdown-item" href="{{ route('info') }}">Informacion</a>
+                                    </div>
+                                </li>
+                            @endcan
                         @can('config.menu')
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
                                 <div class="dropdown-menu">
-                                    @can('users.index')
-                                        <a class="dropdown-item" href="{{ route('users.index') }}">Usuarios</a>
+                                    @can('users.all')
+                                        <a class="dropdown-item" href="{{ route('users.all') }}">Todos los Usuarios</a>
                                     @endcan
                                     @can('permissions.index')
                                         <a class="dropdown-item" href="{{ route('permissions.index') }}">Permisos</a>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Device;
 
 use App\Topic;
-use App\Icons;
+use App\Icon;
 use App\TypeDevice;
 use App\TopicControlType;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class TypeDeviceController extends Controller
      */
     public function create()
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'type-device')->pluck('name', 'id')->all();
         return view('type-devices.create', 'icons');
     }
 
@@ -73,7 +73,7 @@ class TypeDeviceController extends Controller
      */
     public function edit(TypeDevice $type_device)
     {
-        $icons = Icon::pluck('name', 'id')->all();
+        $icons = Icon::where('type', 'type-device')->pluck('name', 'id')->all();
         return view('type-devices.edit', compact('type_device', 'icons'));
     }
 

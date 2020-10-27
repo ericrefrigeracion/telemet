@@ -38,33 +38,18 @@
                             {{ Form::label('address', 'Direccion') }}
                             {{ Form::text('address', null, ['class' => 'form-control', 'maxlength' => '30']) }}
                         </div>
-                        <div class="form-group">
-                            {{ Form::label('notification_email_1', 'E-Mail para avisos 1') }}
-                            {{ Form::email('notification_email_1', null, ['class' => 'form-control', 'maxlength' => '30']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('notification_email_2', 'E-Mail para avisos 2') }}
-                            {{ Form::email('notification_email_2', null, ['class' => 'form-control', 'maxlength' => '30']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('notification_email_3', 'E-Mail para avisos 3') }}
-                            {{ Form::email('notification_email_3', null, ['class' => 'form-control', 'maxlength' => '30']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('notification_phone_number_1', 'Telefono para avisos 1') }}
-                            {{ Form::text('notification_phone_number_1', null, ['class' => 'form-control', 'maxlength' => '30']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('notification_phone_number_2', 'Telefono para avisos 2') }}
-                            {{ Form::text('notification_phone_number_2', null, ['class' => 'form-control', 'maxlength' => '30']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('notification_phone_number_3', 'Telefono para avisos 3') }}
-                            {{ Form::text('notification_phone_number_3', null, ['class' => 'form-control', 'maxlength' => '30']) }}
-                        </div>
-                        <div class="form-group">
-                            {{ Form::label('role_id', 'Rol a aplicar') }}
-                            {{ Form::select('role_id', $roles, null, ['class' => 'form-control']) }}
+                        <hr>
+                        <h3>Lista de Permisos a Aplicar</h3>
+                        <div class="list-unstyled">
+                            @foreach($permissions as $permission)
+                            <li>
+                                <label>
+                                    {{ Form::checkbox('permissions[]', $permission->id, null) }}
+                                    {{ $permission->name}}
+                                    <em>({{ $permission->description ?: "Sin Descripcion" }})</em>
+                                </label>
+                            </li>
+                            @endforeach
                         </div>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}

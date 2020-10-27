@@ -36,11 +36,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $devices = Auth::user()->devices()->get();
+        $devices = Auth::user()->devices;
 
         foreach ($devices as $device)
         {
             $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
+            $device->user = Auth::user();
         }
 
         return view('home.index')->with(['devices' => $devices]);
@@ -58,6 +59,7 @@ class HomeController extends Controller
         foreach ($devices as $device)
         {
             $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
+            $device->user = $device->users()->first();
         }
 
         return view('home.all')->with(['devices' => $devices]);

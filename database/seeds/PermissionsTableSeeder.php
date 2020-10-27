@@ -14,24 +14,24 @@ class PermissionsTableSeeder extends Seeder
     {
         //Profile
         Permission::create([
-            'name' => 'Ver sus datos',
+            'name' => 'Ver su perfil',
             'slug' => 'profile.show',
-            'description' => 'Ver sus datos personales de usuario',
+            'description' => 'Ver los datos de su perfil',
         ]);
         Permission::create([
-            'name' => 'Editar sus datos',
+            'name' => 'Editar su perfil',
             'slug' => 'profile.edit',
-            'description' => 'Editar sus datos personales de usuario',
+            'description' => 'Editar los datos de su perfil',
         ]);
         Permission::create([
-            'name' => 'Eliminar usuario',
+            'name' => 'Eliminar perfil',
             'slug' => 'profile.destroy',
-            'description' => 'Elimina un usuario y toda su informacion',
+            'description' => 'Elimina su perfil',
         ]);
 
     	//Devices
         Permission::create([
-        	'name' => 'Listar dispositivos de un usuario',
+        	'name' => 'Listar dispositivos',
         	'slug' => 'devices.index',
         	'description' => 'Listar y navegar todos sus dispositivos',
         ]);
@@ -63,9 +63,9 @@ class PermissionsTableSeeder extends Seeder
 
         //Alerts
         Permission::create([
-            'name' => 'Listar alertas de un usuario',
+            'name' => 'Listar alertas',
             'slug' => 'alerts.index',
-            'description' => 'Ver todas las alertas de un usuario',
+            'description' => 'Ver todas las alertas de todos sus dispositivos',
         ]);
         Permission::create([
             'name' => 'Listar alertas de un dispositivo',
@@ -75,7 +75,7 @@ class PermissionsTableSeeder extends Seeder
 
         //Receptions
         Permission::create([
-        	'name' => 'Ver datos del dispositivo',
+        	'name' => 'Ver graficos del dispositivo',
         	'slug' => 'data-receptions.show',
         	'description' => 'Ver el grafico de datos de un dispositivo',
         ]);
@@ -84,15 +84,15 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name' => 'Listar bitacoras',
             'slug' => 'device-logs.index',
-            'description' => 'Listar y navegar todas las bitacoras',
+            'description' => 'Listar y navegar todas las bitacoras de sus dispositivos',
         ]);
         Permission::create([
             'name' => 'Ver bitacora',
             'slug' => 'device-logs.show',
-            'description' => 'Ver informacion de una bitacora especifica',
+            'description' => 'Ver informacion de bitacora de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Crear item',
+            'name' => 'Crear item en bitacora',
             'slug' => 'device-logs.create',
             'description' => 'Crear una nuevo item de la bitacora de un dispositivo',
         ]);
@@ -109,14 +109,14 @@ class PermissionsTableSeeder extends Seeder
 
         //Pays
         Permission::create([
-            'name' => 'Ver sus pagos',
+            'name' => 'Ver pagos',
             'slug' => 'pays.index',
-            'description' => 'Ver los pagos de un usuario',
+            'description' => 'Ver los pagos de sus dispositivos',
         ]);
         Permission::create([
             'name' => 'Ver un pago',
             'slug' => 'pays.show',
-            'description' => 'Ver un pago especifico de un usuario',
+            'description' => 'Ver un pago especifico',
         ]);
         Permission::create([
             'name' => 'Pagar',
@@ -128,7 +128,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create([
             'name' => 'Listar reglas',
             'slug' => 'rules.index',
-            'description' => 'Listar y navegar todas las reglas',
+            'description' => 'Listar y navegar todas las reglas de sus dispositivos',
         ]);
         Permission::create([
             'name' => 'Ver regla',
@@ -158,9 +158,41 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Vista de graficos de un usuario basico',
         ]);
         Permission::create([
+            'name' => 'Vista grafico medio',
+            'slug' => 'view.med',
+            'description' => 'Vista de usuario medio',
+        ]);
+        Permission::create([
             'name' => 'Vista grafico admin',
             'slug' => 'view.admin',
             'description' => 'Vista de usuario administrador',
+        ]);
+
+        //Users
+        Permission::create([
+            'name' => 'Listar equipo',
+            'slug' => 'users.index',
+            'description' => 'Listar y navegar todos los miembros de un equipo',
+        ]);
+        Permission::create([
+            'name' => 'Ver usuario',
+            'slug' => 'users.show',
+            'description' => 'Ver informacion de un usuario especifico',
+        ]);
+        Permission::create([
+            'name' => 'Crear usuario',
+            'slug' => 'users.create',
+            'description' => 'Crear un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar usuario',
+            'slug' => 'users.destroy',
+            'description' => 'Eliminar el perfil de un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Editar usuario',
+            'slug' => 'users.edit',
+            'description' => 'Editar la informacion de un usuario y asignarle permisos',
         ]);
 
         //Acceso A Menues
@@ -183,6 +215,11 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Panel Principal',
             'slug' => 'principal.menu',
             'description' => 'Acceso al panel principal',
+        ]);
+        Permission::create([
+            'name' => 'Menu Equipo',
+            'slug' => 'team.menu',
+            'description' => 'Acceso al menu de equipo de trabajo',
         ]);
         Permission::create([
             'name' => 'Menu Configuracion',
@@ -215,6 +252,11 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Todos los dispositivos de todos los usuarios',
             'slug' => 'devices.all',
             'description' => 'Listar y navegar todos los dispositivos existentes',
+        ]);
+        Permission::create([
+            'name' => 'Todos los usuarios',
+            'slug' => 'users.all',
+            'description' => 'Ver todos losusuariosdel sistema.',
         ]);
 
         //Webhooks
@@ -293,33 +335,6 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Editar rol',
             'slug' => 'roles.edit',
             'description' => 'Editar la informacion de un rol',
-        ]);
-
-        //Users
-        Permission::create([
-            'name' => 'Listar usuarios',
-            'slug' => 'users.index',
-            'description' => 'Listar y navegar todos los usuarios',
-        ]);
-        Permission::create([
-            'name' => 'Ver usuario',
-            'slug' => 'users.show',
-            'description' => 'Ver informacion de un usuario especifico',
-        ]);
-        Permission::create([
-            'name' => 'Crear usuario',
-            'slug' => 'users.create',
-            'description' => 'Crear un usuario y asignarle un rol',
-        ]);
-        Permission::create([
-            'name' => 'Eliminar usuario',
-            'slug' => 'users.destroy',
-            'description' => 'Eliminar el perfil de un usuario',
-        ]);
-        Permission::create([
-            'name' => 'Editar usuario',
-            'slug' => 'users.edit',
-            'description' => 'Editar la informacion de un usuario',
         ]);
 
         //Permissions

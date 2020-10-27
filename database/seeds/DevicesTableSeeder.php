@@ -14,7 +14,6 @@ class DevicesTableSeeder extends Seeder
     {
         Device::create([
             'id' => 123456,
-            'user_id' => 1,
             'type_device_id' => 2,
             'protection_id' => 1,
             'status_id' => 1,
@@ -27,5 +26,8 @@ class DevicesTableSeeder extends Seeder
             'monitor_expires_at' => now()->addDays(60),
             'view_alerts_at' => now(),
         ]);
+
+        DB::insert('insert into device_user (device_id, user_id) values (?, ?)', [123456, 1]);
+
     }
 }
