@@ -11,7 +11,7 @@
 			     		</div>
 			     	@endif
 			     	@if($device->type_device->model == 'Dairy')
-			     		<div class="card text-center">
+			     		<div>
 			        		<dairy-device-card v-bind:device="{{ $device->id }}"></dairy-device-card>
 			        	</div>
 			        @endif

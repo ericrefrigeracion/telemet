@@ -22,9 +22,9 @@ class UserController extends Controller
     public function all()
     {
 
-        $users = User::paginate(20);
+        $users = User::all();
 
-        return view('users.index', compact('users'));
+        return view('users.all', compact('users'));
 
     }
 
@@ -36,9 +36,13 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = Team::where('admin_id', Auth::user()->id)->paginate(10);
+        $team = Team::where('admin_id', Auth::user()->id)->get();
 
-        return view('users.index', compact('users'));
+        foreach ($team as $user) {
+            $user->user = User::find($user->user_id);
+        }
+
+        return view('users.index', compact('team'));
 
     }
 
@@ -75,7 +79,7 @@ class UserController extends Controller
     {
             $rules = [
                 'email' => 'email|unique:users,email',
-                'password'=> 'required|min:4',
+                'password'=> 'required|min:8',
                 'name' => 'required|max:25',
                 'surname' => 'required|max:25',
                 'dni' => 'nullable|numeric',
@@ -86,10 +90,21 @@ class UserController extends Controller
 
             $request->validate($rules);
 
-            $request->password = Hash::make($request->password);
-
-            $user = User::create($request->all());
-            $user->roles()->attach(3);
+            $user = User::create([
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'dni' => $request->dni,
+                'phone_area_code' => $request->phone_area_code,
+                'phone_number' => $request->phone_number,
+                'address' => $request->address
+            ]);
+            Team::create([
+                'admin_id' => Auth::user()->id,
+                'user_id' => $user->id
+            ]);
+            $user->roles()->attach(1);
 
             return redirect()->route('users.show', $user->id)->with('success', ['Usuario creado con exito']);
     }
@@ -102,8 +117,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $permissions = Permission::where('id', '<', 30)->orderBy('slug', 'asc')->get();
-        return view('users.edit', compact('user', 'permissions'));
+        $permissions = Permission::where('id', '<=', 30)->orderBy('slug', 'asc')->get();
+        $devices = Auth::user()->devices;
+        return view('users.edit', compact('user', 'permissions', 'devices'));
     }
 
     /**
@@ -131,7 +147,8 @@ class UserController extends Controller
             if($request->has('email') && $request->email != $user->email) $user->email_verified_at = null;
 
             $user->update($request->all());
-            $role->permissions()->sync($request->get('permissions'));
+            $user->permissions()->sync($request->get('permissions'));
+            $user->devices()->sync($request->get('devices'));
 
             return redirect()->route('users.show', $user->id)->with('success', ['Usuario actualizado con exito']);
     }

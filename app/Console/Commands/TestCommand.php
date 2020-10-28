@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Jobs\DevicesTopicControlsJob;
 
 class TestCommand extends Command
 {
@@ -31,6 +32,6 @@ class TestCommand extends Command
      */
     public function handle()
     {
-
+        DevicesTopicControlsJob::dispatch();
     }
 }

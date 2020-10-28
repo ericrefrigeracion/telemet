@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Rule;
 use App\Alert;
 use App\Device;
-use App\Reception;
 use App\MailAlert;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -13,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class DevicesVerificationsJob implements ShouldQueue
+class DevicesProtectionsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,41 +36,11 @@ class DevicesVerificationsJob implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 4)->get();
-        if($devices->isNotEmpty()) $this->disconnectVerification($devices);
 
-        $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 1)->where('protection_id', '!=', 4)->get();
+        $devices = Device::where('admin_mon', true)->where('protection_id', [2, 3])->get();
         if($devices->isNotEmpty()) $this->protectedVerification($devices);
     }
 
-    public function disconnectVerification($devices)
-    {
-        $delay = now()->subMinutes(10);
-
-        foreach($devices as $device)
-        {
-            if($last_reception = $device->receptions()->latest()->first())
-            {
-                //Si el tiempo de recepcion es menor al delay(o sea mas viejo) && el dispositivo figura en linea
-                //en la base de datos(on_line=true)
-                if ( $last_reception->created_at < $delay && $device->on_line )
-                {
-                    $device->update(['on_line'=> false]);
-                    alertCreate($device, 'Ultima conexion del dispositivo.', $last_reception->created_at);
-                    mailAlertCreate($device, 'offLine',$last_reception->created_at);
-                }
-
-                //Si el tiempo de recepcion es mayor al delay(o sea mas nuevo) && el dispocitivo figura fuera de linea
-                //en la base de datos(on_line=false)
-                if( $last_reception->created_at > $delay && !$device->on_line )
-                {
-                    $device->update(['on_line'=> true]);
-                    alertCreate($device, 'El dispositivo esta conectado.', $last_reception->created_at);
-                    mailAlertCreate($device, 'onLine',$last_reception->created_at);
-                }
-            }
-        }
-    }
 
     public function protectedVerification($devices)
     {
@@ -106,7 +75,7 @@ class DevicesVerificationsJob implements ShouldQueue
                 break;
         }
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
-        if(!$device->protected && $device_protected_flag) $this->changeDeviceToProtected($device);
+        if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
 
     }
 
@@ -146,22 +115,8 @@ class DevicesVerificationsJob implements ShouldQueue
         if(isset($every_day)) foreach ($every_day as $every) if($every->start_time < $time && $every->stop_time > $time) $device_protected_flag = false;
 
         if($device->protected && !$device_protected_flag) $device->update(['protected' => false]);
-        if(!$device->protected && $device_protected_flag) $this->changeDeviceToProtected($device);
+        if(!$device->protected && $device_protected_flag) $device->update(['protected' => true]);
     }
 
-    public function changeDeviceToProtected($device)
-    {
-        $last_reception = $device->receptions()->where('data01', '!=', null)->latest()->first();
-        $last_reception->update(['data06' => $device->tiny_t_device->pmin]);
-        $device->update(['protected' => true]);
-        $device->tiny_t_device->update([
-            'on_t_set_point' => true,
-            'on_temp' => true,
-            'on_performance' => true,
-            't_change_at' => now(),
-            't_out_at' => null,
-            'p_out_at' => null,
-        ]);
-    }
 
 }

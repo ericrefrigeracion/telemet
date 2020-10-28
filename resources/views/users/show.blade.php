@@ -56,6 +56,22 @@
                                     <td>Modificado</td>
                                     <td>{{ $user->updated_at }}</td>
                                 </tr>
+                                <tr>
+                                    <td>Permisos:</td>
+                                    <td>
+                                        @foreach($user->permissions as $permission)
+                                            {{ $permission->name }};
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dispositivos:</td>
+                                    <td>
+                                        @foreach($user->devices as $device)
+                                            {{ $device->name }};
+                                        @endforeach
+                                    </td>
+                                </tr>
                         </tbody>
                     </table>
                     @can('users.destroy')

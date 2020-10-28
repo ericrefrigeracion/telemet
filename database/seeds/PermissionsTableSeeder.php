@@ -29,38 +29,6 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Elimina su perfil',
         ]);
 
-    	//Devices
-        Permission::create([
-        	'name' => 'Listar dispositivos',
-        	'slug' => 'devices.index',
-        	'description' => 'Listar y navegar todos sus dispositivos',
-        ]);
-        Permission::create([
-        	'name' => 'Ver dispositivo',
-        	'slug' => 'devices.show',
-        	'description' => 'Ver informacion de un dispositivo especifico',
-        ]);
-        Permission::create([
-        	'name' => 'Crear dispositivo',
-        	'slug' => 'devices.create',
-        	'description' => 'Crear un nuevo dispositivo',
-        ]);
-        Permission::create([
-        	'name' => 'Eliminar dispositivo',
-        	'slug' => 'devices.destroy',
-        	'description' => 'Elimina un dispositivo y toda su informacion',
-        ]);
-        Permission::create([
-        	'name' => 'Editar dispositivo',
-        	'slug' => 'devices.edit',
-        	'description' => 'Editar la informacion de un dispositivo',
-        ]);
-        Permission::create([
-            'name' => 'Configurar dispositivo',
-            'slug' => 'devices.configuration',
-            'description' => 'Ver y editar la configuracion de un dispositivos.',
-        ]);
-
         //Alerts
         Permission::create([
             'name' => 'Listar alertas',
@@ -168,31 +136,26 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Vista de usuario administrador',
         ]);
 
-        //Users
+        //Devices
         Permission::create([
-            'name' => 'Listar equipo',
-            'slug' => 'users.index',
-            'description' => 'Listar y navegar todos los miembros de un equipo',
+            'name' => 'Listar dispositivos',
+            'slug' => 'devices.index',
+            'description' => 'Listar y navegar todos sus dispositivos',
         ]);
         Permission::create([
-            'name' => 'Ver usuario',
-            'slug' => 'users.show',
-            'description' => 'Ver informacion de un usuario especifico',
+            'name' => 'Ver dispositivo',
+            'slug' => 'devices.show',
+            'description' => 'Ver informacion de un dispositivo especifico',
         ]);
         Permission::create([
-            'name' => 'Crear usuario',
-            'slug' => 'users.create',
-            'description' => 'Crear un usuario',
+            'name' => 'Editar dispositivo',
+            'slug' => 'devices.edit',
+            'description' => 'Editar la informacion de un dispositivo',
         ]);
         Permission::create([
-            'name' => 'Eliminar usuario',
-            'slug' => 'users.destroy',
-            'description' => 'Eliminar el perfil de un usuario',
-        ]);
-        Permission::create([
-            'name' => 'Editar usuario',
-            'slug' => 'users.edit',
-            'description' => 'Editar la informacion de un usuario y asignarle permisos',
+            'name' => 'Configurar dispositivo',
+            'slug' => 'devices.configuration',
+            'description' => 'Ver y editar la configuracion de un dispositivos.',
         ]);
 
         //Acceso A Menues
@@ -217,17 +180,54 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Acceso al panel principal',
         ]);
         Permission::create([
-            'name' => 'Menu Equipo',
+            'name' => 'Menu Equipo de trabajo',
             'slug' => 'team.menu',
             'description' => 'Acceso al menu de equipo de trabajo',
         ]);
+        Permission::create([
+            'name' => 'Eliminar dispositivo',
+            'slug' => 'devices.destroy',
+            'description' => 'Elimina un dispositivo y toda su informacion',
+        ]);
+        Permission::create([
+            'name' => 'Crear dispositivo',
+            'slug' => 'devices.create',
+            'description' => 'Crear un nuevo dispositivo',
+        ]);
+
+        //Users
+        Permission::create([
+            'name' => 'Listar equipo de trabajo',
+            'slug' => 'users.index',
+            'description' => 'Listar y navegar todos los miembros de un equipo',
+        ]);
+        Permission::create([
+            'name' => 'Ver usuario',
+            'slug' => 'users.show',
+            'description' => 'Ver informacion de un usuario especifico',
+        ]);
+        Permission::create([
+            'name' => 'Crear usuario',
+            'slug' => 'users.create',
+            'description' => 'Crear un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Eliminar usuario',
+            'slug' => 'users.destroy',
+            'description' => 'Eliminar el perfil de un usuario',
+        ]);
+        Permission::create([
+            'name' => 'Editar usuario',
+            'slug' => 'users.edit',
+            'description' => 'Editar la informacion de un usuario y asignarle permisos',
+        ]);
+
+        //Admin ALL FUNCTIONS
         Permission::create([
             'name' => 'Menu Configuracion',
             'slug' => 'config.menu',
             'description' => 'Acceso al menu de configuracion',
         ]);
-
-        //Admin ALL FUNCTIONS
         Permission::create([
             'name' => 'Todos los vencimientos',
             'slug' => 'home.all',

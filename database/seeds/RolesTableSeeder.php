@@ -13,9 +13,9 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         Role::create([
-            'name' => 'User-Admin',
-            'slug' => 'user.admin',
-            'description' => 'Rol de usuario con acceso total',
+            'name' => 'User-Basic',
+            'slug' => 'user.basic',
+            'description' => 'Rol de usuario sin acceso',
             'special' => null
         ]);
         Role::create([
@@ -25,9 +25,9 @@ class RolesTableSeeder extends Seeder
             'special' => null
         ]);
         Role::create([
-            'name' => 'User-Basic',
-            'slug' => 'user.basic',
-            'description' => 'Rol de usuario sin acceso',
+            'name' => 'User-Admin',
+            'slug' => 'user.admin',
+            'description' => 'Rol de usuario con acceso total',
             'special' => null
         ]);
         Role::create([

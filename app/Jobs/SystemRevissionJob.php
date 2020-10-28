@@ -9,7 +9,7 @@ use App\Price;
 use App\Device;
 use App\DeviceLog;
 use App\MailAlert;
-use App\Reception;
+use App\DataReception;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -139,7 +139,7 @@ class SystemRevissionJob implements ShouldQueue
     public function deleteOldDatas()
     {
 
-        Reception::where('created_at', '<', now()->subDays(30))->delete();
+        DataReception::where('created_at', '<', now()->subDays(30))->delete();
         Alert::where('created_at', '<', now()->subDays(30))->delete();
         MailAlert::where('created_at', '<', now()->subDays(30))->delete();
 
@@ -147,9 +147,9 @@ class SystemRevissionJob implements ShouldQueue
 
     public function deleteUnmonitorDeviceDatas($devices)
     {
+        $last_day = now()->subDay();
         foreach ($devices as $device)
         {
-            $last_day = now()->subDay();
             $device->receptions()->where('created_at', '<', $last_day)->delete();
             $device->alerts()->where('created_at', '<', $last_day)->delete();
         }

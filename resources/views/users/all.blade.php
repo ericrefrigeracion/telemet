@@ -22,26 +22,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($team as $user)
+                            @foreach($users as $user)
                                 <tr>
                                     <td>
-                                        {{ $user->user->id }}
+                                        {{ $user->id }}
                                     </td>
                                     <td>
-                                        {{ $user->user->name }}
+                                        {{ $user->name }}
                                     </td>
                                     <td>
-                                        @foreach($user->user->roles as $role)
+                                        @foreach($user->roles as $role)
                                             {{ $role->name }};
                                         @endforeach
                                     </td>
-
                                     <td>
                                         @can('users.show')
-                                            <a href="{{ route('users.show', $user->user_id) }}" class="btn btn-sm btn-success m-2">Ver</a>
+                                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-success m-2">Ver</a>
                                         @endcan
                                         @can('users.edit')
-                                            <a href="{{ route('users.edit', $user->user_id) }}" class="btn btn-sm btn-warning m-2">Editar</a>
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning m-2">Editar</a>
                                         @endcan
                                     </td>
                                 </tr>

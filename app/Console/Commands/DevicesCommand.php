@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\DevicesVerificationsJob;
-use App\Jobs\TinyTDevicesVerificationsJob;
+use App\Jobs\DevicesProtectionsJob;
+use App\Jobs\DevicesTopicControlsJob;
 use App\Jobs\Mail\SendAdminMails;
 use Illuminate\Console\Command;
 
@@ -30,8 +30,9 @@ class DevicesCommand extends Command
      */
     public function handle()
     {
-        DevicesVerificationsJob::dispatch();
-        TinyTDevicesVerificationsJob::dispatch();
+        DevicesProtectionsJob::dispatch();
+        sleep(10);
+        DevicesTopicControlsJob::dispatch();
         sleep(10);
         SendAdminMails::dispatch();
     }

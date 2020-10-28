@@ -17853,13 +17853,83 @@ module.exports = {
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js& ***!
   \**************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['device'],
+  data: function data() {
+    return {
+      dairy: []
+    };
+  },
+  created: function created() {
+    this.getDairy();
+    setInterval(this.getDairy, 15000);
+  },
+  methods: {
+    forHumans: function forHumans(d) {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
+    },
+    getDairy: function getDairy() {
+      var _this = this;
+
+      var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
+        _this.dairy = response.data;
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -74847,9 +74917,133 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "card text-center" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v("\n        " + _vm._s(_vm.dairy.name) + "\n    ")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm.dairy.admin_mon
+          ? _c("div", { staticClass: "col text-center" }, [
+              _vm.dairy.protected
+                ? _c("span", [
+                    _c("i", { class: _vm.dairy.status.icon.scripts }),
+                    _vm._v("  Estado " + _vm._s(_vm.dairy.status.name))
+                  ])
+                : _vm._e()
+            ])
+          : _c("div", { staticClass: "col text-center" }, [
+              _c("small", [
+                _vm._v("Monitoreo Vencido - "),
+                _c("a", { attrs: { href: _vm.dairy.pay_route } }, [
+                  _vm._v("Pagar por el monitoreo")
+                ])
+              ])
+            ])
+      ]),
+      _vm._v(" "),
+      _vm.dairy.last_data
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-10 display-4" }, [
+              _vm._v(_vm._s(_vm.dairy.last_data.value) + "°C")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-10" }, [
+              _c("small", [
+                _vm._v(_vm._s(_vm.forHumans(_vm.dairy.last_data.created_at)))
+              ])
+            ])
+          ])
+        : _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-10 display-4" }, [
+              _vm._v(" --.- °C ")
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _vm.dairy.admin_mon
+            ? _c("i", {
+                class: _vm.dairy.protection.icon.scripts,
+                attrs: { title: _vm.dairy.protection.description }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.data_receptions_route,
+                title: "Evolucion de Temperaturas"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-chart-line" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.configuration_route,
+                title: "Configuracion Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-cogs" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.logs_route,
+                title: "Bitacora Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-clipboard-list" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-danger m-2",
+              attrs: { href: _vm.dairy.alerts_route, title: "Nuevas Alertas" }
+            },
+            [
+              _vm._v(_vm._s(_vm.dairy.alerts_count) + " "),
+              _c("i", { staticClass: "fas fa-bell" })
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer" }, [
+      _c("small", {}, [
+        _vm._v(
+          "\n                " +
+            _vm._s(_vm.dairy.on_line ? "En Linea" : "Sin Conexion") +
+            "\n        "
+        )
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-10" }, [
+      _c("small", [_vm._v(" Sin Datos ")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -87502,9 +87696,7 @@ component.options.__file = "resources/js/components/DairyDeviceCard.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DairyDeviceCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

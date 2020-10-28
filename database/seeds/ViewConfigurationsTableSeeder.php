@@ -16,7 +16,7 @@ class ViewConfigurationsTableSeeder extends Seeder
             'type_device_id' => 2,
             'display_id' => 1,
             'order' => 1,
-            'permission' => 'view.admin'
+            'permission' => 'view.basic'
         ]);
     }
 }

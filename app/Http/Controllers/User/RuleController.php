@@ -67,7 +67,7 @@ class RuleController extends Controller
 
             alertCreate($device, "Se creo una regla para $request->day.", now());
 
-            if($user->id < 3) return redirect()->route('rules.all')->with('success', ['Regla creada con exito']);
+            if(Auth::user()->id < 3) return redirect()->route('rules.all')->with('success', ['Regla creada con exito']);
             return redirect()->route('rules.index')->with('success', ['Regla creada con exito']);
         }
         else
@@ -144,7 +144,7 @@ class RuleController extends Controller
 
             $rule->update($request->all());
 
-            if($user->id < 3) return redirect()->route('rules.all')->with('success', ['Regla actualizada con exito']);
+            if(Auth::user()->id < 3) return redirect()->route('rules.all')->with('success', ['Regla actualizada con exito']);
             return redirect()->route('rules.show', $rule->id)->with('success', ['Regla actualizada con exito']);
         }
         else

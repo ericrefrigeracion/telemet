@@ -38,6 +38,19 @@
                             {{ Form::label('address', 'Direccion') }}
                             {{ Form::text('address', null, ['class' => 'form-control', 'maxlength' => '30']) }}
                         </div>
+                        <br>
+                        <h3>Lista de Dispositivos a Asignar</h3>
+                        <div class="list-unstyled">
+                            @foreach($devices as $device)
+                            <li>
+                                <label>
+                                    {{ Form::checkbox('devices[]', $device->id, null) }}
+                                    {{ $device->name}}
+                                    <em>({{ $device->description ?: "Sin Descripcion" }})</em>
+                                </label>
+                            </li>
+                            @endforeach
+                        </div>
                         <hr>
                         <h3>Lista de Permisos a Aplicar</h3>
                         <div class="list-unstyled">
@@ -51,6 +64,7 @@
                             </li>
                             @endforeach
                         </div>
+                        <br>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
                         </div>
