@@ -4,8 +4,8 @@ namespace App\Jobs;
 
 use App\Device;
 use App\DataReception;
+use App\DeviceConfiguration;
 use Illuminate\Bus\Queueable;
-use App\TypeDeviceConfiguration;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,25 +34,185 @@ class DevicesTopicControlsJob implements ShouldQueue
      */
     public function handle()
     {
-        $devices = Device::where('protected', true)->where('admin_mon', true)->where('on_line', true)->get();
-        if($devices->isNotEmpty()) $this->topicControl($devices);
+        $this->topicControl();
     }
 
-    public function topicControl($devices)
+    public function topicControl()
     {
-        $type_device_configurations = TypeDeviceConfiguration::all();
-        $data_receptions = DataReception::where('created_at', '>', now()->subMinutes(5))->get();
+        $on_line_time = now()->subMinutes(10);
+        $performance_time = now()->subHours(2);
+
+        $devices = Device::where('protected', true)->where('admin_mon', true)->get();
+        $device_configurations = DeviceConfiguration::all();
+        $data_receptions = DataReception::where('created_at', '>', $performance_time)->get();
+
+        $on_line_data_receptions = $data_receptions->where('created_at', '>', $on_line_time);
 
         foreach ($devices as $device)
         {
-            $type_device_configurations->where('type_device_id', $device->type_device_id);
 
-            foreach ($type_device_configurations as $type_device_configuration)
+            if($this->isOnLine($device, $on_line_data_receptions))
             {
-                echo $data_receptions->where('topic', $type_device_configuration->topic->slug)->latest()->first()->value . ' - ';
-                echo $type_device_configuration->topic_control_type->name . '. ';
+                $configurations = $device_configurations->where('device_id', $device->id);
+
+                foreach ($configurations as $configuration)
+                {
+                    $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)
+                                                            ->where('device_id', $configuration->device_id)->last();
+                    switch ($configuration->topic_control_type_id)
+                    {
+                        case 1:
+                            $this->calibrationControl($last_reception, $configuration);
+                            break;
+                        case 2:
+                            $this->minimumControl($last_reception, $configuration);
+                            break;
+                        case 3:
+                            $this->maximumControl($last_reception, $configuration);
+                            break;
+                        case 4:
+                            $this->performanceControl($last_reception, $data_receptions, $configuration);
+                            break;
+                        case 5:
+                            $this->delayControl($configuration, $configurations);
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+
+            }
+
+        }
+    }
+
+    public function isOnLine($device, $on_line_data_receptions)
+    {
+        $receptions = $on_line_data_receptions->where('device_id', $device->id);
+
+        if($receptions->isNotEmpty() && !$device->on_line)
+        {
+            $device->update(['on_line' => true]);
+            alertCreate($device, 'El dispositivo esta conectado.', now());
+        }
+        if($receptions->isEmpty() && $device->on_line)
+        {
+            $device->update(['on_line' => false]);
+            alertCreate($device, 'El dispositivo esta desconectado.', now());
+        }
+
+        return $device->on_line;
+    }
+
+    public function calibrationControl($last_reception, $configuration)
+    {
+        if(strpos($last_reception->status, $configuration->topic_control_type->slug) === false || $last_reception->status === null)
+        {
+            $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
+            $value = $last_reception->value + $configuration->value;
+            $last_reception->update([
+                'status' => $status,
+                'value' => $value
+            ]);
+        }
+    }
+
+    public function minimumControl($last_reception, $configuration)
+    {
+        if(strpos($last_reception->status, $configuration->topic_control_type->slug) === false || $last_reception->status === null)
+        {
+            $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
+            $last_reception->update(['status' => $status]);
+            if($last_reception->value < $configuration->value)
+            {
+                alertCreate($device, 'El valor de ' . $configuration->topic->name . ' se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+
+                $configuration->update([
+                    'status' => 'warning',
+                    'status_at' => now(),
+                ]);
             }
         }
+    }
+
+    public function maximumControl($last_reception, $configuration)
+    {
+        if(strpos($last_reception->status, $configuration->topic_control_type->slug) === false || $last_reception->status === null)
+        {
+            $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
+            $last_reception->update(['status' => $status]);
+            if($last_reception->value > $configuration->value)
+            {
+                alertCreate($device, 'El valor de ' . $configuration->topic->name . ' se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+                deviceupdatetowarning
+                $configuration->update([
+                    'status' => 'warning',
+                    'status_at' => now(),
+                ]);
+            }
+        }
+    }
+
+    public function performanceControl($last_reception, $data_receptions, $configuration)
+    {
+        $this->derivate($last_reception, $data_receptions, $configuration);
+        $this->performance($data_receptions, $configuration);
+    }
+
+    public function delayControl($configuration, $configurations)
+    {
+        foreach ($configurations as $config)
+        {
+            if($config->status_at < now()->subMinutes($configuration->value))
+            {
+                mailAlertCreate('device', 'type', 'moment');
+                alertCreate($device, 'El valor de ' . $configuration->topic->name . ' se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+
+                $configuration->update([
+                    'status' => 'warning',
+                    'status_at' => now(),
+                ]);
+            }
+        }
+    }
+
+
+    public function derivate($last_reception, $data_receptions, $configuration)
+    {
+        if(strpos($last_reception->status, $configuration->topic_control_type->slug) === false || $last_reception->status === null)
+        {
+            $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
+            $last_reception->update(['status' => $status]);
+
+            $before_reception = $data_receptions->where('topic', $configuration->topic->slug)->where('created_at', '<', $last_reception->created_at)->last();
+
+            if(!$before_reception) $before_reception = $last_reception;
+            $derivate = $before_reception->value - $last_reception->value;
+            if($derivate > 10) $derivate = 10;
+            if($derivate < -10) $derivate = -10;
+
+            DataReception::create([
+                'device_id' => $configuration->device_id,
+                'topic' => $configuration->topic->slug . '_derivate',
+                'value' => $derivate,
+                'status' => null,
+            ]);
+        }
+    }
+
+    public function performance($data_receptions, $configuration)
+    {
+        $performance = $data_receptions->where('topic', $configuration->topic->slug . '_derivate')->where('value', '>', 0)->sum('value');
+        if($performance > 40) $performance = 40;
+        if($performance < 0) $performance = 0;
+
+        DataReception::create([
+            'device_id' => $configuration->device_id,
+            'topic' => $configuration->topic->slug . '_performance',
+            'value' => $performance,
+            'status' => null,
+        ]);
     }
 
 

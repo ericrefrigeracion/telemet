@@ -13,6 +13,10 @@ class DataReception extends Model
      * @var array
      */
     protected $fillable = [
+        'device_id',
+        'topic',
+        'value',
+        'status',
     ];
 
     /**
