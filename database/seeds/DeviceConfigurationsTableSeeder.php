@@ -17,35 +17,35 @@ class DeviceConfigurationsTableSeeder extends Seeder
             'topic_id' => 1,
             'topic_control_type_id' => 1,
             'value' => 0,
-            'status' => 'ok',
+            'status_id' => 1,
         ]);
         DeviceConfiguration::create([
             'device_id' => 123456,
             'topic_id' => 1,
             'topic_control_type_id' => 2,
             'value' => 0,
-            'status' => 'ok',
+            'status_id' => 1,
         ]);
         DeviceConfiguration::create([
             'device_id' => 123456,
             'topic_id' => 1,
             'topic_control_type_id' => 3,
             'value' => 10,
-            'status' => 'ok',
+            'status_id' => 1,
         ]);
         DeviceConfiguration::create([
             'device_id' => 123456,
             'topic_id' => 1,
             'topic_control_type_id' => 4,
             'value' => 0,
-            'status' => 'ok',
+            'status_id' => 1,
         ]);
         DeviceConfiguration::create([
             'device_id' => 123456,
             'topic_id' => 1,
             'topic_control_type_id' => 5,
             'value' => 20,
-            'status' => 'ok',
+            'status_id' => 1,
         ]);
     }
 }

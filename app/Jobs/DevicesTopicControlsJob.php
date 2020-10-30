@@ -74,7 +74,7 @@ class DevicesTopicControlsJob implements ShouldQueue
                             $this->performanceControl($last_reception, $data_receptions, $configuration);
                             break;
                         case 5:
-                            $this->delayControl($configuration, $configurations);
+                            $this->delayControl($configurations, $configuration);
                             break;
                         default:
                             break;
@@ -124,13 +124,23 @@ class DevicesTopicControlsJob implements ShouldQueue
         {
             $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
             $last_reception->update(['status' => $status]);
-            if($last_reception->value < $configuration->value)
-            {
-                alertCreate($device, 'El valor de ' . $configuration->topic->name . ' se encuentra por debajo de la minima permitida.', $last_reception->created_at);
 
+            if($last_reception->value < $configuration->value && $configuration->status_id == 1)
+            {
+                alertCreate($configuration->device, 'El valor de ' . $configuration->topic->name . ' se encuentra por debajo de la minima permitida.', $last_reception->created_at);
+
+                $configuration->device->update(['status_id' => 2]);
                 $configuration->update([
-                    'status' => 'warning',
-                    'status_at' => now(),
+                    'status_id' => 2,
+                    'status_at' => $last_reception->created_at,
+                ]);
+            }
+            if($last_reception->value >= $configuration->value && $configuration->status_id != 1)
+            {
+                $configuration->device->update(['status_id' => 1]);
+                $configuration->update([
+                    'status_id' => 1,
+                    'status_at' => null,
                 ]);
             }
         }
@@ -142,15 +152,24 @@ class DevicesTopicControlsJob implements ShouldQueue
         {
             $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
             $last_reception->update(['status' => $status]);
-            if($last_reception->value > $configuration->value)
+            if($last_reception->value > $configuration->value && $configuration->status_id == 1)
             {
-                alertCreate($device, 'El valor de ' . $configuration->topic->name . ' se encuentra por encima de la maxima permitida.', $last_reception->created_at);
-                deviceupdatetowarning
+                alertCreate($configuration->device, 'El valor de ' . $configuration->topic->name . ' se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+                $configuration->device->update(['status_id' => 2]);
                 $configuration->update([
-                    'status' => 'warning',
-                    'status_at' => now(),
+                    'status_id' => 2,
+                    'status_at' => $last_reception->created_at,
                 ]);
             }
+            if($last_reception->value <= $configuration->value && $configuration->status_id != 1)
+            {
+                $configuration->device->update(['status_id' => 1]);
+                $configuration->update([
+                    'status_id' => 1,
+                    'status_at' => null,
+                ]);
+            }
+
         }
     }
 
@@ -160,20 +179,23 @@ class DevicesTopicControlsJob implements ShouldQueue
         $this->performance($data_receptions, $configuration);
     }
 
-    public function delayControl($configuration, $configurations)
+    public function delayControl($configurations, $configuration)
     {
         foreach ($configurations as $config)
         {
-            if($config->status_at < now()->subMinutes($configuration->value))
+            if($config->status_at < now()->subMinutes($configuration->value) && $config->status_id != 3 && $config->status_at != null)
             {
-                mailAlertCreate('device', 'type', 'moment');
-                alertCreate($device, 'El valor de ' . $configuration->topic->name . ' se encuentra por encima de la maxima permitida.', $last_reception->created_at);
+                mailAlertCreate($config->device, $config->topic_control_type->slug, $config->status_at);
+                $log = 'Se alcanzo el punto critico para la ' . $config->topic_control_type->name . ' ' . $config->topic->name . '.';
+                alertCreate($config->device, $log, now());
 
-                $configuration->update([
-                    'status' => 'warning',
+                $config->device->update(['status_id' => 3]);
+                $config->update([
+                    'status_id' => 3,
                     'status_at' => now(),
                 ]);
             }
+
         }
     }
 
@@ -213,6 +235,24 @@ class DevicesTopicControlsJob implements ShouldQueue
             'value' => $performance,
             'status' => null,
         ]);
+
+        if($performance < $configuration->value && $configuration->status_id == 1)
+            {
+                alertCreate($configuration->device, 'El valor de ' . $configuration->topic->name . ' se encuentra por debajo de la minima esperada.', now());
+                $configuration->device->update(['status_id' => 2]);
+                $configuration->update([
+                    'status_id' => 2,
+                    'status_at' => now(),
+                ]);
+            }
+            if($performance > $configuration->value && $configuration->status_id != 1)
+            {
+                $configuration->device->update(['status_id' => 1]);
+                $configuration->update([
+                    'status_id' => 1,
+                    'status_at' => null,
+                ]);
+            }
     }
 
 

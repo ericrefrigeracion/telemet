@@ -22,7 +22,7 @@ function mailAlertCreate($device, $type, $moment)
 {
     MailAlert::create([
         'device_id' => $device->id,
-        'user_id' => $device->user_id,
+        'user_id' => $device->users()->first()->id,
         'type' => $type,
         'last_created_at' => $moment,
     ]);

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Topic;
 use App\Device;
+use App\Status;
 use App\TopicControlType;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +16,7 @@ class DeviceConfiguration extends Model
      * @var array
      */
     protected $fillable = [
-         'device_id', 'topic_id', 'topic_control_type_id', 'value', 'status', 'status_at'
+         'device_id', 'topic_id', 'topic_control_type_id', 'value', 'status_id', 'status_at'
     ];
 
      protected $dates = ['status_at'];
@@ -32,12 +33,19 @@ class DeviceConfiguration extends Model
     {
     	return $this->belongsTo(Device::class);
     }
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);
     }
+
     public function topic_control_type()
     {
     	return $this->belongsTo(TopicControlType::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

@@ -5,13 +5,10 @@ namespace App\Jobs\Mail;
 use App\User;
 use App\Device;
 use App\MailAlert;
-use App\Mail\AdminHumidityMail;
 use App\Mail\AdminConnectMail;
 use App\Mail\AdminDisconnectMail;
 use App\Mail\AdminPerformanceMail;
 use App\Mail\AdminTemperatureMail;
-use App\Mail\AdminHumSetPointMail;
-use App\Mail\AdminTempSetPointMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -70,18 +67,13 @@ class SendAdminMails implements ShouldQueue
                 Mail::to($carlos->email)->queue(new AdminDisconnectMail($mail_information, $device, $user));
                 $mail_information->update(['send_to_admin_at' => now()]);
             }
-            if ($mail_information->type == 'temp')
+            if ($mail_information->type == 'min' || $mail_information->type == 'max')
             {
                 Mail::to($eric->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
                 Mail::to($carlos->email)->queue(new AdminTemperatureMail($mail_information, $device, $user));
                 $mail_information->update(['send_to_admin_at' => now()]);
             }
-            if ($mail_information->type == 'tSetPoint')
-            {
-                Mail::to($eric->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
-                Mail::to($carlos->email)->queue(new AdminTempSetPointMail($mail_information, $device, $user));
-                $mail_information->update(['send_to_admin_at' => now()]);
-            }
+
             if ($mail_information->type == 'perf')
             {
                 Mail::to($eric->email)->queue(new AdminPerformanceMail($mail_information, $device, $user));

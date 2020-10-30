@@ -19,11 +19,12 @@ class CreateDeviceConfigurationsTable extends Migration
             $table->unsignedBigInteger('topic_id');
             $table->unsignedBigInteger('topic_control_type_id');
             $table->float('value')->nullable();
-            $table->string('status')->nullable();
+            $table->unsignedBigInteger('status_id');
             $table->dateTime('status_at')->nullable();
             $table->timestamps();
 
             $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
             $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->foreign('topic_control_type_id')->references('id')->on('topic_control_types')->onDelete('cascade');
         });
