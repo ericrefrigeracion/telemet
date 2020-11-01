@@ -52,7 +52,7 @@
                     }]
                 },
                 responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     animation: {
         duration: 0
     },

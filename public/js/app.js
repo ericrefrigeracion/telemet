@@ -18123,7 +18123,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }]
         },
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         animation: {
           duration: 0
         },
