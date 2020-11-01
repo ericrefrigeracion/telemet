@@ -65,7 +65,7 @@ class DisplayController extends Controller
             'description' => 'required|string|max:40',
             'slug' => 'required|string|max:10',
             'title' => 'required|string|max:30',
-            'scripts' => 'string|max:40',
+            'scripts' => 'filled|string|max:40',
         ];
 
         $request->validate($rules);
@@ -84,10 +84,11 @@ class DisplayController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|max:15',
+            'name' => 'required|string|max:15',
             'description' => 'required|string|max:40',
-            'slug' => 'required|string|max:10|unique:displays,slug',
-            'scripts' => 'string',
+            'slug' => 'required|string|max:10',
+            'title' => 'required|string|max:30',
+            'scripts' => 'filled|string|max:40',
         ];
 
         $request->validate($rules);
