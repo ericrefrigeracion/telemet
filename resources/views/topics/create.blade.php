@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre de la Magnitud') }}
-                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
+                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '20']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('decimals', 'Decimales') }}

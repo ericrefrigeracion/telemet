@@ -12,7 +12,7 @@
                     {!! Form::model($topic, ['route' => ['topics.update', $topic->id], 'method' => 'PUT']) !!}
                         <div class="form-group">
                             {{ Form::label('slug', 'Slug para el sistema') }}
-                            {{ Form::text('slug', null, ['class' => 'form-control', 'maxlength' => '7']) }}
+                            {{ Form::text('slug', null, ['class' => 'form-control', 'required', 'maxlength' => '20']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('unit', 'Unida de media') }}
@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('color', 'Color (rgba)') }}
-                            {{ Form::text('color', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
+                            {{ Form::text('color', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('filled', 'Area de la curva') }}<br>
