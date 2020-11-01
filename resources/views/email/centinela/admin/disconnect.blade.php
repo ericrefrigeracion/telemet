@@ -12,7 +12,7 @@ El numero de telefono del usuario es {{ $user->phone_area_code }} - {{ $user->ph
 
 Desde el siguiente enlace puede revisar las mediciones realizadas por el dispositivo en la ultima hora.
 
-@component('mail::button', ['url' => route('receptions.now', $device->id) ])
+@component('mail::button', ['url' => route('data-receptions.show', $device->id) ])
 Metricas {{ $device->name }}
 @endcomponent
 
