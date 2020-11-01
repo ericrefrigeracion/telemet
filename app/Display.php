@@ -13,7 +13,7 @@ class Display extends Model
      * @var array
      */
     protected $fillable = [
-         'name', 'graphic', 'description', 'order', 'script'
+         'name', 'description', 'slug', 'script', 'title'
     ];
 
     /**

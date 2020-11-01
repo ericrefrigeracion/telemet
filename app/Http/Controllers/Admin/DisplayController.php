@@ -87,8 +87,8 @@ class DisplayController extends Controller
             'name' => 'required|string|max:15',
             'description' => 'required|string|max:40',
             'slug' => 'required|string|max:10',
-            'title' => 'required|string|max:30',
             'scripts' => 'max:40',
+            'title' => 'required|string|max:30',
         ];
 
         $request->validate($rules);

@@ -11,16 +11,16 @@
                 <div class="card-body">
                     {!! Form::open(['route' => ['displays.store']]) !!}
                         <div class="form-group">
-                            {{ Form::label('slug', 'Slug para el sistema') }}
-                            {{ Form::text('slug', null, ['class' => 'form-control', 'required', 'maxlength' => '10']) }}
-                        </div>
-                        <div class="form-group">
                             {{ Form::label('name', 'Nombre del tipo de Visualizacion') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('description', 'Descripcion breve') }}
                             {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
+                        </div>
+                        <div class="form-group">
+                            {{ Form::label('slug', 'Slug para el sistema') }}
+                            {{ Form::text('slug', null, ['class' => 'form-control', 'required', 'maxlength' => '10']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('scripts', 'Scripts') }}
