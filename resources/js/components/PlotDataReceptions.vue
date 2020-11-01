@@ -62,7 +62,7 @@
                     var unit = topic.topic.unit;
                     var color = topic.topic.color;
                     var fill = topic.topic.filled;
-                    var start_time = Date.now() - (2 * 60 * 60 * 1000);
+                    var start_time = Date.now() - (12 * 60 * 60 * 1000);
                     var end_time = Date.now();
                     var url = '/api/centinela/receptions/data/' + this.device.id + '/' + slug + '/' + start_time + '-' + end_time;
                     axios.get(url)
