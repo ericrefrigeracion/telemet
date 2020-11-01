@@ -21,7 +21,7 @@
         mounted() {
             var ctx = document.getElementById(this.view.order).getContext('2d');
             var timeFormat = 'YYYY/MM/DD HH:mm';
-            window.myLine[this.view.order] = new Chart(ctx, {
+            window.myLine = new Chart(ctx, {
                 type: this.view.display,
                 data: {
                     datasets: this.content
@@ -75,7 +75,7 @@
                         'fill': fill,
                         });
                         //console.log(this.content);
-                        window.myLine[this.view.order].update();
+                        window.myLine.update();
                     });
                 });
             },
