@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('color', 'Color (rgba)') }}
-                            {{ Form::text('color', null, ['class' => 'form-control', 'required', 'maxlength' => '20']) }}
+                            {{ Form::text('color', null, ['class' => 'form-control', 'required', 'maxlength' => '25']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('filled', 'Area de la curva') }}<br>
