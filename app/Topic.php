@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Icon;
 use App\ViewConfiguration;
 use App\DeviceConfiguration;
 use App\TypeDeviceConfiguration;
@@ -15,7 +16,7 @@ class Topic extends Model
      * @var array
      */
     protected $fillable = [
-         'slug', 'unit', 'name', 'decimals', 'color', 'filled'
+         'slug', 'unit', 'name', 'decimals', 'icon_id', 'color', 'filled'
     ];
 
      protected $dates = [];
@@ -27,6 +28,11 @@ class Topic extends Model
      */
     protected $hidden = [
     ];
+
+    public function icon()
+    {
+        return $this->belongsTo(Icon::class);
+    }
 
     public function type_device_configurations()
     {
