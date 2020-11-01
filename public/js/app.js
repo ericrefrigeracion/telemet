@@ -18093,7 +18093,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     var ctx = document.getElementById(this.view.order).getContext('2d');
     var timeFormat = 'YYYY/MM/DD HH:mm';
-    window.myLine = new Chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(ctx, {
+    window.myLine[this.view.order] = new Chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(ctx, {
       type: this.view.display,
       data: {
         datasets: this.content
@@ -18121,16 +18121,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               labelString: 'Valores'
             }
           }]
-        },
-        responsive: true,
-        maintainAspectRatio: true,
-        animation: {
-          duration: 0
-        },
-        hover: {
-          animationDuration: 0
-        },
-        responsiveAnimationDuration: 0
+        }
       }
     });
   },
@@ -18159,7 +18150,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }); //console.log(this.content);
 
 
-          window.myLine.update();
+          window.myLine[_this.view.order].update();
         });
       });
     },

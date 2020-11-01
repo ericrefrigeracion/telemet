@@ -21,7 +21,7 @@
         mounted() {
             var ctx = document.getElementById(this.view.order).getContext('2d');
             var timeFormat = 'YYYY/MM/DD HH:mm';
-            window.myLine = new Chart(ctx, {
+            window.myLine[this.view.order] = new Chart(ctx, {
                 type: this.view.display,
                 data: {
                     datasets: this.content
@@ -51,15 +51,6 @@
                         }
                     }]
                 },
-                responsive: true,
-    maintainAspectRatio: true,
-    animation: {
-        duration: 0
-    },
-    hover: {
-        animationDuration: 0
-    },
-    responsiveAnimationDuration: 0
             }
             });
         },
@@ -84,7 +75,7 @@
                         'fill': fill,
                         });
                         //console.log(this.content);
-                        window.myLine.update();
+                        window.myLine[this.view.order].update();
                     });
                 });
             },
