@@ -1,5 +1,10 @@
 <template>
-    <canvas :id="view.order"></canvas>
+    <div>
+        <canvas :id="view.order"></canvas>
+        <button onclick="today()">Hoy</button>
+        <button onclick="yesterday()">Ayer</button>
+
+    </div>
 </template>
 
 <script>
