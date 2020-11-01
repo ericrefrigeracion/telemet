@@ -75080,7 +75080,7 @@ var render = function() {
             return _c("tr", { staticClass: "text-center" }, [
               _c("td", [
                 _c("a", { attrs: { href: device.user_route } }, [
-                  _vm._v(_vm._s(device.user_id))
+                  _vm._v(_vm._s(device.user.id))
                 ])
               ]),
               _vm._v(" "),

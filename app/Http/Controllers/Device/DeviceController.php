@@ -89,7 +89,7 @@ class DeviceController extends Controller
                                         'topic_id' => $type_device_configuration->topic_id,
                                         'topic_control_type_id' => $type_device_configuration->topic_control_type_id,
                                         'value' => $type_device_configuration->topic_control_type->default,
-                                        'status' => 'ok',
+                                        'status_id' => 1,
                                         'status_at' => now()
                                     ]);
 

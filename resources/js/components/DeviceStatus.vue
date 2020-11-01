@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     <tr class="text-center" v-for="device in devices">
-                        <td><a v-bind:href="device.user_route">{{ device.user_id }}</a></td>
+                        <td><a v-bind:href="device.user_route">{{ device.user.id }}</a></td>
                         <td><a v-bind:href="device.device_route">{{ device.id }}</a></td>
                         <td><i v-bind:class="device.type_device_icon" class="m-2" v-bind:title="device.type_device_title"></i></td>
                         <td v-if="device.on_line"><i class="fas fa-link text-success m-2"  title="En Linea"></i></td>

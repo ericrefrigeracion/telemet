@@ -59,7 +59,7 @@ class HomeController extends Controller
         foreach ($devices as $device)
         {
             $device->monitor_expires = $device->monitor_expires_at->diffForHumans();
-            $device->user = $device->users()->first();
+            $device->user = $device->users->first();
         }
 
         return view('home.all')->with(['devices' => $devices]);

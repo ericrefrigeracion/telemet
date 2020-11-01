@@ -30,7 +30,7 @@ class TypeDeviceController extends Controller
     public function create()
     {
         $icons = Icon::where('type', 'type-device')->pluck('name', 'id')->all();
-        return view('type-devices.create', 'icons');
+        return view('type-devices.create', compact('icons'));
     }
 
     /**

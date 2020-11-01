@@ -38,7 +38,7 @@ class DeviceConfigurationController extends Controller
     public function update(Request $request, DeviceConfiguration $device_configuration)
     {
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device_configuration->device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
         {
             $rules = [
 

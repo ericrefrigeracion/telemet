@@ -15,8 +15,8 @@
                                     {!! Form::model($device_configurations, ['route' => ['device-configurations.update', $device_configurations->id], 'method' => 'PUT']) !!}
 
                                             <div class="form-group row">
-                                                <div class="col-2">
-                                                    {{ Form::label('value', $device_configurations->topic_control_type->name) }}
+                                                <div class="col-4">
+                                                    {{ Form::label('value', $device_configurations->topic->name  . ': ' . $device_configurations->topic_control_type->name) }}
                                                 </div>
                                                 <div class="col-2">
                                                     {{ Form::number('value', null, ['class' => 'form-control', 'required', 'min' => $device_configurations->topic_control_type->min, 'max' => $device_configurations->topic_control_type->max, 'step' => $device_configurations->topic_control_type->step]) }}

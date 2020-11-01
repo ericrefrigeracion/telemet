@@ -117,6 +117,12 @@ class IconsTableSeeder extends Seeder
             'scripts' => 'fas fa-hand-holding-water',
             'type' => 'type-device'
         ]);
+        Icon::create([
+            'name' => 'Health',
+            'description' => 'Maletin cruz',
+            'scripts' => 'fas fa-briefcase-medical',
+            'type' => 'type-device'
+        ]);
 
         //Topics
         Icon::create([

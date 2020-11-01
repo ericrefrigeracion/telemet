@@ -21,9 +21,17 @@ class TopicsTableSeeder extends Seeder
             'filled' => 'true',
         ]);
         Topic::create([
+            'slug' => 'temp1',
+            'unit' => '°C',
+            'name' => 'Temperatura Canal 1',
+            'decimals' => 2,
+            'color' => 'rgba(0, 0, 255, 1)',
+            'filled' => 'false',
+        ]);
+        Topic::create([
             'slug' => 'temp2',
             'unit' => '°C',
-            'name' => 'Temperatura',
+            'name' => 'Temperatura Canal 2',
             'decimals' => 2,
             'color' => 'rgba(0, 128, 255, 1)',
             'filled' => 'false',
@@ -31,7 +39,7 @@ class TopicsTableSeeder extends Seeder
         Topic::create([
             'slug' => 'temp3',
             'unit' => '°C',
-            'name' => 'Temperatura',
+            'name' => 'Temperatura Canal 3',
             'decimals' => 2,
             'color' => 'rgba(90, 160, 255, 1)',
             'filled' => 'false',
@@ -39,7 +47,7 @@ class TopicsTableSeeder extends Seeder
         Topic::create([
             'slug' => 'temp4',
             'unit' => '°C',
-            'name' => 'Temperatura',
+            'name' => 'Temperatura Canal 4',
             'decimals' => 2,
             'color' => 'rgba(103, 50, 255, 1)',
             'filled' => 'false',
@@ -47,17 +55,9 @@ class TopicsTableSeeder extends Seeder
         Topic::create([
             'slug' => 'temp5',
             'unit' => '°C',
-            'name' => 'Temperatura',
+            'name' => 'Temperatura Canal 5',
             'decimals' => 2,
             'color' => 'rgba(170, 19, 255, 1)',
-            'filled' => 'false',
-        ]);
-        Topic::create([
-            'slug' => 'temp6',
-            'unit' => '°C',
-            'name' => 'Temperatura',
-            'decimals' => 2,
-            'color' => 'rgba(61, 19, 255, 1)',
             'filled' => 'false',
         ]);
         Topic::create([

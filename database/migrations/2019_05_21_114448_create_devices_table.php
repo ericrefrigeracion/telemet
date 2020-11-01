@@ -30,8 +30,8 @@ class CreateDevicesTable extends Migration
             $table->boolean('protected');
             $table->boolean('on_line');
 
-            $table->dateTime('monitor_expires_at');
-            $table->dateTime('view_alerts_at');
+            $table->dateTime('monitor_expires_at')->nullable();
+            $table->dateTime('view_alerts_at')->nullable();
             $table->string('notification_email')->nullable();
             $table->string('notification_phone_number')->nullable();
 

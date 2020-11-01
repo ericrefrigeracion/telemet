@@ -12,30 +12,29 @@ class TypeDeviceConfigurationsTableSeeder extends Seeder
      */
     public function run()
     {
-        TypeDeviceConfiguration::create([
-            'type_device_id' => 2,
-            'topic_id' => 1,
-            'topic_control_type_id' => 1,
-        ]);
-        TypeDeviceConfiguration::create([
-            'type_device_id' => 2,
-            'topic_id' => 1,
-            'topic_control_type_id' => 2,
-        ]);
-        TypeDeviceConfiguration::create([
-            'type_device_id' => 2,
-            'topic_id' => 1,
-            'topic_control_type_id' => 3,
-        ]);
-        TypeDeviceConfiguration::create([
-            'type_device_id' => 2,
-            'topic_id' => 1,
-            'topic_control_type_id' => 4,
-        ]);
-        TypeDeviceConfiguration::create([
-            'type_device_id' => 2,
-            'topic_id' => 1,
-            'topic_control_type_id' => 5,
-        ]);
+
+        //Tiny Configuration
+        for ($topic_control_type_id=1; $topic_control_type_id < 6; $topic_control_type_id++)
+            {
+                TypeDeviceConfiguration::create([
+                    'type_device_id' => 2,
+                    'topic_id' => 1,
+                    'topic_control_type_id' => $topic_control_type_id,
+                ]);
+            }
+
+        //Health Configuration
+        for ($topic_id=2; $topic_id < 7; $topic_id++)
+        {
+            for ($topic_control_type_id=1; $topic_control_type_id < 6; $topic_control_type_id++)
+            {
+                TypeDeviceConfiguration::create([
+                    'type_device_id' => 3,
+                    'topic_id' => $topic_id,
+                    'topic_control_type_id' => $topic_control_type_id,
+                ]);
+            }
+        }
+
     }
 }

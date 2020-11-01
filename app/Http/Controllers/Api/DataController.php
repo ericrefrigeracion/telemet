@@ -72,8 +72,8 @@ class DataController extends Controller
             $device->type_device_title = $device->type_device->model;
             $device->status_icon = $device->status->icon->scripts;
             $device->status_title = $device->status->description;
-            $device->user_id = $device->users()->first()->id;
-            $device->user_route = route('users.show', $device->user_id);
+            $device->user = $device->users->first();
+            $device->user_route = route('users.show', $device->user->id);
             $device->device_route = route('devices.show', $device->id);
             $device->alerts_route = route('alerts.show', $device->id);
             $device->data_receptions_route = route('data-receptions.show', $device->id);

@@ -65,7 +65,8 @@
                                 </tr>
                                 @foreach($device->device_configurations as $device_configurations)
                                     <tr>
-                                        <td colspan="2">{{ $device_configurations->topic_control_type->name }}</td>
+                                        <td colspan="2">{{ $device_configurations->topic->name }} -
+                                            {{ $device_configurations->topic_control_type->name }}</td>
                                         <td colspan="3">{{ $device_configurations->value }}</td>
                                     </tr>
                                 @endforeach

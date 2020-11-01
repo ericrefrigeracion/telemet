@@ -62,16 +62,16 @@ class DevicesTopicControlsJob implements ShouldQueue
                     switch ($configuration->topic_control_type_id)
                     {
                         case 1:
-                            $this->calibrationControl($last_reception, $configuration);
+                            if($last_reception) $this->calibrationControl($last_reception, $configuration);
                             break;
                         case 2:
-                            $this->minimumControl($last_reception, $configuration);
+                            if($last_reception) $this->minimumControl($last_reception, $configuration);
                             break;
                         case 3:
-                            $this->maximumControl($last_reception, $configuration);
+                            if($last_reception) $this->maximumControl($last_reception, $configuration);
                             break;
                         case 4:
-                            $this->performanceControl($last_reception, $data_receptions, $configuration);
+                            if($last_reception) $this->performanceControl($last_reception, $data_receptions, $configuration);
                             break;
                         case 5:
                             $this->delayControl($configurations, $configuration);
@@ -95,11 +95,13 @@ class DevicesTopicControlsJob implements ShouldQueue
         {
             $device->update(['on_line' => true]);
             alertCreate($device, 'El dispositivo esta conectado.', now());
+            mailAlertCreate($device, 'onLine', now());
         }
         if($receptions->isEmpty() && $device->on_line)
         {
             $device->update(['on_line' => false]);
             alertCreate($device, 'El dispositivo esta desconectado.', now());
+            mailAlertCreate($device, 'onLine', $on_line_time);
         }
 
         return $device->on_line;
