@@ -111,7 +111,7 @@ class DeviceController extends Controller
     public function show(Device $device)
     {
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
 
             return view('devices.show')->with(['device' => $device]);
@@ -130,7 +130,7 @@ class DeviceController extends Controller
      */
     public function edit(Device $device)
     {
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $protections = Protection::pluck('description', 'id')->all();
             $icons = Icon::where('type', 'device')->pluck('name', 'id')->all();
@@ -154,7 +154,7 @@ class DeviceController extends Controller
     public function update(Request $request, Device $device)
     {
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $rules = [
                 'protection_id' => 'required|exists:protections,id',
@@ -200,7 +200,7 @@ class DeviceController extends Controller
     public function destroy(Device $device)
     {
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $device->delete();
             return redirect()->route('devices.index')->with('success', ['Dispositivo eliminado con exito']);
@@ -213,7 +213,7 @@ class DeviceController extends Controller
 
     public function configuration(Device $device)
     {
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
 
             return view('devices.configuration', compact('device'));

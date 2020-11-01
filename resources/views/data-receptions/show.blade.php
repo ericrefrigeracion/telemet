@@ -9,10 +9,10 @@
                    Datos disponibles de {{ $device->name }} ({{ $device->description }})
                 </div>
                 <div class="card-body">
-                    @foreach($view_configurations as $view_configuration)
-                        @can($view_configuration->permission)
+                    @foreach($configurations as $configuration)
+                        @can($configuration->permission)
                         <div class="row">
-                            <plot-data-receptions :view="{{ $view_configuration }}" :device="{{ $device }}"></plot-data-receptions>
+                            <plot-data-receptions :view="{{ $configuration }}" :device_id="{{ $device->id }}"></plot-data-receptions>
                         </div>
                         @endcan
                     @endforeach

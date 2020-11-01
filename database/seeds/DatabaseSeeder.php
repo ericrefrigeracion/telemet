@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ViewConfigurationsTableSeeder::class);
         $this->call(DevicesTableSeeder::class);
         $this->call(DeviceConfigurationsTableSeeder::class);
-        //$this->call(DataReceptionsTableSeeder::class);
+        $this->call(DataReceptionsTableSeeder::class);
     }
 }

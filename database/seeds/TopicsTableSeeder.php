@@ -26,7 +26,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Temperatura Canal 1',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 255, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'temp2',
@@ -34,7 +34,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Temperatura Canal 2',
             'decimals' => 2,
             'color' => 'rgba(0, 128, 255, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'temp3',
@@ -42,7 +42,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Temperatura Canal 3',
             'decimals' => 2,
             'color' => 'rgba(90, 160, 255, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'temp4',
@@ -50,7 +50,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Temperatura Canal 4',
             'decimals' => 2,
             'color' => 'rgba(103, 50, 255, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'temp5',
@@ -58,7 +58,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Temperatura Canal 5',
             'decimals' => 2,
             'color' => 'rgba(170, 19, 255, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'volt1',
@@ -66,7 +66,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Volts',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'volt2',
@@ -74,7 +74,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Volts',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'volt3',
@@ -82,7 +82,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Volts',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'Amp1',
@@ -90,7 +90,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Amperes',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'Amp2',
@@ -98,7 +98,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Amperes',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'Amp3',
@@ -106,7 +106,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Amperes',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'signal',
@@ -114,7 +114,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Señal',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'batt',
@@ -122,7 +122,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Bateria',
             'decimals' => 2,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'output1',
@@ -130,7 +130,7 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Estado',
             'decimals' => 0,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
         ]);
         Topic::create([
             'slug' => 'output2',
@@ -138,7 +138,23 @@ class TopicsTableSeeder extends Seeder
             'name' => 'Estado',
             'decimals' => 0,
             'color' => 'rgba(0, 0, 0, 1)',
-            'filled' => 'false',
+            'filled' => 'true',
+        ]);
+        Topic::create([
+            'slug' => 'temp1_derivate',
+            'unit' => '°C',
+            'name' => 'Derivada',
+            'decimals' => 2,
+            'color' => 'rgba(0, 0, 255, 1)',
+            'filled' => 'true',
+        ]);
+        Topic::create([
+            'slug' => 'temp1_performance',
+            'unit' => '°C/h',
+            'name' => 'Performance',
+            'decimals' => 2,
+            'color' => 'rgba(0, 128, 255, 1)',
+            'filled' => 'true',
         ]);
     }
 }

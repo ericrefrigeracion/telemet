@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img width="18px" src="/favicon.ico" alt="Logo TelemeTT">
-            TelemeT 2019 - Derechos Reservados
+            TelemeT 2020 - Derechos Reservados V2
         </a>
     </div>
 </nav>

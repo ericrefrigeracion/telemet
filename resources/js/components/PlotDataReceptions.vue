@@ -1,10 +1,5 @@
 <template>
-    <div>
-        <canvas :id="view.order"></canvas>
-        <button onclick="today()">Hoy</button>
-        <button onclick="yesterday()">Ayer</button>
-
-    </div>
+    <canvas :id="view.order"></canvas>
 </template>
 
 <script>
@@ -12,7 +7,7 @@
     import moment from 'moment';
 
     export default {
-        props: ['view', 'device'],
+        props: ['view', 'device_id'],
         data(){
             return{
                 receptions:[],
@@ -24,40 +19,7 @@
             setInterval(this.getData, 15000);
         },
         mounted() {
-            var ctx = document.getElementById(this.view.order).getContext('2d');
-            var timeFormat = 'YYYY/MM/DD HH:mm';
-            window.myLine = new Chart(ctx, {
-                type: this.view.display,
-                data: {
-                    datasets: this.content
-                },
-                options: {
-                title: {},
-                scales: {
-                    xAxes: [{
-                        type: 'time',
-                        time: {
-                            parser: timeFormat,
-                            // round: 'day'
-                            tooltipFormat: 'll HH:mm',
-                            parser: function(date) {
-                                return moment(date).utcOffset('+0100');
-                            }
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Fecha'
-                        }
-                    }],
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Valores'
-                        }
-                    }]
-                },
-            }
-            });
+
         },
         methods:{
             getReceptions: function(){
@@ -69,7 +31,7 @@
                     var fill = topic.topic.filled;
                     var start_time = Date.now() - (12 * 60 * 60 * 1000);
                     var end_time = Date.now();
-                    var url = '/api/centinela/receptions/data/' + this.device.id + '/' + slug + '/' + start_time + '-' + end_time;
+                    var url = '/api/centinela/receptions/data/' + this.device_id + '/' + slug + '/' + start_time + '-' + end_time;
                     axios.get(url)
                     .then(response => {
                         this.receptions = response.data;
@@ -80,11 +42,48 @@
                         'fill': fill,
                         });
                         //console.log(this.content);
-                        window.myLine.update();
+                        //window.myLine.update();
+                        this.mountChart();
                     });
                 });
             },
-            getData: function(){}
+            getData: function(){},
+            mountChart: function(){
+                var ctx = document.getElementById(this.view.order).getContext('2d');
+                var timeFormat = 'YYYY/MM/DD HH:mm';
+                new Chart(ctx, {
+                    type: this.view.display,
+                    data: {
+                        datasets: this.content
+                    },
+                    options: {
+                        title: {},
+                        scales: {
+                            xAxes: [{
+                                type: 'time',
+                                time: {
+                                    parser: timeFormat,
+                                    // round: 'day'
+                                    tooltipFormat: 'll HH:mm',
+                                    parser: function(date) {
+                                        return moment(date).utcOffset('+0100');
+                                    }
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Fecha'
+                                }
+                            }],
+                            yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Valores'
+                                }
+                            }]
+                        },
+                    }
+                });
+            }
         }
     }
 </script>

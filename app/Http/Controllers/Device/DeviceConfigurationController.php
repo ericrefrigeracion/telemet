@@ -18,7 +18,7 @@ class DeviceConfigurationController extends Controller
      */
     public function edit(Device $device)
     {
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             return view('devices.configuration', compact('device'));
         }
@@ -38,7 +38,7 @@ class DeviceConfigurationController extends Controller
     public function update(Request $request, DeviceConfiguration $device_configuration)
     {
 
-        if ($device_configuration->device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device_configuration->device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $rules = [
 

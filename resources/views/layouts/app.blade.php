@@ -10,7 +10,6 @@
 
     @yield('head_scripts')
 
-
     <script src="https://kit.fontawesome.com/a2f903f9d9.js"></script>
 </head>
 <body>
@@ -20,8 +19,8 @@
             @include('layouts.partials.errors')
             @yield('content')
         </main>
+        @include('layouts.partials.footer')
     </div>
-    @include('layouts.partials.footer')
     @yield('footer_scripts')
     <script src="{{ asset('js/app.js') }}" defer></script>
 </body>

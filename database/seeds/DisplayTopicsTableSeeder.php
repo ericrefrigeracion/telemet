@@ -12,10 +12,21 @@ class DisplayTopicsTableSeeder extends Seeder
      */
     public function run()
     {
+        //Tiny
         DisplayTopic::create([
             'display_id' => 1,
             'topic_id' => 1,
         ]);
+        DisplayTopic::create([
+            'display_id' => 10,
+            'topic_id' => 17,
+        ]);
+        DisplayTopic::create([
+            'display_id' => 10,
+            'topic_id' => 18,
+        ]);
+
+        //Health
         DisplayTopic::create([
             'display_id' => 2,
             'topic_id' => 2,

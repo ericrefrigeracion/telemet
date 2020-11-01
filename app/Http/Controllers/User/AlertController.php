@@ -48,7 +48,7 @@ class AlertController extends Controller
      */
     public function show(Device $device)
     {
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3) {
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin')) {
 
             $alerts = Alert::where('device_id', $device->id)->latest()->paginate(20);
             $device->view_alerts_at = now();

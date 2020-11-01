@@ -19,6 +19,15 @@ class ViewConfigurationsTableSeeder extends Seeder
             'order' => 1,
             'permission' => 'view.basic'
         ]);
+        ViewConfiguration::create([
+            'type_device_id' => 2,
+            'display_id' => 10,
+            'order' => 2,
+            'permission' => 'view.admin'
+        ]);
+
+
+
         //vista health
         ViewConfiguration::create([
             'type_device_id' => 3,

@@ -14,7 +14,7 @@ class DevicesTableSeeder extends Seeder
     {
         Device::create([
             'id' => 123456,
-            'type_device_id' => 3,
+            'type_device_id' => 2,
             'protection_id' => 1,
             'status_id' => 1,
             'icon_id' => 1,

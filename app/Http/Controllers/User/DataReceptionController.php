@@ -21,20 +21,20 @@ class DataReceptionController extends Controller
      */
     public function show(Device $device)
     {
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
 
-            $view_configurations = ViewConfiguration::where('type_device_id', $device->type_device_id)->orderBy('order')->get();
-            foreach ($view_configurations as $view_configuration)
+            $configurations = ViewConfiguration::where('type_device_id', $device->type_device_id)->orderBy('order')->get();
+            foreach ($configurations as $configuration)
             {
-                $view_configuration->display_topics = DisplayTopic::where('display_id', $view_configuration->display_id)->get();
-                $view_configuration->display = $view_configuration->display()->pluck('slug')->first();
-                foreach ($view_configuration->display_topics as $display_topic) {
+                $configuration->display_topics = DisplayTopic::where('display_id', $configuration->display_id)->get();
+                $configuration->display = $configuration->display()->pluck('slug')->first();
+                foreach ($configuration->display_topics as $display_topic) {
                     $display_topic->topic = Topic::find($display_topic->topic_id);
                 }
             }
             //dd($view_configurations);
-            return view('data-receptions.show', compact('device', 'view_configurations'));
+            return view('data-receptions.show', compact('device', 'configurations'));
         }
         else
         {

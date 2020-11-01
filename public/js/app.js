@@ -18076,15 +18076,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['view', 'device'],
+  props: ['view', 'device_id'],
   data: function data() {
     return {
       receptions: [],
@@ -18095,41 +18090,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getReceptions();
     setInterval(this.getData, 15000);
   },
-  mounted: function mounted() {
-    var ctx = document.getElementById(this.view.order).getContext('2d');
-    var timeFormat = 'YYYY/MM/DD HH:mm';
-    window.myLine = new Chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(ctx, {
-      type: this.view.display,
-      data: {
-        datasets: this.content
-      },
-      options: {
-        title: {},
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: _defineProperty({
-              parser: timeFormat,
-              // round: 'day'
-              tooltipFormat: 'll HH:mm'
-            }, "parser", function parser(date) {
-              return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).utcOffset('+0100');
-            }),
-            scaleLabel: {
-              display: true,
-              labelString: 'Fecha'
-            }
-          }],
-          yAxes: [{
-            scaleLabel: {
-              display: true,
-              labelString: 'Valores'
-            }
-          }]
-        }
-      }
-    });
-  },
+  mounted: function mounted() {},
   methods: {
     getReceptions: function getReceptions() {
       var _this = this;
@@ -18142,7 +18103,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var fill = topic.topic.filled;
         var start_time = Date.now() - 12 * 60 * 60 * 1000;
         var end_time = Date.now();
-        var url = '/api/centinela/receptions/data/' + _this.device.id + '/' + slug + '/' + start_time + '-' + end_time;
+        var url = '/api/centinela/receptions/data/' + _this.device_id + '/' + slug + '/' + start_time + '-' + end_time;
         axios.get(url).then(function (response) {
           _this.receptions = response.data;
 
@@ -18153,13 +18114,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             'backgroundColor': color,
             'fill': fill
           }); //console.log(this.content);
+          //window.myLine.update();
 
 
-          window.myLine.update();
+          _this.mountChart();
         });
       });
     },
-    getData: function getData() {}
+    getData: function getData() {},
+    mountChart: function mountChart() {
+      var ctx = document.getElementById(this.view.order).getContext('2d');
+      var timeFormat = 'YYYY/MM/DD HH:mm';
+      new Chart_js__WEBPACK_IMPORTED_MODULE_0___default.a(ctx, {
+        type: this.view.display,
+        data: {
+          datasets: this.content
+        },
+        options: {
+          title: {},
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: _defineProperty({
+                parser: timeFormat,
+                // round: 'day'
+                tooltipFormat: 'll HH:mm'
+              }, "parser", function parser(date) {
+                return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).utcOffset('+0100');
+              }),
+              scaleLabel: {
+                display: true,
+                labelString: 'Fecha'
+              }
+            }],
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Valores'
+              }
+            }]
+          }
+        }
+      });
+    }
   }
 });
 
@@ -75256,13 +75253,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("canvas", { attrs: { id: _vm.view.order } }),
-    _vm._v(" "),
-    _c("button", { attrs: { onclick: "today()" } }, [_vm._v("Hoy")]),
-    _vm._v(" "),
-    _c("button", { attrs: { onclick: "yesterday()" } }, [_vm._v("Ayer")])
-  ])
+  return _c("canvas", { attrs: { id: _vm.view.order } })
 }
 var staticRenderFns = []
 render._withStripped = true

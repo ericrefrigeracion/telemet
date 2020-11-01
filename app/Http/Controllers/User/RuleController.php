@@ -55,7 +55,7 @@ class RuleController extends Controller
 
         $device = Device::findOrFail($request->device_id);
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $rules = [
                 'day' => 'required',
@@ -87,7 +87,7 @@ class RuleController extends Controller
         $user = Auth::user();
         $device = Device::findOrFail($rule->device_id);
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             return view('rules.show', compact('rule'));
         }
@@ -108,7 +108,7 @@ class RuleController extends Controller
 
         $device = Device::findOrFail($rule->device_id);
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             return view('rules.edit', compact('rule'));
         }
@@ -129,7 +129,7 @@ class RuleController extends Controller
     {
         $device = Device::findOrFail($rule->device_id);
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $rules = [
                 'day' => 'required',
@@ -163,7 +163,7 @@ class RuleController extends Controller
     {
         $device = Device::findOrFail($rule->device_id);
 
-        if ($device->users->where('id', Auth::user()->id) || Auth::user()->id < 3)
+        if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin'))
         {
             $rule->delete();
             alertCreate($device, "Se elimino una regla para $rule->day.", now());
