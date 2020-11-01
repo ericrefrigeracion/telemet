@@ -16,6 +16,7 @@
                         <thead>
                             <tr>
                                 <th>Prefijo</th>
+                                <th></th>
                                 <th>Modelo</th>
                                 <th colspan="3">Acciones</th>
                             </tr>
@@ -24,6 +25,7 @@
                             @foreach($type_devices as $type_device)
                                 <tr>
                                     <td>{{ $type_device->prefix }}</td>
+                                    <td>{{ $icon->scripts }}<i class=""></i></td>
                                     <td>{{ $type_device->model }}</td>
                                     @can('type-devices.show')
                                         <td><a href="{{ route('type-devices.show', $type_device->id) }}" class="btn btn-sm btn-success">Ver</a></td>

@@ -27,7 +27,7 @@
                                 <tr>
                                     <td>{{ $icon->id }}</td>
                                     <td>{{ $icon->name }}</td>
-                                    <td>{!! $icon->scripts !!}</td>
+                                    <td><i class="{{ $icon->scripts }}"></i></td>
                                     <td>{{ $icon->type }}</td>
                                     @can('icons.show')
                                         <td><a href="{{ route('icons.show', $icon->id) }}" class="btn btn-sm btn-success">Ver</a></td>
