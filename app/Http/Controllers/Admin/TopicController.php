@@ -47,7 +47,7 @@ class TopicController extends Controller
             'decimals' => 'required|integer|min:0|max:3',
             'icon_id' => 'required|integer|exists:icons,id',
             'color' => 'required|string|max:25',
-            'filled' => 'required|boolean',
+            'filled' => 'boolean',
         ];
 
         $request->validate($rules);
