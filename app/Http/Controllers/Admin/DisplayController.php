@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Display;
 use Illuminate\Http\Request;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class DisplayController extends Controller
 {

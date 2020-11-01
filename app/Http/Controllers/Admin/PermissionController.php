@@ -6,7 +6,7 @@ use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {

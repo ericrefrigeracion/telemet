@@ -32,6 +32,10 @@
                                     <td>{{ $display->script }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Titulo</td>
+                                    <td>{{ $display->script }}</td>
+                                </tr>
+                                <tr>
                                     <td>Creado</td>
                                     <td>{{ $display->created_at }}</td>
                                 </tr>

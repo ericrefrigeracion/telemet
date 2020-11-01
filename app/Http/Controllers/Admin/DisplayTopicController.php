@@ -6,7 +6,7 @@ use App\Topic;
 use App\Display;
 use App\DisplayTopic;
 use Illuminate\Http\Request;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class DisplayTopicController extends Controller
 {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Icon;
 use App\Protection;
 use Illuminate\Http\Request;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class ProtectionController extends Controller
 {

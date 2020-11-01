@@ -9,7 +9,7 @@ use App\Device;
 use App\Webhook;
 use Illuminate\Http\Request;
 use App\Jobs\Pay\PaymentRevissionJob;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class WebhookController extends Controller
 {

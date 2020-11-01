@@ -26,6 +26,10 @@
                             {{ Form::label('scripts', 'Scripts') }}
                             {{ Form::text('scripts', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
                         </div>
+                        <div class="form-group">
+                            {{ Form::label('title', 'Titulo') }}
+                            {{ Form::text('title', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
+                        </div>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}
                         </div>

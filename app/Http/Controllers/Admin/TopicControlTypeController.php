@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\TopicControlType;
 use Illuminate\Http\Request;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class TopicControlTypeController extends Controller
 {

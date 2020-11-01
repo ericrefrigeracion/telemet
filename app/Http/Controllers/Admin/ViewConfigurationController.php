@@ -7,7 +7,7 @@ use App\Display;
 use App\Topic;
 use App\ViewConfiguration;
 use Illuminate\Http\Request;
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class ViewConfigurationController extends Controller
 {

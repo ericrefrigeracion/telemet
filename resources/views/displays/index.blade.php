@@ -8,7 +8,7 @@
                 <div class="card-header">
                 <h3>Tipos de visualizacion</h3>
                     @can('displays.create')
-                        <a href="{{ route('displays.create') }}" class="btn btn-sm btn-info float-right">Crear Item Control</a>
+                        <a href="{{ route('displays.create') }}" class="btn btn-sm btn-info float-right">Crear Display</a>
                     @endcan
                 </div>
                 <div class="card-body">
