@@ -9,7 +9,7 @@
                     Crear Tipo de Visualizacion
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => ['topic-control-types.store']]) !!}
+                    {!! Form::open(['route' => ['displays.store']]) !!}
                         <div class="form-group">
                             {{ Form::label('slug', 'Slug para el sistema') }}
                             {{ Form::text('slug', null, ['class' => 'form-control', 'required', 'maxlength' => '10']) }}
@@ -20,15 +20,15 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('description', 'Descripcion breve') }}
-                            {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '30']) }}
+                            {{ Form::text('description', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('scripts', 'Scripts') }}
-                            {{ Form::text('scripts', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
+                            {{ Form::text('scripts', null, ['class' => 'form-control', 'maxlength' => '40']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('title', 'Titulo') }}
-                            {{ Form::text('title', null, ['class' => 'form-control', 'required', 'maxlength' => '40']) }}
+                            {{ Form::text('title', null, ['class' => 'form-control', 'required', 'maxlength' => '30']) }}
                         </div>
                         <div>
                             {{ Form::submit('Crear Item', ['class' => 'btn btn-sm btn-primary']) }}
