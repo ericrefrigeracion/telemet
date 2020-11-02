@@ -290,6 +290,16 @@ class DeviceConfigurationsTableSeeder extends Seeder
                 'status_id' => 1,
             ]);
         }
+        for ($id=1; $id < 6; $id++)
+        {
+            DeviceConfiguration::create([
+                'device_id' => 123456,
+                'topic_id' => 1,
+                'topic_control_type_id' => $id,
+                'value' => 0,
+                'status_id' => 1,
+            ]);
+        }
 
     }
 }
