@@ -209,7 +209,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
             $last_reception->update(['status' => $status]);
 
-            $before_reception = $data_receptions->where('topic', $configuration->topic->slug)->where('created_at', '<', $last_reception->created_at)->last();
+            $before_reception = $data_receptions->where('topic', $configuration->topic->slug)->where('device_id', $configuration->device_id)->where('created_at', '<', $last_reception->created_at)->last();
 
             if(!$before_reception) $before_reception = $last_reception;
             $derivate = $before_reception->value - $last_reception->value;
