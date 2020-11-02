@@ -21,7 +21,7 @@ class AlertController extends Controller
         $last_day = now()->subDay();
         $alerts = Alert::where('created_at', '>=', $last_day)->latest()->paginate(20);
 
-        return view('alerts.all')->with(['alerts' => $alerts]);
+        return view('alerts.all', compact('alerts'));
 
     }
     /**
