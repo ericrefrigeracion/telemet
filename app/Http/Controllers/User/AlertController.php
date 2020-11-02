@@ -51,10 +51,9 @@ class AlertController extends Controller
         if ($device->users->where('id', Auth::user()->id) || Auth::user()->hasRole('super.admin')) {
 
             $alerts = Alert::where('device_id', $device->id)->latest()->paginate(20);
-            $device->view_alerts_at = now();
-            $device->update();
+            if (!Auth::user()->hasRole('super.admin')) $device->update(['view_alerts_at' => now()]);
 
-            return view('alerts.show')->with(['device' => $device, 'alerts' => $alerts]);
+            return view('alerts.show', compact('device', 'alerts'));
 
         }else{
             abort(403, 'Accion no Autorizada');
