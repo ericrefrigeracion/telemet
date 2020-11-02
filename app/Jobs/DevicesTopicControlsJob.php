@@ -40,7 +40,7 @@ class DevicesTopicControlsJob implements ShouldQueue
     public function topicControl()
     {
         $on_line_time = now()->subMinutes(10);
-        $performance_time = now()->subHour();
+        $performance_time = now()->subHours(2);
 
         $devices = Device::where('protected', true)->where('admin_mon', true)->get();
         $device_configurations = DeviceConfiguration::all();
