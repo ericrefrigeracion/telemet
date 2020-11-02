@@ -65,6 +65,7 @@ class DataController extends Controller
     public function all()
     {
         $devices = Device::where('admin_mon', true)->where('protection_id', '!=', 4)->get();
+        $alerts_time = now()->subDay();
 
         foreach ($devices as $device)
         {
@@ -79,7 +80,7 @@ class DataController extends Controller
             $device->data_receptions_route = route('data-receptions.show', $device->id);
             $device->configurations_route = route('devices.configuration', $device->id);
             $device->logs_route = route('device-logs.show', $device->id);
-            $device->alerts_count = $device->alerts()->where('created_at', '>', $device->view_alerts_at)->count();
+            $device->alerts_count = $device->alerts()->where('created_at', '>', $alerts_time)->count();
             if($device->data_receptions()->first() !== null) $device->last_reception_created_at = $device->data_receptions()->latest()->first()->created_at;
         }
 
