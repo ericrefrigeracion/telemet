@@ -11,9 +11,12 @@
                 <div class="card-body">
                     {!! Form::open(['route' => ['devices.store']]) !!}
                         <div class="form-group">
+                            {{ Form::label('prefix', 'Prefijo') }}
+                            <span class="m-2"> - </span>
                             {{ Form::label('id', 'ID del dispositivo') }}
                             <div class="row">
                                 {{ Form::number('prefix', null, ['class' => 'form-control col-1 ml-3 mr-1', 'required', 'min' => 1, 'max' => 99]) }}
+                                <span class="m-2"> - </span>
                                 {{ Form::number('id', null, ['class' => 'form-control col-3', 'required', 'min' => 10000, 'max' => 9999999999999999999]) }}
                             </div>
                         </div>

@@ -18157,13 +18157,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).utcOffset('+0100');
               }),
               scaleLabel: {
-                display: true
+                display: true //labelString: 'Fecha',
+
               }
             }],
             yAxes: [{
               scaleLabel: {
-                display: true,
-                labelString: 'Valores'
+                display: true //labelString: 'Valores'.
+
               }
             }]
           }

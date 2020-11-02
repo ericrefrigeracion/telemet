@@ -86,13 +86,13 @@
                                 },
                                 scaleLabel: {
                                     display: true,
-
+                                    //labelString: 'Fecha',
                                 }
                             }],
                             yAxes: [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Valores'
+                                    //labelString: 'Valores'.
                                 }
                             }]
                         },
