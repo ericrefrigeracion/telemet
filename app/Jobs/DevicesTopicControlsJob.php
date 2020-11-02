@@ -227,7 +227,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
     public function performance($data_receptions, $configuration)
     {
-        $performance = $data_receptions->where('topic', $configuration->topic->slug . '_derivate')->where('value', '>', 0)->sum('value');
+        $performance = $data_receptions->where('topic', $configuration->topic->slug . '_derivate')->where('device_id', $configuration->device_id)->where('value', '>', 0)->sum('value');
         if($performance > 40) $performance = 40;
         if($performance < 0) $performance = 0;
 
