@@ -18132,6 +18132,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           datasets: this.content
         },
         options: {
+          legend: {
+            labels: {
+              usePointStyle: true
+            },
+            position: 'bottom'
+          },
           title: {},
           animation: {
             duration: 0
@@ -18139,6 +18145,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           hover: {
             animationDuration: 0
           },
+          responsive: true,
           responsiveAnimationDuration: 0,
           scales: {
             xAxes: [{
@@ -18150,8 +18157,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).utcOffset('+0100');
               }),
               scaleLabel: {
-                display: true,
-                labelString: 'Fecha'
+                display: true
               }
             }],
             yAxes: [{

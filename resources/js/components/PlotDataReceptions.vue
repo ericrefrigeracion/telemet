@@ -58,6 +58,12 @@
                         datasets: this.content
                     },
                     options: {
+                        legend: {
+                            labels:{
+                                usePointStyle:true
+                            },
+                            position:'bottom',
+                        },
                         title: {},
                         animation: {
                             duration: 0
@@ -65,6 +71,7 @@
                         hover: {
                             animationDuration: 0
                         },
+                        responsive: true,
                         responsiveAnimationDuration: 0,
                         scales: {
                             xAxes: [{
@@ -78,7 +85,7 @@
                                 },
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Fecha',
+
                                 }
                             }],
                             yAxes: [{
