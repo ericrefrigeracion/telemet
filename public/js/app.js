@@ -18110,6 +18110,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.content.push({
             'label': name,
             'data': _this.receptions,
+            'pointRadius': 2,
             'borderColor': color,
             'backgroundColor': color,
             'fill': fill

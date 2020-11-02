@@ -37,6 +37,7 @@
                         this.receptions = response.data;
                         this.content.push({'label':name,
                         'data':this.receptions,
+                        'pointRadius':2,
                         'borderColor': color,
                         'backgroundColor': color,
                         'fill': fill,
