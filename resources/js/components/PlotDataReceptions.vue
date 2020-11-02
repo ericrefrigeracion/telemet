@@ -58,12 +58,18 @@
                     },
                     options: {
                         title: {},
+                        animation: {
+                            duration: 0
+                        },
+                        hover: {
+                            animationDuration: 0
+                        },
+                        responsiveAnimationDuration: 0,
                         scales: {
                             xAxes: [{
                                 type: 'time',
                                 time: {
                                     parser: timeFormat,
-                                    // round: 'day'
                                     tooltipFormat: 'll HH:mm',
                                     parser: function(date) {
                                         return moment(date).utcOffset('+0100');
@@ -71,7 +77,7 @@
                                 },
                                 scaleLabel: {
                                     display: true,
-                                    labelString: 'Fecha'
+                                    labelString: 'Fecha',
                                 }
                             }],
                             yAxes: [{

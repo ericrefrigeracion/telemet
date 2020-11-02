@@ -29,6 +29,7 @@ class DataReceptionController extends Controller
             {
                 $configuration->display_topics = DisplayTopic::where('display_id', $configuration->display_id)->get();
                 $configuration->display = $configuration->display()->pluck('slug')->first();
+                $configuration->title = $configuration->display()->pluck('title')->first();
                 foreach ($configuration->display_topics as $display_topic) {
                     $display_topic->topic = Topic::find($display_topic->topic_id);
                 }

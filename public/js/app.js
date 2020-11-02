@@ -18132,12 +18132,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         options: {
           title: {},
+          animation: {
+            duration: 0
+          },
+          hover: {
+            animationDuration: 0
+          },
+          responsiveAnimationDuration: 0,
           scales: {
             xAxes: [{
               type: 'time',
               time: _defineProperty({
                 parser: timeFormat,
-                // round: 'day'
                 tooltipFormat: 'll HH:mm'
               }, "parser", function parser(date) {
                 return moment__WEBPACK_IMPORTED_MODULE_1___default()(date).utcOffset('+0100');
