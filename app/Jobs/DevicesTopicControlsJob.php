@@ -112,7 +112,7 @@ class DevicesTopicControlsJob implements ShouldQueue
         if(strpos($last_reception->status, $configuration->topic_control_type->slug) === false || $last_reception->status === null)
         {
             $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
-            $value = $last_reception->value + $configuration->value;
+            $value = round(($last_reception->value + $configuration->value), 2);
             $last_reception->update([
                 'status' => $status,
                 'value' => $value
