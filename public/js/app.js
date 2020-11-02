@@ -18087,8 +18087,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
-    this.getReceptions();
-    setInterval(this.getData, 15000);
+    this.getReceptions(); //setInterval(this.getData, 15000);
   },
   mounted: function mounted() {},
   methods: {

@@ -20,7 +20,7 @@ class DataController extends Controller
     public function now(Device $device, $topic)
     {
 
-        $device->last_data = DataReception::select('value', 'created_at')->where('device_id', $device->id)->where('topic', $topic)->where('status', null)->latest()->first();
+        $device->last_data = DataReception::select('value', 'created_at')->where('device_id', $device->id)->where('topic', $topic)->where('status', '!=', null)->latest()->first();
         $device->status = $device->status;
         $device->status->icon = $device->status->icon;
         $device->protection = $device->protection;
