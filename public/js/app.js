@@ -18251,6 +18251,9 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
     setInterval(this.getTiny, 15000);
   },
   methods: {
+    roundValue: function roundValue(v) {
+      return Math.round(v * 100) / 100;
+    },
     forHumans: function forHumans(d) {
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
     },
@@ -75333,7 +75336,7 @@ var render = function() {
       _vm.tiny.last_data
         ? _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-10 display-4" }, [
-              _vm._v(_vm._s(_vm.tiny.last_data.value) + "°C")
+              _vm._v(_vm._s(_vm.roundValue(_vm.tiny.last_data.value)) + "°C")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-10" }, [

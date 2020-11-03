@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="row" v-if="tiny.last_data">
-                <div class="col-10 display-4">{{ tiny.last_data.value }}°C</div>
+                <div class="col-10 display-4">{{ roundValue(tiny.last_data.value) }}°C</div>
                 <div class="col-10"><small>{{ forHumans(tiny.last_data.created_at) }}</small></div>
             </div>
             <div class="row" v-else>
@@ -55,6 +55,9 @@
             setInterval(this.getTiny, 15000);
         },
         methods:{
+            roundValue: function(v){
+                return (Math.round(v*100)/100)
+            },
             forHumans: function(d){
                 return moment(d).fromNow();
             },
