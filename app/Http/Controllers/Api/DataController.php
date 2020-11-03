@@ -50,6 +50,7 @@ class DataController extends Controller
                                 ->where('device_id', $device)
                                 ->where('created_at', '>', $start_time)
                                 ->where('created_at', '<', $end_time)
+                                ->where('status', '!=', null)
                                 ->where('topic', $topic)
                                 ->orderBy('created_at')->get();
 
