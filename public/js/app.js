@@ -18076,6 +18076,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -75267,9 +75275,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("canvas", { attrs: { id: _vm.view.order } })
+  return _c("div", { staticClass: "col mb-5" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("canvas", { attrs: { id: _vm.view.order } })
+    ]),
+    _vm._v(" "),
+    _vm._m(0)
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary btn-sm float-left",
+          attrs: { type: "button" }
+        },
+        [_vm._v("Antes")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-sm btn-info float-right",
+          attrs: { type: "button" }
+        },
+        [_vm._v("Despues")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

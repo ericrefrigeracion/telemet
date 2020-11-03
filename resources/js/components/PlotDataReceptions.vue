@@ -1,5 +1,13 @@
 <template>
-    <canvas :id="view.order"></canvas>
+    <div class="col mb-5">
+        <div class="row">
+            <canvas :id="view.order"></canvas>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-secondary btn-sm float-left">Antes</button>
+            <button type="button" class="btn btn-sm btn-info float-right">Despues</button>
+        </div>
+    </div>
 </template>
 
 <script>

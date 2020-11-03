@@ -57,7 +57,7 @@ class DataController extends Controller
         foreach ($datas as $data)
         {
             $data->x = $data->created_at;
-            $data->y = $data->value;
+            $data->y = round($data->value, 2);
         }
 
         return $datas;
