@@ -240,7 +240,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         if($performance < $configuration->value && $configuration->status_id == 1)
             {
-                alertCreate($configuration->device, 'El valor de ' . $configuration->topic->name . ' se encuentra por debajo de la minima esperada.', now());
+                alertCreate($configuration->device, 'El valor de ' . $configuration->topic_control_type->name . ' se encuentra por debajo de la minima esperada.', now());
                 $configuration->device->update(['status_id' => 2]);
                 $configuration->update([
                     'status_id' => 2,
