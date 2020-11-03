@@ -101,7 +101,7 @@ class DevicesTopicControlsJob implements ShouldQueue
         {
             $device->update(['on_line' => false]);
             alertCreate($device, 'El dispositivo esta desconectado.', now());
-            mailAlertCreate($device, 'onLine', $on_line_time);
+            mailAlertCreate($device, 'offLine', now());
         }
 
         return $device->on_line;
