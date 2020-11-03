@@ -220,7 +220,7 @@ class DevicesTopicControlsJob implements ShouldQueue
                 'device_id' => $configuration->device_id,
                 'topic' => $configuration->topic->slug . '_derivate',
                 'value' => $derivate,
-                'status' => null,
+                'status' => 'perf',
             ]);
         }
     }
@@ -235,7 +235,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             'device_id' => $configuration->device_id,
             'topic' => $configuration->topic->slug . '_performance',
             'value' => $performance,
-            'status' => null,
+            'status' => 'perf',
         ]);
 
         if($performance < $configuration->value && $configuration->status_id == 1)
