@@ -1,5 +1,4 @@
 @component('mail::message')
-#Sr. {{ $device->user->name }}:
 #Estas son las notificaciones de {{ $device->name }} en las ultimas 24hs.
 
 <hr>
