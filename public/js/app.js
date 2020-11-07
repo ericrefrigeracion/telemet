@@ -17849,94 +17849,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['device'],
-  data: function data() {
-    return {
-      dairy: []
-    };
-  },
-  created: function created() {
-    this.getDairy();
-    setInterval(this.getDairy, 15000);
-  },
-  methods: {
-    forHumans: function forHumans(d) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
-    },
-    getDairy: function getDairy() {
-      var _this = this;
-
-      var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
-        _this.dairy = response.data;
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeviceStatus.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DeviceStatus.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admins/DeviceStatus.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admins/DeviceStatus.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18057,10 +17973,265 @@ var audio = new Audio('../../audio/Nextel.mp3');
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlotDataReceptions.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlotDataReceptions.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/DairyDeviceCard.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/devices/DairyDeviceCard.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['device'],
+  data: function data() {
+    return {
+      dairy: []
+    };
+  },
+  created: function created() {
+    this.getDairy();
+    setInterval(this.getDairy, 15000);
+  },
+  methods: {
+    forHumans: function forHumans(d) {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
+    },
+    getDairy: function getDairy() {
+      var _this = this;
+
+      var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
+        _this.dairy = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/HealthDeviceCard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/devices/HealthDeviceCard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['device'],
+  data: function data() {
+    return {
+      dairy: []
+    };
+  },
+  created: function created() {
+    this.getDairy();
+    setInterval(this.getDairy, 15000);
+  },
+  methods: {
+    forHumans: function forHumans(d) {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
+    },
+    getDairy: function getDairy() {
+      var _this = this;
+
+      var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
+        _this.dairy = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/TinyDeviceCard.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/devices/TinyDeviceCard.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['device'],
+  data: function data() {
+    return {
+      tiny: []
+    };
+  },
+  created: function created() {
+    this.getTiny();
+    setInterval(this.getTiny, 15000);
+  },
+  methods: {
+    roundValue: function roundValue(v) {
+      return Math.round(v * 100) / 100;
+    },
+    forHumans: function forHumans(d) {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
+    },
+    getTiny: function getTiny() {
+      var _this = this;
+
+      var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
+        _this.tiny = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/plots/PlotDataReceptions.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/plots/PlotDataReceptions.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18176,93 +18347,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }]
           }
         }
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TinyDeviceCard.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TinyDeviceCard.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['device'],
-  data: function data() {
-    return {
-      tiny: []
-    };
-  },
-  created: function created() {
-    this.getTiny();
-    setInterval(this.getTiny, 15000);
-  },
-  methods: {
-    roundValue: function roundValue(v) {
-      return Math.round(v * 100) / 100;
-    },
-    forHumans: function forHumans(d) {
-      return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
-    },
-    getTiny: function getTiny() {
-      var _this = this;
-
-      var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
-        _this.tiny = response.data;
       });
     }
   }
@@ -74928,158 +75012,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DairyDeviceCard.vue?vue&type=template&id=33ad099e&":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DairyDeviceCard.vue?vue&type=template&id=33ad099e& ***!
-  \******************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card text-center" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _vm._v("\n        " + _vm._s(_vm.dairy.name) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _vm.dairy.admin_mon
-          ? _c("div", { staticClass: "col text-center" }, [
-              _vm.dairy.protected
-                ? _c("span", [
-                    _c("i", { class: _vm.dairy.status.icon.scripts }),
-                    _vm._v("  Estado " + _vm._s(_vm.dairy.status.name))
-                  ])
-                : _vm._e()
-            ])
-          : _c("div", { staticClass: "col text-center" }, [
-              _c("small", [
-                _vm._v("Monitoreo Vencido - "),
-                _c("a", { attrs: { href: _vm.dairy.pay_route } }, [
-                  _vm._v("Pagar por el monitoreo")
-                ])
-              ])
-            ])
-      ]),
-      _vm._v(" "),
-      _vm.dairy.last_data
-        ? _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-10 display-4" }, [
-              _vm._v(_vm._s(_vm.dairy.last_data.value) + "°C")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-10" }, [
-              _c("small", [
-                _vm._v(_vm._s(_vm.forHumans(_vm.dairy.last_data.created_at)))
-              ])
-            ])
-          ])
-        : _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-10 display-4" }, [
-              _vm._v(" --.- °C ")
-            ]),
-            _vm._v(" "),
-            _vm._m(0)
-          ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _vm.dairy.admin_mon
-            ? _c("i", {
-                class: _vm.dairy.protection.icon.scripts,
-                attrs: { title: _vm.dairy.protection.description }
-              })
-            : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "text-primary m-2",
-              attrs: {
-                href: _vm.dairy.data_receptions_route,
-                title: "Evolucion de Temperaturas"
-              }
-            },
-            [_c("i", { staticClass: "fas fa-chart-line" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "text-primary m-2",
-              attrs: {
-                href: _vm.dairy.configuration_route,
-                title: "Configuracion Del Dispositivo"
-              }
-            },
-            [_c("i", { staticClass: "fas fa-cogs" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "text-primary m-2",
-              attrs: {
-                href: _vm.dairy.logs_route,
-                title: "Bitacora Del Dispositivo"
-              }
-            },
-            [_c("i", { staticClass: "fas fa-clipboard-list" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "text-danger m-2",
-              attrs: { href: _vm.dairy.alerts_route, title: "Nuevas Alertas" }
-            },
-            [
-              _vm._v(_vm._s(_vm.dairy.alerts_count) + " "),
-              _c("i", { staticClass: "fas fa-bell" })
-            ]
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-footer" }, [
-      _c("small", {}, [
-        _vm._v(
-          "\n                " +
-            _vm._s(_vm.dairy.on_line ? "En Linea" : "Sin Conexion") +
-            "\n        "
-        )
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-10" }, [
-      _c("small", [_vm._v(" Sin Datos ")])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeviceStatus.vue?vue&type=template&id=28d781d3&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DeviceStatus.vue?vue&type=template&id=28d781d3& ***!
-  \***************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admins/DeviceStatus.vue?vue&type=template&id=a838c890&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admins/DeviceStatus.vue?vue&type=template&id=a838c890& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -75262,10 +75198,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlotDataReceptions.vue?vue&type=template&id=29e6ff8c&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PlotDataReceptions.vue?vue&type=template&id=29e6ff8c& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/DairyDeviceCard.vue?vue&type=template&id=3593c46c&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/devices/DairyDeviceCard.vue?vue&type=template&id=3593c46c& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -75277,25 +75213,291 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "col mb-5" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("canvas", { attrs: { id: _vm.view.order } })
+  return _c("div", { staticClass: "card text-center" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v("\n        " + _vm._s(_vm.dairy.name) + "\n    ")
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" })
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm.dairy.admin_mon
+          ? _c("div", { staticClass: "col text-center" }, [
+              _vm.dairy.protected
+                ? _c("span", [
+                    _c("i", { class: _vm.dairy.status.icon.scripts }),
+                    _vm._v("  Estado " + _vm._s(_vm.dairy.status.name))
+                  ])
+                : _vm._e()
+            ])
+          : _c("div", { staticClass: "col text-center" }, [
+              _c("small", [
+                _vm._v("Monitoreo Vencido - "),
+                _c("a", { attrs: { href: _vm.dairy.pay_route } }, [
+                  _vm._v("Pagar por el monitoreo")
+                ])
+              ])
+            ])
+      ]),
+      _vm._v(" "),
+      _vm.dairy.last_data
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-10 display-4" }, [
+              _vm._v(_vm._s(_vm.dairy.last_data.value) + "°C")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-10" }, [
+              _c("small", [
+                _vm._v(_vm._s(_vm.forHumans(_vm.dairy.last_data.created_at)))
+              ])
+            ])
+          ])
+        : _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-10 display-4" }, [
+              _vm._v(" --.- °C ")
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _vm.dairy.admin_mon
+            ? _c("i", {
+                class: _vm.dairy.protection.icon.scripts,
+                attrs: { title: _vm.dairy.protection.description }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.data_receptions_route,
+                title: "Evolucion de Temperaturas"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-chart-line" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.configuration_route,
+                title: "Configuracion Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-cogs" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.logs_route,
+                title: "Bitacora Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-clipboard-list" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-danger m-2",
+              attrs: { href: _vm.dairy.alerts_route, title: "Nuevas Alertas" }
+            },
+            [
+              _vm._v(_vm._s(_vm.dairy.alerts_count) + " "),
+              _c("i", { staticClass: "fas fa-bell" })
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer" }, [
+      _c("small", {}, [
+        _vm._v(
+          "\n                " +
+            _vm._s(_vm.dairy.on_line ? "En Linea" : "Sin Conexion") +
+            "\n        "
+        )
+      ])
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-10" }, [
+      _c("small", [_vm._v(" Sin Datos ")])
+    ])
+  }
+]
 render._withStripped = true
 
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TinyDeviceCard.vue?vue&type=template&id=64d789d1&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TinyDeviceCard.vue?vue&type=template&id=64d789d1& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/HealthDeviceCard.vue?vue&type=template&id=b5922342&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/devices/HealthDeviceCard.vue?vue&type=template&id=b5922342& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card text-center" }, [
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v("\n        " + _vm._s(_vm.dairy.name) + "\n    ")
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _vm.dairy.admin_mon
+          ? _c("div", { staticClass: "col text-center" }, [
+              _vm.dairy.protected
+                ? _c("span", [
+                    _c("i", { class: _vm.dairy.status.icon.scripts }),
+                    _vm._v("  Estado " + _vm._s(_vm.dairy.status.name))
+                  ])
+                : _vm._e()
+            ])
+          : _c("div", { staticClass: "col text-center" }, [
+              _c("small", [
+                _vm._v("Monitoreo Vencido - "),
+                _c("a", { attrs: { href: _vm.dairy.pay_route } }, [
+                  _vm._v("Pagar por el monitoreo")
+                ])
+              ])
+            ])
+      ]),
+      _vm._v(" "),
+      _vm.dairy.last_data
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-10 display-4" }, [
+              _vm._v(_vm._s(_vm.dairy.last_data.value) + "°C")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-10" }, [
+              _c("small", [
+                _vm._v(_vm._s(_vm.forHumans(_vm.dairy.last_data.created_at)))
+              ])
+            ])
+          ])
+        : _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-10 display-4" }, [
+              _vm._v(" --.- °C ")
+            ]),
+            _vm._v(" "),
+            _vm._m(0)
+          ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _vm.dairy.admin_mon
+            ? _c("i", {
+                class: _vm.dairy.protection.icon.scripts,
+                attrs: { title: _vm.dairy.protection.description }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.data_receptions_route,
+                title: "Evolucion de Temperaturas"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-chart-line" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.configuration_route,
+                title: "Configuracion Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-cogs" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-primary m-2",
+              attrs: {
+                href: _vm.dairy.logs_route,
+                title: "Bitacora Del Dispositivo"
+              }
+            },
+            [_c("i", { staticClass: "fas fa-clipboard-list" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "text-danger m-2",
+              attrs: { href: _vm.dairy.alerts_route, title: "Nuevas Alertas" }
+            },
+            [
+              _vm._v(_vm._s(_vm.dairy.alerts_count) + " "),
+              _c("i", { staticClass: "fas fa-bell" })
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-footer" }, [
+      _c("small", {}, [
+        _vm._v(
+          "\n                " +
+            _vm._s(_vm.dairy.on_line ? "En Linea" : "Sin Conexion") +
+            "\n        "
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-10" }, [
+      _c("small", [_vm._v(" Sin Datos ")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/TinyDeviceCard.vue?vue&type=template&id=64e73d43&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/devices/TinyDeviceCard.vue?vue&type=template&id=64e73d43& ***!
+  \*************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -75434,6 +75636,36 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/plots/PlotDataReceptions.vue?vue&type=template&id=59cc6e12&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/plots/PlotDataReceptions.vue?vue&type=template&id=59cc6e12& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col mb-5" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("canvas", { attrs: { id: _vm.view.order } })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" })
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -87612,10 +87844,11 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('device-status', __webpack_require__(/*! ./components/DeviceStatus.vue */ "./resources/js/components/DeviceStatus.vue")["default"]);
-Vue.component('tiny-device-card', __webpack_require__(/*! ./components/TinyDeviceCard.vue */ "./resources/js/components/TinyDeviceCard.vue")["default"]);
-Vue.component('dairy-device-card', __webpack_require__(/*! ./components/DairyDeviceCard.vue */ "./resources/js/components/DairyDeviceCard.vue")["default"]);
-Vue.component('plot-data-receptions', __webpack_require__(/*! ./components/PlotDataReceptions.vue */ "./resources/js/components/PlotDataReceptions.vue")["default"]);
+Vue.component('device-status', __webpack_require__(/*! ./components/admins/DeviceStatus.vue */ "./resources/js/components/admins/DeviceStatus.vue")["default"]);
+Vue.component('tiny-device-card', __webpack_require__(/*! ./components/devices/TinyDeviceCard.vue */ "./resources/js/components/devices/TinyDeviceCard.vue")["default"]);
+Vue.component('health-device-card', __webpack_require__(/*! ./components/devices/HealthDeviceCard.vue */ "./resources/js/components/devices/HealthDeviceCard.vue")["default"]);
+Vue.component('dairy-device-card', __webpack_require__(/*! ./components/devices/DairyDeviceCard.vue */ "./resources/js/components/devices/DairyDeviceCard.vue")["default"]);
+Vue.component('plot-data-receptions', __webpack_require__(/*! ./components/plots/PlotDataReceptions.vue */ "./resources/js/components/plots/PlotDataReceptions.vue")["default"]);
 var app = new Vue({
   el: '#app'
 });
@@ -87680,88 +87913,18 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/components/DairyDeviceCard.vue":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/DairyDeviceCard.vue ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _DairyDeviceCard_vue_vue_type_template_id_33ad099e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DairyDeviceCard.vue?vue&type=template&id=33ad099e& */ "./resources/js/components/DairyDeviceCard.vue?vue&type=template&id=33ad099e&");
-/* harmony import */ var _DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DairyDeviceCard.vue?vue&type=script&lang=js& */ "./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _DairyDeviceCard_vue_vue_type_template_id_33ad099e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _DairyDeviceCard_vue_vue_type_template_id_33ad099e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/DairyDeviceCard.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DairyDeviceCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DairyDeviceCard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/DairyDeviceCard.vue?vue&type=template&id=33ad099e&":
-/*!************************************************************************************!*\
-  !*** ./resources/js/components/DairyDeviceCard.vue?vue&type=template&id=33ad099e& ***!
-  \************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_template_id_33ad099e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DairyDeviceCard.vue?vue&type=template&id=33ad099e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DairyDeviceCard.vue?vue&type=template&id=33ad099e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_template_id_33ad099e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_template_id_33ad099e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/DeviceStatus.vue":
-/*!**************************************************!*\
-  !*** ./resources/js/components/DeviceStatus.vue ***!
-  \**************************************************/
+/***/ "./resources/js/components/admins/DeviceStatus.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/admins/DeviceStatus.vue ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _DeviceStatus_vue_vue_type_template_id_28d781d3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeviceStatus.vue?vue&type=template&id=28d781d3& */ "./resources/js/components/DeviceStatus.vue?vue&type=template&id=28d781d3&");
-/* harmony import */ var _DeviceStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeviceStatus.vue?vue&type=script&lang=js& */ "./resources/js/components/DeviceStatus.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _DeviceStatus_vue_vue_type_template_id_a838c890___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeviceStatus.vue?vue&type=template&id=a838c890& */ "./resources/js/components/admins/DeviceStatus.vue?vue&type=template&id=a838c890&");
+/* harmony import */ var _DeviceStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeviceStatus.vue?vue&type=script&lang=js& */ "./resources/js/components/admins/DeviceStatus.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -87771,8 +87934,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _DeviceStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _DeviceStatus_vue_vue_type_template_id_28d781d3___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _DeviceStatus_vue_vue_type_template_id_28d781d3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _DeviceStatus_vue_vue_type_template_id_a838c890___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DeviceStatus_vue_vue_type_template_id_a838c890___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -87782,55 +87945,55 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/DeviceStatus.vue"
+component.options.__file = "resources/js/components/admins/DeviceStatus.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/DeviceStatus.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/DeviceStatus.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
+/***/ "./resources/js/components/admins/DeviceStatus.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/admins/DeviceStatus.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DeviceStatus.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeviceStatus.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DeviceStatus.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admins/DeviceStatus.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/DeviceStatus.vue?vue&type=template&id=28d781d3&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/DeviceStatus.vue?vue&type=template&id=28d781d3& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/admins/DeviceStatus.vue?vue&type=template&id=a838c890&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/admins/DeviceStatus.vue?vue&type=template&id=a838c890& ***!
+  \****************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_template_id_28d781d3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DeviceStatus.vue?vue&type=template&id=28d781d3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DeviceStatus.vue?vue&type=template&id=28d781d3&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_template_id_28d781d3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_template_id_a838c890___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DeviceStatus.vue?vue&type=template&id=a838c890& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admins/DeviceStatus.vue?vue&type=template&id=a838c890&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_template_id_a838c890___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_template_id_28d781d3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DeviceStatus_vue_vue_type_template_id_a838c890___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/PlotDataReceptions.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/components/PlotDataReceptions.vue ***!
-  \********************************************************/
+/***/ "./resources/js/components/devices/DairyDeviceCard.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/devices/DairyDeviceCard.vue ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PlotDataReceptions_vue_vue_type_template_id_29e6ff8c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlotDataReceptions.vue?vue&type=template&id=29e6ff8c& */ "./resources/js/components/PlotDataReceptions.vue?vue&type=template&id=29e6ff8c&");
-/* harmony import */ var _PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlotDataReceptions.vue?vue&type=script&lang=js& */ "./resources/js/components/PlotDataReceptions.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _DairyDeviceCard_vue_vue_type_template_id_3593c46c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DairyDeviceCard.vue?vue&type=template&id=3593c46c& */ "./resources/js/components/devices/DairyDeviceCard.vue?vue&type=template&id=3593c46c&");
+/* harmony import */ var _DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DairyDeviceCard.vue?vue&type=script&lang=js& */ "./resources/js/components/devices/DairyDeviceCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -87839,9 +88002,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _PlotDataReceptions_vue_vue_type_template_id_29e6ff8c___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _PlotDataReceptions_vue_vue_type_template_id_29e6ff8c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DairyDeviceCard_vue_vue_type_template_id_3593c46c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DairyDeviceCard_vue_vue_type_template_id_3593c46c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -87851,55 +88014,124 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/PlotDataReceptions.vue"
+component.options.__file = "resources/js/components/devices/DairyDeviceCard.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/PlotDataReceptions.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/PlotDataReceptions.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/components/devices/DairyDeviceCard.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/devices/DairyDeviceCard.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PlotDataReceptions.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlotDataReceptions.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DairyDeviceCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/DairyDeviceCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/PlotDataReceptions.vue?vue&type=template&id=29e6ff8c&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/PlotDataReceptions.vue?vue&type=template&id=29e6ff8c& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/components/devices/DairyDeviceCard.vue?vue&type=template&id=3593c46c&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/devices/DairyDeviceCard.vue?vue&type=template&id=3593c46c& ***!
+  \********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_template_id_29e6ff8c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PlotDataReceptions.vue?vue&type=template&id=29e6ff8c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PlotDataReceptions.vue?vue&type=template&id=29e6ff8c&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_template_id_29e6ff8c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_template_id_3593c46c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DairyDeviceCard.vue?vue&type=template&id=3593c46c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/DairyDeviceCard.vue?vue&type=template&id=3593c46c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_template_id_3593c46c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_template_id_29e6ff8c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DairyDeviceCard_vue_vue_type_template_id_3593c46c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/TinyDeviceCard.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/TinyDeviceCard.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/devices/HealthDeviceCard.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/devices/HealthDeviceCard.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _TinyDeviceCard_vue_vue_type_template_id_64d789d1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TinyDeviceCard.vue?vue&type=template&id=64d789d1& */ "./resources/js/components/TinyDeviceCard.vue?vue&type=template&id=64d789d1&");
-/* harmony import */ var _TinyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TinyDeviceCard.vue?vue&type=script&lang=js& */ "./resources/js/components/TinyDeviceCard.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _HealthDeviceCard_vue_vue_type_template_id_b5922342___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HealthDeviceCard.vue?vue&type=template&id=b5922342& */ "./resources/js/components/devices/HealthDeviceCard.vue?vue&type=template&id=b5922342&");
+/* harmony import */ var _HealthDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HealthDeviceCard.vue?vue&type=script&lang=js& */ "./resources/js/components/devices/HealthDeviceCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HealthDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HealthDeviceCard_vue_vue_type_template_id_b5922342___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HealthDeviceCard_vue_vue_type_template_id_b5922342___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/devices/HealthDeviceCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/devices/HealthDeviceCard.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/devices/HealthDeviceCard.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HealthDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HealthDeviceCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/HealthDeviceCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HealthDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/devices/HealthDeviceCard.vue?vue&type=template&id=b5922342&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/devices/HealthDeviceCard.vue?vue&type=template&id=b5922342& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HealthDeviceCard_vue_vue_type_template_id_b5922342___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HealthDeviceCard.vue?vue&type=template&id=b5922342& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/HealthDeviceCard.vue?vue&type=template&id=b5922342&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HealthDeviceCard_vue_vue_type_template_id_b5922342___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HealthDeviceCard_vue_vue_type_template_id_b5922342___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/devices/TinyDeviceCard.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/devices/TinyDeviceCard.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TinyDeviceCard_vue_vue_type_template_id_64e73d43___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TinyDeviceCard.vue?vue&type=template&id=64e73d43& */ "./resources/js/components/devices/TinyDeviceCard.vue?vue&type=template&id=64e73d43&");
+/* harmony import */ var _TinyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TinyDeviceCard.vue?vue&type=script&lang=js& */ "./resources/js/components/devices/TinyDeviceCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -87909,8 +88141,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _TinyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _TinyDeviceCard_vue_vue_type_template_id_64d789d1___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _TinyDeviceCard_vue_vue_type_template_id_64d789d1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _TinyDeviceCard_vue_vue_type_template_id_64e73d43___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TinyDeviceCard_vue_vue_type_template_id_64e73d43___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -87920,38 +88152,107 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/TinyDeviceCard.vue"
+component.options.__file = "resources/js/components/devices/TinyDeviceCard.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/TinyDeviceCard.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/TinyDeviceCard.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/devices/TinyDeviceCard.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/devices/TinyDeviceCard.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TinyDeviceCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TinyDeviceCard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./TinyDeviceCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/TinyDeviceCard.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/TinyDeviceCard.vue?vue&type=template&id=64d789d1&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/TinyDeviceCard.vue?vue&type=template&id=64d789d1& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/devices/TinyDeviceCard.vue?vue&type=template&id=64e73d43&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/devices/TinyDeviceCard.vue?vue&type=template&id=64e73d43& ***!
+  \*******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_template_id_64d789d1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TinyDeviceCard.vue?vue&type=template&id=64d789d1& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TinyDeviceCard.vue?vue&type=template&id=64d789d1&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_template_id_64d789d1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_template_id_64e73d43___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./TinyDeviceCard.vue?vue&type=template&id=64e73d43& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/devices/TinyDeviceCard.vue?vue&type=template&id=64e73d43&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_template_id_64e73d43___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_template_id_64d789d1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TinyDeviceCard_vue_vue_type_template_id_64e73d43___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/plots/PlotDataReceptions.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/plots/PlotDataReceptions.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PlotDataReceptions_vue_vue_type_template_id_59cc6e12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PlotDataReceptions.vue?vue&type=template&id=59cc6e12& */ "./resources/js/components/plots/PlotDataReceptions.vue?vue&type=template&id=59cc6e12&");
+/* harmony import */ var _PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PlotDataReceptions.vue?vue&type=script&lang=js& */ "./resources/js/components/plots/PlotDataReceptions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PlotDataReceptions_vue_vue_type_template_id_59cc6e12___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PlotDataReceptions_vue_vue_type_template_id_59cc6e12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/plots/PlotDataReceptions.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/plots/PlotDataReceptions.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/plots/PlotDataReceptions.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./PlotDataReceptions.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/plots/PlotDataReceptions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/plots/PlotDataReceptions.vue?vue&type=template&id=59cc6e12&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/plots/PlotDataReceptions.vue?vue&type=template&id=59cc6e12& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_template_id_59cc6e12___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./PlotDataReceptions.vue?vue&type=template&id=59cc6e12& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/plots/PlotDataReceptions.vue?vue&type=template&id=59cc6e12&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_template_id_59cc6e12___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PlotDataReceptions_vue_vue_type_template_id_59cc6e12___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

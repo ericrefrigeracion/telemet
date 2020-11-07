@@ -10,7 +10,12 @@
 			     			<tiny-device-card v-bind:device="{{ $device->id }}"></tiny-device-card>
 			     		</div>
 			     	@endif
-			     	@if($device->type_device->model == 'Dairy')
+			     	@if($device->type_device->model == 'Health')
+			     		<div>
+			        		<health-device-card v-bind:device="{{ $device->id }}"></health-device-card>
+			        	</div>
+			        @endif
+			        @if($device->type_device->model == 'Dairy')
 			     		<div>
 			        		<dairy-device-card v-bind:device="{{ $device->id }}"></dairy-device-card>
 			        	</div>

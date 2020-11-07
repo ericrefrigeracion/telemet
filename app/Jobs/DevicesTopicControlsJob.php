@@ -90,20 +90,20 @@ class DevicesTopicControlsJob implements ShouldQueue
         {
             $configurations = $device_configurations->where('device_id', $device->id);
 
-                foreach ($configurations as $configuration)
+            foreach ($configurations as $configuration)
+            {
+                $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)
+                                                        ->where('device_id', $configuration->device_id)->last();
+                switch ($configuration->topic_control_type_id)
                 {
-                    $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)
-                                                            ->where('device_id', $configuration->device_id)->last();
-                    switch ($configuration->topic_control_type_id)
-                    {
-                        case 1:
-                            if($last_reception) $this->calibrationControl($last_reception, $configuration);
-                            break;
-                        default:
-                            break;
-                    }
-
+                    case 1:
+                        if($last_reception) $this->calibrationControl($last_reception, $configuration);
+                        break;
+                    default:
+                        break;
                 }
+
+            }
         }
     }
 

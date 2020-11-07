@@ -2,10 +2,11 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('device-status', require('./components/DeviceStatus.vue').default);
-Vue.component('tiny-device-card', require('./components/TinyDeviceCard.vue').default);
-Vue.component('dairy-device-card', require('./components/DairyDeviceCard.vue').default);
-Vue.component('plot-data-receptions', require('./components/PlotDataReceptions.vue').default);
+Vue.component('device-status', require('./components/admins/DeviceStatus.vue').default);
+Vue.component('tiny-device-card', require('./components/devices/TinyDeviceCard.vue').default);
+Vue.component('health-device-card', require('./components/devices/HealthDeviceCard.vue').default);
+Vue.component('dairy-device-card', require('./components/devices/DairyDeviceCard.vue').default);
+Vue.component('plot-data-receptions', require('./components/plots/PlotDataReceptions.vue').default);
 
 const app = new Vue({
     el: '#app',
