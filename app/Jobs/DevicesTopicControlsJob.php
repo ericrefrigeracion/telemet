@@ -88,8 +88,22 @@ class DevicesTopicControlsJob implements ShouldQueue
         }
         foreach ($unprotected_devices as $device)
         {
-            $last_reception = $data_receptions->where('device_id', $device->id)->last();
-            if($last_reception) $last_reception->update(['status' => 'unmonitored']);
+            $configurations = $device_configurations->where('device_id', $device->id);
+
+                foreach ($configurations as $configuration)
+                {
+                    $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)
+                                                            ->where('device_id', $configuration->device_id)->last();
+                    switch ($configuration->topic_control_type_id)
+                    {
+                        case 1:
+                            if($last_reception) $this->calibrationControl($last_reception, $configuration);
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
         }
     }
 
