@@ -42,13 +42,14 @@ class DevicesTopicControlsJob implements ShouldQueue
         $on_line_time = now()->subMinutes(10);
         $performance_time = now()->subHours(2);
 
-        $devices = Device::where('protected', true)->where('admin_mon', true)->get();
+        $protected_devices = Device::where('protected', true)->where('admin_mon', true)->get();
+        $unprotected_devices = Device::where('admin_mon', false)->get();
         $device_configurations = DeviceConfiguration::all();
         $data_receptions = DataReception::where('created_at', '>', $performance_time)->get();
 
         $on_line_data_receptions = $data_receptions->where('created_at', '>', $on_line_time);
 
-        foreach ($devices as $device)
+        foreach ($protected_devices as $device)
         {
 
             if($this->isOnLine($device, $on_line_data_receptions))
@@ -84,6 +85,11 @@ class DevicesTopicControlsJob implements ShouldQueue
 
             }
 
+        }
+        foreach ($unprotected_devices as $device)
+        {
+            $last_reception = $data_receptions->where('device_id', $device->id)->last();
+            if($last_reception) $last_reception->update(['status' => 'unmonitored']);
         }
     }
 
