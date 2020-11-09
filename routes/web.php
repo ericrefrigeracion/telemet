@@ -28,6 +28,12 @@ Route::middleware(['verified'])->group(function () {
 
 	Route::prefix('admins')->namespace('Admin')->group(function () {
 
+		//Impersonate
+		Route::name('impersonate.')->prefix('impersonate')->group(function () {
+			Route::post('/{user}/start', 'ImpersonateController@start')->name('start')->middleware('can:impersonate.start');
+			Route::get('stop', 'ImpersonateController@stop')->name('stop')->middleware('can:impersonate.stop');
+		});
+
 		//Webhooks
 		Route::get('/webhooks', 'WebhookController@index')->name('webhooks.index')->middleware('can:webhooks.index');
 		Route::get('/webhooks/{webhook}', 'WebhookController@show')->name('webhooks.show')->middleware('can:webhooks.show');

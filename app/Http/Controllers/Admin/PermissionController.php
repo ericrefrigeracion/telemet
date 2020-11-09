@@ -40,11 +40,9 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'id' => 'unique:permissions,id',
             'name' => 'required|max:25',
             'slug' => 'required|max:25',
             'description' => 'required|max:60',
-            'icon_id' => 'required|exists:icons,id'
         ];
 
         $request->validate($rules);
@@ -78,7 +76,6 @@ class PermissionController extends Controller
             'name' => 'required|max:25',
             'slug' => 'required|max:25',
             'description' => 'required|max:60',
-            'icon_id' => 'required|exists:icons,id'
         ];
 
         $request->validate($rules);
