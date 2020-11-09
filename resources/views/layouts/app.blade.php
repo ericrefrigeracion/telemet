@@ -15,7 +15,7 @@
 <body>
     <div id="app">
         @include('layouts.partials.nav_bar')
-        <main class="py-4 mt-5 mb-5">
+        <main class="py-4">
             @include('layouts.partials.errors')
             @yield('content')
         </main>
