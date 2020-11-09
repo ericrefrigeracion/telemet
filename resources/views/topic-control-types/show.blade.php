@@ -49,7 +49,7 @@
                                 </tr>
                                 <tr>
                                     <td>Valor por defecto</td>
-                                    <td>{{ $topic_control_type->reference }}</td>
+                                    <td>{{ $topic_control_type->default }}</td>
                                 </tr>
                                 <tr>
                                     <td>Creado</td>

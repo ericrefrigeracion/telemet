@@ -49,61 +49,60 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         $on_line_data_receptions = $data_receptions->where('created_at', '>', $on_line_time);
 
+        $this->protectedDevices($protected_devices, $on_line_data_receptions, $device_configurations, $data_receptions);
+        $this->unprotectedDevices($unprotected_devices, $on_line_data_receptions, $device_configurations);
+
+    }
+
+    public function protectedDevices($protected_devices, $on_line_data_receptions, $device_configurations, $data_receptions)
+    {
         foreach ($protected_devices as $device)
         {
-
             if($this->isOnLine($device, $on_line_data_receptions))
             {
                 $configurations = $device_configurations->where('device_id', $device->id);
 
                 foreach ($configurations as $configuration)
                 {
-                    $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)
-                                                            ->where('device_id', $configuration->device_id)->last();
-                    switch ($configuration->topic_control_type_id)
+                    $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)->where('device_id', $configuration->device_id)->last();
+                    switch ($configuration->topic_control_type->slug)
                     {
-                        case 1:
+                        case 'cal':
                             if($last_reception) $this->calibrationControl($last_reception, $configuration);
                             break;
-                        case 2:
+                        case 'min':
                             if($last_reception) $this->minimumControl($last_reception, $configuration);
                             break;
-                        case 3:
+                        case 'max':
                             if($last_reception) $this->maximumControl($last_reception, $configuration);
                             break;
-                        case 4:
+                        case 'perf':
                             if($last_reception) $this->performanceControl($last_reception, $data_receptions, $configuration);
                             break;
-                        case 5:
+                        case 'dly':
                             $this->delayControl($configurations, $configuration);
+                            break;
+                        case 'supheat':
+                            $this->supHeatControl($data_receptions, $configuration);
+                            break;
+                        case 'subcool':
+                            $this->subCoolControl($data_receptions, $configuration);
                             break;
                         default:
                             break;
                     }
-
                 }
-
             }
-
         }
+    }
+
+    public function unprotectedDevices($unprotected_devices, $on_line_data_receptions, $device_configurations)
+    {
         foreach ($unprotected_devices as $device)
         {
-            $configurations = $device_configurations->where('device_id', $device->id);
-
-            foreach ($configurations as $configuration)
-            {
-                $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)
-                                                        ->where('device_id', $configuration->device_id)->last();
-                switch ($configuration->topic_control_type_id)
-                {
-                    case 1:
-                        if($last_reception) $this->calibrationControl($last_reception, $configuration);
-                        break;
-                    default:
-                        break;
-                }
-
-            }
+            $configuration = $device_configurations->where('device_id', $device->id)->where('topic_control_type_id', 1)->first();
+            $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)->where('device_id', $configuration->device_id)->last();
+            if($last_reception) $this->calibrationControl($last_reception, $configuration);
         }
     }
 
@@ -221,6 +220,95 @@ class DevicesTopicControlsJob implements ShouldQueue
         }
     }
 
+    public function supHeatControl($data_receptions, $configuration)
+    {
+        $ev_in = $data_receptions->where('topic', 'ev_in')->where('device_id', $configuration->device_id)->last();
+        $suction = $data_receptions->where('topic', 'suction')->where('device_id', $configuration->device_id)->last();
+
+        if(strpos($ev_in->status, $configuration->topic_control_type->slug) === false || $ev_in->status === null)
+        {
+            $status = $ev_in->status . $configuration->topic_control_type->slug . ' ';
+            $ev_in->update(['status' => $status]);
+        }
+        if(strpos($suction->status, $configuration->topic_control_type->slug) === false || $suction->status === null)
+        {
+            $status = $suction->status . $configuration->topic_control_type->slug . ' ';
+            $suction->update(['status' => $status]);
+        }
+
+        $sup_heat = $suction->value - $ev_in->value;
+        if($sup_heat > 30) $sup_heat = 30;
+        if($sup_heat < 0) $sup_heat = 0;
+
+        DataReception::create([
+            'device_id' => $configuration->device_id,
+            'topic' => $configuration->topic->slug,
+            'value' => $sup_heat,
+            'status' => 'sup_heat',
+        ]);
+        if($sup_heat > $configuration->value && $configuration->status_id == 1)
+        {
+            alertCreate($configuration->device, 'El valor de ' . $configuration->topic_control_type->name . ' se encuentra por encima de la maxima esperada.', now());
+            $configuration->device->update(['status_id' => 2]);
+            $configuration->update([
+                'status_id' => 2,
+                'status_at' => now(),
+            ]);
+        }
+        if($sup_heat > $configuration->value && $configuration->status_id != 1)
+        {
+            $configuration->device->update(['status_id' => 1]);
+            $configuration->update([
+                'status_id' => 1,
+                'status_at' => null,
+            ]);
+        }
+    }
+
+    public function subCoolControl($data_receptions, $configuration)
+    {
+        $discharge = $data_receptions->where('topic', 'discharge')->where('device_id', $configuration->device_id)->last();
+        $liquid_line = $data_receptions->where('topic', 'liquid_line')->where('device_id', $configuration->device_id)->last();
+
+        if(strpos($discharge->status, $configuration->topic_control_type->slug) === false || $discharge->status === null)
+        {
+            $status = $discharge->status . $configuration->topic_control_type->slug . ' ';
+            $discharge->update(['status' => $status]);
+        }
+        if(strpos($liquid_line->status, $configuration->topic_control_type->slug) === false || $liquid_line->status === null)
+        {
+            $status = $liquid_line->status . $configuration->topic_control_type->slug . ' ';
+            $liquid_line->update(['status' => $status]);
+        }
+
+        $sub_cool = $liquid_line->value - $discharge->value;
+        if($sub_cool > 30) $sub_cool = 30;
+        if($sub_cool < 0) $sub_cool = 0;
+
+        DataReception::create([
+            'device_id' => $configuration->device_id,
+            'topic' => $configuration->topic->slug,
+            'value' => $sub_cool,
+            'status' => 'sub_cool',
+        ]);
+        if($sub_cool < $configuration->value && $configuration->status_id == 1)
+        {
+            alertCreate($configuration->device, 'El valor de ' . $configuration->topic_control_type->name . ' se encuentra por debajo de la minima esperada.', now());
+            $configuration->device->update(['status_id' => 2]);
+            $configuration->update([
+                'status_id' => 2,
+                'status_at' => now(),
+            ]);
+        }
+        if($sub_cool > $configuration->value && $configuration->status_id != 1)
+        {
+            $configuration->device->update(['status_id' => 1]);
+            $configuration->update([
+                'status_id' => 1,
+                'status_at' => null,
+            ]);
+        }
+    }
 
     public function derivate($last_reception, $data_receptions, $configuration)
     {
@@ -259,22 +347,22 @@ class DevicesTopicControlsJob implements ShouldQueue
         ]);
 
         if($performance < $configuration->value && $configuration->status_id == 1)
-            {
-                alertCreate($configuration->device, 'El valor de ' . $configuration->topic_control_type->name . ' se encuentra por debajo de la minima esperada.', now());
-                $configuration->device->update(['status_id' => 2]);
-                $configuration->update([
-                    'status_id' => 2,
-                    'status_at' => now(),
-                ]);
-            }
-            if($performance > $configuration->value && $configuration->status_id != 1)
-            {
-                $configuration->device->update(['status_id' => 1]);
-                $configuration->update([
-                    'status_id' => 1,
-                    'status_at' => null,
-                ]);
-            }
+        {
+            alertCreate($configuration->device, 'El valor de ' . $configuration->topic_control_type->name . ' se encuentra por debajo de la minima esperada.', now());
+            $configuration->device->update(['status_id' => 2]);
+            $configuration->update([
+                'status_id' => 2,
+                'status_at' => now(),
+            ]);
+        }
+        if($performance > $configuration->value && $configuration->status_id != 1)
+        {
+            $configuration->device->update(['status_id' => 1]);
+            $configuration->update([
+                'status_id' => 1,
+                'status_at' => null,
+            ]);
+        }
     }
 
 
