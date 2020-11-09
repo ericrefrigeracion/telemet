@@ -42,6 +42,11 @@
                                         @can('users.edit')
                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning m-2">Editar</a>
                                         @endcan
+                                        @can('impersonate.start')
+                                        {!! Form::open(['route' => ['impersonate.start', $user->id]]) !!}
+                                            {{ Form::submit('Iniciar sesion como', ['class' => 'btn btn-sm btn-danger m-2']) }}
+                                        {!! Form::close() !!}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

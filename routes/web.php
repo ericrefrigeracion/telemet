@@ -31,7 +31,7 @@ Route::middleware(['verified'])->group(function () {
 		//Impersonate
 		Route::name('impersonate.')->prefix('impersonate')->group(function () {
 			Route::post('/{user}/start', 'ImpersonateController@start')->name('start')->middleware('can:impersonate.start');
-			Route::get('stop', 'ImpersonateController@stop')->name('stop')->middleware('can:impersonate.stop');
+			Route::get('stop', 'ImpersonateController@stop')->name('stop');
 		});
 
 		//Webhooks
