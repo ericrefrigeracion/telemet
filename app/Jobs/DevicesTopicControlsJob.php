@@ -244,7 +244,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             'device_id' => $configuration->device_id,
             'topic' => $configuration->topic->slug,
             'value' => $sup_heat,
-            'status' => 'sup_heat',
+            'status' => 'sup_heat ',
         ]);
         if($sup_heat > $configuration->value && $configuration->status_id == 1)
         {
@@ -289,7 +289,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             'device_id' => $configuration->device_id,
             'topic' => $configuration->topic->slug,
             'value' => $sub_cool,
-            'status' => 'sub_cool',
+            'status' => 'sub_cool ',
         ]);
         if($sub_cool < $configuration->value && $configuration->status_id == 1)
         {
