@@ -9,7 +9,7 @@
                     Crear Topico
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => ['statuses.store']]) !!}
+                    {!! Form::open(['route' => ['icons.store']]) !!}
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre') }}
                             {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
