@@ -61,11 +61,11 @@ class DisplayController extends Controller
     public function update(Display $display, Request $request)
     {
         $rules = [
-            'name' => 'required|string|max:15',
-            'description' => 'required|string|max:40',
-            'slug' => 'required|string|max:10',
+            'name' => 'required|string|max:20',
+            'description' => 'required|string|max:50',
+            'slug' => 'required|string|max:15',
             'title' => 'required|string|max:30',
-            'scripts' => 'filled|string|max:40',
+            'scripts' => 'string|max:40',
         ];
 
         $request->validate($rules);
@@ -84,11 +84,11 @@ class DisplayController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required|string|max:15',
-            'description' => 'required|string|max:40',
-            'slug' => 'required|string|max:10',
-            'scripts' => 'max:40',
+            'name' => 'required|string|max:20',
+            'description' => 'required|string|max:50',
+            'slug' => 'required|string|max:15',
             'title' => 'required|string|max:30',
+            'scripts' => 'string|max:40',
         ];
 
         $request->validate($rules);
