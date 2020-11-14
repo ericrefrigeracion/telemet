@@ -91,12 +91,12 @@ class TopicController extends Controller
     public function update(Request $request, Topic $topic)
     {
         $rules = [
-            'icon_id' => 'required|integer|exists:icons,id',
-            'slug' => 'required|string|max:7',
+            'slug' => 'required|string|max:20',
             'unit' => 'required|string|max:10',
-            'name' => 'required|string|max:15',
+            'name' => 'required|string|max:20',
             'decimals' => 'required|integer|min:0|max:3',
-            'color' => 'required|string',
+            'icon_id' => 'required|integer|exists:icons,id',
+            'color' => 'required|string|max:25',
             'filled' => 'required|boolean',
 
         ];
