@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('name', 'Nombre de la Magnitud') }}
-                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '15']) }}
+                            {{ Form::text('name', null, ['class' => 'form-control', 'required', 'maxlength' => '20']) }}
                         </div>
                         <div class="form-group">
                             {{ Form::label('decimals', 'Decimales') }}
@@ -36,7 +36,8 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('filled', 'Area de la curva') }}<br>
-                            {{ Form::checkbox('filled', true) }} Con relleno
+                            {{ Form::checkbox('filled', '1') }} Con relleno <br>
+                            {{ Form::checkbox('filled', '0', true) }} Sin relleno
                         </div>
                         <div>
                             {{ Form::submit('Guardar Cambios', ['class' => 'btn btn-sm btn-primary']) }}

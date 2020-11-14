@@ -37,7 +37,7 @@
                         <div class="form-group">
                             {{ Form::label('filled', 'Area de la curva') }}<br>
                             {{ Form::checkbox('filled', '1') }} Con relleno <br>
-                            {{ Form::checkbox('filled', '0') }} Sin relleno
+                            {{ Form::checkbox('filled', '0', true) }} Sin relleno
                         </div>
                         <div>
                             {{ Form::submit('Crear Item', ['class' => 'btn btn-sm btn-primary']) }}
