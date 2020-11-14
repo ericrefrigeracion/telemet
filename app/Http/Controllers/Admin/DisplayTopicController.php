@@ -17,7 +17,7 @@ class DisplayTopicController extends Controller
      */
     public function index()
     {
-        $display_topics = DisplayTopic::all();
+        $display_topics = DisplayTopic::orderBy('display_id', 'ASC')->get();
 
         return view('display-topics.index', compact('display_topics'));
     }

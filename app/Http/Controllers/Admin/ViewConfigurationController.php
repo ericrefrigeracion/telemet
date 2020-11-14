@@ -18,7 +18,7 @@ class ViewConfigurationController extends Controller
      */
     public function index()
     {
-        $view_configurations = ViewConfiguration::paginate(20);
+        $view_configurations = ViewConfiguration::orderBy('type_device_id', 'ASC')->orderBy('order', 'ASC')->paginate(20);
 
         return view('view-configurations.index', compact('view_configurations'));
     }
