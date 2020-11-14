@@ -15,7 +15,7 @@ class DisplayController extends Controller
      */
     public function index()
     {
-        $displays = Display::all();
+        $displays = Display::orderBy('name', 'ASC')->get();
 
         return view('displays.index', compact('displays'));
     }
