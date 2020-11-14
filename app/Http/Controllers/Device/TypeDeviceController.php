@@ -87,6 +87,8 @@ class TypeDeviceController extends Controller
     public function update(Request $request, TypeDevice $type_device)
     {
         $rules = [
+            'prefix' => 'required|integer|min:10|max:99',
+            'model' => 'required|string|max:20',
             'description' => 'required|string|max:50',
             'icon_id' => 'required|exists:icons,id'
         ];
