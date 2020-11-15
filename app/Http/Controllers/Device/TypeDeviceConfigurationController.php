@@ -38,7 +38,7 @@ class TypeDeviceConfigurationController extends Controller
                                         'device_id' => $device->id,
                                         'topic_id' => $request->topic_id,
                                         'topic_control_type_id' => $topic_control_type->id,
-                                        'value' => $topic_control_type->reference,
+                                        'value' => $topic_control_type->default,
                                         'status_id' => 1,
                                         'status_at' => now()
                                     ]);
