@@ -242,7 +242,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         DataReception::create([
             'device_id' => $configuration->device_id,
-            'topic' => $configuration->topic->slug,
+            'topic' => $configuration->topic_control_type->slug,
             'value' => $sup_heat,
             'status' => 'sup_heat ',
         ]);
@@ -287,7 +287,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         DataReception::create([
             'device_id' => $configuration->device_id,
-            'topic' => $configuration->topic->slug,
+            'topic' => $configuration->topic_control_type->slug,
             'value' => $sub_cool,
             'status' => 'sub_cool ',
         ]);
