@@ -281,7 +281,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             $liquid_line->update(['status' => $status]);
         }
 
-        $sub_cool = $liquid_line->value - $discharge->value;
+        $sub_cool = $discharge->value - $liquid_line->value;
         if($sub_cool > 30) $sub_cool = 30;
         if($sub_cool < -10) $sub_cool = -10;
 
