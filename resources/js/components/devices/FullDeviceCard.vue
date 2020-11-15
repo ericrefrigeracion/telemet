@@ -59,7 +59,7 @@
                 return moment(d).fromNow();
             },
             getDairy: function(){
-                var url = '/api/centinela/receptions/now/' + this.device + '/temp1';
+                var url = '/api/centinela/receptions/now/' + this.device + '/product';
                 axios.get(url)
                 .then(response => {
                     this.dairy = response.data;

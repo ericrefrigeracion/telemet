@@ -290,7 +290,7 @@ class DeviceConfigurationsTableSeeder extends Seeder
                 'status_id' => 1,
             ]);
         }
-        for ($id=1; $id < 6; $id++)
+        for ($id=1; $id < 8; $id++)
         {
             DeviceConfiguration::create([
                 'device_id' => 123456,

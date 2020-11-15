@@ -82,10 +82,10 @@ class DevicesTopicControlsJob implements ShouldQueue
                         case 'dly':
                             $this->delayControl($configurations, $configuration);
                             break;
-                        case 'supheat':
+                        case 'sup_heat':
                             $this->supHeatControl($data_receptions, $configuration);
                             break;
-                        case 'subcool':
+                        case 'sub_cool':
                             $this->subCoolControl($data_receptions, $configuration);
                             break;
                         default:

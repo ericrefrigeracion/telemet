@@ -14,11 +14,11 @@ class DevicesTableSeeder extends Seeder
     {
         Device::create([
             'id' => 123456,
-            'type_device_id' => 2,
+            'type_device_id' => 4,
             'protection_id' => 1,
             'status_id' => 1,
             'icon_id' => 1,
-            'name' => 'Equipo de prueba',
+            'name' => 'Equipo Full',
             'description' => 'Equipo conectado en casa',
             'admin_mon' => true,
             'protected' => true,

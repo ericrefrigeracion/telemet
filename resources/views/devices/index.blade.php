@@ -15,9 +15,9 @@
 			        		<health-device-card v-bind:device="{{ $device->id }}"></health-device-card>
 			        	</div>
 			        @endif
-			        @if($device->type_device->model == 'Dairy')
+			        @if($device->type_device->model == 'Full')
 			     		<div>
-			        		<dairy-device-card v-bind:device="{{ $device->id }}"></dairy-device-card>
+			        		<full-device-card v-bind:device="{{ $device->id }}"></dairy-device-card>
 			        	</div>
 			        @endif
 		    @endforeach

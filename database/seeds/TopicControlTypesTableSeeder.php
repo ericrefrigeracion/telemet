@@ -63,5 +63,27 @@ class TopicControlTypesTableSeeder extends Seeder
             'default' => 20,
         ]);
 
+        TopicControlType::create([
+            'slug' => 'sup_heat',
+            'name' => 'Recalentamiento',
+            'description' => '',
+            'operation' => '<',
+            'min' => -40,
+            'max' => 85,
+            'step' => 0.01,
+            'default' => 10,
+        ]);
+
+        TopicControlType::create([
+            'slug' => 'sub_cool',
+            'name' => 'Subenfriamiento',
+            'description' => '',
+            'operation' => '<',
+            'min' => -40,
+            'max' => 85,
+            'step' => 0.01,
+            'default' => 4,
+        ]);
+
     }
 }
