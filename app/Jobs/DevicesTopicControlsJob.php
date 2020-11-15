@@ -238,7 +238,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         $sup_heat = $suction->value - $ev_in->value;
         if($sup_heat > 30) $sup_heat = 30;
-        if($sup_heat < 0) $sup_heat = 0;
+        if($sup_heat < -10) $sup_heat = -10;
 
         DataReception::create([
             'device_id' => $configuration->device_id,
@@ -283,7 +283,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         $sub_cool = $liquid_line->value - $discharge->value;
         if($sub_cool > 30) $sub_cool = 30;
-        if($sub_cool < 0) $sub_cool = 0;
+        if($sub_cool < -10) $sub_cool = -10;
 
         DataReception::create([
             'device_id' => $configuration->device_id,
