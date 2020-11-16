@@ -48,7 +48,7 @@
                         'hoverRadius':3,
                         'backgroundColor': color,
                         'borderColor': color,
-                        'fill': fill,
+                        'fill': true,
                         });
                         //console.log(this.content);
                         //window.myLine.update();

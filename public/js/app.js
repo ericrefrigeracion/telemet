@@ -18291,7 +18291,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             'hoverRadius': 3,
             'backgroundColor': color,
             'borderColor': color,
-            'fill': fill
+            'fill': true
           }); //console.log(this.content);
           //window.myLine.update();
 
