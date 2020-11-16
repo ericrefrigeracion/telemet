@@ -18277,7 +18277,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var name = topic.topic.name;
         var unit = topic.topic.unit;
         var color = topic.topic.color;
-        var fill = topic.topic.filled;
+        var fill = topic.topic.filled = 1 ? true : undefined;
         var start_time = Date.now() - 12 * 60 * 60 * 1000;
         var end_time = Date.now();
         var url = '/api/centinela/receptions/data/' + _this.device_id + '/' + slug + '/' + start_time + '-' + end_time;
@@ -18291,7 +18291,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             'hoverRadius': 3,
             'backgroundColor': color,
             'borderColor': color,
-            'fill': true
+            'fill': fill
           }); //console.log(this.content);
           //window.myLine.update();
 

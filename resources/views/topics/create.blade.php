@@ -36,8 +36,8 @@
                         </div>
                         <div class="form-group">
                             {{ Form::label('filled', 'Area de la curva') }}<br>
-                            {{ Form::radio('filled', '1') }} Con relleno <br>
-                            {{ Form::radio('filled', '0', true) }} Sin relleno
+                            {{ Form::radio('filled', 1) }} Con relleno <br>
+                            {{ Form::radio('filled', 0, true) }} Sin relleno
                         </div>
                         <div>
                             {{ Form::submit('Crear Item', ['class' => 'btn btn-sm btn-primary']) }}
