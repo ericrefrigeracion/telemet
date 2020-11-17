@@ -82,7 +82,7 @@ class DataController extends Controller
             $device->configurations_route = route('devices.configuration', $device->id);
             $device->logs_route = route('device-logs.show', $device->id);
             $device->alerts_count = $device->alerts()->where('created_at', '>', $alerts_time)->count();
-            if($device->data_receptions()->first() !== null) $device->last_reception_created_at = $device->data_receptions()->latest()->first()->created_at;
+            if($device->data_receptions()->first() !== null) $device->last_reception_created_at = $device->data_receptions()->where('status', '!=', '*')->latest()->first()->created_at;
         }
 
         return $devices;
