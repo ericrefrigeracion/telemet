@@ -222,8 +222,8 @@ class DevicesTopicControlsJob implements ShouldQueue
 
     public function supHeatControl($data_receptions, $configuration)
     {
-        $ev_in = $data_receptions->where('topic', 'ev_in')->where('device_id', $configuration->device_id)->last();
-        $suction = $data_receptions->where('topic', 'suction')->where('device_id', $configuration->device_id)->last();
+        $ev_in = $data_receptions->where('topic', 'ev_in_temp')->where('device_id', $configuration->device_id)->last();
+        $suction = $data_receptions->where('topic', 'suction_temp')->where('device_id', $configuration->device_id)->last();
 
         if(strpos($ev_in->status, $configuration->topic_control_type->slug) === false || $ev_in->status === null)
         {
@@ -267,8 +267,8 @@ class DevicesTopicControlsJob implements ShouldQueue
 
     public function subCoolControl($data_receptions, $configuration)
     {
-        $discharge = $data_receptions->where('topic', 'discharge')->where('device_id', $configuration->device_id)->last();
-        $liquid_line = $data_receptions->where('topic', 'liquid_line')->where('device_id', $configuration->device_id)->last();
+        $discharge = $data_receptions->where('topic', 'discharge_temp')->where('device_id', $configuration->device_id)->last();
+        $liquid_line = $data_receptions->where('topic', 'liquid_line_temp')->where('device_id', $configuration->device_id)->last();
 
         if(strpos($discharge->status, $configuration->topic_control_type->slug) === false || $discharge->status === null)
         {
