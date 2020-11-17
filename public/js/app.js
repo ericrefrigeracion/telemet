@@ -18047,7 +18047,7 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
     getDairy: function getDairy() {
       var _this = this;
 
-      var url = '/api/centinela/receptions/now/' + this.device + '/product';
+      var url = '/api/centinela/receptions/now/' + this.device + '/product_temp';
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
         _this.dairy = response.data;
       });
