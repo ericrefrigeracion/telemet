@@ -47,7 +47,7 @@ class DevicesTopicControlsJob implements ShouldQueue
         $device_configurations = DeviceConfiguration::all();
         $data_receptions = DataReception::where('created_at', '>', $performance_time)->get();
 
-        $on_line_data_receptions = $data_receptions->where('created_at', '>', $on_line_time);
+        $on_line_data_receptions = $data_receptions->where('created_at', '>', $on_line_time)->where('status', 'LIKE', 'cal');
 
         $this->protectedDevices($protected_devices, $on_line_data_receptions, $device_configurations, $data_receptions);
         $this->unprotectedDevices($unprotected_devices, $on_line_data_receptions, $device_configurations);
