@@ -18033,23 +18033,26 @@ moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
   props: ['device'],
   data: function data() {
     return {
-      dairy: []
+      tiny: []
     };
   },
   created: function created() {
-    this.getDairy();
-    setInterval(this.getDairy, 15000);
+    this.getTiny();
+    setInterval(this.getTiny, 15000);
   },
   methods: {
+    roundValue: function roundValue(v) {
+      return Math.round(v * 100) / 100;
+    },
     forHumans: function forHumans(d) {
       return moment__WEBPACK_IMPORTED_MODULE_1___default()(d).fromNow();
     },
-    getDairy: function getDairy() {
+    getTiny: function getTiny() {
       var _this = this;
 
       var url = '/api/centinela/receptions/now/' + this.device + '/product_temp';
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
-        _this.dairy = response.data;
+        _this.tiny = response.data;
       });
     }
   }
@@ -75215,39 +75218,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card text-center" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm._v("\n        " + _vm._s(_vm.dairy.name) + "\n    ")
+      _vm._v("\n        " + _vm._s(_vm.tiny.name) + "\n    ")
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row" }, [
-        _vm.dairy.admin_mon
+        _vm.tiny.admin_mon
           ? _c("div", { staticClass: "col text-center" }, [
-              _vm.dairy.protected
+              _vm.tiny.protected
                 ? _c("span", [
-                    _c("i", { class: _vm.dairy.status.icon.scripts }),
-                    _vm._v("  Estado " + _vm._s(_vm.dairy.status.name))
+                    _c("i", { class: _vm.tiny.status.icon.scripts }),
+                    _vm._v("  Estado " + _vm._s(_vm.tiny.status.name))
                   ])
                 : _vm._e()
             ])
           : _c("div", { staticClass: "col text-center" }, [
               _c("small", [
                 _vm._v("Monitoreo Vencido - "),
-                _c("a", { attrs: { href: _vm.dairy.pay_route } }, [
+                _c("a", { attrs: { href: _vm.tiny.pay_route } }, [
                   _vm._v("Pagar por el monitoreo")
                 ])
               ])
             ])
       ]),
       _vm._v(" "),
-      _vm.dairy.last_data
+      _vm.tiny.last_data
         ? _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-10 display-4" }, [
-              _vm._v(_vm._s(_vm.dairy.last_data.value) + "°C")
+              _vm._v(_vm._s(_vm.roundValue(_vm.tiny.last_data.value)) + "°C")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-10" }, [
               _c("small", [
-                _vm._v(_vm._s(_vm.forHumans(_vm.dairy.last_data.created_at)))
+                _vm._v(_vm._s(_vm.forHumans(_vm.tiny.last_data.created_at)))
               ])
             ])
           ])
@@ -75261,10 +75264,10 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col" }, [
-          _vm.dairy.admin_mon
+          _vm.tiny.admin_mon
             ? _c("i", {
-                class: _vm.dairy.protection.icon.scripts,
-                attrs: { title: _vm.dairy.protection.description }
+                class: _vm.tiny.protection.icon.scripts,
+                attrs: { title: _vm.tiny.protection.description }
               })
             : _vm._e(),
           _vm._v(" "),
@@ -75273,7 +75276,7 @@ var render = function() {
             {
               staticClass: "text-primary m-2",
               attrs: {
-                href: _vm.dairy.data_receptions_route,
+                href: _vm.tiny.data_receptions_route,
                 title: "Evolucion de Temperaturas"
               }
             },
@@ -75285,7 +75288,7 @@ var render = function() {
             {
               staticClass: "text-primary m-2",
               attrs: {
-                href: _vm.dairy.configuration_route,
+                href: _vm.tiny.configuration_route,
                 title: "Configuracion Del Dispositivo"
               }
             },
@@ -75297,7 +75300,7 @@ var render = function() {
             {
               staticClass: "text-primary m-2",
               attrs: {
-                href: _vm.dairy.logs_route,
+                href: _vm.tiny.logs_route,
                 title: "Bitacora Del Dispositivo"
               }
             },
@@ -75308,10 +75311,10 @@ var render = function() {
             "a",
             {
               staticClass: "text-danger m-2",
-              attrs: { href: _vm.dairy.alerts_route, title: "Nuevas Alertas" }
+              attrs: { href: _vm.tiny.alerts_route, title: "Nuevas Alertas" }
             },
             [
-              _vm._v(_vm._s(_vm.dairy.alerts_count) + " "),
+              _vm._v(_vm._s(_vm.tiny.alerts_count) + " "),
               _c("i", { staticClass: "fas fa-bell" })
             ]
           )
@@ -75323,7 +75326,7 @@ var render = function() {
       _c("small", {}, [
         _vm._v(
           "\n                " +
-            _vm._s(_vm.dairy.on_line ? "En Linea" : "Sin Conexion") +
+            _vm._s(_vm.tiny.on_line ? "En Linea" : "Sin Conexion") +
             "\n        "
         )
       ])
