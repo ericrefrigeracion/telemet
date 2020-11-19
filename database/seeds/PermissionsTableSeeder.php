@@ -624,5 +624,12 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Editar la relacion grafico-topico',
         ]);
 
+        //Impersonate
+        Permission::create([
+            'name' => 'Iniciar sesion Como',
+            'slug' => 'impersonate.start',
+            'description' => 'Iniciar sesion como otro usuario',
+        ]);
+
     }
 }

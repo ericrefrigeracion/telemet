@@ -70,6 +70,9 @@ class DevicesTopicControlsJob implements ShouldQueue
                         case 'cal':
                             if($last_reception) $this->calibrationControl($last_reception, $configuration);
                             break;
+                        case 'mult':
+                            if($last_reception) $this->multiplyControl($last_reception, $configuration);
+                            break;
                         case 'min':
                             if($last_reception) $this->minimumControl($last_reception, $configuration);
                             break;
@@ -132,6 +135,19 @@ class DevicesTopicControlsJob implements ShouldQueue
         {
             $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
             $value = round(($last_reception->value + $configuration->value), 2);
+            $last_reception->update([
+                'status' => $status,
+                'value' => $value
+            ]);
+        }
+    }
+
+    public function multiplyControl($last_reception, $configuration)
+    {
+        if(strpos($last_reception->status, $configuration->topic_control_type->slug) === false || $last_reception->status === null)
+        {
+            $status = $last_reception->status . $configuration->topic_control_type->slug . ' ';
+            $value = round(($last_reception->value * $configuration->value), 2);
             $last_reception->update([
                 'status' => $status,
                 'value' => $value
