@@ -43,6 +43,7 @@ class DevicesTopicControlsJob implements ShouldQueue
         $performance_time = now()->subHours(2);
 
         $protected_devices = Device::where('protected', true)->where('admin_mon', true)->get();
+        $limbo_devices = Device::where('protected', false)->where('admin_mon', true)->get();
         $unprotected_devices = Device::where('admin_mon', false)->get();
         $device_configurations = DeviceConfiguration::all();
         $data_receptions = DataReception::where('created_at', '>', $performance_time)->get();
@@ -51,6 +52,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         $this->protectedDevices($protected_devices, $on_line_data_receptions, $device_configurations, $data_receptions);
         $this->unprotectedDevices($unprotected_devices, $on_line_data_receptions, $device_configurations);
+        $this->unprotectedDevices($limbo_devices, $on_line_data_receptions, $device_configurations);
 
     }
 
@@ -106,6 +108,21 @@ class DevicesTopicControlsJob implements ShouldQueue
             $configuration = $device_configurations->where('device_id', $device->id)->where('topic_control_type_id', 1)->first();
             $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)->where('device_id', $configuration->device_id)->last();
             if($last_reception) $this->calibrationControl($last_reception, $configuration);
+        }
+    }
+    public function limboDevices($limbo_devices, $on_line_data_receptions, $device_configurations)
+    {
+        foreach ($limbo_devices as $device)
+        {
+            if($this->isOnLine($device, $on_line_data_receptions))
+            {
+                $configurations = $device_configurations->where('device_id', $device->id)->where('topic_control_type_id', 1);
+                foreach ($configurations as $configuration)
+                {
+                    $last_reception = $on_line_data_receptions->where('topic', $configuration->topic->slug)->where('device_id', $device->id)->last();
+                    if($last_reception) $this->calibrationControl($last_reception, $configuration);
+                }
+            }
         }
     }
 
