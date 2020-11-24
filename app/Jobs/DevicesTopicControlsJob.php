@@ -52,7 +52,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
         $this->protectedDevices($protected_devices, $on_line_data_receptions, $device_configurations, $data_receptions);
         $this->unprotectedDevices($unprotected_devices, $on_line_data_receptions, $device_configurations);
-        $this->unprotectedDevices($limbo_devices, $on_line_data_receptions, $device_configurations);
+        $this->limboDevices($limbo_devices, $on_line_data_receptions, $device_configurations);
 
     }
 
