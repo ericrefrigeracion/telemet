@@ -128,7 +128,7 @@ class DevicesTopicControlsJob implements ShouldQueue
 
     public function isOnLine($device, $on_line_data_receptions)
     {
-        $receptions = $on_line_data_receptions->where('device_id', $device->id)->where('status', '!=', '*');
+        $receptions = $on_line_data_receptions->where('device_id', $device->id)->where('status', '!=', '-');
 
         if($receptions->isNotEmpty() && !$device->on_line)
         {
@@ -277,7 +277,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             'device_id' => $configuration->device_id,
             'topic' => $configuration->topic_control_type->slug,
             'value' => $sup_heat,
-            'status' => '*',
+            'status' => '-',
         ]);
         if($sup_heat > $configuration->value && $configuration->status_id == 1)
         {
@@ -322,7 +322,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             'device_id' => $configuration->device_id,
             'topic' => $configuration->topic_control_type->slug,
             'value' => $sub_cool,
-            'status' => '*',
+            'status' => '-',
         ]);
         if($sub_cool < $configuration->value && $configuration->status_id == 1)
         {
@@ -361,7 +361,7 @@ class DevicesTopicControlsJob implements ShouldQueue
                 'device_id' => $configuration->device_id,
                 'topic' => $configuration->topic->slug . '_derivate',
                 'value' => $derivate,
-                'status' => '*',
+                'status' => '-',
             ]);
         }
     }
@@ -376,7 +376,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             'device_id' => $configuration->device_id,
             'topic' => $configuration->topic->slug . '_performance',
             'value' => $performance,
-            'status' => '*',
+            'status' => '-',
         ]);
 
         if($performance < $configuration->value && $configuration->status_id == 1)
