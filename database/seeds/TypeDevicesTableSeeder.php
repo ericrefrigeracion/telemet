@@ -33,8 +33,8 @@ class TypeDevicesTableSeeder extends Seeder
         TypeDevice::create([
             'icon_id' => 16,
             'prefix' => 30,
-            'model' => 'Dairy',
-            'description' => 'Monitoreo de equipos de frio para tambos.',
+            'model' => 'Full',
+            'description' => 'Monitoreo de equipos de refrigeracion.',
         ]);
     }
 }

@@ -139,7 +139,7 @@ class SystemRevissionJob implements ShouldQueue
     public function deleteOldDatas()
     {
 
-        DataReception::where('created_at', '<', now()->subDays(30))->delete();
+        DataReception::where('created_at', '<', now()->subDays(3))->delete();
         Alert::where('created_at', '<', now()->subDays(30))->delete();
         MailAlert::where('created_at', '<', now()->subDays(30))->delete();
 
