@@ -150,7 +150,7 @@ class SystemRevissionJob implements ShouldQueue
         $last_day = now()->subDay();
         foreach ($devices as $device)
         {
-            $device->receptions()->where('created_at', '<', $last_day)->delete();
+            $device->data_receptions()->where('created_at', '<', $last_day)->delete();
             $device->alerts()->where('created_at', '<', $last_day)->delete();
         }
     }
