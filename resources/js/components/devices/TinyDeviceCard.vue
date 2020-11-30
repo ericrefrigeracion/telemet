@@ -1,9 +1,9 @@
 <template>
     <div class="card text-center">
-        <div class="card-header">
+        <div class="card-header" v-bind:class="tiny.status.scripts">
             {{ tiny.name }}
         </div>
-        <div class="card-body" v-bind:class="tiny.status.scripts">
+        <div class="card-body">
             <div class="row">
                 <div v-if="tiny.admin_mon" class="col text-center">
                     <span v-if="tiny.protected" ><i v-bind:class="tiny.status.icon.scripts"></i>  Estado {{ tiny.status.name }}</span>
