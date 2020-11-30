@@ -16,19 +16,19 @@ class StatusesTableSeeder extends Seeder
             'name' => 'Normal',
             'description' => 'Condiciones de funcionamiento normal',
             'icon_id' => 11,
-            'scripts' => ''
+            'scripts' => 'bg-success'
         ]);
         Status::create([
             'name' => 'Precaucion',
             'description' => 'Condiciones de funcionamiento anormal',
             'icon_id' => 12,
-            'scripts' => ''
+            'scripts' => 'bg-warning'
         ]);
         Status::create([
             'name' => 'Critico',
             'description' => 'Condiciones de funcionamiento critico',
             'icon_id' => 13,
-            'scripts' => ''
+            'scripts' => 'bg-danger'
         ]);
     }
 }

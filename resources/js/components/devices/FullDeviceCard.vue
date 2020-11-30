@@ -1,6 +1,6 @@
 <template>
     <div class="card text-center">
-        <div class="card-header">
+        <div class="card-header" v-bind:class="tiny.status.scripts">
             {{ tiny.name }}
         </div>
         <div class="card-body">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer" v-bind:class="">
+        <div class="card-footer" v-bind:class="tiny.status.scripts">
             <small class="">
                     {{ tiny.on_line ? 'En Linea':'Sin Conexion'}}
             </small>

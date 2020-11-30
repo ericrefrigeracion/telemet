@@ -3,7 +3,7 @@
         <div class="card-header">
             {{ tiny.name }}
         </div>
-        <div class="card-body">
+        <div class="card-body" v-bind:class="tiny.status.scripts">
             <div class="row">
                 <div v-if="tiny.admin_mon" class="col text-center">
                     <span v-if="tiny.protected" ><i v-bind:class="tiny.status.icon.scripts"></i>  Estado {{ tiny.status.name }}</span>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer" v-bind:class="">
+        <div class="card-footer" v-bind:class="tiny.status.scripts">
             <small class="">
                     {{ tiny.on_line ? 'En Linea':'Sin Conexion'}}
             </small>
