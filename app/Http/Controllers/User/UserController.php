@@ -41,7 +41,6 @@ class UserController extends Controller
         foreach ($team as $user) {
             $user->user = User::find($user->user_id);
         }
-        dd($team);
 
         return view('users.index', compact('team'));
 
