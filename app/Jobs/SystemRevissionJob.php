@@ -157,7 +157,7 @@ class SystemRevissionJob implements ShouldQueue
 
     public function deleteUnverifiedUsers()
     {
-        User::where('email_verified_at', null)->where('created_at', '<', now()->subDay())->delete();
+        User::where('email_verified_at', null)->where('created_at', '<', now()->subDay())->forceDelete();
     }
 
 
