@@ -9,7 +9,7 @@
 
 Desde el siguiente boton puede revisar los detalles de las alertas de su dispositivo.
 
-@component('mail::button', ['url' => route('alerts.index', $device->id) ])
+@component('mail::button', ['url' => route('alerts.show', $device->id) ])
 Alertas de {{ $device->name }}
 @endcomponent
 
