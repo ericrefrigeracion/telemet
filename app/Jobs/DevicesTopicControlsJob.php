@@ -240,7 +240,7 @@ class DevicesTopicControlsJob implements ShouldQueue
             if($config->status_at < now()->subMinutes($configuration->value) && $config->status_id != 3 && $config->status_at != null)
             {
                 mailAlertCreate($config->device, $config->topic_control_type->slug, $config->status_at);
-                $log = 'Se alcanzo el punto critico para la ' . $config->topic_control_type->name . ' ' . $config->topic->name . '.';
+                $log = 'Se alcanzo el punto critico para ' . $config->topic_control_type->name . ' ' . $config->topic->name . '.';
                 alertCreate($config->device, $log, now());
 
                 $config->device->update(['status_id' => 3]);
