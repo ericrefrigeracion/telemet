@@ -18197,6 +18197,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 moment__WEBPACK_IMPORTED_MODULE_1___default.a.locale('es');
@@ -75619,13 +75620,15 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer", class: _vm.tiny.status.scripts }, [
-      _c("small", {}, [
-        _vm._v(
-          "\n                " +
-            _vm._s(_vm.tiny.on_line ? "En Linea" : "Sin Conexion") +
-            "\n        "
-        )
-      ])
+      _vm.tiny.admin_mon
+        ? _c("small", [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.tiny.on_line ? "En Linea" : "Sin Conexion") +
+                "\n        "
+            )
+          ])
+        : _c("small")
     ])
   ])
 }

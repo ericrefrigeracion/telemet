@@ -31,9 +31,10 @@
             </div>
         </div>
         <div class="card-footer" v-bind:class="tiny.status.scripts">
-            <small class="">
+            <small v-if="tiny.admin_mon">
                     {{ tiny.on_line ? 'En Linea':'Sin Conexion'}}
             </small>
+            <small v-else="tiny.admin_mon"></small>
         </div>
         </div>
 </template>
