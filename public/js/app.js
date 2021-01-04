@@ -75628,7 +75628,7 @@ var render = function() {
                 "\n        "
             )
           ])
-        : _c("small")
+        : _c("small", [_vm._v(" Monitoreo Vencido")])
     ])
   ])
 }

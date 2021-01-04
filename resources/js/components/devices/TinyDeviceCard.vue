@@ -34,7 +34,7 @@
             <small v-if="tiny.admin_mon">
                     {{ tiny.on_line ? 'En Linea':'Sin Conexion'}}
             </small>
-            <small v-else="tiny.admin_mon"></small>
+            <small v-else="tiny.admin_mon"> Monitoreo Vencido</small>
         </div>
         </div>
 </template>
