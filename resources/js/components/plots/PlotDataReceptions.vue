@@ -4,10 +4,10 @@
             <canvas :id="view.order"></canvas>
         </div>
         <div class="row">
-            <div class="col"><button class="btn btn-secondary">Semana</button></div>
-            <div class="col"><button class="btn btn-secondary">Ayer</button></div>
-            <div class="col"><button class="btn btn-secondary">Hoy</button></div>
-            <div class="col"><button class="btn btn-secondary">Fecha</button></div>
+            <button class="btn btn-secondary">Semana</button>
+            <button class="btn btn-secondary">Ayer</button>
+            <button class="btn btn-secondary">Hoy</button>
+            <button class="btn btn-secondary">Fecha</button>
         </div>
     </div>
 </template>
