@@ -18285,7 +18285,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var unit = topic.topic.unit;
         var color = topic.topic.color;
         var fill = topic.topic.filled == '1' ? true : false;
-        var start_time = Date.now() - 24 * 60 * 60 * 1000;
+        var start_time = Date.now() - 12 * 60 * 60 * 1000;
         var end_time = Date.now();
         var url = '/api/centinela/receptions/data/' + _this.device_id + '/' + slug + '/' + start_time + '-' + end_time;
         axios.get(url).then(function (response) {
@@ -75679,7 +75679,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mx-auto" }, [
+    return _c("div", { staticClass: "row" }, [
       _c("button", { staticClass: "btn btn-secondary m-3" }, [
         _vm._v("Semana")
       ]),
