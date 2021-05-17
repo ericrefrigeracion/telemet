@@ -18261,7 +18261,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -75681,15 +75680,21 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [_c("button")]),
+      _c("div", { staticClass: "col" }, [
+        _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Semana")])
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [_c("button")]),
+      _c("div", { staticClass: "col" }, [
+        _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Ayer")])
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [_c("button")]),
+      _c("div", { staticClass: "col" }, [
+        _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Hoy")])
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [_c("button")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [_c("button")])
+      _c("div", { staticClass: "col" }, [
+        _c("button", { staticClass: "btn btn-secondary" }, [_vm._v("Fecha")])
+      ])
     ])
   }
 ]
