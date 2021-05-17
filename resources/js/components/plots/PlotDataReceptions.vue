@@ -1,10 +1,10 @@
 <template>
     <div class="col mb-5">
-        <div class="row">
-            <button class="btn btn-secondary ml-3">Semana</button>
-            <button class="btn btn-secondary ml-3">Ayer</button>
-            <button class="btn btn-secondary ml-3">Hoy</button>
-            <button class="btn btn-secondary ml-3 mr-3">Fecha</button>
+        <div class="row mx-auto">
+            <button class="btn btn-secondary m-3">Semana</button>
+            <button class="btn btn-secondary m-3">Ayer</button>
+            <button class="btn btn-secondary m-3">Hoy</button>
+            <button class="btn btn-secondary m-3 mr-3">Fecha</button>
         </div>
         <div class="row">
             <canvas :id="view.order"></canvas>

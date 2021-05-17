@@ -75679,16 +75679,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("button", { staticClass: "btn btn-secondary ml-3" }, [
+    return _c("div", { staticClass: "row mx-auto" }, [
+      _c("button", { staticClass: "btn btn-secondary m-3" }, [
         _vm._v("Semana")
       ]),
       _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary ml-3" }, [_vm._v("Ayer")]),
+      _c("button", { staticClass: "btn btn-secondary m-3" }, [_vm._v("Ayer")]),
       _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary ml-3" }, [_vm._v("Hoy")]),
+      _c("button", { staticClass: "btn btn-secondary m-3" }, [_vm._v("Hoy")]),
       _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary ml-3 mr-3" }, [
+      _c("button", { staticClass: "btn btn-secondary m-3 mr-3" }, [
         _vm._v("Fecha")
       ])
     ])
