@@ -1,6 +1,6 @@
 <template>
     <div class="col mb-5">
-        <div class="row">
+        <div class="row float-right">
             <button class="btn btn-secondary m-3">Semana</button>
             <button class="btn btn-secondary m-3">Ayer</button>
             <button class="btn btn-secondary m-3">Hoy</button>

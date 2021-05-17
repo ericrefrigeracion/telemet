@@ -17932,7 +17932,7 @@ var audio = new Audio('../../audio/Nextel.mp3');
   },
   mounted: function mounted() {
     //swal({ title: 'Usted no puede acceder', text: 'Hasta que no haga una reunion con ERIC LOPEZ', icon: 'error', buttons: true, timer:'5000' });
-    setInterval(this.getDevices, 20000);
+    setInterval(this.getDevices, 50000);
   },
   methods: {
     getDevices: function getDevices() {
@@ -75679,7 +75679,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
+    return _c("div", { staticClass: "row float-right" }, [
       _c("button", { staticClass: "btn btn-secondary m-3" }, [
         _vm._v("Semana")
       ]),
