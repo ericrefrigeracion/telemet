@@ -18255,12 +18255,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18285,7 +18279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var unit = topic.topic.unit;
         var color = topic.topic.color;
         var fill = topic.topic.filled == '1' ? true : false;
-        var start_time = Date.now() - 12 * 60 * 60 * 1000;
+        var start_time = Date.now() - 36 * 60 * 60 * 1000;
         var end_time = Date.now();
         var url = '/api/centinela/receptions/data/' + _this.device_id + '/' + slug + '/' + start_time + '-' + end_time;
         axios.get(url).then(function (response) {
@@ -75667,33 +75661,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col mb-5" }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("canvas", { attrs: { id: _vm.view.order } })
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("button", { staticClass: "btn btn-secondary m-3" }, [
-        _vm._v("Semana")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary m-3" }, [_vm._v("Ayer")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary m-3" }, [_vm._v("Hoy")]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-secondary m-3 mr-3" }, [
-        _vm._v("Fecha")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

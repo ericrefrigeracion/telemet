@@ -1,12 +1,6 @@
 <template>
     <div class="col mb-5">
         <div class="row">
-            <button class="btn btn-secondary m-3">Semana</button>
-            <button class="btn btn-secondary m-3">Ayer</button>
-            <button class="btn btn-secondary m-3">Hoy</button>
-            <button class="btn btn-secondary m-3 mr-3">Fecha</button>
-        </div>
-        <div class="row">
             <canvas :id="view.order"></canvas>
         </div>
     </div>
@@ -39,7 +33,7 @@
                     var unit = topic.topic.unit;
                     var color = topic.topic.color;
                     var fill = topic.topic.filled == '1' ? true : false;
-                    var start_time = Date.now() - (12 * 60 * 60 * 1000);
+                    var start_time = Date.now() - (36 * 60 * 60 * 1000);
                     var end_time = Date.now();
                     var url = '/api/centinela/receptions/data/' + this.device_id + '/' + slug + '/' + start_time + '-' + end_time;
                     axios.get(url)
