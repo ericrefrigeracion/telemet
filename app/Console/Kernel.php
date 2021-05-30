@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('devices:revissions')->everyMinute();
-        $schedule->command('system:revission')->dailyAt('0:05')->timezone('America/Argentina/Cordoba');
+        $schedule->command('system:revission')->dailyAt('0:10')->timezone('America/Argentina/Cordoba');
         $schedule->command('mails:user')->dailyAt('8:00')->timezone('America/Argentina/Cordoba');
     }
 
