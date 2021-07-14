@@ -354,5 +354,24 @@ class DevicesTableSeeder extends Seeder
 
         DB::insert('insert into device_user (device_id, user_id) values (?, ?)', [114626874, 7]);
 
+        Device::create([
+            'id' => 1011462256,
+            'type_device_id' => 2,
+            'protection_id' => 1,
+            'status_id' => 1,
+            'icon_id' => 1,
+            'name' => 'Tanque de Leche',
+            'description' => null,
+            'admin_mon' => true,
+            'protected' => true,
+            'on_line' => false,
+            'monitor_expires_at' => '2021-07-13 15:32:24',
+            'view_alerts_at' => now(),
+            'notification_email' => 'ericlopezrefrigeracion@gmail.com',
+            'notification_phone_number' => '3385 - 470666'
+        ]);
+
+        DB::insert('insert into device_user (device_id, user_id) values (?, ?)', [1011462256, 8]);
+
     }
 }

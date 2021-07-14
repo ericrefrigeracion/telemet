@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder
             'phone_number' => 590644,
             'email' => 'albertobiancotti@gmail.com',
             'email_verified_at' => now(),
-            //'password' => '$2y$10$FNWT.UZegM/ceMyVHEvJqOhwxsygDMWDjscRNiKo7JQEyS.qX3xFK',
+            'password' => '$2y$10$FNWT.UZegM/ceMyVHEvJqOhwxsygDMWDjscRNiKo7JQEyS.qX3xFK',
             'password' => Hash::make('2707brlo'),
             'remember_token' => Str::random(10),
             'address' => 'Belgrano 431 - Jovita(Cba)'
@@ -106,14 +106,15 @@ class UsersTableSeeder extends Seeder
             'address' => 'Serrano'
         ]);
         User::create([
-            'name' => 'Grupo',
-            'surname' => 'Tesis',
-            'phone_area_code' => 351,
-            'phone_number' => 3892439,
-            'email' => 'viottiaugusto@gmail.com',
+            'name' => 'Daniela',
+            'surname' => 'Iommi',
+            'phone_area_code' => 3385,
+            'phone_number' => 442972,
+            'email' => 'iommidaniela@gmail.com',
             'email_verified_at' => now(),
-            'password' => '$2y$10$6kkuQAcQPv18/p/FINYDM.wDSen8B1AmXo4bp4miLjs...',
+            'password' => '$2y$10$zctMF0SSDIB15KKdzX.iQe5C93fasQbekenHwDrIHJrTKz2xdX.IO',
             'remember_token' => Str::random(10),
+            'address' => 'Serrano'
         ]);
 
 
